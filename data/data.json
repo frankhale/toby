@@ -34,6 +34,9 @@
 }, {
   "title": "Christian",
   "videos": [{
+    "description": "NEEDTOBREATHE - 'Multiplied' (Official Video)",
+    "url": "http://www.youtube.com/embed/fGF-MGGLpB0"
+  }, {
     "description": "NEEDTOBREATHE - 'Multiplied' (Live Acoustic Video)",
     "url": "http://www.youtube.com/embed/vWT4gxAFQBs"
   }, {
@@ -51,6 +54,15 @@
   }, {
     "description": "Newsboys - Live With Abandon",
     "url": "www.youtube.com/embed/-SJR2vdJFXw"
+  }, {
+    "description": "Audrey Assad - Breaking You (Live)",
+    "url": "http://www.youtube.com/embed/RYuGuxr7MB0"
+  }, {
+    "description": "Audrey Assad - Death, Be Not Proud",
+    "url": "http://www.youtube.com/embed/sikF_phQHZw"
+  }, {
+    "description": "Audrey Assad - I Shall Not Want",
+    "url": "http://www.youtube.com/embed/e5xEYgGr6ms"
   }]
 }, {
   "title": "Other",
@@ -81,5 +93,11 @@
   }, {
     "description": "Hans Zimmer - Time - Inception (Extended Version)",
     "url": "http://www.youtube.com/embed/6XWIDQ3Dt9c"
+  }, {
+    "description": "Eric Stanley ft. Kyle Landry - Inception 'Time' (Hans Zimmer Cover)",
+    "url": "http://www.youtube.com/embed/NUtvWyJ0F_o"
+  }, {
+    "description": "Yiruma, (이루마) - River Flows in You",
+    "url": "http://www.youtube.com/embed/7maJOI3QMu0"
   }]
 }]
