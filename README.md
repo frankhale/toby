@@ -23,8 +23,8 @@ running and the new entry will show up in your play list.
 
 Key combos:
 
-F1 - Switch between play list and video playback
-F3 - Restart app
+F1 - Switch between play list and video playback  
+F3 - Restart app  
 F12 - Open dev tools
 
 ##NOTE
