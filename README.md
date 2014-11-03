@@ -52,7 +52,7 @@ domain in my tests.
 
 ##Author(s)
 
-Frank Hale &lt;frankhale@gmail.com&gt;
+Frank Hale &lt;frankhale@gmail.com&gt;  
 2 November 2014
 
 ##License
