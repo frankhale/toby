@@ -11,7 +11,7 @@ Video playback
 
 The video selection is very basic for the time being.
 
-<img src="screenshots/toby-video-selection.png" alt="Video Selection"/>
+<img src="screenshots/toby-play-list.png" alt="Video Selection"/>
 
 ##Usage
 
