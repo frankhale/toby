@@ -7,9 +7,12 @@
 </head>
 
 <body>
-  <div id="playList"></div>
+  <div id="searchList">
+    <input type="text" id="searchBox" placeholder="search for videos..."></input>
+    <div id="searchResults"></div>
+  </div>
 
-  <webview id="web"></webview>
+  <webview id="webview" src="about:blank" httpReferrer="http://youtube.com"></webview>
 
   <script>
     window.$ = window.jQuery = require('./libs/jquery-2.1.1.min.js');

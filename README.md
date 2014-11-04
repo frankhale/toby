@@ -9,9 +9,9 @@ Video playback
 
 <img src="screenshots/toby-video-playback.png" alt="Video Playback"/>
 
-The video selection is very basic for the time being.
+Search your playlist for a video
 
-<img src="screenshots/toby-play-list.png" alt="Video Selection"/>
+<img src="screenshots/toby-video-search.png" alt="Video Selection"/>
 
 ##Usage
 
@@ -23,7 +23,7 @@ running and the new entry will show up in your play list.
 
 Key combos:
 
-F1 - Switch between play list and video playback  
+F1 - Switch between video search and video playback  
 F3 - Restart app  
 F12 - Open dev tools
 
@@ -45,15 +45,14 @@ Reference Atom-Shell issue:
 
 https://github.com/atom/atom-shell/issues/766
 
-I am working to expose this via JavaScript so that the referrer can be set to
-whatever you want. For now setting it to the same URL you are requesting seems
-to get around blocked files where the HTTP referrer is not set to an approved
-domain in my tests.
+I've created a patch to expose a way to manipulate the Http Referrer via the
+JavaScript API and webview. I have a fork of Atom-Shell with that code commited
+in it's own branch. I hope to have this finalized soon.
 
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-2 November 2014
+3 November 2014
 
 ##License
 

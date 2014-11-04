@@ -1,9 +1,8 @@
 //
-// Toby - A small YouTube player and play list tracker
+// Toby - A tiny personal YouTube player for the desktop
 //
-// A simple video player for YouTube
 // Frank Hale <frankhale@gmail.com>
-// 2 November 2014
+// 3 November 2014
 //
 var APP = (function() {
   var my = {};
@@ -11,16 +10,19 @@ var APP = (function() {
   var fs = require('fs'),
     remote = require('remote'),
     browser = remote.getCurrentWindow(),
-    playListTitle = "Play List",
+    searchPlayListTitle = "Video Search",
     dataFilePath = process.cwd() + "\\resources\\app\\data\\data.json",
-    $playList,
     $web,
-    web,
-    currentVideoTitle,
-    autoplay = true;
+    $webview,
+    $searchList,
+    $searchResults,
+    $searchBox,
+    currentVideoTitle = "",
+    autoplay = true,
+    videoData;
 
   var keyCodes = {
-    f1: 112, // toggle between play list and video playback
+    f1: 112, // toggle between video search and video playback
     f3: 114, // restart app
     f12: 123 // open dev tools
   };
@@ -35,66 +37,34 @@ var APP = (function() {
     });
   };
 
-  var buildPlayListUI = function(data) {
-    var html = [];
-
-    _.forEach(data, function(g) {
-      if (g.title !== undefined && g.videos !== undefined) {
-        html.push("<h3>" + g.title + "</h3>");
-        html.push("<ul>");
-        _.forEach(g.videos, function(v) {
-          html.push("<li><a href='#' url='" + v.url + "'>" + v.description + "</a></li>");
-        });
-        html.push("</ul>");
-      }
-    });
-
-    if (html.length > 0) {
-      $playList.html(html.join(''));
-    } else {
-      $playList.html("Couldn't parse data file...");
-    }
-
-    $("#playList a").each(function() {
-      this.onclick = function() {
-        var url = $(this).attr('url');
-
-        if (autoplay) {
-          url = url + "?autoplay=1";
-        }
-
-        my.playVideo($(this).text(), url);
-      };
-    });
-  };
-
-  var togglePlaylistAndWebView = function() {
+  var toggleSearchPlayListAndWebview = function() {
     if ($web.attr('src') === undefined) {
       return;
     }
 
-    if ($web.attr('src') !== undefined && $web.css('visibility') === 'hidden') {
+    $playList.css('display', 'none');
+
+    if ($web.css('visibility') === 'hidden') {
       browser.setTitle(currentVideoTitle);
-      $playList.css('display', 'none');
+      $searchList.css('display', 'none');
       $web.css('visibility', 'visible');
     } else {
-      browser.setTitle(playListTitle);
-      $playList.css('display', 'block');
+      browser.setTitle(searchPlayListTitle);
+      $searchList.css('display', 'block');
       $web.css('visibility', 'hidden');
     }
   };
 
   var documentOnkeydown = function(e) {
-    e.preventDefault();
-
     function keyBind(k, fun) {
       if (k === e.keyCode) {
+        e.preventDefault();
         fun();
       }
     }
 
     keyBind(keyCodes.f1, function() {
-      togglePlaylistAndWebView();
+      toggleSearchPlayListAndWebview();
     });
 
     keyBind(keyCodes.f3, function() {
@@ -105,39 +75,93 @@ var APP = (function() {
       browser.toggleDevTools();
     });
 
-    return true;
+    return e;
   };
 
   my.playVideo = function(title, url) {
-    if (web.src !== null && web.isLoading()) {
-      web.stop();
+    if ($web.attr('src') !== null && $webview.isLoading()) {
+      $webview.stop();
     }
 
     $web.attr('src', url);
     currentVideoTitle = title;
     browser.setTitle(title);
-    togglePlaylistAndWebView();
+    toggleSearchPlayListAndWebview();
   };
 
   my.init = function() {
+    // from: http://theoryapp.com/string-startswith-and-endswith-in-javascript/
+    if (typeof String.prototype.startsWith != 'function') {
+      String.prototype.startsWith = function(prefix) {
+          return this.slice(0, prefix.length) == prefix;
+      };
+    }
+
     $playList = $("#playList");
-    $web = $("#web");
-
-    web = document.getElementById('web');
-
-    browser.setTitle(playListTitle);
-
-    loadDataFile(buildPlayListUI);
-
-    fs.watchFile(dataFilePath, function(curr, prev) {
-      loadDataFile(buildPlayListUI);
-    });
+    $web = $("#webview");
+    $webview = $("#webview")[0];
+    $searchList = $("#searchList");
+    $searchResults = $("#searchResults");
+    $searchBox = $("#searchBox");
 
     function newWindow(e) {
       require('shell').openExternal(e.url);
     }
 
-    web.addEventListener("new-window", newWindow);
+    $webview.addEventListener("new-window", newWindow);
+    browser.setTitle(searchPlayListTitle);
+
+    loadDataFile(function(data) {
+      videoData = data;
+    });
+
+    fs.watchFile(dataFilePath, function(curr, prev) {
+      loadDataFile(function(data) {
+        videoData = data;
+      });
+    });
+
+    $searchBox.on('input',function(e) {
+      var results = [],
+          html = [];
+      var val = $(this).val().toLowerCase();
+
+      if(val==="") {
+        $searchResults.html("");
+        return;
+      }
+
+      _.forEach(videoData, function(g) {
+        if (g.title !== undefined && g.videos !== undefined) {
+          _.forEach(g.videos, function(v) {
+            if(v.description.toLowerCase().startsWith(val)) {
+              results.push(v);
+            }
+          });
+        }
+      });
+
+      if(results.length > 0) {
+        _.forEach(results, function(r) {
+          console.log(r.description);
+          html.push("<a href='#' url='" + r.url + "'>" + r.description + "</a><br/>");
+        })
+
+        $searchResults.html(html.join(''));
+
+        $("#searchResults a").each(function() {
+          this.onclick = function() {
+            var url = $(this).attr('url');
+
+            if (autoplay) {
+              url = url + "?autoplay=1";
+            }
+
+            my.playVideo($(this).text(), url);
+          };
+        });
+      }
+    });
 
     window.onkeydown = function(e) {
       documentOnkeydown(e);

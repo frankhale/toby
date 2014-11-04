@@ -1,11 +1,13 @@
 body {
   margin: 0;
   overflow: hidden;
+  background-color: #1b1b1b;
+  color: #fff;
 }
 h3 {
   margin-left: 15px;
 }
-#web {
+#webview {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -13,9 +15,33 @@ h3 {
   left:0;
   visibility: hidden;
 }
-#playList {
+/*#playList {
   overflow: scroll;
   position: absolute;
   width: 100%;
   height: 100%;
+  display: none;
+}*/
+#searchList {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+#searchBox {
+  margin-top: 25px;
+  font-size: 22pt;
+  width: 95%;
+  background-color: #ddd;
+  outline: none;
+}
+#searchResults {
+  text-align:left;
+  font-size: 14pt;
+  margin-left: 25px;
+  margin-top: 15px;
+}
+a {
+  color: #fff;
 }
