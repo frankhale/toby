@@ -49,6 +49,10 @@ I've created a patch to expose a way to manipulate the Http Referrer via the
 JavaScript API and webview. I have a fork of Atom-Shell with that code commited
 in it's own branch. I hope to have this finalized soon.
 
+Here is my fork with the commit to expose setting the Http Referrer:
+
+https://github.com/frankhale/atom-shell/commit/39d6cbc88c383049607cf0e5066f16f6716e60ef
+
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
