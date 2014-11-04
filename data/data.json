@@ -39,7 +39,19 @@
   }, {
     "description": "Dash Berlin feat. Jonathan Mendelsohn - Better Half Of Me (Acoustic)",
     "url": "http://www.youtube.com/embed/De3Cjo23dOs"
+  }, {
+    "description": "Kyau & Albert - Another Time [Official Video] + Lyrics",
+    "url": "http://www.youtube.com/embed/zlBo93AqZmg"
+  }, {
+    "description": "Photographer vs Armin van Buuren Airport Shivers Accapella AvB Mash Up",
+    "url": "http://www.youtube.com/embed/_gcyOUOPQiw"
   }]
+}, {
+  "title": "Dance",
+  "videos": [{
+      "description": "This Was The Summer Of Hardstyle 2013",
+      "url": "http://www.youtube.com/embed/kQko_qnKoW4"
+    }]
 }, {
   "title": "Christian",
   "videos": [{
@@ -72,6 +84,9 @@
   }, {
     "description": "Audrey Assad - I Shall Not Want",
     "url": "http://www.youtube.com/embed/e5xEYgGr6ms"
+  }, {
+    "description": "Dave Barnes - God Gave Me You",
+    "url": "http://www.youtube.com/embed/-zkrQMjlD3A"
   }]
 }, {
   "title": "Other",
@@ -117,5 +132,8 @@
   }, {
     "description": "Birdy - Wings (acoustic version)",
     "url": "http://www.youtube.com/embed/7tz1eYadQVY"
+  }, {
+    "description": "The Grey Soundtrack - Into The Fray [Extended Version]",
+    "url": "http://www.youtube.com/embed/_nksp7zjrYE"
   }]
 }]
