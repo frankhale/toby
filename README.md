@@ -29,7 +29,7 @@ F12 - Open dev tools
 
 ##NOTE
 
-The current version of Atom-Shell 0.19 does not come with a way to set the HTTP
+The current version of Atom-Shell 0.19.1 does not come with a way to set the HTTP
 Referrer. Some YouTube videos will block playback from domains they don't
 whitelist. To get around this you can patch Atom-Shell 0.19 with the following:
 
@@ -51,12 +51,18 @@ in it's own branch. I hope to have this finalized soon.
 
 Here is my fork with the commit to expose setting the Http Referrer:
 
-https://github.com/frankhale/atom-shell/commit/39d6cbc88c383049607cf0e5066f16f6716e60ef
+https://github.com/frankhale/atom-shell/compare/http-referrer
+
+##Future
+
+Probably want to look at the YouTube API which exposes more control over video playback.
+
+Reference: https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player
 
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-3 November 2014
+6 November 2014
 
 ##License
 
