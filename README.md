@@ -1,7 +1,7 @@
 toby
 ====
 
-A simple YouTube video player written for Atom-Shell
+A small and simple YouTube video player written for Atom-Shell. 
 
 ##Screenshots
 
@@ -53,6 +53,9 @@ Here is my fork with the commit to expose setting the Http Referrer:
 
 https://github.com/frankhale/atom-shell/compare/http-referrer
 
+NOTE: I am still working on this patch and it's a bit crude at the moment. I hope
+to have this finalized this weekend!
+
 ##Future
 
 Probably want to look at the YouTube API which exposes more control over video playback.
@@ -62,7 +65,7 @@ Reference: https://developers.google.com/youtube/iframe_api_reference#Loading_a_
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-6 November 2014
+7 November 2014
 
 ##License
 

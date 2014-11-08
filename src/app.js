@@ -2,7 +2,7 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 3 November 2014
+// 7 November 2014
 //
 var APP = (function() {
   var my = {};
@@ -12,6 +12,7 @@ var APP = (function() {
     browser = remote.getCurrentWindow(),
     searchPlayListTitle = "Video Search",
     dataFilePath = process.cwd() + "\\resources\\app\\data\\data.json",
+    $body,
     $web,
     $webview,
     $searchList,
@@ -38,7 +39,7 @@ var APP = (function() {
   };
 
   var toggleSearchPlayListAndWebview = function() {
-    if ($web.attr('src') === undefined) {
+    if ($web.attr('src') === 'about:blank') {
       return;
     }
 
@@ -48,8 +49,10 @@ var APP = (function() {
       browser.setTitle(currentVideoTitle);
       $searchList.css('display', 'none');
       $web.css('visibility', 'visible');
+      $body.css('overflow', 'auto');
     } else {
       browser.setTitle(searchPlayListTitle);
+      $body.css('overflow', 'hidden');
       $searchList.css('display', 'block');
       $web.css('visibility', 'hidden');
     }
@@ -93,10 +96,11 @@ var APP = (function() {
     // from: http://theoryapp.com/string-startswith-and-endswith-in-javascript/
     if (typeof String.prototype.startsWith != 'function') {
       String.prototype.startsWith = function(prefix) {
-          return this.slice(0, prefix.length) == prefix;
+        return this.slice(0, prefix.length) == prefix;
       };
     }
 
+    $body = $("body");
     $playList = $("#playList");
     $web = $("#webview");
     $webview = $("#webview")[0];
@@ -121,32 +125,34 @@ var APP = (function() {
       });
     });
 
-    $searchBox.on('input',function(e) {
+    $searchBox.on('input', function(e) {
       var results = [],
-          html = [];
+        html = [];
       var val = $(this).val().toLowerCase();
 
-      if(val==="") {
+      if (val === "") {
         $searchResults.html("");
+        $searchResults.css('display', 'none');
         return;
       }
 
       _.forEach(videoData, function(g) {
         if (g.title !== undefined && g.videos !== undefined) {
           _.forEach(g.videos, function(v) {
-            if(v.description.toLowerCase().startsWith(val)) {
+            if (v.description.toLowerCase().startsWith(val)) {
               results.push(v);
             }
           });
         }
       });
 
-      if(results.length > 0) {
+      if (results.length > 0) {
         _.forEach(results, function(r) {
           console.log(r.description);
           html.push("<a href='#' url='" + r.url + "'>" + r.description + "</a><br/>");
         })
 
+        $searchResults.css('display', 'block');
         $searchResults.html(html.join(''));
 
         $("#searchResults a").each(function() {
