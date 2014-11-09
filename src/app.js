@@ -90,6 +90,10 @@ var APP = (function() {
     currentVideoTitle = title;
     browser.setTitle(title);
     toggleSearchPlayListAndWebview();
+
+    $searchBox.val("");
+    $searchResults.html("");
+    $searchResults.css('display', 'none');
   };
 
   my.init = function() {
@@ -148,7 +152,6 @@ var APP = (function() {
 
       if (results.length > 0) {
         _.forEach(results, function(r) {
-          console.log(r.description);
           html.push("<a href='#' url='" + r.url + "'>" + r.description + "</a><br/>");
         })
 
