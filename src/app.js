@@ -2,7 +2,7 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 7 November 2014
+// 10 November 2014
 //
 var APP = (function() {
   var my = {};
@@ -18,7 +18,7 @@ var APP = (function() {
     $searchList,
     $searchResults,
     $searchBox,
-    currentVideoTitle = "",
+    currentVideoTitle,
     autoplay = true,
     videoData;
 
@@ -112,11 +112,10 @@ var APP = (function() {
     $searchResults = $("#searchResults");
     $searchBox = $("#searchBox");
 
-    function newWindow(e) {
+    $webview.addEventListener("new-window", function(e) {
       require('shell').openExternal(e.url);
-    }
+    });
 
-    $webview.addEventListener("new-window", newWindow);
     browser.setTitle(searchPlayListTitle);
 
     loadDataFile(function(data) {
