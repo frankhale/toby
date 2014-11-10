@@ -1,7 +1,10 @@
-toby
+Toby
 ====
 
-A small and simple YouTube video player written for Atom-Shell. 
+A small and simple YouTube video player written for Atom-Shell. Toby takes the
+path of least resistance. It provides a way to specify videos and a way to
+look them up and play them. Nothing more, nothing less. Getter done! Play the
+video and love life!
 
 ##Screenshots
 
@@ -12,6 +15,12 @@ Video playback
 Search your playlist for a video
 
 <img src="screenshots/toby-video-search.png" alt="Video Selection"/>
+
+##Dependencies
+
+Toby is written in JavaScript / HTML and CSS and needs Atom-Shell to run:
+
+https://github.com/atom/atom-shell
 
 ##Usage
 
@@ -31,7 +40,9 @@ F12 - Open dev tools
 
 The current version of Atom-Shell 0.19.1 does not come with a way to set the HTTP
 Referrer. Some YouTube videos will block playback from domains they don't
-whitelist. To get around this you can patch Atom-Shell 0.19 with the following:
+whitelist. To get around this you can patch Atom-Shell 0.19.1 with the following:
+
+This is a quick hack, not meant to be totally correct but it works.  
 
 In atom_api_web_contents.cc add the following 2 lines to the LoadURL function:
 
@@ -54,7 +65,12 @@ Here is my fork with the commit to expose setting the Http Referrer:
 https://github.com/frankhale/atom-shell/compare/http-referrer
 
 NOTE: I am still working on this patch and it's a bit crude at the moment. I hope
-to have this finalized this weekend!
+to have this finalized this weekend!  
+
+Keep in mind you don't need this if you don't watch certain videos on Youtube
+such as ones published by VEVO. There are a lot of videos that will work fine
+without this patch. If you need it I encourage you to use it. If you are inclined
+I encourage you to help me make it more awesome!
 
 ##Future
 
@@ -65,7 +81,7 @@ Reference: https://developers.google.com/youtube/iframe_api_reference#Loading_a_
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-7 November 2014
+10 November 2014
 
 ##License
 
