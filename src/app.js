@@ -2,16 +2,18 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 10 November 2014
+// 17 December 2014
 //
 var APP = (function() {
   var my = {};
 
   var fs = require('fs'),
+    path = require('path'),
     remote = require('remote'),
     browser = remote.getCurrentWindow(),
     searchPlayListTitle = "Video Search",
-    dataFilePath = process.cwd() + "\\resources\\app\\data\\data.json",
+    dataFilePathParts = ["resources", "app", "data", "data.json"],
+    dataFilePath = process.cwd() + path.sep + dataFilePathParts.join(path.sep),
     $body,
     $web,
     $webview,
