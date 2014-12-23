@@ -46,16 +46,10 @@ As of Atom-Shell 0.19.2 the Http Referrer patch that I wrote has been incorporat
 videos that are blocked due the referrer not being set will now work. I won't mention
 any names of publishers that do this but there is a major one and it now works!
 
-##Future
-
-Probably want to look at the YouTube API which exposes more control over video playback.
-
-Reference: https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player
-
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-16 November 2014
+22 December 2014
 
 ##License
 
