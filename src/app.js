@@ -17,12 +17,15 @@ var APP = (function() {
     $body,
     $web,
     $webview,
+    $recentlyPlayed,
+    $recentlyPlayedList,
     $searchList,
     $searchResults,
     $searchBox,
     currentVideoTitle,
     autoplay = true,
-    videoData;
+    videoData,
+    recentlyPlayed = [];
 
   var keyCodes = {
     f1: 112, // toggle between video search and video playback
@@ -46,17 +49,39 @@ var APP = (function() {
     }
 
     $playList.css('display', 'none');
-
+    
     if ($web.css('visibility') === 'hidden') {
       browser.setTitle(currentVideoTitle);
       $searchList.css('display', 'none');
+      $recentlyPlayed.css('display', 'none');
       $web.css('visibility', 'visible');
       $body.css('overflow', 'auto');
     } else {
       browser.setTitle(searchPlayListTitle);
       $body.css('overflow', 'hidden');
       $searchList.css('display', 'block');
+      $recentlyPlayed.css('display', 'block');
       $web.css('visibility', 'hidden');
+    }
+  };
+
+  var addToRecentlyPlayedList = function(v) {
+    console.log(v);
+    console.log(recentlyPlayed.length);
+    if(recentlyPlayed.length > 0) {
+      var found = _.find(recentlyPlayed, function(video) {
+        if(video.title === v.title) {
+          return v;
+        }
+      });
+
+      if(found === undefined) {
+        $recentlyPlayedList.append(v.title + "<br/>");
+        recentlyPlayed.push(v);
+      }
+    } else {
+      $recentlyPlayedList.append(v.title + "<br/>");
+      recentlyPlayed.push(v);
     }
   };
 
@@ -93,6 +118,8 @@ var APP = (function() {
     browser.setTitle(title);
     toggleSearchPlayListAndWebview();
 
+    addToRecentlyPlayedList({ 'title': title, 'url': url});
+
     $searchBox.val("");
     $searchResults.html("");
     $searchResults.css('display', 'none');
@@ -110,6 +137,8 @@ var APP = (function() {
     $playList = $("#playList");
     $web = $("#webview");
     $webview = $("#webview")[0];
+    $recentlyPlayed = $("#recentlyPlayed");
+    $recentlyPlayedList = $("#recentlyPlayedList");
     $searchList = $("#searchList");
     $searchResults = $("#searchResults");
     $searchBox = $("#searchBox");
@@ -138,6 +167,8 @@ var APP = (function() {
       if (val === "") {
         $searchResults.html("");
         $searchResults.css('display', 'none');
+        $recentlyPlayed.css('display', 'block');
+
         return;
       }
 
@@ -157,6 +188,7 @@ var APP = (function() {
         })
 
         $searchResults.css('display', 'block');
+        $recentlyPlayed.css('display', 'none');
         $searchResults.html(html.join(''));
 
         $("#searchResults a").each(function() {

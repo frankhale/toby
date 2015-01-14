@@ -49,7 +49,7 @@ any names of publishers that do this but there is a major one and it now works!
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-22 December 2014
+13 January 2015
 
 ##License
 

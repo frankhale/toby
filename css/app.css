@@ -31,7 +31,7 @@ body {
   margin-left: 4%;
   width: 90%;
   /*height: 30%;*/
-  position:absolute;
+  position: absolute;
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 10px;
@@ -42,6 +42,34 @@ body {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   /*overflow-y: auto;*/
+}
+#recentlyPlayedHeader {
+  border-bottom: 2px solid #777;
+  background-color: #888;
+  text-align: center;
+  font-size: 14pt;
+  color: #fff;
+}
+#recentlyPlayedList {
+  padding:10px;
+}
+#recentlyPlayed {
+  position: fixed;
+  margin-top: 10px;
+  margin-left: 4%;
+  border: 2px solid #777;
+  background-color: #333;
+  color: #fff;
+  font-size: 14pt;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align:left;
+  width: 90%;
+  top: 70px;
+  bottom: 10px;
+  overflow: auto;
 }
 a {
   color: #000;
