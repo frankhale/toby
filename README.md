@@ -31,8 +31,10 @@ https://github.com/atom/atom-shell
 There are two ways to run Toby. You can download the latest release which 
 incorporates the latest code along with Atom-Shell unzip it and run Toby.exe. 
 NOTE: I've only included a Windows distribution at this time. I will include
-a Linux. I can't support a Mac distribution because I don't have a Mac to test
-on. 
+a Linux one soon. I can't support a Mac distribution because I don't have a Mac 
+to test on. Theoretically Toby should work fine on Mac and would greatly
+appreciate it somebody can let me know or provide Mac binaries so I can release
+for all three major OSes. 
 
 The other way is to clone this repository, download Atom-Shell yourself and
 then copy Toby's code into the Atom-Shell resources/app folder.
