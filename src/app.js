@@ -2,9 +2,10 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 17 December 2014
+// 14 January 2014
 //
 var APP = (function() {
+  "use strict";
   var my = {};
 
   var fs = require('fs'),
@@ -17,6 +18,7 @@ var APP = (function() {
     $body,
     $web,
     $webview,
+    $playList,
     $recentlyPlayed,
     $recentlyPlayedList,
     $searchList,
@@ -49,38 +51,47 @@ var APP = (function() {
     }
 
     $playList.css('display', 'none');
-    
+
     if ($web.css('visibility') === 'hidden') {
       browser.setTitle(currentVideoTitle);
       $searchList.css('display', 'none');
-      $recentlyPlayed.css('display', 'none');
+
+      if (recentlyPlayed.length > 0) {
+        $recentlyPlayed.css('display', 'none');
+      }
+
       $web.css('visibility', 'visible');
       $body.css('overflow', 'auto');
     } else {
       browser.setTitle(searchPlayListTitle);
       $body.css('overflow', 'hidden');
       $searchList.css('display', 'block');
-      $recentlyPlayed.css('display', 'block');
+
+      if (recentlyPlayed.length > 0) {
+        $recentlyPlayed.css('display', 'block');
+      }
+
       $web.css('visibility', 'hidden');
     }
   };
 
   var addToRecentlyPlayedList = function(v) {
-    console.log(v);
-    console.log(recentlyPlayed.length);
-    if(recentlyPlayed.length > 0) {
-      var found = _.find(recentlyPlayed, function(video) {
-        if(video.title === v.title) {
-          return v;
-        }
+    var found = _.find(recentlyPlayed, function(video) {
+      if (video.title === v.title) {
+        return v;
+      }
+    });
+
+    if (found === undefined) {
+      var anchor = $("<a href='#' url='" + v.url + "'>" + v.title + "</a><br/>");
+
+      anchor.click(function() {
+        var url = anchor.attr('url');
+
+        my.playVideo(anchor.text(), url);
       });
 
-      if(found === undefined) {
-        $recentlyPlayedList.append(v.title + "<br/>");
-        recentlyPlayed.push(v);
-      }
-    } else {
-      $recentlyPlayedList.append(v.title + "<br/>");
+      $recentlyPlayedList.append(anchor);
       recentlyPlayed.push(v);
     }
   };
@@ -108,7 +119,26 @@ var APP = (function() {
     return e;
   };
 
+  var hookupAnchors = function(elem) {
+    $(elem + " a").each(function() {
+      this.onclick = function() {
+        var url = $(this).attr('url');
+
+        if (autoplay) {
+          url = url + "?autoplay=1";
+        }
+
+        my.playVideo($(this).text(), url);
+      };
+    });
+  };
+
   my.playVideo = function(title, url) {
+    addToRecentlyPlayedList({
+      'title': title,
+      'url': url
+    });
+
     if ($web.attr('src') !== null && $webview.isLoading()) {
       $webview.stop();
     }
@@ -118,8 +148,6 @@ var APP = (function() {
     browser.setTitle(title);
     toggleSearchPlayListAndWebview();
 
-    addToRecentlyPlayedList({ 'title': title, 'url': url});
-
     $searchBox.val("");
     $searchResults.html("");
     $searchResults.css('display', 'none');
@@ -127,9 +155,9 @@ var APP = (function() {
 
   my.init = function() {
     // from: http://theoryapp.com/string-startswith-and-endswith-in-javascript/
-    if (typeof String.prototype.startsWith != 'function') {
+    if (typeof String.prototype.startsWith !== 'function') {
       String.prototype.startsWith = function(prefix) {
-        return this.slice(0, prefix.length) == prefix;
+        return this.slice(0, prefix.length) === prefix;
       };
     }
 
@@ -167,7 +195,10 @@ var APP = (function() {
       if (val === "") {
         $searchResults.html("");
         $searchResults.css('display', 'none');
-        $recentlyPlayed.css('display', 'block');
+
+        if(recentlyPlayed.length > 0) {
+          $recentlyPlayed.css('display', 'block');
+        }
 
         return;
       }
@@ -185,23 +216,17 @@ var APP = (function() {
       if (results.length > 0) {
         _.forEach(results, function(r) {
           html.push("<a href='#' url='" + r.url + "'>" + r.description + "</a><br/>");
-        })
+        });
 
         $searchResults.css('display', 'block');
-        $recentlyPlayed.css('display', 'none');
+
+        if (recentlyPlayed.length > 0) {
+          $recentlyPlayed.css('display', 'none');
+        }
+
         $searchResults.html(html.join(''));
 
-        $("#searchResults a").each(function() {
-          this.onclick = function() {
-            var url = $(this).attr('url');
-
-            if (autoplay) {
-              url = url + "?autoplay=1";
-            }
-
-            my.playVideo($(this).text(), url);
-          };
-        });
+        hookupAnchors("#searchResults");
       }
     });
 

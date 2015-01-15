@@ -16,10 +16,6 @@ Search your playlist for a video
 
 <img src="screenshots/toby-video-search.png" alt="Video Selection"/>
 
-Recently played list
-
-<img src="screenshots/toby-recently-played.png" alt="Video Selection"/>
-
 ##Dependencies
 
 Toby is written in JavaScript / HTML and CSS and needs Atom-Shell to run:
