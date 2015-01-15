@@ -2,7 +2,7 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 14 January 2014
+// 14 January 2015
 //
 var APP = (function() {
   "use strict";
