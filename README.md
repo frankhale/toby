@@ -26,9 +26,21 @@ Toby is written in JavaScript / HTML and CSS and needs Atom-Shell to run:
 
 https://github.com/atom/atom-shell
 
-##Requirements
+##How To Run
 
-Atom-Shell
+There are two ways to run Toby. You can download the latest release which 
+incorporates the latest code along with Atom-Shell unzip it and run Toby.exe. 
+NOTE: I've only included a Windows distribution at this time. I will include
+a Linux. I can't support a Mac distribution because I don't have a Mac to test
+on. 
+
+The other way is to clone this repository, download Atom-Shell yourself and
+then copy Toby's code into the Atom-Shell resources/app folder.
+
+- Clone Toby
+- Download Atom-Shell https://github.com/atom/atom-shell/releases
+- Copy Toby's code into the [atom-shell-release]/resources/app folder and then
+run atom.exe.
 
 ##Usage
 
@@ -53,7 +65,7 @@ any names of publishers that do this but there is a major one and it now works!
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-14 January 2015
+15 January 2015
 
 ##License
 
