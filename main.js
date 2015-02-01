@@ -21,7 +21,7 @@ app.on('ready', function() {
     resizable: true
   });
 
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  mainWindow.loadUrl('file://' + __dirname + '/toby.react.html');
   mainWindow.focus();
   mainWindow.on('closed', function() {
     mainWindow = null;
