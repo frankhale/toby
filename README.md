@@ -52,6 +52,28 @@ you do is you just grab the title of the video and the embed URL from YouTube
 and add it manually (for now) to the file. You can do this while the app is
 running and the new entry will show up in your play list.
 
+The data.json file has the following format:
+
+There is just one big array of video groups, groups contain the title of the groups
+and the videos associated with it. Videos are just an array of files that contain a
+description and a URL.
+
+```json
+[{  
+  "title": "Trance",
+  "videos": [{
+    "description": "Dash Berlin - Underneath The Sky (Sunsound Chillout Remix)",
+    "url": "http://www.youtube.com/embed/UEqMD-5urik"
+  }, {
+    "description": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
+    "url": "http://www.youtube.com/embed/5UwnhliP5N8"
+  }, {
+    "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
+    "url": "http://www.youtube.com/embed/8X3XhQS-ZtA"
+  }
+}]
+```
+
 Key combos:
 
 F1 - Switch between video search and video playback  
