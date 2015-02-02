@@ -30,6 +30,16 @@ Toby is written in JavaScript / HTML and CSS and needs Atom-Shell to run:
 
 https://github.com/atom/atom-shell
 
+##Release(s)
+
+0.7.0 - https://github.com/frankhale/toby/releases/tag/v0.7.0
+
+I've made a Windows binary available which packages Toby and Atom-Shell together and
+will make it super simple to get started.
+
+NOTE: I'd gladly accept Linux and/or Mac binaries, please let me know if you can 
+assist!
+
 ##Requirements
 
 Atom-Shell
