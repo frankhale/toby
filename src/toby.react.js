@@ -4,7 +4,7 @@
 // Status: This is a work in progress, this is a rewrite using React.js.
 //
 // Frank Hale <frankhale@gmail.com>
-// 31 January 2015
+// 1 February 2015
 //
 
 "use strict";
@@ -20,10 +20,102 @@ var TobyReact = (function() {
   var browser = remote.getCurrentWindow();
   browser.openDevTools();
 
-  var SearchResults = React.createClass({
+  var SearchResultsList = React.createClass({
+    getInitialState: function() {
+      return {
+        recentlyPlayedStyle: {
+          display: "none"
+        },
+        recentlyPlayedData: []
+      };
+    },
+    componentDidMount: function() {
+      this.setState({ 
+        searchResults: $("#searchResults") 
+      });
+    },
+    componentDidUpdate: function() {
+      if(this.props.data.length > 0) {
+        this.state.searchResults.css('display', 'block');
+      } else {
+        this.state.searchResults.css('display', 'none');
+      }
+    },
+    componentWillReceiveProps: function(nextProps) {
+      if(nextProps.data.length > 0) {
+        this.setState({ 
+          recentlyPlayedStyle: { display: "none" }
+        });
+      } else if (this.state.recentlyPlayedData.length > 0) {
+        this.setState({ 
+          recentlyPlayedStyle: { display: "block" }
+        });
+      }
+    },
+    addToRecentlyPlayedList: function(v) {
+      var found = _.find(this.state.recentlyPlayedData, function(video) {
+        if (video.title === v.title) {
+          return v;
+        }
+      });
+
+      if (found === undefined) {
+        var recentlyPlayed = this.state.recentlyPlayedData;
+        v.playVideo = function() {
+          this.props.playVideo(v.title, v.url);
+        }.bind(this);
+        recentlyPlayed.push(v);
+        this.setState({ 
+          recentlyPlayedData: recentlyPlayed
+        });
+      }
+    },
+    handleClick: function(e) {
+      var url = e.target.dataset.url + "?autoplay=1",
+          title = e.target.text;
+
+      this.addToRecentlyPlayedList({
+        'title': title,
+        'url': url
+      });
+          
+      this.state.searchResults.css('display', 'none');
+      this.props.playVideo(title, url);
+    },
+    render: function() {
+      var bindClick = this.handleClick.bind(this);
+    
+      return (
+        <div>
+          <div id="searchResults">
+            {this.props.data.map(function(r) {
+              return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
+            })}
+          </div>
+          <RecentlyPlayedList data={this.state.recentlyPlayedData} style={this.state.recentlyPlayedStyle} />
+        </div>
+      );
+    }
+  });
+
+  var RecentlyPlayedList = React.createClass({
+    componentDidMount: function() {
+      var style = this.props.recentlyPlayedStyle;
+
+      this.setState({
+          recentlyPlayed: $("#recentlyPlayed")
+      });
+    },
     render: function() {
       return (
-        <h1>Hello, World!</h1>
+        <div id="recentlyPlayed" style={this.props.style}>
+          <div id="recentlyPlayedHeader">Recently Played</div>
+          <div id="recentlyPlayedList">
+            {this.props.data.map(function(r) {
+              return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.title}</a><br /></span>
+            })}
+          </div>
+        </div>
       );
     }
   });
@@ -35,33 +127,34 @@ var TobyReact = (function() {
         dataFilePathParts: ["resources", "app", "data", "data.json"],
         dataFilePath: process.cwd() + path.sep + ["resources", "app", "data", "data.json"].join(path.sep),
         searchPlayListTitle: "Toby - Video Search",
+        currentVideoTitle: "",
+        searchResultData: [],
         webviewSrc: "about:blank",
         searchListStyle: {
           display: "block"
         },
-        playListStyle: {
-          display: "none"
-        },
-        recentlyPlayedStyle: {
-          display: "none"
-        },
         webviewStyle: {
-          display: "none"
+          visibility: "hidden"
         }
       };
     },
     componentDidMount: function() {
       window.onkeydown = this.handleKeyDown;
         
-      this.state.browser.openDevTools();
       this.state.browser.setTitle(this.state.searchPlayListTitle);
-
       this.loadDataFile(function(data) {
         this.setState({videoData: data});
       }.bind(this));
 
-      this.setState({web: $("#webview")});
-      this.setState({webview: $("#webview")[0]});
+      this.setState({
+        body: $("body"),
+        searchBox: $("#searchBox"),
+        searchList: $("#searchList"),
+        web: $("#webview"),
+        webview: $("#webview")[0]
+      });
+      
+      this.state.web.attr('httpReferrer', "http://youtube.com");
       this.state.webview.addEventListener("new-window", function(e) {
         shell.openExternal(e.url);
       });
@@ -81,130 +174,66 @@ var TobyReact = (function() {
         }
       });
     },
-    toggleSearchPlayListAndWebview: function() {      
+    toggleSearchPlayListAndWebview: function(title, url) {      
+      if(url !== undefined) {
+        this.state.web.attr('src', url);
+      }
+     
       if (this.state.web.attr('src') === 'about:blank') {
         return;
       }
 
-      this.setState({ playListStyle: {
-        display: "none"
-      }});
-
-      /*if ($web.css('visibility') === 'hidden') {
-        browser.setTitle(currentVideoTitle);
-        $searchList.css('display', 'none');
-
-        if (recentlyPlayed.length > 0) {
-          $recentlyPlayed.css('display', 'none');
+      if (this.state.web.css('visibility') === 'hidden') {
+        if(this.state.searchBox.val().length > 0) {
+          this.state.searchBox.val('');
         }
-
-        $web.css('visibility', 'visible');
-        $body.css('overflow', 'auto');
-      } else {
-        /*browser.setTitle(searchPlayListTitle);
-        $body.css('overflow', 'hidden');
-        $searchList.css('display', 'block');
-
-        if (recentlyPlayed.length > 0) {
-          $recentlyPlayed.css('display', 'block');
-        }
-
-        $web.css('visibility', 'hidden');
-      }*/
-    },
-    addToRecentlyPlayedList: function(v) {
-      /*var found = _.find(recentlyPlayed, function(video) {
-        if (video.title === v.title) {
-          return v;
-        }
-      });
-
-      if (found === undefined) {
-        var anchor = $("<a href='#' url='" + v.url + "'>" + v.title + "</a><br/>");
-
-        anchor.click(function() {
-          var url = anchor.attr('url');
-
-          my.playVideo(anchor.text(), url);
+        
+        this.setState({ 
+          searchListStyle: { display: "none" },
+          webviewStyle: { visibility: "visible" }
         });
 
-        $recentlyPlayedList.append(anchor);
-        recentlyPlayed.push(v);
-      }*/
-    },
-    hookupAnchors: function(elem) {
-      /*$(elem + " a").each(function() {
-        this.onclick = function() {
-          var url = $(this).attr('url');
-
-          if (autoplay) {
-            url = url + "?autoplay=1";
-          }
-
-          my.playVideo($(this).text(), url);
-        };
-      });*/
+        this.state.browser.setTitle(this.state.currentVideoTitle);
+      } else {
+        this.state.browser.setTitle(this.state.searchPlayListTitle);
+        this.setState({ 
+          searchListStyle: { display: "block" },
+          webviewStyle: { visibility: "hidden" }
+        });
+      }
     },
     playVideo: function(title, url) {
-      /*addToRecentlyPlayedList({
-        'title': title,
-        'url': url
-      });
-
-      if ($web.attr('src') !== null && $webview.isLoading()) {
-        $webview.stop();
+      if (this.state.web.attr('src') !== null && this.state.webview.isLoading()) {
+        this.state.webview.stop();
       }
 
-      $web.attr('src', url);
-      currentVideoTitle = title;
-      browser.setTitle(title);
-      toggleSearchPlayListAndWebview();
+      this.setState({ 
+          currentVideoTitle: title,
+          searchResultData: []
+      });
 
-      $searchBox.val("");
-      $searchResults.html("");
-      $searchResults.css('display', 'none');*/
+      this.state.browser.setTitle(title);
+      this.toggleSearchPlayListAndWebview(title, url);
     },
     handleSearch: function(e) {
-      /*var results = [],
-        html = [];
-      var val = $(this).val().toLowerCase();
-
-      if (val === "") {
-        $searchResults.html("");
-        $searchResults.css('display', 'none');
-
-        if(recentlyPlayed.length > 0) {
-          $recentlyPlayed.css('display', 'block');
-        }
-
+      if(e.target.value.length === 0) {
+        this.setState({searchResultData: []});
         return;
       }
 
-      _.forEach(videoData, function(g) {
+      var results = [];
+
+      _.forEach(this.state.videoData, function(g) {
         if (g.title !== undefined && g.videos !== undefined) {
           _.forEach(g.videos, function(v) {
-            if (v.description.toLowerCase().startsWith(val)) {
+            if (v.description.toLowerCase().startsWith(e.target.value.toLowerCase())) {
               results.push(v);
             }
           });
         }
       });
 
-      if (results.length > 0) {
-        _.forEach(results, function(r) {
-          html.push("<a href='#' url='" + r.url + "'>" + r.description + "</a><br/>");
-        });
-
-        $searchResults.css('display', 'block');
-
-        if (recentlyPlayed.length > 0) {
-          $recentlyPlayed.css('display', 'none');
-        }
-
-        $searchResults.html(html.join(''));
-
-        hookupAnchors("#searchResults");
-      }*/
+      this.setState({searchResultData: results});
     },
     handleKeyDown: function(e) {
       switch(e.keyCode) {
@@ -222,15 +251,13 @@ var TobyReact = (function() {
     render: function() {
       return (
         <div>
-          <div id="searchList" style={this.state.searchListStyle} onChange={this.handleSearch}>
-            <input type="text" id="searchBox" placeholder="search for videos..."></input>
-            <SearchResults videos={this.state.searchResults} />
-            <div id="recentlyPlayed">
-              <div id="recentlyPlayedHeader">Recently Played</div>
-              <div id="recentlyPlayedList"></div>
-            </div>
+         <div id="searchList" style={this.state.searchListStyle}>
+            <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
+            <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} />
+          </div> 
+         <div>
+            <webview id="webview" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
           </div>
-          <webview id="webview" src={this.state.webviewSrc} style={this.state.webviewStyle} httpReferrer="http://youtube.com"></webview> 
         </div>
       );
     }
@@ -243,7 +270,7 @@ var TobyReact = (function() {
         return this.slice(0, prefix.length) === prefix;
       };
     }
-    
+
     React.render(
         <Toby />,
         document.getElementById('ui')
