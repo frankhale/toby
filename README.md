@@ -16,6 +16,10 @@ Search your playlist for a video
 
 <img src="screenshots/toby-video-search.png" alt="Video Selection"/>
 
+List all songs in your playlist
+
+<img src="screenshots/toby-video-search-all.png" alt="Video Selection - List All"/>
+
 Recently played list
 
 <img src="screenshots/toby-recently-played.png" alt="Video Selection"/>
@@ -53,7 +57,7 @@ any names of publishers that do this but there is a major one and it now works!
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-14 January 2015
+1 February 2015
 
 ##License
 
