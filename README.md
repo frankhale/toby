@@ -70,7 +70,7 @@ description and a URL.
   }, {
     "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
     "url": "http://www.youtube.com/embed/8X3XhQS-ZtA"
-  }
+  }]
 }]
 ```
 
