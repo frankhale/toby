@@ -42,25 +42,6 @@ var TobyReact = (function() {
         this.resizeSearchResults();
       }.bind(this);
     },
-    componentDidUpdate: function() {
-      if(this.props.data.length > 0) {
-        this.state.searchResults.css('display', 'block');
-        this.resizeSearchResults();
-      } else {
-        this.state.searchResults.css('display', 'none');
-      }
-    },
-    componentWillReceiveProps: function(nextProps) {
-      if(nextProps.data.length > 0) {
-        this.setState({ 
-          recentlyPlayedStyle: { display: "none" }
-        });
-      } else if (this.state.recentlyPlayedData.length > 0) {
-        this.setState({ 
-          recentlyPlayedStyle: { display: "block" }
-        });
-      }
-    },
     resizeSearchResults: function() {
       this.state.searchResults.css('height', this.state.browser.getSize()[1] - 155 + "px");
     },
@@ -96,23 +77,36 @@ var TobyReact = (function() {
     },
     render: function() {
       var bindClick = this.handleClick.bind(this);
+      var searchResultsStyle = { display: "none" };
+      var recentlyPlayedStyle = { display: "none" };
+
+      if(this.props.data.length > 0) {
+        searchResultsStyle.display = "block";
+        recentlyPlayedStyle.display = "none"; 
+      } else {
+        searchResultsStyle.display = "none";
+        
+        if(this.state.recentlyPlayedData.length > 0) {
+          recentlyPlayedStyle.display = "block";       
+        }
+      }
 
       return (
-        <div style={this.props.style}>
-        <div id="searchResults">
-        {this.props
-          .data
-          .sort(function(a, b) {
-            if(a.description < b.description) return -1;
-            if(a.description > b.description) return 1;
-            return 0;
-          })
-          .map(function(r) {
-            return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
-          })}
+        <div>
+          <div id="searchResults" style={searchResultsStyle}>
+            {this.props
+              .data
+              .sort(function(a, b) {
+                if(a.description < b.description) return -1;
+                if(a.description > b.description) return 1;
+                return 0;
+            })
+            .map(function(r) {
+              return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
+            })}
           </div>
-          <RecentlyPlayedList data={this.state.recentlyPlayedData} style={this.state.recentlyPlayedStyle} />
-          </div>
+          <RecentlyPlayedList data={this.state.recentlyPlayedData} style={recentlyPlayedStyle} />
+        </div>
       );
     }
   });
@@ -235,7 +229,6 @@ var TobyReact = (function() {
 
         this.setState({ 
           searchListStyle: { display: "none" },
-          searchResultsStyle: { display: "none" },
           webviewStyle: { visibility: "visible" }
         });
 
@@ -247,7 +240,8 @@ var TobyReact = (function() {
         }
       } else {
         this.state.browser.setTitle(this.state.searchPlayListTitle);
-        this.setState({ 
+        this.setState({
+          searchResultData: [], 
           searchListStyle: { display: "block" },
           webviewStyle: { visibility: "hidden" }
         });
@@ -280,7 +274,10 @@ var TobyReact = (function() {
       var searchTerm = e.target.value.toLowerCase();
 
       if(searchTerm.length === 0) {
-        this.setState({searchResultData: []});
+        this.setState({
+          searchResultData: []//,
+          //searchResultsStyle: { display: "none" }
+        });
         return;
       }
 
@@ -303,12 +300,15 @@ var TobyReact = (function() {
 
       if(results.length > 0) {
         this.setState({
-          searchResultData: results,
-          searchResultsStyle: { display: "block" }
+          searchResultData: results//,
+          //searchResultsStyle: { display: "block" }
         });
       }
       else {
-        this.setState({searchResultData: results});
+        this.setState({
+          searchResultData: results//,
+          //searchResultsStyle: { display: "none" }
+        });
       }
     },
     addCurrentVideoToDataJson: function() {
@@ -395,15 +395,16 @@ var TobyReact = (function() {
       }
     },
     render: function() {
+      //style={this.state.searchResultsStyle}
       return (
         <div>
-        <div id="searchList" style={this.state.searchListStyle}>
-        <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
-        <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} style={this.state.searchResultsStyle} />
-        </div> 
-        <div>
-        <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
-        </div>
+          <div id="searchList" style={this.state.searchListStyle}>
+            <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
+            <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} />
+          </div> 
+          <div>
+            <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
+          </div>
         </div>
       );
     }
