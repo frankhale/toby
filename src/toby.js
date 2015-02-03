@@ -185,14 +185,29 @@ var TobyReact = (function() {
      
       $("#browser-plugin-1").css("background-color", "#000");
 
-      this.state.web.attr("httpReferrer", "http://youtube.com");
+      this.state.web.attr("httpreferrer", "http://youtube.com");
       this.state.webview.addEventListener("new-window", function(e) {
         shell.openExternal(e.url);
       });
+      this.state.webview.addEventListener("ipc-message", function(e) {
+        if(e.channel != "" && this.state.currentVideoTitle !== e.channel) {
+          this.setState({currentVideoTitle: e.channel});
+          this.state.browser.setTitle(e.channel);
+        }
+      }.bind(this));
 
+      setInterval(function() {
+        if(this.state.web.css("visibility") === "visible") {
+          this.state.webview.send('ping');
+        }
+      }.bind(this), 1000);
+      
       fs.watchFile(this.state.dataFilePath, function(curr, prev) {
         this.loadDataFile(function(data) {
-          this.setState({videoData: data});
+          this.setState({
+            videoData: data,
+            videos: _.flatten(_.pluck(data, "videos"))
+          });
         }.bind(this));
       }.bind(this));
     },
@@ -309,7 +324,7 @@ var TobyReact = (function() {
             <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} style={this.state.searchResultsStyle} />
           </div> 
           <div>
-            <webview id="webview" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
+            <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
           </div>
         </div>
       );
