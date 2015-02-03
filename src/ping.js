@@ -6,7 +6,10 @@ ipc.on('ping', function() {
   if(elements !== undefined && elements.length > 0) {
     var title = elements[0]; 
     if(title  !== undefined) {
-      ipc.sendToHost(title.text); 
+      ipc.sendToHost({
+        title: title.text,
+        url: title.href
+      }); 
     }
   }
 });

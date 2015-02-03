@@ -65,6 +65,8 @@ what you do is you just grab the title of the video and the embed URL from
 YouTube and add it manually (for now) to the file. You can do this while the 
 app is running and the new entry will show up in your play list.
 
+NOTE: See section Updating data.json for more information.
+
 The data.json file has the following format:
 
 There is just one big array of video groups, groups contain the title of the 
@@ -90,8 +92,24 @@ that contain a description and a URL.
 Key combos:
 
 F1 - Switch between video search and video playback  
-F3 - Restart app  
+F3 - Restart app
+F5 - Add the current playing video to data.json (see Updating data.json)
 F12 - Open dev tools
+
+##Updating data.json
+
+Currently you can update data.json with new videos in two ways. 
+
+1. Update data.json manually
+2. After a video is played YouTube will show a listing of other videos you may
+   like to watch. If you click on one and like it you can hit the F5 key to add
+   it to your data.json. This will make it available when searching your videos
+   the next time you want to watch it. Files added in this way will be added to
+   a group called 'misc'. If you like you can edit your data.json and move them
+   to a different group.
+
+NOTE: In the future there will be a UI added to all you to add new videos
+      without needing to edit data.json manually.
 
 ##NOTE
 

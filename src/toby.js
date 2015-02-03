@@ -18,10 +18,10 @@ var TobyReact = (function() {
   var my = {};
 
   var fs = require('fs'),
-      path = require('path'),
-      remote = require('remote'),
-      shell = require('shell');
-  
+  path = require('path'),
+  remote = require('remote'),
+  shell = require('shell');
+
   var SearchResultsList = React.createClass({
     getInitialState: function() {
       return {
@@ -84,13 +84,13 @@ var TobyReact = (function() {
     },
     handleClick: function(e) {
       var url = e.target.dataset.url + "?autoplay=1",
-          description = e.target.text;
+      description = e.target.text;
 
       this.addToRecentlyPlayedList({
         'description': description,
         'url': url
       });
-          
+
       this.state.searchResults.css('display', 'none');
       this.props.playVideo(description, url);
     },
@@ -99,20 +99,20 @@ var TobyReact = (function() {
 
       return (
         <div style={this.props.style}>
-          <div id="searchResults">
-            {this.props
-                 .data
-                 .sort(function(a, b) {
-                    if(a.description < b.description) return -1;
-                    if(a.description > b.description) return 1;
-                    return 0;
-                 })
-                 .map(function(r) {
-              return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
-            })}
+        <div id="searchResults">
+        {this.props
+          .data
+          .sort(function(a, b) {
+            if(a.description < b.description) return -1;
+            if(a.description > b.description) return 1;
+            return 0;
+          })
+          .map(function(r) {
+            return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
+          })}
           </div>
           <RecentlyPlayedList data={this.state.recentlyPlayedData} style={this.state.recentlyPlayedStyle} />
-        </div>
+          </div>
       );
     }
   });
@@ -122,26 +122,26 @@ var TobyReact = (function() {
       var style = this.props.recentlyPlayedStyle;
 
       this.setState({
-          recentlyPlayed: $("#recentlyPlayed")
+        recentlyPlayed: $("#recentlyPlayed")
       });
     },
     render: function() {
       return (
         <div id="recentlyPlayed" style={this.props.style}>
-          <div id="recentlyPlayedHeader">Recently Played</div>
-          <div id="recentlyPlayedList">
-            {this.props
-                 .data
-                 .sort(function(a, b) {
-                    if(a.description < b.description) return -1;
-                    if(a.description > b.description) return 1;
-                    return 0;
-                 })
-                 .map(function(r) {
-              return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br /></span>
-            })}
+        <div id="recentlyPlayedHeader">Recently Played</div>
+        <div id="recentlyPlayedList">
+        {this.props
+          .data
+          .sort(function(a, b) {
+            if(a.description < b.description) return -1;
+            if(a.description > b.description) return 1;
+            return 0;
+          })
+          .map(function(r) {
+            return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br /></span>
+          })}
           </div>
-        </div>
+          </div>
       );
     }
   });
@@ -166,7 +166,7 @@ var TobyReact = (function() {
     },
     componentDidMount: function() {
       window.onkeydown = this.handleKeyDown;
-        
+
       this.state.browser.setTitle(this.state.searchPlayListTitle);
       this.loadDataFile(function(data) {
         this.setState({
@@ -182,7 +182,7 @@ var TobyReact = (function() {
         web: $("#webview"),
         webview: $("#webview")[0]
       });
-     
+
       $("#browser-plugin-1").css("background-color", "#000");
 
       this.state.web.attr("httpreferrer", "http://youtube.com");
@@ -191,8 +191,11 @@ var TobyReact = (function() {
       });
       this.state.webview.addEventListener("ipc-message", function(e) {
         if(e.channel != "" && this.state.currentVideoTitle !== e.channel) {
-          this.setState({currentVideoTitle: e.channel});
-          this.state.browser.setTitle(e.channel);
+          this.state.browser.setTitle(e.channel.title);
+          this.setState({
+            currentVideoTitle: e.channel.title,
+            currentVideoUrl: e.channel.url
+          });
         }
       }.bind(this));
 
@@ -201,7 +204,7 @@ var TobyReact = (function() {
           this.state.webview.send('ping');
         }
       }.bind(this), 1000);
-      
+
       fs.watchFile(this.state.dataFilePath, function(curr, prev) {
         this.loadDataFile(function(data) {
           this.setState({
@@ -220,11 +223,7 @@ var TobyReact = (function() {
         }
       });
     },
-    toggleSearchPlayListAndWebview: function(description, url) {      
-      if(url !== undefined) {
-        this.state.web.attr("src", url);
-      }
-     
+    toggleSearchPlayListAndWebview: function(description) {      
       if (this.state.web.attr("src") === this.state.blankHtml) {
         return;
       }
@@ -233,7 +232,7 @@ var TobyReact = (function() {
         if(this.state.searchBox.val().length > 0) {
           this.state.searchBox.val('');
         }
-        
+
         this.setState({ 
           searchListStyle: { display: "none" },
           searchResultsStyle: { display: "none" },
@@ -242,7 +241,7 @@ var TobyReact = (function() {
 
         if(description === undefined) {
           if(this.state.currentVideoTitle !== undefined && 
-            this.state.currentVideoTitle !== "") {
+             this.state.currentVideoTitle !== "") {
             this.state.browser.setTitle(this.state.currentVideoTitle);
           }
         }
@@ -260,17 +259,26 @@ var TobyReact = (function() {
       }
 
       this.setState({ 
-          currentVideoTitle: description,
-          searchResultData: []
+        currentVideoTitle: description,
+        searchResultData: []
       });
 
       this.state.browser.setTitle(description);
-      this.toggleSearchPlayListAndWebview(description, url);
+
+      if(url !== undefined) {
+        if(!(url.startsWith("http"))) {
+          url = "http://" + url;
+        }
+
+        this.state.web.attr("src", url);
+      }
+
+      this.toggleSearchPlayListAndWebview(description);
     },
     handleSearch: function(e) {
       var results = [];
       var searchTerm = e.target.value.toLowerCase();
-      
+
       if(searchTerm.length === 0) {
         this.setState({searchResultData: []});
         return;
@@ -303,6 +311,73 @@ var TobyReact = (function() {
         this.setState({searchResultData: results});
       }
     },
+    addCurrentVideoToDataJson: function() {
+      // At the end of a video a list of other videos is displayed. If a user
+      // clicks on one of these videos let's allow them to add that video if 
+      // they like it to their data.json file.
+      //
+      // We'll add it to a group called 'unlisted' for the time being
+      //
+      // The format of the currentVideoUrl is:  
+      //  https://www.youtube.com/watch?v=-zkrQMjlD3A
+      //
+      // There is an edge case here that I think we'll just have to swallow.
+      // The way I expect the data.json to be is this. You go to YouTube find
+      // the vidoes you like, copy the title and the embed URL and add it to
+      // the data.json. When we get here the title is coming directly from
+      // YouTube which seems to be slightly different on occasion that the 
+      // title copied directly from the YouTube webpage. This can cause you to 
+      // be able to add the video again when you already have it.
+      //
+      // This format is directly from the YouTube player in the webview
+      // and not the Url that is in the data.json.
+      var currentVideoUrl = this.state.currentVideoUrl;
+
+      if(currentVideoUrl !== undefined) {
+        var videoId = currentVideoUrl.split("?v=")[1];
+        if(videoId !== undefined) {
+          var videoData = this.state.videoData.slice(0);
+
+          var newEntry = {
+            "description": this.state.currentVideoTitle,
+            "url": "http://www.youtube.com/embed/" + videoId
+          }
+
+          var miscGroup = _.find(videoData, function(d) {
+            return d.title === "misc";
+          });
+
+          var found = _.find(this.state.videos, function(v) {
+            return v.description === newEntry.description;
+          });
+
+          if(found === undefined) {
+            if(miscGroup !== undefined) {
+              miscGroup.videos.push(newEntry);
+
+              var videoData = _.filter(videoData, function(d) {
+                return d.title !== "misc";
+              });
+
+              videoData.push(miscGroup);
+            } else {
+              var miscGroup = {
+                title: "misc",
+                videos: [newEntry]
+              };
+
+              videoData.push(miscGroup);
+            }
+
+            // I'm not going to set the state here because I have a FS watcher
+            // that will do it. Let's just write to the data.json directly.
+            fs.writeFile('./resources/app/data/data.json', JSON.stringify(videoData, undefined, 2), function (err) {
+              if (err) throw err;
+            });
+          }
+        }
+      } 
+    },
     handleKeyDown: function(e) {
       switch(e.keyCode) {
         case 112: // f1 - toggle between video search and video playback
@@ -310,6 +385,9 @@ var TobyReact = (function() {
         break;
         case 114: // f3 - restart app
           this.state.browser.reload();
+        break;
+        case 116: // f5 - add current video to data.json
+          this.addCurrentVideoToDataJson();
         break;
         case 123: // f12 - toggle dev tools
           this.state.browser.openDevTools();
@@ -319,13 +397,13 @@ var TobyReact = (function() {
     render: function() {
       return (
         <div>
-         <div id="searchList" style={this.state.searchListStyle}>
-            <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
-            <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} style={this.state.searchResultsStyle} />
-          </div> 
-          <div>
-            <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
-          </div>
+        <div id="searchList" style={this.state.searchListStyle}>
+        <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
+        <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} style={this.state.searchResultsStyle} />
+        </div> 
+        <div>
+        <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
+        </div>
         </div>
       );
     }
@@ -340,8 +418,8 @@ var TobyReact = (function() {
     }
 
     React.render(
-        <Toby />,
-        document.getElementById('ui')
+      <Toby />,
+      document.getElementById('ui')
     );
   };
 
