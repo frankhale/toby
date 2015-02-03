@@ -3,8 +3,15 @@
 //
 // Status: This is a work in progress, this is a rewrite using React.js.
 //
+// NOTE: I have not compiled my JSX because I've hacked the JSXTransformer.js
+//       to not barf on Atom-Shell's webview tag. I'm just not interested ATM
+//       to try to figure out another way to use the webview tag. I really like
+//       the JSX syntax and I think it works well to describe what is going on.
+//       Because of this I cannot compile the JSX because the JSX compiler will
+//       barf when it finds the webview tag.
+//
 // Frank Hale <frankhale@gmail.com>
-// 1 February 2015
+// 3 February 2015
 //
 
 "use strict";
@@ -61,7 +68,7 @@ var TobyReact = (function() {
     },
     addToRecentlyPlayedList: function(v) {
       var found = _.find(this.state.recentlyPlayedData, function(video) {
-        if (video.title === v.title) {
+        if (video.description === v.description) {
           return v;
         }
       });
@@ -69,7 +76,7 @@ var TobyReact = (function() {
       if (found === undefined) {
         var recentlyPlayed = this.state.recentlyPlayedData;
         v.playVideo = function() {
-          this.props.playVideo(v.title, v.url);
+          this.props.playVideo(v.description, v.url);
         }.bind(this);
         recentlyPlayed.push(v);
         this.setState({ 
@@ -79,23 +86,30 @@ var TobyReact = (function() {
     },
     handleClick: function(e) {
       var url = e.target.dataset.url + "?autoplay=1",
-          title = e.target.text;
+          description = e.target.text;
 
       this.addToRecentlyPlayedList({
-        'title': title,
+        'description': description,
         'url': url
       });
           
       this.state.searchResults.css('display', 'none');
-      this.props.playVideo(title, url);
+      this.props.playVideo(description, url);
     },
     render: function() {
       var bindClick = this.handleClick.bind(this);
-    
+
       return (
-        <div>
+        <div style={this.props.style}>
           <div id="searchResults">
-            {this.props.data.map(function(r) {
+            {this.props
+                 .data
+                 .sort(function(a, b) {
+                    if(a.description < b.description) return -1;
+                    if(a.description > b.description) return 1;
+                    return 0;
+                 })
+                 .map(function(r) {
               return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
             })}
           </div>
@@ -118,8 +132,15 @@ var TobyReact = (function() {
         <div id="recentlyPlayed" style={this.props.style}>
           <div id="recentlyPlayedHeader">Recently Played</div>
           <div id="recentlyPlayedList">
-            {this.props.data.map(function(r) {
-              return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.title}</a><br /></span>
+            {this.props
+                 .data
+                 .sort(function(a, b) {
+                    if(a.description < b.description) return -1;
+                    if(a.description > b.description) return 1;
+                    return 0;
+                 })
+                 .map(function(r) {
+              return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br /></span>
             })}
           </div>
         </div>
@@ -150,7 +171,10 @@ var TobyReact = (function() {
         
       this.state.browser.setTitle(this.state.searchPlayListTitle);
       this.loadDataFile(function(data) {
-        this.setState({videoData: data});
+        this.setState({
+          videoData: data,
+          videos: _.flatten(_.pluck(data, "videos"))
+        });
       }.bind(this));
 
       this.setState({
@@ -183,7 +207,7 @@ var TobyReact = (function() {
         }
       });
     },
-    toggleSearchPlayListAndWebview: function(title, url) {      
+    toggleSearchPlayListAndWebview: function(description, url) {      
       if(url !== undefined) {
         this.state.web.attr("src", url);
       }
@@ -199,10 +223,11 @@ var TobyReact = (function() {
         
         this.setState({ 
           searchListStyle: { display: "none" },
+          searchResultsStyle: { display: "none" },
           webviewStyle: { visibility: "visible" }
         });
 
-        if(title === undefined) {
+        if(description === undefined) {
           if(this.state.currentVideoTitle !== undefined && 
             this.state.currentVideoTitle !== "") {
             this.state.browser.setTitle(this.state.currentVideoTitle);
@@ -216,43 +241,54 @@ var TobyReact = (function() {
         });
       }
     },
-    playVideo: function(title, url) {
+    playVideo: function(description, url) {
       if (this.state.web.attr('src') !== null && this.state.webview.isLoading()) {
         this.state.webview.stop();
       }
 
       this.setState({ 
-          currentVideoTitle: title,
+          currentVideoTitle: description,
           searchResultData: []
       });
 
-      this.state.browser.setTitle(title);
-      this.toggleSearchPlayListAndWebview(title, url);
+      this.state.browser.setTitle(description);
+      this.toggleSearchPlayListAndWebview(description, url);
     },
     handleSearch: function(e) {
-      if(e.target.value.length === 0) {
+      var results = [];
+      var searchTerm = e.target.value.toLowerCase();
+      
+      if(searchTerm.length === 0) {
         this.setState({searchResultData: []});
         return;
       }
 
-      var results = [];
-      var all = false;
+      if(searchTerm === "%all%") {
+        console.log(this.state.videos);
+        results = this.state.videos.slice(0);
+      } else if(searchTerm.charAt(0) === "%" && searchTerm.slice(-1) === "%") {
+        var videoGroup = _.find(this.state.videoData, function(g) {
+          return searchTerm === "%" + g.title.toLowerCase() + "%";
+        });
 
-      if(e.target.value === "%all%") {
-        all = true;
-      }
-      
-      _.forEach(this.state.videoData, function(g) {
-        if (g.title !== undefined && g.videos !== undefined) {
-          _.forEach(g.videos, function(v) {
-            if (all || v.description.toLowerCase().startsWith(e.target.value.toLowerCase())) {
-              results.push(v);
-            }
-          });
+        if(videoGroup !== undefined) {
+          results = videoGroup.videos.slice(0);
         }
-      });
+      } else {
+        results = _.filter(this.state.videos, function(v) {
+          return v.description.toLowerCase().startsWith(searchTerm);
+        });
+      }
 
-      this.setState({searchResultData: results});
+      if(results.length > 0) {
+        this.setState({
+          searchResultData: results,
+          searchResultsStyle: { display: "block" }
+        });
+      }
+      else {
+        this.setState({searchResultData: results});
+      }
     },
     handleKeyDown: function(e) {
       switch(e.keyCode) {
@@ -272,9 +308,9 @@ var TobyReact = (function() {
         <div>
          <div id="searchList" style={this.state.searchListStyle}>
             <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
-            <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} />
+            <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} style={this.state.searchResultsStyle} />
           </div> 
-         <div>
+          <div>
             <webview id="webview" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
           </div>
         </div>
