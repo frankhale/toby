@@ -1,8 +1,6 @@
 //
 // Toby - A tiny personal YouTube player for the desktop
 //
-// Status: This is a work in progress, this is a rewrite using React.js.
-//
 // NOTE: I have not compiled my JSX because I've hacked the JSXTransformer.js
 //       to not barf on Atom-Shell's webview tag. I'm just not interested ATM
 //       to try to figure out another way to use the webview tag. I really like
