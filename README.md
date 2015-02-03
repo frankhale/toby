@@ -8,11 +8,13 @@ really like and love life!
 
 ##Screenshots
 
-Video playback
+Video playback:
 
 <img src="screenshots/toby-video-playback.png" alt="Video Playback"/>
 
-Search your playlist for a video
+Search your playlist for a video:
+
+List all videos that start with the search term.
 
 <img src="screenshots/toby-video-search.png" alt="Video Selection"/>
 
@@ -30,7 +32,7 @@ specific group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
 
-Recently played list
+Recently played list:
 
 <img src="screenshots/toby-recently-played.png" alt="Recently Played List"/>
 
