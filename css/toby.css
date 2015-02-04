@@ -41,6 +41,7 @@ body {
   background-color: #999;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  height: 250px;
   overflow: auto;
 }
 #recentlyPlayedHeader {
@@ -49,9 +50,12 @@ body {
   text-align: center;
   font-size: 14pt;
   color: #fff;
+  min-height: 20px;
 }
 #recentlyPlayedList {
   padding:10px;
+  overflow: auto;
+  flex-grow: 1;
 }
 #recentlyPlayed {
   position: fixed;
@@ -69,8 +73,8 @@ body {
   width: 90%;
   top: 70px;
   bottom: 10px;
-  overflow: auto;
-  display: none;
+  overflow: hidden;
+  flex-direction: column;
 }
 #recentlyPlayed a {
   color: #fff;

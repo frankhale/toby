@@ -39,11 +39,8 @@ var TobyReact = (function() {
       });
 
       window.onresize = function(e) {
-        this.resizeSearchResults();
+        this.state.searchResults.css('height', this.state.browser.getSize()[1] - 155 + "px");
       }.bind(this);
-    },
-    resizeSearchResults: function() {
-      this.state.searchResults.css('height', this.state.browser.getSize()[1] - 155 + "px");
     },
     addToRecentlyPlayedList: function(v) {
       var found = _.find(this.state.recentlyPlayedData, function(video) {
@@ -87,7 +84,7 @@ var TobyReact = (function() {
         searchResultsStyle.display = "none";
         
         if(this.state.recentlyPlayedData.length > 0) {
-          recentlyPlayedStyle.display = "block";       
+          recentlyPlayedStyle.display = "flex";       
         }
       }
 
@@ -122,20 +119,20 @@ var TobyReact = (function() {
     render: function() {
       return (
         <div id="recentlyPlayed" style={this.props.style}>
-        <div id="recentlyPlayedHeader">Recently Played</div>
-        <div id="recentlyPlayedList">
-        {this.props
-          .data
-          .sort(function(a, b) {
-            if(a.description < b.description) return -1;
-            if(a.description > b.description) return 1;
-            return 0;
-          })
-          .map(function(r) {
-            return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br /></span>
-          })}
+          <div id="recentlyPlayedHeader">Recently Played</div>
+          <div id="recentlyPlayedList">
+            {this.props
+                   .data
+                   .sort(function(a, b) {
+                   if(a.description < b.description) return -1;
+                   if(a.description > b.description) return 1;
+                   return 0;
+            })
+            .map(function(r) {
+              return <span><a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br /></span>
+            })}
           </div>
-          </div>
+        </div>
       );
     }
   });
@@ -276,7 +273,6 @@ var TobyReact = (function() {
       if(searchTerm.length === 0) {
         this.setState({
           searchResultData: []//,
-          //searchResultsStyle: { display: "none" }
         });
         return;
       }
@@ -301,13 +297,11 @@ var TobyReact = (function() {
       if(results.length > 0) {
         this.setState({
           searchResultData: results//,
-          //searchResultsStyle: { display: "block" }
         });
       }
       else {
         this.setState({
           searchResultData: results//,
-          //searchResultsStyle: { display: "none" }
         });
       }
     },
@@ -395,7 +389,6 @@ var TobyReact = (function() {
       }
     },
     render: function() {
-      //style={this.state.searchResultsStyle}
       return (
         <div>
           <div id="searchList" style={this.state.searchListStyle}>
