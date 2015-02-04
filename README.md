@@ -49,7 +49,7 @@ Unfortunately I only have Windows binaries at the moment.
 
 ##Release(s)
 
-0.7.0 - https://github.com/frankhale/toby/releases/tag/v0.7.0
+0.8.0 - https://github.com/frankhale/toby/releases/tag/v0.8.0
 
 I've made a Windows binary available which packages Toby and Atom-Shell 
 together and will make it super simple to get started.
