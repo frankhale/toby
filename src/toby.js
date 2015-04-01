@@ -141,8 +141,8 @@ var TobyReact = (function() {
     getInitialState: function() {
       return {
         browser: remote.getCurrentWindow(),
-        dataFilePathParts: ["resources", "app", "data", "data.json"],
-        dataFilePath: process.cwd() + path.sep + ["resources", "app", "data", "data.json"].join(path.sep),
+        //dataFilePathParts: ["resources", "app", "data", "data.json"],
+        dataFilePath: __dirname + path.sep + ["data", "data.json"].join(path.sep),
         searchPlayListTitle: "Toby - Video Search",
         searchResultData: [],
         blankHtml: 'file://' + __dirname + '/blank.html',
