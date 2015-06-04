@@ -1,20 +1,13 @@
 //
 // Toby - A tiny personal YouTube player for the desktop
 //
-// NOTE: I have not compiled my JSX because I've hacked the JSXTransformer.js
-//       to not barf on Atom-Shell's webview tag. I'm just not interested ATM
-//       to try to figure out another way to use the webview tag. I really like
-//       the JSX syntax and I think it works well to describe what is going on.
-//       Because of this I cannot compile the JSX because the JSX compiler will
-//       barf when it finds the webview tag.
-//
 // Frank Hale <frankhale@gmail.com>
-// 3 February 2015
+// 3 June 2015
 //
-
-"use strict";
 
 var TobyReact = (function() {
+  'use strict';
+
   var my = {};
 
   var fs = require('fs'),
@@ -34,8 +27,8 @@ var TobyReact = (function() {
       };
     },
     componentDidMount: function() {
-      this.setState({ 
-        searchResults: $("#searchResults") 
+      this.setState({
+        searchResults: $("#searchResults")
       });
 
       window.onresize = function(e) {
@@ -55,7 +48,7 @@ var TobyReact = (function() {
           this.props.playVideo(v.description, v.url);
         }.bind(this);
         recentlyPlayed.push(v);
-        this.setState({ 
+        this.setState({
           recentlyPlayedData: recentlyPlayed
         });
       }
@@ -79,27 +72,28 @@ var TobyReact = (function() {
 
       if(this.props.data.length > 0) {
         searchResultsStyle.display = "block";
-        recentlyPlayedStyle.display = "none"; 
+        recentlyPlayedStyle.display = "none";
       } else {
         searchResultsStyle.display = "none";
-        
+
         if(this.state.recentlyPlayedData.length > 0) {
-          recentlyPlayedStyle.display = "flex";       
+          recentlyPlayedStyle.display = "flex";
         }
       }
 
       return (
         <div>
           <div id="searchResults" style={searchResultsStyle}>
-            {this.props
-              .data
-              .sort(function(a, b) {
-                if(a.description < b.description) return -1;
-                if(a.description > b.description) return 1;
-                return 0;
+            {this.props.data
+                 .sort(function(a, b) {
+                   if(a.description < b.description) return -1;
+                   if(a.description > b.description) return 1;
+                   return 0;
             })
             .map(function(r) {
-              return <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
+              return (
+                <span><a href='#' data-url={r.url} onClick={bindClick}>{r.description}</a><br /></span>
+              );
             })}
           </div>
           <RecentlyPlayedList data={this.state.recentlyPlayedData} style={recentlyPlayedStyle} />
@@ -141,7 +135,6 @@ var TobyReact = (function() {
     getInitialState: function() {
       return {
         browser: remote.getCurrentWindow(),
-        //dataFilePathParts: ["resources", "app", "data", "data.json"],
         dataFilePath: __dirname + path.sep + ["data", "data.json"].join(path.sep),
         searchPlayListTitle: "Toby - Video Search",
         searchResultData: [],
@@ -157,23 +150,40 @@ var TobyReact = (function() {
     },
     componentDidMount: function() {
       window.onkeydown = this.handleKeyDown;
-
       this.state.browser.setTitle(this.state.searchPlayListTitle);
+
+      this.setState({
+        searchBox: $("#searchBox"),
+        searchList: $("#searchList"),
+        web: $("#webview"),
+        webview: $("#webview")[0]
+      });
+
       this.loadDataFile(function(data) {
+        // This one is weird, seems like since React 0.13.3 I can'This
+        // just call this after setting the state above. I have to wait
+        // a millisecond or so before the state contains web and webview
+        // which I need when doing some initialization on the webview.
+        //
+        // This was not a on React 0.12
+        this.setupWebview();
+
         this.setState({
           videoData: data,
           videos: _.flatten(_.pluck(data, "videos"))
         });
       }.bind(this));
 
-      this.setState({
-        body: $("body"),
-        searchBox: $("#searchBox"),
-        searchList: $("#searchList"), 
-        web: $("#webview"),
-        webview: $("#webview")[0]
-      });
-
+      fs.watchFile(this.state.dataFilePath, function(curr, prev) {
+        this.loadDataFile(function(data) {
+          this.setState({
+            videoData: data,
+            videos: _.flatten(_.pluck(data, "videos"))
+          });
+        }.bind(this));
+      }.bind(this));
+    },
+    setupWebview: function() {
       $("#browser-plugin-1").css("background-color", "#000");
 
       this.state.web.attr("httpreferrer", "http://youtube.com");
@@ -195,15 +205,6 @@ var TobyReact = (function() {
           this.state.webview.send('ping');
         }
       }.bind(this), 1000);
-
-      fs.watchFile(this.state.dataFilePath, function(curr, prev) {
-        this.loadDataFile(function(data) {
-          this.setState({
-            videoData: data,
-            videos: _.flatten(_.pluck(data, "videos"))
-          });
-        }.bind(this));
-      }.bind(this));
     },
     loadDataFile: function(callback) {
       fs.readFile(this.state.dataFilePath, function(err, data) {
@@ -214,7 +215,7 @@ var TobyReact = (function() {
         }
       });
     },
-    toggleSearchPlayListAndWebview: function(description) {      
+    toggleSearchPlayListAndWebview: function(description) {
       if (this.state.web.attr("src") === this.state.blankHtml) {
         return;
       }
@@ -224,13 +225,13 @@ var TobyReact = (function() {
           this.state.searchBox.val('');
         }
 
-        this.setState({ 
+        this.setState({
           searchListStyle: { display: "none" },
           webviewStyle: { visibility: "visible" }
         });
 
         if(description === undefined) {
-          if(this.state.currentVideoTitle !== undefined && 
+          if(this.state.currentVideoTitle !== undefined &&
              this.state.currentVideoTitle !== "") {
             this.state.browser.setTitle(this.state.currentVideoTitle);
           }
@@ -238,7 +239,7 @@ var TobyReact = (function() {
       } else {
         this.state.browser.setTitle(this.state.searchPlayListTitle);
         this.setState({
-          searchResultData: [], 
+          searchResultData: [],
           searchListStyle: { display: "block" },
           webviewStyle: { visibility: "hidden" }
         });
@@ -249,7 +250,7 @@ var TobyReact = (function() {
         this.state.webview.stop();
       }
 
-      this.setState({ 
+      this.setState({
         currentVideoTitle: description,
         searchResultData: []
       });
@@ -294,33 +295,26 @@ var TobyReact = (function() {
         });
       }
 
-      if(results.length > 0) {
-        this.setState({
-          searchResultData: results//,
-        });
-      }
-      else {
-        this.setState({
-          searchResultData: results//,
-        });
-      }
+      this.setState({
+        searchResultData: results
+      });
     },
     addCurrentVideoToDataJson: function() {
       // At the end of a video a list of other videos is displayed. If a user
-      // clicks on one of these videos let's allow them to add that video if 
+      // clicks on one of these videos let's allow them to add that video if
       // they like it to their data.json file.
       //
       // We'll add it to a group called 'unlisted' for the time being
       //
-      // The format of the currentVideoUrl is:  
+      // The format of the currentVideoUrl is:
       //  https://www.youtube.com/watch?v=-zkrQMjlD3A
       //
       // There is an edge case here that I think we'll just have to swallow.
       // The way I expect the data.json to be is this. You go to YouTube find
       // the vidoes you like, copy the title and the embed URL and add it to
       // the data.json. When we get here the title is coming directly from
-      // YouTube which seems to be slightly different on occasion that the 
-      // title copied directly from the YouTube webpage. This can cause you to 
+      // YouTube which seems to be slightly different on occasion that the
+      // title copied directly from the YouTube webpage. This can cause you to
       // be able to add the video again when you already have it.
       //
       // This format is directly from the YouTube player in the webview
@@ -370,7 +364,7 @@ var TobyReact = (function() {
             });
           }
         }
-      } 
+      }
     },
     handleKeyDown: function(e) {
       switch(e.keyCode) {
@@ -394,9 +388,9 @@ var TobyReact = (function() {
           <div id="searchList" style={this.state.searchListStyle}>
             <input type="text" id="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
             <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} />
-          </div> 
+          </div>
           <div>
-            <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview> 
+            <webview id="webview" preload="./src/ping.js" src={this.state.webviewSrc} style={this.state.webviewStyle}></webview>
           </div>
         </div>
       );
