@@ -1,10 +1,10 @@
 Toby
 ====
 
-A desktop YouTube video player written for Atom-Shell. Toby takes the path of
-least resistance. It provides a way to specify videos and a way to look them up
-and play them. Nothing more, nothing less. Getter done! Play the videos you
-really like and love life!
+Toby is a desktop YouTube video player. Toby takes the path of least resistance.
+It provides a way to specify videos and a way to look them up and play them.
+Nothing more, nothing less. Getter done! Play the videos you really like and
+love life!
 
 ##Screenshots
 
@@ -39,23 +39,31 @@ Recently played list:
 ##Dependencies
 
 If you want to run the latest code from master feel free. Toby requires
-Atom-Shell to run.
+Electron to run.
 
-Atom-Shell: https://github.com/atom/atom-shell
+How to run master in Electron:
 
-NOTE: I'll write instructions on how to make Toby run in Atom-Shell soon. If
-you just want to try Toby out then download a release (see below).
-Unfortunately I only have Windows binaries at the moment.
+- Download Electron from https://github.com/atom/electron
+- Unzip Electron
+- Navigate to the resources folder
+- Create a folder calls app
+- Clone the source code for Toby and dump it directly in the app folder
+- Run Electron.Experiment
+- Enjoy life and have fun listening to awesome music on YouTube!
 
 ##Release(s)
 
-0.8.0 - https://github.com/frankhale/toby/releases/tag/v0.8.0
+New release is coming based on Electron!
+
+Until then you can try Toby on Windows via the 0.8 release located here which is
+using an old version of Atom-Shell:
+
+https://github.com/frankhale/toby/releases/tag/v0.8.0
 
 I've made a Windows binary available which packages Toby and Atom-Shell
 together and will make it super simple to get started.
 
-NOTE: I'd gladly accept Linux and/or Mac binaries, please let me know if you
-can assist!
+NOTE: Mac & Linux binaries will come in the future
 
 ##Usage
 
