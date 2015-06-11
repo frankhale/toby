@@ -92,8 +92,8 @@ that contain a description and a URL.
 Key combos:
 
 F1 - Switch between video search and video playback  
-F3 - Restart app
-F5 - Add the current playing video to data.json (see Updating data.json)
+F3 - Restart app  
+F5 - Add the current playing video to data.json (see Updating data.json)  
 F12 - Open Developer tools
 
 ##Updating data.json
