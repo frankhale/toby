@@ -2,12 +2,9 @@
 // Toby - A tiny personal YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 6 June 2015
+// 11 June 2015
 //
-
-function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
+// License: GNU GPL v2
 
 var TobyReact = (function() {
   'use strict';
@@ -17,7 +14,8 @@ var TobyReact = (function() {
   var fs = require('fs'),
       path = require('path'),
       remote = require('remote'),
-      shell = require('shell');
+      shell = require('shell'),
+      browser = remote.getCurrentWindow();
 
   var SearchResultsList = React.createClass({
     getInitialState: function() {
@@ -25,13 +23,12 @@ var TobyReact = (function() {
         recentlyPlayedStyle: {
           display: "none"
         },
-        recentlyPlayedData: [],
-        browser: remote.getCurrentWindow()
+        recentlyPlayedData: []
       };
     },
     componentDidMount: function() {
       window.onresize = function(e) {
-        this.refs.searchResults.getDOMNode().style.height = this.state.browser.getSize()[1] - 155 + "px";
+        this.refs.searchResults.getDOMNode().style.height = browser.getSize()[1] - 155 + "px";
       }.bind(this);
     },
     addToRecentlyPlayedList: function(v) {
@@ -145,17 +142,11 @@ var TobyReact = (function() {
 
   var Toby = React.createClass({
     getInitialState: function() {
-      var blank = 'blank.html';
-      var blankPage = 'file://' + __dirname + blank;
-
       return {
-        browser: remote.getCurrentWindow(),
         dataFilePath: __dirname + path.sep + ["data", "data.json"].join(path.sep),
         searchPlayListTitle: "Toby - Video Search",
         searchResultData: [],
-        blankHtmlFileName: blank,
-        blankHtml: blankPage,
-        webviewSrc: blankPage,
+        webviewSrc: "",
         searchListStyle: {
           display: "block"
         },
@@ -167,20 +158,32 @@ var TobyReact = (function() {
     componentDidMount: function() {
       window.onkeydown = this.handleKeyDown;
 
-      this.loadDataFile(function(data) {
+      var massageData = function(data) {
+        var rawvideos = _.flatten(_.pluck(data, "videos"));
+        var videos =  [];
+
+        _.forEach(rawvideos, function(v){
+          videos.push({
+            "description": v.description,
+            "ytid": v.ytid,
+            "url": "http://youtube.com/embed/" + v.ytid
+          });
+        });
+
         this.setState({
           videoData: data,
-          videos: _.flatten(_.pluck(data, "videos"))
+          videos: videos
         });
+      }.bind(this);
+
+      this.loadDataFile(function(data) {
+        massageData(data);
       }.bind(this));
 
       fs.watchFile(this.state.dataFilePath, function(curr, prev) {
         this.loadDataFile(function(data) {
-          this.setState({
-            videoData: data,
-            videos: _.flatten(_.pluck(data, "videos"))
-          });
-        }.bind(this));
+          massageData(data);
+        });
       }.bind(this));
 
       var webview = this.refs.webview.getDOMNode();
@@ -191,10 +194,10 @@ var TobyReact = (function() {
       });
       webview.addEventListener("ipc-message", function(e) {
         if (e.channel !== "" && this.state.currentVideoTitle !== e.channel) {
-          this.state.browser.setTitle(e.channel.title);
+          browser.setTitle(e.channel.title);
           this.setState({
             currentVideoTitle: e.channel.title,
-            currentVideoUrl: e.channel.url
+            currentVideoId: e.channel.ytid
           });
         }
       }.bind(this));
@@ -218,9 +221,7 @@ var TobyReact = (function() {
       var webview = this.refs.webview.getDOMNode();
       var searchBox = this.refs.searchBox.getDOMNode();
 
-      if (endsWith(webview.src, this.state.blankHtmlFileName)) {
-        return;
-      }
+      if (webview.src === "") return;
 
       if (webview.style.visibility === "hidden") {
         if (searchBox.value.length > 0) {
@@ -243,14 +244,14 @@ var TobyReact = (function() {
             if (description === undefined) {
               if (this.state.currentVideoTitle !== undefined &&
                 this.state.currentVideoTitle !== "") {
-                this.state.browser.setTitle(this.state.currentVideoTitle);
+                browser.setTitle(this.state.currentVideoTitle);
               }
             }
             clearInterval(showWebview);
           }
         }.bind(this));
       } else {
-        this.state.browser.setTitle(this.state.searchPlayListTitle);
+        browser.setTitle(this.state.searchPlayListTitle);
         this.setState({
           searchResultData: [],
           searchListStyle: {
@@ -265,6 +266,8 @@ var TobyReact = (function() {
     playVideo: function(description, url) {
       var webview = this.refs.webview.getDOMNode();
 
+      //webview.openDevTools();
+
       if (webview.src !== null && webview.isLoading()) {
         webview.stop();
       }
@@ -274,20 +277,17 @@ var TobyReact = (function() {
         searchResultData: []
       });
 
-      this.state.browser.setTitle(description);
+      browser.setTitle(description);
 
-      if (url !== undefined) {
-        if (!(url.startsWith("http"))) {
-          url = "http://" + url;
-        }
-
-        webview.src = url;
+      if (url !== undefined && url !== "") {
+          webview.src = url;
       }
 
       this.toggleSearchPlayListAndWebview(description);
     },
     handleSearch: function(e) {
       var results = [];
+      var searchTermRaw = e.target.value;
       var searchTerm = e.target.value.toLowerCase();
 
       if (searchTerm.length === 0) {
@@ -298,7 +298,6 @@ var TobyReact = (function() {
       }
 
       if (searchTerm === "%all%") {
-        console.log(this.state.videos);
         results = this.state.videos.slice(0);
       } else if (searchTerm.charAt(0) === "%" && searchTerm.slice(-1) === "%") {
         var videoGroup = _.find(this.state.videoData, function(g) {
@@ -314,6 +313,15 @@ var TobyReact = (function() {
         });
       }
 
+      // We're pushing it here and trusting that a user will enter a valid
+      // YouTube video ID.
+      if(results.length === 0) {
+        results.push({
+          "description": "Send ID to YouTube",
+          "url": "https://www.youtube.com/embed/" + searchTermRaw
+        });
+      }
+
       this.setState({
         searchResultData: results
       });
@@ -323,66 +331,48 @@ var TobyReact = (function() {
       // clicks on one of these videos let's allow them to add that video if
       // they like it to their data.json file.
       //
-      // We'll add it to a group called 'unlisted' for the time being
-      //
-      // The format of the currentVideoUrl is:
-      //  https://www.youtube.com/watch?v=-zkrQMjlD3A
-      //
-      // There is an edge case here that I think we'll just have to swallow.
-      // The way I expect the data.json to be is this. You go to YouTube find
-      // the vidoes you like, copy the title and the embed URL and add it to
-      // the data.json. When we get here the title is coming directly from
-      // YouTube which seems to be slightly different on occasion that the
-      // title copied directly from the YouTube webpage. This can cause you to
-      // be able to add the video again when you already have it.
-      //
-      // This format is directly from the YouTube player in the webview
-      // and not the Url that is in the data.json.
-      var currentVideoUrl = this.state.currentVideoUrl;
+      // We'll add it to a group called 'misc' for the time being
+      var videoData = this.state.videoData.slice(0);
 
-      if (currentVideoUrl !== undefined) {
-        var videoId = currentVideoUrl.split("?v=")[1];
-        if (videoId !== undefined) {
-          var videoData = this.state.videoData.slice(0);
+      //TODO: Need to add capability to avoid duplicate entries
 
-          var newEntry = {
-            "description": this.state.currentVideoTitle,
-            "url": "http://www.youtube.com/embed/" + videoId
-          }
+      if(this.state.webviewSrc === '' &&
+         this.state.currentVideoId === '') return;
 
-          var miscGroup = _.find(videoData, function(d) {
-            return d.title === "misc";
+      var newEntry = {
+        "description": this.state.currentVideoTitle,
+        "ytid": this.state.currentVideoId
+      }
+
+      var miscGroup = _.find(videoData, function(d) {
+        return d.title === "misc";
+      });
+
+      var found = _.find(this.state.videos, function(v) {
+        return v.description === newEntry.description;
+      });
+
+      if (found === undefined) {
+        if (miscGroup !== undefined) {
+          miscGroup.videos.push(newEntry);
+
+          var videoData = _.filter(videoData, function(d) {
+            return d.title !== "misc";
           });
 
-          var found = _.find(this.state.videos, function(v) {
-            return v.description === newEntry.description;
-          });
+          videoData.push(miscGroup);
+        } else {
+          var miscGroup = {
+            title: "misc",
+            videos: [newEntry]
+          };
 
-          if (found === undefined) {
-            if (miscGroup !== undefined) {
-              miscGroup.videos.push(newEntry);
-
-              var videoData = _.filter(videoData, function(d) {
-                return d.title !== "misc";
-              });
-
-              videoData.push(miscGroup);
-            } else {
-              var miscGroup = {
-                title: "misc",
-                videos: [newEntry]
-              };
-
-              videoData.push(miscGroup);
-            }
-
-            // I'm not going to set the state here because I have a FS watcher
-            // that will do it. Let's just write to the data.json directly.
-            fs.writeFile('./resources/app/data/data.json', JSON.stringify(videoData, undefined, 2), function(err) {
-              if (err) throw err;
-            });
-          }
+          videoData.push(miscGroup);
         }
+
+        fs.writeFile(this.state.dataFilePath, JSON.stringify(videoData, undefined, 2), function(err) {
+          if (err) throw err;
+        });
       }
     },
     handleKeyDown: function(e) {
@@ -391,13 +381,13 @@ var TobyReact = (function() {
           this.toggleSearchPlayListAndWebview();
           break;
         case 114: // f3 - restart app
-          this.state.browser.reload();
+          browser.reload();
           break;
         case 116: // f5 - add current video to data.json
           this.addCurrentVideoToDataJson();
           break;
         case 123: // f12 - toggle dev tools
-          this.state.browser.openDevTools();
+          browser.openDevTools();
           break;
       }
     },
@@ -405,7 +395,7 @@ var TobyReact = (function() {
       return (
         <div>
           <div id="searchList" ref="searchList" style={this.state.searchListStyle}>
-            <input type="text" id="searchBox" ref="searchBox" placeholder="search for videos..." onChange={this.handleSearch}></input>
+            <input type="text" id="searchBox" ref="searchBox" placeholder="search videos or enter youtube id..." onChange={this.handleSearch}></input>
             <SearchResultsList data={this.state.searchResultData} playVideo={this.playVideo} />
           </div>
           <div>
@@ -422,6 +412,16 @@ var TobyReact = (function() {
       String.prototype.startsWith = function(prefix) {
         return this.slice(0, prefix.length) === prefix;
       };
+    }
+
+    function endsWith(str, suffix) {
+      return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+
+    if (typeof String.prototype.endsWith !== 'function') {
+      String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, str.length - suffix.length) !== -1;
+      }
     }
 
     React.render(<Toby />, document.getElementById('ui'));

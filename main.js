@@ -20,7 +20,9 @@ app.on('ready', function() {
     },
     resizable: true
   });
-  
+
+  //mainWindow.openDevTools();
+
   mainWindow.loadUrl('file://' + __dirname + '/toby.html');
   mainWindow.focus();
   mainWindow.on('closed', function() {

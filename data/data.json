@@ -4,31 +4,31 @@
     "videos": [
       {
         "description": "Trance mix 2014 - Armin Van Buuren,W&W,Paul Oakenfold....",
-        "url": "http://www.youtube.com/embed/p68MTskBUnM"
+        "ytid": "p68MTskBUnM"
       },
       {
         "description": "Progressive Trance Top 10 (February 2014) / New Trance Mix / Paradise",
-        "url": "http://www.youtube.com/embed/g2L0OWterVg"
+        "ytid": "g2L0OWterVg"
       },
       {
         "description": "Goodbye 2013 Mix (Progressive Trance House Trouse Uplifting Melodic Vocal)",
-        "url": "http://www.youtube.com/embed/RLVs7Csdmf8"
+        "ytid": "RLVs7Csdmf8"
       },
       {
         "description": "Best of Progressive & Melodic Trance 2013 Yearmix [5 Hour Set] [HD] - Shane Collins - APJ #32",
-        "url": "http://www.youtube.com/embed/seBS2MEtALE"
+        "ytid": "seBS2MEtALE"
       },
       {
         "description": "Arctic Moon Megamix - best tracks & remixes",
-        "url": "http://www.youtube.com/embed/aX00On-X7K8"
+        "ytid": "aX00On-X7K8"
       },
       {
         "description": "Seven Lions Mix (Hour Long Melodic Dubstep / Trancestep Mix)",
-        "url": "http://www.youtube.com/embed/7KfKft2lcog"
+        "ytid": "7KfKft2lcog"
       },
       {
         "description": "Morgan Page, Sultan + Ned Shepard, & BT - In the Air feat. Angela McCluskey",
-        "url": "http://www.youtube.com/embed/WyK_82zrfTY"
+        "ytid": "WyK_82zrfTY"
       }
     ]
   },
@@ -37,75 +37,75 @@
     "videos": [
       {
         "description": "Dash Berlin - Underneath The Sky (Sunsound Chillout Remix)",
-        "url": "http://www.youtube.com/embed/UEqMD-5urik"
+        "ytid": "UEqMD-5urik"
       },
       {
         "description": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
-        "url": "http://www.youtube.com/embed/5UwnhliP5N8"
+        "ytid": "5UwnhliP5N8"
       },
       {
         "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
-        "url": "http://www.youtube.com/embed/8X3XhQS-ZtA"
+        "ytid": "8X3XhQS-ZtA"
       },
       {
         "description": "Yuri Kane - Right back",
-        "url": "http://www.youtube.com/embed/G9AG0wkLIp0"
+        "ytid": "G9AG0wkLIp0"
       },
       {
         "description": "Dash Berlin feat. Jonathan Mendelsohn - Better Half Of Me (Acoustic)",
-        "url": "http://www.youtube.com/embed/De3Cjo23dOs"
+        "ytid": "De3Cjo23dOs"
       },
       {
         "description": "Kyau & Albert - Another Time [Official Video] + Lyrics",
-        "url": "http://www.youtube.com/embed/zlBo93AqZmg"
+        "ytid": "zlBo93AqZmg"
       },
       {
         "description": "Photographer vs Armin van Buuren Airport Shivers Accapella AvB Mash Up",
-        "url": "http://www.youtube.com/embed/_gcyOUOPQiw"
+        "ytid": "_gcyOUOPQiw"
       },
       {
         "description": "R3hab & NERVO & Ummet Ozcan - Revolution (Vocal Mix)",
-        "url": "http://www.youtube.com/embed/92P57Uk1VbM"
+        "ytid": "92P57Uk1VbM"
       },
       {
         "description": "Gareth Emery feat. Roxanne Emery - Soldier",
-        "url": "http://www.youtube.com/embed/7b1WeyQ5cHw"
+        "ytid": "7b1WeyQ5cHw"
       },
       {
         "description": "Paul van Dyk feat. Adam Young - Eternity (Official Music Video)",
-        "url": "http://www.youtube.com/embed/FzT9YppKeeQ"
+        "ytid": "FzT9YppKeeQ"
       },
       {
         "description": "BT feat Jes - Every other way (armin mix)",
-        "url": "http://www.youtube.com/embed/cTXdgzb4wkU"
+        "ytid": "cTXdgzb4wkU"
       },
       {
         "description": "New World - Ushio (Emotional Intro Mix) [As Played on Uplifting Only 090]",
-        "url": "http://www.youtube.com/embed/gfAzQDCrUnQ"
+        "ytid": "gfAzQDCrUnQ"
       },
       {
         "description": "Gareth Emery - Long Way Home [Official Video]",
-        "url": "http://www.youtube.com/embed/0bj4i-sW44s"
+        "ytid": "0bj4i-sW44s"
       },
       {
         "description": "Tony Grand - Join Me (Original Mix) [D.MAX Deep] Promo Video Edit",
-        "url": "http://www.youtube.com/embed/nwW0-DvXbTQ"
+        "ytid": "nwW0-DvXbTQ"
       },
       {
         "description": "Dreamy - Fusion (New World Remix) [Diverted Music Promo]",
-        "url": "http://www.youtube.com/embed/D_8y-XX9wM8"
+        "ytid": "D_8y-XX9wM8"
       },
       {
         "description": "Sunbrothers - Everything (Original Mix)",
-        "url": "http://www.youtube.com/embed/wrMBe5cyNKA"
+        "ytid": "wrMBe5cyNKA"
       },
       {
         "description": "Somna & Jennifer Rene - Because You're Here (Sunset Remixi)",
-        "url": "http://www.youtube.com/embed/8hERMvja-fA"
+        "ytid": "8hERMvja-fA"
       },
       {
         "description": "Dash Berlin & Disfunktion feat. Chris Arnott - People Of The Night",
-        "url": "https://www.youtube.com/embed/b4ZuXTiWX44"
+        "ytid": "https://www.youtube.com/embed/b4ZuXTiWX44"
       }
     ]
   },
@@ -114,11 +114,11 @@
     "videos": [
       {
         "description": "This Was The Summer Of Hardstyle 2013",
-        "url": "http://www.youtube.com/embed/kQko_qnKoW4"
+        "ytid": "kQko_qnKoW4"
       },
       {
         "description": "Afrojack - Ten Feet Tall (Lyric Video) ft. Wrabel",
-        "url": "http://www.youtube.com/embed/bltr_Dsk5EY"
+        "ytid": "bltr_Dsk5EY"
       }
     ]
   },
@@ -127,83 +127,83 @@
     "videos": [
       {
         "description": "NEEDTOBREATHE - 'Multiplied' (Official Video)",
-        "url": "http://www.youtube.com/embed/fGF-MGGLpB0"
+        "ytid": "fGF-MGGLpB0"
       },
       {
         "description": "NEEDTOBREATHE - 'Multiplied' (Live Acoustic Video)",
-        "url": "http://www.youtube.com/embed/vWT4gxAFQBs"
+        "ytid": "vWT4gxAFQBs"
       },
       {
         "description": "Sanctus Real - Lay It Down (Lyric Video)",
-        "url": "http://www.youtube.com/embed/q3f9GrbOXSA"
+        "ytid": "q3f9GrbOXSA"
       },
       {
         "description": "Chris Tomlin - Whom Shall I Fear [God of Angel Armies] [Lyrics]",
-        "url": "http://www.youtube.com/embed/qOkImV2cJDg"
+        "ytid": "qOkImV2cJDg"
       },
       {
         "description": "Chris Tomlin - I Lift My Hands",
-        "url": "http://www.youtube.com/embed/c24En0r-lXg"
+        "ytid": "c24En0r-lXg"
       },
       {
         "description": "Chris Tomlin - How Great is Our God",
-        "url": "http://www.youtube.com/embed/-20GqU9Q4UE"
+        "ytid": "-20GqU9Q4UE"
       },
       {
         "description": "Chris Tomlin - I Will Rise (Live)",
-        "url": "http://www.youtube.com/embed/CKRF8UihM5s"
+        "ytid": "CKRF8UihM5s"
       },
       {
         "description": "Newsboys - Live With Abandon",
-        "url": "http://www.youtube.com/embed/-SJR2vdJFXw"
+        "ytid": "-SJR2vdJFXw"
       },
       {
         "description": "Audrey Assad - Breaking You (Live)",
-        "url": "http://www.youtube.com/embed/RYuGuxr7MB0"
+        "ytid": "RYuGuxr7MB0"
       },
       {
         "description": "Audrey Assad - Death, Be Not Proud",
-        "url": "http://www.youtube.com/embed/sikF_phQHZw"
+        "ytid": "sikF_phQHZw"
       },
       {
         "description": "Audrey Assad - I Shall Not Want",
-        "url": "http://www.youtube.com/embed/e5xEYgGr6ms"
+        "ytid": "e5xEYgGr6ms"
       },
       {
         "description": "Dave Barnes - God Gave Me You",
-        "url": "http://www.youtube.com/embed/-zkrQMjlD3A"
+        "ytid": "-zkrQMjlD3A"
       },
       {
         "description": "Danny Gokey - Hope In Front of Me",
-        "url": "http://www.youtube.com/embed/O5GFiDdGGGM"
+        "ytid": "O5GFiDdGGGM"
       },
       {
         "description": "Among The Thirsty - Completely",
-        "url": "http://www.youtube.com/embed/sFC-d9PTusw"
+        "ytid": "sFC-d9PTusw"
       },
       {
         "description": "7eventh Time Down 'Just Say Jesus'",
-        "url": "http://www.youtube.com/embed/T8CLgiYZyZE"
+        "ytid": "T8CLgiYZyZE"
       },
       {
         "description": "Switchfoot -- Love Alone Is Worth The Fight [Official Video]",
-        "url": "http://www.youtube.com/embed/rk9Pj3ID0UE"
+        "ytid": "rk9Pj3ID0UE"
       },
       {
         "description": "Kari Jobe - I Am Not Alone (Lyric Video/Live)",
-        "url": "http://www.youtube.com/embed/I2oel0_Xa54"
+        "ytid": "I2oel0_Xa54"
       },
       {
         "description": "Crowder - Come As You Are (Music Video)",
-        "url": "http://www.youtube.com/embed/r2zhf2mqEMI"
+        "ytid": "r2zhf2mqEMI"
       },
       {
         "description": "Francesca Battistelli - He Knows My Name (Official Audio)",
-        "url": "http://www.youtube.com/embed/1NHQJWdXfFE"
+        "ytid": "1NHQJWdXfFE"
       },
       {
         "description": "Matt Redman - You Never Let Go (Passion '06)",
-        "url": "http://www.youtube.com/embed/76ifTTuL4XI"
+        "ytid": "76ifTTuL4XI"
       }
     ]
   },
@@ -212,87 +212,87 @@
     "videos": [
       {
         "description": "Mantra Music: Ong Namo by Snatam Kaur",
-        "url": "http://www.youtube.com/embed/c1XCS0g6J4A"
+        "ytid": "c1XCS0g6J4A"
       },
       {
         "description": "Boyce Avenue - Speed Limit (Acoustic)",
-        "url": "http://www.youtube.com/embed/i9PxU3ZftmI"
+        "ytid": "i9PxU3ZftmI"
       },
       {
         "description": "Boyce Avenue - On My Way",
-        "url": "http://www.youtube.com/embed/Ie9VxRF7ucM"
+        "ytid": "Ie9VxRF7ucM"
       },
       {
         "description": "One Republic - Apologize",
-        "url": "http://www.youtube.com/embed/fm0T7_SGee4"
+        "ytid": "fm0T7_SGee4"
       },
       {
         "description": "Rigby - Earth Meets Water (Official Video)",
-        "url": "http://www.youtube.com/embed/8d3fWzPzP4A"
+        "ytid": "8d3fWzPzP4A"
       },
       {
         "description": "Rigby - Earth Meets Water (Wildstylez Remix)",
-        "url": "http://www.youtube.com/embed/TyKvwXUy1aU"
+        "ytid": "TyKvwXUy1aU"
       },
       {
         "description": "Varun Rajput - State of Grace (Liquid Tension Experiment Cover)",
-        "url": "http://www.youtube.com/embed/2bVNP9vd4FU"
+        "ytid": "2bVNP9vd4FU"
       },
       {
         "description": "Sub Focus - Tidal Wave ft. Alpines",
-        "url": "http://www.youtube.com/embed/B8vlk1UR99k"
+        "ytid": "B8vlk1UR99k"
       },
       {
         "description": "Knife Party - Fire Hive (Krewella Remix) [Dubstep]",
-        "url": "http://www.youtube.com/embed/iuTOmyGXW6o"
+        "ytid": "iuTOmyGXW6o"
       },
       {
         "description": "Eric Stanley ft. Kyle Landry - Inception 'Time' (Hans Zimmer Cover)",
-        "url": "http://www.youtube.com/embed/NUtvWyJ0F_o"
+        "ytid": "NUtvWyJ0F_o"
       },
       {
         "description": "Yiruma, (이루마) - River Flows in You",
-        "url": "http://www.youtube.com/embed/7maJOI3QMu0"
+        "ytid": "7maJOI3QMu0"
       },
       {
         "description": "Howard Jones - No One Is To Blame",
-        "url": "http://www.youtube.com/embed/ENB2eX-U3a8"
+        "ytid": "ENB2eX-U3a8"
       },
       {
         "description": "Birdy - Wings (acoustic version)",
-        "url": "http://www.youtube.com/embed/7tz1eYadQVY"
+        "ytid": "7tz1eYadQVY"
       },
       {
         "description": "The Fighter Remix - Kait Weston (feat. Saint Maurice and Eppic)",
-        "url": "http://www.youtube.com/embed/ijRVrGSaTms"
+        "ytid": "ijRVrGSaTms"
       },
       {
         "description": "Robyn - Call Your Girlfriend - cover by Kait Weston Ft Sean Scanlon",
-        "url": "http://www.youtube.com/embed/VAlgkvKTOZ0"
+        "ytid": "VAlgkvKTOZ0"
       },
       {
         "description": "B.o.B - Paper Route [Official Video]",
-        "url": "http://www.youtube.com/embed/t99LQ3zo8DU"
+        "ytid": "t99LQ3zo8DU"
       },
       {
         "description": "You Raise Me Up Violin Cover - Josh Groban - Daniel Jang",
-        "url": "http://www.youtube.com/embed/Z-zvV5Bsshc"
+        "ytid": "Z-zvV5Bsshc"
       },
       {
         "description": "Thirty Seconds To Mars - Kings and Queens",
-        "url": "http://www.youtube.com/embed/onMdBNeGiK4"
+        "ytid": "onMdBNeGiK4"
       },
       {
         "description": "Ludovico Einaudi - Nuvole Bianche [HD]",
-        "url": "http://www.youtube.com/embed/kcihcYEOeic"
+        "ytid": "kcihcYEOeic"
       },
       {
         "description": "PJ Simas - Show Goes On Remix",
-        "url": "http://www.youtube.com/embed/vAhjWd4_LZ0"
+        "ytid": "vAhjWd4_LZ0"
       },
       {
         "description": "The Weeknd - Earned It (Fifty Shades Of Grey) (Lyric Video)",
-        "url": "https://www.youtube.com/embed/xe_iCkFsQKE"
+        "ytid": "https://www.youtube.com/embed/xe_iCkFsQKE"
       }
     ]
   },
@@ -301,91 +301,107 @@
     "videos": [
       {
         "description": "Luke Bond feat. Roxanne Emery - On Fire [Official Music Video]",
-        "url": "http://www.youtube.com/embed/pNM7bjb9JYw"
+        "ytid": "pNM7bjb9JYw"
       },
       {
         "description": "Gareth Emery feat. Bo Bruce - U (Official Video)",
-        "url": "http://www.youtube.com/embed/jF7qGaKKD4M"
+        "ytid": "jF7qGaKKD4M"
       },
       {
         "description": "Craig Connelly & Christina Novelli - Black Hole [Official Music Video]",
-        "url": "http://www.youtube.com/embed/WPVv-Jjb0wQ"
+        "ytid": "WPVv-Jjb0wQ"
       },
       {
         "description": "Armin van Buuren feat. Trevor Guthrie - This Is What It Feels Like (Official Music Video)",
-        "url": "http://www.youtube.com/embed/BR_DFMUzX4E"
+        "ytid": "BR_DFMUzX4E"
       },
       {
         "description": "Armin van Buuren presents Gaia - J'ai Envie De Toi (Official Music Video)",
-        "url": "http://www.youtube.com/embed/0FgKQdc96k4"
+        "ytid": "0FgKQdc96k4"
       },
       {
         "description": "Armin van Buuren feat. Fiora - Waiting For The Night (Official International Music Video)",
-        "url": "http://www.youtube.com/embed/dU26cGlmkRg"
+        "ytid": "dU26cGlmkRg"
       },
       {
         "description": "Armin van Buuren vs Sophie Ellis-Bextor - Not Giving Up On Love (Dash Berlin 4AM Mix) Official Video",
-        "url": "http://www.youtube.com/embed/MQKt1RoUB9c"
+        "ytid": "MQKt1RoUB9c"
       },
       {
         "description": "30 Seconds To Mars - Closer To The Edge",
-        "url": "http://www.youtube.com/embed/mLqHDhF-O28"
+        "ytid": "mLqHDhF-O28"
       },
       {
         "description": "Thirty Seconds To Mars - This Is War",
-        "url": "http://www.youtube.com/embed/Zcps2fJKuAI"
+        "ytid": "Zcps2fJKuAI"
       },
       {
         "description": "Chris Tomlin - Jesus Messiah (Lyrics And Chords)",
-        "url": "http://www.youtube.com/embed/tdxSC1tHJn0"
+        "ytid": "tdxSC1tHJn0"
       },
       {
         "description": "Chris Tomlin - How Great Is Our God (Lyrics And Chords)",
-        "url": "http://www.youtube.com/embed/KBD18rsVJHk"
+        "ytid": "KBD18rsVJHk"
       },
       {
         "description": "Dash Berlin ft. Sarah Howells - Go It Alone (Official Music Video)",
-        "url": "http://www.youtube.com/embed/IMepLfEJu6w"
+        "ytid": "IMepLfEJu6w"
       },
       {
         "description": "Cosmic Gate & Emma Hewitt - Be Your Sound (Official Music Video)",
-        "url": "http://www.youtube.com/embed/FxMtO7HvXzA"
+        "ytid": "FxMtO7HvXzA"
       },
       {
         "description": "Dash Berlin - The Official Video Hit Mix",
-        "url": "http://www.youtube.com/embed/U6l9NdAJwRk"
+        "ytid": "U6l9NdAJwRk"
       },
       {
         "description": "Dash Berlin feat. Jonathan Mendelsohn - Better Half Of Me (Acoustic) [Official Music Video]",
-        "url": "http://www.youtube.com/embed/De3Cjo23dOs"
+        "ytid": "De3Cjo23dOs"
       },
       {
         "description": "Gareth Emery feat. Christina Novelli - Dynamite",
-        "url": "http://www.youtube.com/embed/N2rj3os3IYg"
+        "ytid": "N2rj3os3IYg"
       },
       {
         "description": "Giuseppe Ottaviani feat. Amba Shepherd - Lost For Words (Official Music Video)",
-        "url": "http://www.youtube.com/embed/94CwUWWEgxw"
+        "ytid": "94CwUWWEgxw"
       },
       {
         "description": "Dash Berlin ft. Kate Walsh - When You Were Around (Official Music Video)",
-        "url": "http://www.youtube.com/embed/LlGtQyOv2WA"
+        "ytid": "LlGtQyOv2WA"
       },
       {
         "description": "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)",
-        "url": "http://www.youtube.com/embed/tS1NCigEB_I"
+        "ytid": "tS1NCigEB_I"
       },
       {
         "description": "Dash Berlin - Never Cry Again (Jorn van Deynhoven Radio Mix) (Official Music Video) [High Quality]",
-        "url": "http://www.youtube.com/embed/5gLIVqA9dFg"
+        "ytid": "5gLIVqA9dFg"
       },
       {
         "description": "Gareth Emery feat. Christina Novelli - Concrete Angel [Official Music Video]",
-        "url": "http://www.youtube.com/embed/0dFz10R529g"
+        "ytid": "0dFz10R529g"
       },
       {
         "description": "Roman Messer feat. Christina Novelli - Frozen (Official Music Video)",
-        "url": "http://www.youtube.com/embed/LNJZSyl7RtE"
+        "ytid": "LNJZSyl7RtE"
+      },
+      {
+        "description": "Crowder - I Am (Lyric Video)",
+        "ytid": "cH_LLGiE0f0"
+      },
+      {
+        "description": "Crowder - \"Come As You Are\" | Live at the Grand Ole Opry | Opry",
+        "ytid": "OuX9oTGBCw8"
+      },
+      {
+        "description": "Myon & Shane54 feat Aruna Helpless",
+        "ytid": "mgmPydUzhgg"
+      },
+      {
+        "description": "illitheas - Epica (Intro Mix) [Abora Skies] Promo [Uplifting Only #119] Video Edit",
+        "ytid": "GxfwZMdSt4w"
       }
     ]
   }

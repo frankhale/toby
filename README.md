@@ -111,18 +111,11 @@ Currently you can update data.json with new videos in two ways.
 NOTE: In the future there will be a UI added to all you to add new videos
       without needing to edit data.json manually.
 
-##NOTE
-
-As of Atom-Shell 0.19.2 the Http Referrer patch that I wrote has been
-incorporated and videos that are blocked due the referrer not being set will
-now work. I won't mention any names of publishers that do this but there is a
-major one and it now works!
-
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-3 June 2015
+11 June 2015
 
 ##License
 
-GNU GPL v3
+GNU GPL v2 - see LICENSE.txt
