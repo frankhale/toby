@@ -78,13 +78,13 @@ that contain a description and a URL.
   "title": "Trance",
   "videos": [{
     "description": "Dash Berlin - Underneath The Sky (Sunsound Chillout Remix)",
-    "url": "http://www.youtube.com/embed/UEqMD-5urik"
+    "url": "UEqMD-5urik"
   }, {
     "description": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
-    "url": "http://www.youtube.com/embed/5UwnhliP5N8"
+    "url": "5UwnhliP5N8"
   }, {
     "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
-    "url": "http://www.youtube.com/embed/8X3XhQS-ZtA"
+    "url": "8X3XhQS-ZtA"
   }]
 }]
 ```
@@ -107,9 +107,6 @@ Currently you can update data.json with new videos in two ways.
    the next time you want to watch it. Files added in this way will be added to
    a group called 'misc'. If you like you can edit your data.json and move them
    to a different group.
-
-NOTE: In the future there will be a UI added to all you to add new videos
-      without needing to edit data.json manually.
 
 ##Author(s)
 
