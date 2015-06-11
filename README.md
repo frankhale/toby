@@ -46,9 +46,9 @@ How to run master in Electron:
 - Download Electron from https://github.com/atom/electron
 - Unzip Electron
 - Navigate to the resources folder
-- Create a folder calls app
+- Create a folder called app
 - Clone the source code for Toby and dump it directly in the app folder
-- Run Electron.Experiment
+- Run Electron
 - Enjoy life and have fun listening to awesome music on YouTube!
 
 ##Release(s)
