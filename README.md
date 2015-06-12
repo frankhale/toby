@@ -32,6 +32,10 @@ specific group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
 
+Play any video via it's YouTube video ID:
+
+<img src="screenshots/toby-play-video-with-id.png" alt="Video Selection - Play Any Video With Video ID"/>
+
 Recently played list:
 
 <img src="screenshots/toby-recently-played.png" alt="Recently Played List"/>
@@ -53,15 +57,11 @@ How to run master in Electron:
 
 ##Release(s)
 
-New release is coming based on Electron!
+New release is coming based on Electron within the next couple days!
 
-Until then you can try Toby on Windows via the 0.8 release located here which is
-using an old version of Atom-Shell:
+Until then you can try Toby on Windows via the 0.8 release:
 
 https://github.com/frankhale/toby/releases/tag/v0.8.0
-
-I've made a Windows binary available which packages Toby and Atom-Shell
-together and will make it super simple to get started.
 
 NOTE: Mac & Linux binaries will come in the future
 
@@ -86,13 +86,13 @@ that contain a description and a URL.
   "title": "Trance",
   "videos": [{
     "description": "Dash Berlin - Underneath The Sky (Sunsound Chillout Remix)",
-    "url": "UEqMD-5urik"
+    "ytid": "UEqMD-5urik"
   }, {
     "description": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
-    "url": "5UwnhliP5N8"
+    "ytid": "5UwnhliP5N8"
   }, {
     "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
-    "url": "8X3XhQS-ZtA"
+    "ytid": "8X3XhQS-ZtA"
   }]
 }]
 ```
