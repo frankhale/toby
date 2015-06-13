@@ -119,7 +119,7 @@ Currently you can update data.json with new videos in two ways.
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-11 June 2015
+13 June 2015
 
 ##License
 

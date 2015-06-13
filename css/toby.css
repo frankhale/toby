@@ -17,21 +17,25 @@ body {
   margin: 0 auto;
 }
 #searchBox {
-  margin-top: 25px;
+  position: absolute;
+  top: 25px;
+  left: 7px;
+  right: 7px;
   font-size: 22pt;
-  width: 95%;
   background-color: #ccc;
   border: 2px solid #aaa;
   outline: none;
 }
 #searchResults {
-  background-color: #1b1b1b;
+  position: absolute;
+  background-color: #1c1c1c;
   display: none;
   text-align:left;
-  font-size: 14pt;
-  margin-left: 4%;
-  width: 90%;
-  position: absolute;
+  font-size: 12pt;
+  left: 10px;
+  right: 15px;
+  bottom: 25px;
+  top: 65px;
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 10px;

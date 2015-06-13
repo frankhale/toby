@@ -21,7 +21,7 @@ app.on('ready', function() {
     resizable: true
   });
 
-  //mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   mainWindow.loadUrl('file://' + __dirname + '/toby.html');
   mainWindow.focus();
