@@ -305,23 +305,25 @@ var Toby = (function() {
          return d.title === "misc";
       });
 
-      var found = _.find(this.state.videos, function(v) {
-         return v.description === newEntry.description;
+      if(miscGroup === undefined) {
+        var miscGroup = {
+          title: "misc",
+          videos: []
+        };
+
+        videoData.push(miscGroup);
+      }
+
+      var found = _.find(this.state.data.videos, function(v) {
+         return v.ytid === newEntry.ytid;
       });
 
-      if (found === undefined && miscGroup !== undefined) {
+      if (found === undefined) {
         miscGroup.videos.push(newEntry);
 
         var videoData = _.filter(videoData, function(d) {
           return d.title !== "misc";
         });
-
-        videoData.push(miscGroup);
-      } else {
-        var miscGroup = {
-          title: "misc",
-          videos: [newEntry]
-        };
 
         videoData.push(miscGroup);
       }
