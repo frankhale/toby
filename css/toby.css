@@ -56,13 +56,8 @@ body {
   color: #fff;
   min-height: 20px;
 }
-#recentlyPlayedList {
-  padding:10px;
-  overflow: auto;
-  flex-grow: 1;
-}
 #recentlyPlayed {
-  position: fixed;
+  position: absolute;
   margin-top: 10px;
   margin-left: 4%;
   border: 2px solid #777;
@@ -77,9 +72,13 @@ body {
   width: 90%;
   top: 70px;
   bottom: 10px;
-  overflow: hidden;
-  flex-direction: column;
 }
+
+#recentlyPlayedList {
+  padding:10px;
+  overflow: auto;
+}
+
 #recentlyPlayed a {
   color: #fff;
 }

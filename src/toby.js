@@ -95,9 +95,9 @@ var Toby = (function() {
 
       resizeElements();
 
-      window.onresize = function(e) {
+      window.addEventListener('resize', function(e) {
         resizeElements();
-      }.bind(this);
+      }.bind(this));
 
       fs.watchFile(dataFilePath, function(curr, prev) {
         this.setState({
@@ -377,11 +377,19 @@ var Toby = (function() {
   });
 
   var RecentlyPlayedList = React.createClass({
+    componentDidMount: function() {
+      window.addEventListener('resize', function(e) {
+        var browserSize = browser.getContentSize();
+        var recentlyPlayedList = this.refs.recentlyPlayedList.getDOMNode();
+        recentlyPlayedList.style.height = browserSize[1] - 138 + "px";
+        console.log("HELLO!");
+      }.bind(this));
+    },
     render: function() {
       return (
         <div id="recentlyPlayed" style={this.props.style}>
           <div id="recentlyPlayedHeader">Recently Played</div>
-          <div id="recentlyPlayedList">
+          <div id="recentlyPlayedList" ref="recentlyPlayedList">
             {this.props
               .data
               .sort(function(a, b) {
