@@ -382,7 +382,6 @@ var Toby = (function() {
         var browserSize = browser.getContentSize();
         var recentlyPlayedList = this.refs.recentlyPlayedList.getDOMNode();
         recentlyPlayedList.style.height = browserSize[1] - 138 + "px";
-        console.log("HELLO!");
       }.bind(this));
     },
     render: function() {
