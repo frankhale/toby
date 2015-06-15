@@ -27,7 +27,7 @@ var Toby = (function() {
     shell = require('shell'),
     browser = remote.getCurrentWindow(),
     dataFilePath = __dirname + path.sep + ["data", "data.json"].join(path.sep),
-    appTitle = "Toby - A YouTube player for the desktop";  
+    appTitle = "Toby - A YouTube player for the desktop";
 
   var loadDataFile = function(filepath) {
     try {
@@ -141,8 +141,17 @@ var Toby = (function() {
           searchResultData: [],
           searchResultsStyle: {
             display: "none"
-          },
+          }
         });
+
+        if(this.state.recentlyPlayedData.length>0) {
+          this.setState({
+            recentlyPlayedStyle: {
+              display: "block"
+            }
+          });
+        }
+
         return;
       }
 
