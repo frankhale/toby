@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 13 June 2015
+// 14 June 2015
 //
 // License: GNU GPL v2
 
@@ -27,9 +27,7 @@ var Toby = (function() {
     shell = require('shell'),
     browser = remote.getCurrentWindow(),
     dataFilePath = __dirname + path.sep + ["data", "data.json"].join(path.sep),
-    appTitle = "Toby - A YouTube player for the desktop";
-
-  browser.openDevTools();
+    appTitle = "Toby - A YouTube player for the desktop";  
 
   var loadDataFile = function(filepath) {
     try {
@@ -215,7 +213,7 @@ var Toby = (function() {
 
       this.setState({
         searchResults: [],
-        currentVideoSrc: url, //TODO: Why aren't the Current* just an object with 3 props?
+        currentVideoSrc: url, //TODO: Why aren't the Current* vars just an object with 3 props?
         currentVideoTitle: title,
         currentVideoId: ytid,
         searchListStyle: {
