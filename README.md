@@ -70,6 +70,20 @@ videos you love!
 
 ##Usage
 
+**Important Key Combos:**
+
+F1 - Switch between video search and video playback (once a video has been selected and is playing)
+F3 - Restart app (Still leaving this in here for debug purposes)  
+F5 - Add the current playing video to data.json (see Updating data.json)  
+F12 - Open Developer tools (Still leaving this in here for debug purposes)
+
+NOTE: F5 adds a video to data.json only if it doesn't already exist. At the end
+of playing a YouTube video you'll receive suggestions for related videos that you
+may want to watch. If you click these videos and you like them you can press F5
+to add the video to your play list.
+
+###How can I update the play list?
+
 The data folder has a JSON file in it which is pretty self explanatory. There
 is an array of genres which have a set of videos that go with them. Basically
 what you do is you just grab the title of the video and the embed URL from
@@ -83,13 +97,6 @@ The data.json file has the following format:
 There is just one big array of video groups, groups contain the title of the
 groups and the videos associated with it. Videos are just an array of files
 that contain a description and a URL.
-
-**Important Key Combos:**
-
-F1 - Switch between video search and video playback  
-F3 - Restart app  
-F5 - Add the current playing video to data.json (see Updating data.json)  
-F12 - Open Developer tools
 
 ```json
 [{  
@@ -107,11 +114,11 @@ F12 - Open Developer tools
 }]
 ```
 
-##Updating data.json
+###Recap Updating Play List
 
 Currently you can update data.json with new videos in two ways.
 
-1. Update data.json manually
+1. Update data.json manually (explained above)
 2. After a video is played YouTube will show a listing of other videos you may
    like to watch. If you click on one and like it you can hit the F5 key to add
    it to your data.json. This will make it available when searching your videos
