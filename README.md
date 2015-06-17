@@ -55,13 +55,18 @@ How to run master in Electron:
 - Run Electron
 - Enjoy life and have fun listening to awesome music on YouTube!
 
-##Current Release(s)
+##Current Release
 
 https://github.com/frankhale/toby/releases/tag/v0.11.0
 
 A Windows x64 binary has been provided in this release.
 
 NOTE: Mac & Linux binaries will come in the future
+
+##Default Play List
+
+I ship my play list with Toby as an example. Feel free to replace this with
+videos you love!
 
 ##Usage
 
@@ -79,6 +84,13 @@ There is just one big array of video groups, groups contain the title of the
 groups and the videos associated with it. Videos are just an array of files
 that contain a description and a URL.
 
+**Important Key Combos:**
+
+F1 - Switch between video search and video playback  
+F3 - Restart app  
+F5 - Add the current playing video to data.json (see Updating data.json)  
+F12 - Open Developer tools
+
 ```json
 [{  
   "title": "Trance",
@@ -94,13 +106,6 @@ that contain a description and a URL.
   }]
 }]
 ```
-
-Key combos:
-
-F1 - Switch between video search and video playback  
-F3 - Restart app  
-F5 - Add the current playing video to data.json (see Updating data.json)  
-F12 - Open Developer tools
 
 ##Updating data.json
 
