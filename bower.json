@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "0.12.0",
+  "version": "0.12.0-SNAPSHOT",
   "homepage": "https://github.com/frankhale/toby",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
