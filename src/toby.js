@@ -377,6 +377,11 @@ var Toby = (function() {
       if(recentlyPlayedVideo !== undefined) {
         recentlyPlayedVideo.description = newTitle;
 
+        // remove "?autoplay=1" from all urls
+        this.state.recentlyPlayedData = _.forEach(this.state.recentlyPlayedData, function(rp) {
+          return rp.url =  rp.url.replace("?autoplay=1", "");
+        });
+
         fs.writeFile(recentlyPlayedPath, JSON.stringify(this.state.recentlyPlayedData, undefined, 2), function(err) {
           if (err) throw err;
         });
