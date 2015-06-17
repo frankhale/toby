@@ -129,19 +129,21 @@ var Toby = (function() {
       // Fix up the recently played so that we can click the link and have it
       // play.
       this.state.recentlyPlayedData = _.forEach(this.state.recentlyPlayedData, function(v) {
-        v.playVideo = function() {
-          this.setState({
-            currentVideoSrc: v.url,
-            webviewStyle: {
-              visibility: "visible"
-            },
-            searchListStyle: {
-              display: "none"
-            }
-          });
-        }.bind(this);
+        v.playVideo = this.setPlayVideoState(v);
       }.bind(this));
-
+    },
+    setPlayVideoState: function(video) {
+      return function() {
+        this.setState({
+          currentVideoSrc: video.url + "?autoplay=1",
+          webviewStyle: {
+           visibility: "visible"
+          },
+          searchListStyle: {
+           display: "none"
+          }
+        });
+      }.bind(this);
     },
     addToRecentlyPlayedList: function(video) {
       var found = _.find(this.state.recentlyPlayedData, function(v) {
@@ -157,17 +159,7 @@ var Toby = (function() {
            "description": video.description,
            "url": video.url,
            "ytid": video.ytid,
-           "playVideo": function() {
-             this.setState({
-               currentVideoSrc: video.url,
-               webviewStyle: {
-                 visibility: "visible"
-               },
-               searchListStyle: {
-                 display: "none"
-               }
-             });
-           }.bind(this)
+           "playVideo": this.setPlayVideoState(video)
          });
        }
     },
@@ -387,6 +379,16 @@ var Toby = (function() {
 
         fs.writeFile(recentlyPlayedPath, JSON.stringify(this.state.recentlyPlayedData, undefined, 2), function(err) {
           if (err) throw err;
+        });
+      } else {
+        // If we didn't find the recently played video in our list then it may
+        // be that a video was clicked on from suggestions made by YouTube after
+        // a video that we know about was played. If this is the case lets add
+        // the video to the recently played list.
+        this.addToRecentlyPlayedList({
+         'description': newTitle,
+         'url': "http://youtube.com/embed/" + ytid,
+         'ytid': ytid
         });
       }
     },
