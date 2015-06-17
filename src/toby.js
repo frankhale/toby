@@ -146,7 +146,7 @@ var Toby = (function() {
 
       if (found === undefined) {
          // Might want to make this configurable in the future
-         this.state.recentlyPlayedData = _.take(this.state.recentlyPlayedData, 25);
+         this.state.recentlyPlayedData = _.takeRight(this.state.recentlyPlayedData, 25);
          this.state.recentlyPlayedData.push({
            "description": video.description,
            "url": video.url,
