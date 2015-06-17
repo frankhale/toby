@@ -18,7 +18,7 @@ body {
 }
 #searchBox {
   position: absolute;
-  top: 25px;
+  top: 15px;
   left: 7px;
   right: 7px;
   font-size: 22pt;
@@ -28,24 +28,21 @@ body {
 }
 #searchResults {
   position: absolute;
-  background-color: #1c1c1c;
   display: none;
   text-align:left;
   font-size: 12pt;
   left: 10px;
   right: 15px;
-  bottom: 25px;
-  top: 65px;
+  top: 55px;
   padding-top: 10px;
   padding-left: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
   border-left: 2px solid #ccc;
   border-right: 2px solid #ccc;
   border-bottom: 2px solid #ccc;
-  background-color: #999;
+  background-color: #aaa;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  height: 250px;
   overflow: auto;
 }
 #recentlyPlayed {
@@ -62,8 +59,8 @@ body {
   border-bottom-right-radius: 5px;
   text-align:left;
   width: 598px;
-  top: 70px;
-  bottom: 10px;
+  top: 60px;
+
   overflow: hidden;
 }
 #recentlyPlayedHeader {

@@ -431,7 +431,7 @@ var Toby = (function() {
           recentlyPlayed = this.refs.recentlyPlayed.getDOMNode(),
           recentlyPlayedList = this.refs.recentlyPlayedList.getDOMNode();
       recentlyPlayed.style.width = browserSize[0] - 30 + "px";
-      recentlyPlayedList.style.height = browserSize[1] - 138 + "px";
+      recentlyPlayedList.style.height = browserSize[1] - 126 + "px";
     },
     render: function() {
       return (
