@@ -52,6 +52,9 @@ How to run master in Electron:
 - Navigate to the resources folder
 - Create a folder called app
 - Clone the source code for Toby and dump it directly in the app folder
+- Open terminal to app folder
+- Run npm install to install node modules
+- Run bower install to install JavaScript dependencies
 - Run Electron
 - Enjoy life and have fun listening to awesome music on YouTube!
 
@@ -129,7 +132,7 @@ Currently you can update data.json with new videos in two ways.
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-16 June 2015
+17 June 2015
 
 ##License
 

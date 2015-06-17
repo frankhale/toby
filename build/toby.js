@@ -58,7 +58,7 @@ var Toby = (function() {
     }
   };
 
-  var VideoSearch = React.createClass({
+  var VideoSearch = React.createClass({displayName: "VideoSearch",
     getInitialState: function() {
       return {
         searchResults: [],
@@ -392,33 +392,33 @@ var Toby = (function() {
     render: function() {
       var bindClick = this.handleClick.bind(this);
       return (
-        <div>
-          <div id="searchList" ref="searchList" style={this.state.searchListStyle}>
-            <input type="text" ref=" searchBox" id="searchBox" ref="searchBox" placeholder="search videos or enter youtube id..." onChange={this.handleSearch}></input>
-            <div id="searchResults" ref="searchResults" style={this.state.searchResultsStyle}>
-              {this.state.searchResults.sort(function(a, b) {
+        React.createElement("div", null, 
+          React.createElement("div", {id: "searchList", ref: "searchList", style: this.state.searchListStyle}, 
+            React.createElement("input", {type: "text", ref: " searchBox", id: "searchBox", ref: "searchBox", placeholder: "search videos or enter youtube id...", onChange: this.handleSearch}), 
+            React.createElement("div", {id: "searchResults", ref: "searchResults", style: this.state.searchResultsStyle}, 
+              this.state.searchResults.sort(function(a, b) {
                 if (a.description < b.description) return -1;
                 if (a.description > b.description) return 1;
                 return 0;
               })
               .map(function(r) {
                 return (
-                  <span>
-                    <a href='#' data-url={r.url} data-ytid={r.ytid} onClick={bindClick}>{r.description}</a><br/>
-                  </span>
+                  React.createElement("span", null, 
+                    React.createElement("a", {href: "#", "data-url": r.url, "data-ytid": r.ytid, onClick: bindClick}, r.description), React.createElement("br", null)
+                  )
                 );
               })
-            }
-            </div>
-            <RecentlyPlayedList data={this.state.recentlyPlayedData} style={this.state.recentlyPlayedStyle} />
-          </div>
-          <VideoPlayback src={this.state.currentVideoSrc} title={this.state.currentVideoTitle} style={this.state.webviewStyle} updateTitle={this.updateTitle} />
-        </div>
+            
+            ), 
+            React.createElement(RecentlyPlayedList, {data: this.state.recentlyPlayedData, style: this.state.recentlyPlayedStyle})
+          ), 
+          React.createElement(VideoPlayback, {src: this.state.currentVideoSrc, title: this.state.currentVideoTitle, style: this.state.webviewStyle, updateTitle: this.updateTitle})
+        )
       );
     }
   });
 
-  var RecentlyPlayedList = React.createClass({
+  var RecentlyPlayedList = React.createClass({displayName: "RecentlyPlayedList",
     componentDidMount: function() {
       window.addEventListener('resize', function(e) {
         this.resize();
@@ -435,10 +435,10 @@ var Toby = (function() {
     },
     render: function() {
       return (
-        <div id="recentlyPlayed" ref="recentlyPlayed" style={this.props.style}>
-          <div id="recentlyPlayedHeader">Recently Played</div>
-          <div id="recentlyPlayedList" ref="recentlyPlayedList">
-            {this.props
+        React.createElement("div", {id: "recentlyPlayed", ref: "recentlyPlayed", style: this.props.style}, 
+          React.createElement("div", {id: "recentlyPlayedHeader"}, "Recently Played"), 
+          React.createElement("div", {id: "recentlyPlayedList", ref: "recentlyPlayedList"}, 
+            this.props
               .data
               .sort(function(a, b) {
                 if (a.description < b.description) return -1;
@@ -447,19 +447,19 @@ var Toby = (function() {
               })
               .map(function(r) {
                 return (
-                  <span>
-                    <a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br/>
-                  </span>
+                  React.createElement("span", null, 
+                    React.createElement("a", {href: "#", "data-url": r.url, onClick: r.playVideo}, r.description), React.createElement("br", null)
+                  )
                 )
               })
-            }
-          </div>
-        </div>
+            
+          )
+        )
       );
     }
   });
 
-  var VideoPlayback = React.createClass({
+  var VideoPlayback = React.createClass({displayName: "VideoPlayback",
     componentDidMount: function() {
       var webview = this.refs.webview.getDOMNode();
       webview.httpreferrer = "http://www.youtube.com";
@@ -496,16 +496,16 @@ var Toby = (function() {
       }
 
       return (
-        <div>
-          <webview id="webview" ref="webview" preload="./src/ping.js" src={this.props.src} style={this.props.style}></webview>
-        </div>
+        React.createElement("div", null, 
+          React.createElement("webview", {id: "webview", ref: "webview", preload: "./build/ping.min.js", src: this.props.src, style: this.props.style})
+        )
       );
     }
   });
 
   return {
     init: function() {
-      React.render(<VideoSearch />, document.getElementById('ui'));
+      React.render(React.createElement(VideoSearch, null), document.getElementById('ui'));
     }
   };
 })();
