@@ -125,6 +125,23 @@ var Toby = (function() {
           }
         });
       }
+
+      // Fix up the recently played so that we can click the link and have it
+      // play.
+      this.state.recentlyPlayedData = _.forEach(this.state.recentlyPlayedData, function(v) {
+        v.playVideo = function() {
+          this.setState({
+            currentVideoSrc: v.url,
+            webviewStyle: {
+              visibility: "visible"
+            },
+            searchListStyle: {
+              display: "none"
+            }
+          });
+        }.bind(this);
+      }.bind(this));
+
     },
     addToRecentlyPlayedList: function(video) {
       var found = _.find(this.state.recentlyPlayedData, function(v) {
@@ -134,8 +151,8 @@ var Toby = (function() {
       });
 
       if (found === undefined) {
+         // Might want to make this configurable in the future
          this.state.recentlyPlayedData = _.take(this.state.recentlyPlayedData, 25);
-
          this.state.recentlyPlayedData.push({
            "description": video.description,
            "url": video.url,
@@ -151,10 +168,6 @@ var Toby = (function() {
                }
              });
            }.bind(this)
-         });
-
-         fs.writeFile(recentlyPlayedPath, JSON.stringify(this.state.recentlyPlayedData, undefined, 2), function(err) {
-           if (err) throw err;
          });
        }
     },
@@ -371,8 +384,11 @@ var Toby = (function() {
 
       if(recentlyPlayedVideo !== undefined) {
         recentlyPlayedVideo.description = newTitle;
-      }
 
+        fs.writeFile(recentlyPlayedPath, JSON.stringify(this.state.recentlyPlayedData, undefined, 2), function(err) {
+          if (err) throw err;
+        });
+      }
     },
     render: function() {
       var bindClick = this.handleClick.bind(this);
