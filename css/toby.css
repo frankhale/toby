@@ -77,7 +77,6 @@ body {
 #recentlyPlayedList {
   padding: 10px;
   overflow: auto;
-  height:84%;
 }
 #recentlyPlayed a {
   color: #fff;
