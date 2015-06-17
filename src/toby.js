@@ -2,21 +2,9 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 16 June 2015
+// 17 June 2015
 //
 // License: GNU GPL v2
-
-// from: http://theoryapp.com/string-startswith-and-endswith-in-javascript/
-if (typeof String.prototype.startsWith !== 'function') {
-  String.prototype.startsWith = function(prefix) {
-    return this.slice(0, prefix.length) === prefix;
-  };
-}
-if (typeof String.prototype.endsWith !== 'function') {
-  String.prototype.endsWith = function(suffix) {
-    return this.indexOf(suffix, str.length - suffix.length) !== -1;
-  }
-}
 
 var Toby = (function() {
   'use strict';
@@ -134,8 +122,12 @@ var Toby = (function() {
     },
     setPlayVideoState: function(video) {
       return function() {
+        if(! video.url.endsWith("?autoplay=1")) {
+          video.url = video.url.concat("?autoplay=1");
+        }
+
         this.setState({
-          currentVideoSrc: video.url + "?autoplay=1",
+          currentVideoSrc: video.url,
           webviewStyle: {
            visibility: "visible"
           },
@@ -199,7 +191,7 @@ var Toby = (function() {
         }
       } else {
         results = _.filter(this.state.data.videos, function(v) {
-          return v.description.toLowerCase().startsWith(searchTerm);
+          return v.description.toLowerCase().includes(searchTerm);
         });
       }
 
@@ -429,14 +421,21 @@ var Toby = (function() {
   var RecentlyPlayedList = React.createClass({
     componentDidMount: function() {
       window.addEventListener('resize', function(e) {
-        var browserSize = browser.getContentSize();
-        var recentlyPlayedList = this.refs.recentlyPlayedList.getDOMNode();
-        recentlyPlayedList.style.height = browserSize[1] - 138 + "px";
+        this.resize();
       }.bind(this));
+
+      this.resize();
+    },
+    resize: function() {
+      var browserSize = browser.getContentSize(),
+          recentlyPlayed = this.refs.recentlyPlayed.getDOMNode(),
+          recentlyPlayedList = this.refs.recentlyPlayedList.getDOMNode();
+      recentlyPlayed.style.width = browserSize[0] - 30 + "px";
+      recentlyPlayedList.style.height = browserSize[1] - 138 + "px";
     },
     render: function() {
       return (
-        <div id="recentlyPlayed" style={this.props.style}>
+        <div id="recentlyPlayed" ref="recentlyPlayed" style={this.props.style}>
           <div id="recentlyPlayedHeader">Recently Played</div>
           <div id="recentlyPlayedList" ref="recentlyPlayedList">
             {this.props
@@ -449,8 +448,7 @@ var Toby = (function() {
               .map(function(r) {
                 return (
                   <span>
-                    <a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a>
-                    <br/>
+                    <a href='#' data-url={r.url} onClick={r.playVideo}>{r.description}</a><br/>
                   </span>
                 )
               })
