@@ -55,13 +55,11 @@ How to run master in Electron:
 - Run Electron
 - Enjoy life and have fun listening to awesome music on YouTube!
 
-##Release(s)
+##Current Release(s)
 
-New release is coming based on Electron within the next couple days!
+https://github.com/frankhale/toby/releases/tag/v0.11.0
 
-Until then you can try Toby on Windows via the 0.8 release:
-
-https://github.com/frankhale/toby/releases/tag/v0.8.0
+A Windows x64 binary has been provided in this release.
 
 NOTE: Mac & Linux binaries will come in the future
 
@@ -119,7 +117,7 @@ Currently you can update data.json with new videos in two ways.
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-13 June 2015
+16 June 2015
 
 ##License
 
