@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 17 June 2015
+// 19 June 2015
 //
 // License: GNU GPL v2
 
@@ -78,7 +78,8 @@ var Toby = (function() {
         data: loadDataFile(dataFilePath),
         currentVideoSrc: "",
         currentVideoTitle: "",
-        currentVideoId: ""
+        currentVideoId: "",
+        newVideoNotification: ""
       };
     },
     componentDidMount: function() {
@@ -139,7 +140,7 @@ var Toby = (function() {
     },
     addToRecentlyPlayedList: function(video) {
       var found = _.find(this.state.recentlyPlayedData, function(v) {
-        if (video.description === v.description) {
+        if (video.ytid === v.ytid) {
           return v;
         }
       });
@@ -246,7 +247,7 @@ var Toby = (function() {
 
       this.setState({
         searchResults: [],
-        currentVideoSrc: url, //TODO: Why aren't the Current* vars just an object with 3 props?
+        currentVideoSrc: url,
         currentVideoTitle: title,
         currentVideoId: ytid,
         searchListStyle: {
@@ -260,7 +261,7 @@ var Toby = (function() {
         },
         webviewStyle: {
          visibility: "visible"
-        }
+       }
       });
 
       this.clearSearchBox();
@@ -350,6 +351,19 @@ var Toby = (function() {
         });
 
         videoData.push(miscGroup);
+
+        this.setState({
+          newVideoNotification: "Added: " + newEntry.description
+        });
+
+        // Clear out new video notification message so that any subsequent renders
+        // won't cause the notifiation component to display again for the same
+        // message.
+        setTimeout(function(){
+          this.setState({
+            newVideoNotification: ""
+          });
+        }.bind(this), 1000);
       }
 
       fs.writeFile(dataFilePath, JSON.stringify(videoData, undefined, 2), function(err) {
@@ -413,6 +427,7 @@ var Toby = (function() {
             <RecentlyPlayedList data={this.state.recentlyPlayedData} style={this.state.recentlyPlayedStyle} />
           </div>
           <VideoPlayback src={this.state.currentVideoSrc} title={this.state.currentVideoTitle} style={this.state.webviewStyle} updateTitle={this.updateTitle} />
+          <Notification message={this.state.newVideoNotification} />
         </div>
       );
     }
@@ -499,6 +514,41 @@ var Toby = (function() {
         <div>
           <webview id="webview" ref="webview" preload="./build/ping.min.js" src={this.props.src} style={this.props.style}></webview>
         </div>
+      );
+    }
+  });
+
+  var Notification = React.createClass({
+    getInitialState: function() {
+      return {
+        notificationStyle: {
+          display: "none"
+        },
+        message: this.props.message
+      };
+    },
+    componentWillReceiveProps: function(nextProps) {
+      if(nextProps.message.length > 0) {
+        this.setState({
+          notificationStyle: {
+            display: "block"
+          },
+          message: nextProps.message
+        });
+
+        setTimeout(function() {
+          this.setState({
+            notificationStyle: {
+              display: "none"
+            },
+            message: ""
+          });
+        }.bind(this), 2500);
+      }
+    },
+    render: function() {
+      return (
+        <div id="notification" style={this.state.notificationStyle}>{this.state.message}</div>
       );
     }
   });

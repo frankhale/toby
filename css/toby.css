@@ -4,6 +4,12 @@ body {
   color: #fff;
   overflow: hidden;
 }
+a {
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
 #webview {
   visibility: hidden;
   overflow: hidden;
@@ -37,13 +43,19 @@ body {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 25px;
+  padding-right:10px;
   border-left: 2px solid #ccc;
   border-right: 2px solid #ccc;
   border-bottom: 2px solid #ccc;
   background-color: #aaa;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#searchResults a:hover {
+  background-color: #666;
+  color: #fff;
 }
 #recentlyPlayed {
   position: absolute;
@@ -60,7 +72,6 @@ body {
   text-align:left;
   width: 598px;
   top: 60px;
-
   overflow: hidden;
 }
 #recentlyPlayedHeader {
@@ -73,11 +84,24 @@ body {
 }
 #recentlyPlayedList {
   padding: 10px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 #recentlyPlayed a {
   color: #fff;
 }
-a {
+#recentlyPlayed a:hover {
+  background-color: #bbb;
   color: #000;
+}
+#notification {
+  display: none;
+  position: absolute;
+  float: right;
+  border: 2px solid #480000;
+  background-color: #880000;
+  color: #fff;
+  padding: 10px;
+  top: 5px;
+  right: 5px;
 }

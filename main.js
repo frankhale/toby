@@ -11,6 +11,7 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
+    title: 'Toby - A YouTube player for the desktop',
     width: 640,
     height: 400,
     icon: __dirname + "\\t.png",
