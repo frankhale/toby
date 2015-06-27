@@ -14,8 +14,9 @@ var Toby = (function() {
     remote = require('remote'),
     shell = require('shell'),
     browser = remote.getCurrentWindow(),
-    dataFilePath = __dirname + path.sep + ["data", "data.json"].join(path.sep),
-    recentlyPlayedPath = __dirname + path.sep + ["data", "recent.json"].join(path.sep),
+    basePath = __dirname + path.sep,
+    dataFilePath = basePath + ["data", "data.json"].join(path.sep),
+    recentlyPlayedPath = basePath + ["data", "recent.json"].join(path.sep),
     appTitle = "Toby - A YouTube player for the desktop";
 
   var server = (function() {
@@ -320,11 +321,11 @@ var Toby = (function() {
         case 112: // f1 - toggle between video search and video playback
           this.toggleSearchPlayListAndWebview();
           break;
-        case 114: // f3 - restart app
-          browser.reload();
-          break;
         case 116: // f5 - add current video to data.json
           this.addCurrentVideoToDataJson();
+          break;
+        case 121: // f10 - restart app
+          browser.reload();
           break;
         case 123: // f12 - toggle dev tools
           browser.openDevTools();
