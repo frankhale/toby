@@ -66,7 +66,7 @@ A Windows x64 binary has been provided in this release.
 
 - Based on Electron 0.28.3, includes iojs 2.3.1 and a patched libchromiumcontent
 to override the HTTP referrer so that certain videos blocked from playback will
-play. 
+play.
 
 NOTE: Mac & Linux binaries will come in the future
 
@@ -80,8 +80,8 @@ videos you love!
 **Important Key Combos:**
 
 F1 - Switch between video search and video playback (once a video has been selected and is playing)
-F3 - Restart app (Still leaving this in here for debug purposes)  
 F5 - Add the current playing video to data.json (see Updating data.json)  
+F10 - Restart app (Still leaving this in here for debug purposes)  
 F12 - Open Developer tools (Still leaving this in here for debug purposes)
 
 NOTE: F5 adds a video to data.json only if it doesn't already exist. At the end
@@ -133,10 +133,28 @@ Currently you can update data.json with new videos in two ways.
    a group called 'misc'. If you like you can edit your data.json and move them
    to a different group.
 
+###Some videos are blocked, why?
+
+From 0.13.0 forward I'm using the YouTube API so this requires a custom patch for
+libchromiumcontent so that the HTTP referrer is overridden for all web requests.
+Thus allowing blocked videos (from VEVO) to play.
+
+Before 0.13.0 I was using a webview which provides a way to override the HTTP
+referrer and I was combining this with YouTube embed URLs so I didn't need to use
+the YouTube API. This worked well but I always wanted to use the YouTube API deep
+down. Since I've moved forward my intention is to provide a fully exposed API to
+do this in libchromiumcontent content and Electron. Until that day comes my intention
+is that users of Toby that desire playing videos from VEVO will use my provided
+binary release of Toby 0.13.0 or patch their own libchromiumcontent so that these
+videos play.
+
+I will provide the necessary information for those developers inclined to patch
+their own libchromiumcontent until I can release a full fledged API back upstream.
+
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-26 June 2015
+27 June 2015
 
 ##License
 
