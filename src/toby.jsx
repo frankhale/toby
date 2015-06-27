@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 26 June 2015
+// 27 June 2015
 //
 // License: GNU GPL v2
 
@@ -366,6 +366,7 @@ var Toby = (function() {
             visibility: "hidden"
           }
         });
+        
         browser.setTitle(appTitle);
       }
     },
@@ -576,17 +577,13 @@ var Toby = (function() {
       }.bind(this), 1000);
     },
     componentWillReceiveProps: function(nextProps) {
-      if(this.props.updateTitle !== undefined) {
-        this.setState({
-          updateTitle: this.props.updateTitle
-        });
-      }
+     if(this.props.updateTitle !== undefined) {
+       this.setState({
+         updateTitle: this.props.updateTitle
+       });
+     }
     },
     render: function() {
-      if(this.props.title !== "") {
-        browser.setTitle(this.props.title);
-      }
-
       return (
         <div>
           <webview id="webview" ref="webview" src="./player.html" style={this.props.style}></webview>
