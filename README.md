@@ -60,9 +60,13 @@ How to run master in Electron:
 
 ##Current Release
 
-https://github.com/frankhale/toby/releases/tag/v0.11.0
+https://github.com/frankhale/toby/releases/tag/v0.13.0
 
 A Windows x64 binary has been provided in this release.
+
+- Based on Electron 0.28.3, includes iojs 2.3.1 and a patched libchromiumcontent
+to override the HTTP referrer so that certain videos blocked from playback will
+play. 
 
 NOTE: Mac & Linux binaries will come in the future
 

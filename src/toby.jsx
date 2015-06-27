@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 19 June 2015
+// 26 June 2015
 //
 // License: GNU GPL v2
 
@@ -14,9 +14,58 @@ var Toby = (function() {
     remote = require('remote'),
     shell = require('shell'),
     browser = remote.getCurrentWindow(),
-    dataFilePath = __dirname + path.sep + ["data", "data.json"].join(path.sep),
-    recentlyPlayedPath = __dirname + path.sep + ["data", "recent.json"].join(path.sep),
+    basePath = __dirname + path.sep,
+    dataFilePath = basePath + ["data", "data.json"].join(path.sep),
+    recentlyPlayedPath = basePath + ["data", "recent.json"].join(path.sep),
     appTitle = "Toby - A YouTube player for the desktop";
+
+  var server = (function() {
+    var my = {},
+        listeners = [],
+        io = require('socket.io')(),
+        socketio;
+
+    my.send = function(type, data) {
+      if(socketio!==undefined) {
+        socketio.emit(type, data);
+      }
+    };
+
+    my.on = function(type, func) {
+      listeners.push({
+        type: type,
+        func: func
+      });
+    };
+
+    var fire = function(type, data) {
+      if(!(listeners.length > 0)) return;
+
+      _.forEach(_.where(listeners, { type: type }), function(l) {
+        if(data !== undefined && l.func !== undefined) {
+         l.func(data);
+        } else {
+         l.func();
+        }
+      });
+    };
+
+    io.on('connection', function(socket){
+      socket.on('video-info', function(data) {
+        fire('video-info', data);
+      });
+      socket.on('youtube-api-ready', function() {
+        socketio = socket;
+        fire('youtube-api-ready');
+      });
+      socket.on('youtube-player-state-changed', function(data) {
+        fire('youtube-player-state-changed', data);
+      });
+    });
+    io.listen(5150);
+
+    return my;
+  })();
 
   var loadDataFile = function(filepath) {
     try {
@@ -123,9 +172,7 @@ var Toby = (function() {
     },
     setPlayVideoState: function(video) {
       return function() {
-        if(! video.url.endsWith("?autoplay=1")) {
-          video.url = video.url.concat("?autoplay=1");
-        }
+        server.send('play', video.ytid);
 
         this.setState({
           currentVideoSrc: video.url,
@@ -245,6 +292,8 @@ var Toby = (function() {
         'ytid': ytid
       });
 
+      server.send('play', ytid);
+
       this.setState({
         searchResults: [],
         currentVideoSrc: url,
@@ -265,17 +314,18 @@ var Toby = (function() {
       });
 
       this.clearSearchBox();
+
     },
     handleKeyDown: function(e) {
       switch (e.keyCode) {
         case 112: // f1 - toggle between video search and video playback
           this.toggleSearchPlayListAndWebview();
           break;
-        case 114: // f3 - restart app
-          browser.reload();
-          break;
         case 116: // f5 - add current video to data.json
           this.addCurrentVideoToDataJson();
+          break;
+        case 121: // f10 - restart app
+          browser.reload();
           break;
         case 123: // f12 - toggle dev tools
           browser.openDevTools();
@@ -290,6 +340,9 @@ var Toby = (function() {
           searchListStyle: {
             display: "none"
           },
+          searchResultsStyle: {
+            display: "none"
+          },
           webviewStyle: {
             visibility: "visible"
           }
@@ -297,9 +350,17 @@ var Toby = (function() {
         browser.setTitle(this.state.currentVideoTitle);
         this.clearSearchBox();
       } else {
+        var recentlyPlayedListStyle = "none";
+        if(this.state.recentlyPlayedData.length>0) {
+          recentlyPlayedListStyle = "block";
+        }
+
         this.setState({
           searchListStyle: {
             display: "block"
+          },
+          recentlyPlayedStyle: {
+            display: recentlyPlayedListStyle
           },
           webviewStyle: {
             visibility: "hidden"
@@ -317,9 +378,9 @@ var Toby = (function() {
 
       var videoData = this.state.data.videoData.slice(0);
 
-      //TODO: Need to add capability to avoid duplicate entries
-
-      if(this.state.currentVideoSrc === '') return;
+      if(this.state.currentVideoSrc === '' ||
+         this.state.currentVideoTitle === '' ||
+         this.state.currentVideoId === '') return;
 
       var newEntry = {
         "description": this.state.currentVideoTitle,
@@ -406,7 +467,7 @@ var Toby = (function() {
     render: function() {
       var bindClick = this.handleClick.bind(this);
       return (
-        <div>
+        <div id="main-content">
           <div id="searchList" ref="searchList" style={this.state.searchListStyle}>
             <input type="text" ref=" searchBox" id="searchBox" ref="searchBox" placeholder="search videos or enter youtube id..." onChange={this.handleSearch}></input>
             <div id="searchResults" ref="searchResults" style={this.state.searchResultsStyle}>
@@ -477,19 +538,36 @@ var Toby = (function() {
   var VideoPlayback = React.createClass({
     componentDidMount: function() {
       var webview = this.refs.webview.getDOMNode();
-      webview.httpreferrer = "http://www.youtube.com";
+
+      // We don't need to set the httpreferrer here anymore because it only
+      // works for loading the source of the webview. It's not passed along
+      // for subsequent url loads (eg. by clicking links inside the webview).
+      //
+      // I've made a patch to libchromiumcontent to override the referrer so
+      // that every request that gets made has the referrer overridden.
+      //
+      // The reason to override the referrer is so we can look like we are
+      // playing from the web and videos from VEVO for instance will not be
+      // blocked from playback.
+      //
+      //webview.httpreferrer = "http://www.youtube.com";
+
       webview.addEventListener("new-window", function(e) {
         shell.openExternal(e.url);
       });
-      webview.addEventListener("ipc-message", function(e) {
-        if (e.channel !== "") {
-          browser.setTitle(e.channel.title);
 
-          if(this.state.updateTitle !== undefined) {
-            this.state.updateTitle(e.channel.title, e.channel.ytid);
-          }
+      server.on('video-info', function(data) {
+        browser.setTitle(data.title);
+
+        if(this.state.updateTitle !== undefined) {
+          this.state.updateTitle(data.title, data.video_id);
         }
       }.bind(this));
+
+      //server.on('youtube-player-state-changed', function(data) {
+      //  console.log('youtube-player-state-changed');
+      //  console.log(data);
+      //});
 
       setInterval(function() {
         if (webview.style.visibility === "visible") {
@@ -507,12 +585,11 @@ var Toby = (function() {
     render: function() {
       if(this.props.title !== "") {
         browser.setTitle(this.props.title);
-        //this.refs.webview.getDOMNode().openDevTools();
       }
 
       return (
         <div>
-          <webview id="webview" ref="webview" preload="./build/ping.min.js" src={this.props.src} style={this.props.style}></webview>
+          <webview id="webview" ref="webview" src="./player.html" style={this.props.style}></webview>
         </div>
       );
     }
@@ -555,7 +632,16 @@ var Toby = (function() {
 
   return {
     init: function() {
+      //console.log("iojs version: " + process.version);
       React.render(<VideoSearch />, document.getElementById('ui'));
+
+      server.on('youtube-api-ready', function() {
+        var $mc = $("#main-content");
+        $mc.css('visibility', 'visible');
+
+        $("#loading").fadeOut("fast");
+        $mc.hide().fadeIn("slow");
+      });
     }
   };
 })();

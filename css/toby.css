@@ -47,7 +47,7 @@ a {
   border-left: 2px solid #ccc;
   border-right: 2px solid #ccc;
   border-bottom: 2px solid #ccc;
-  background-color: #aaa;
+  background-color: #999;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   overflow-y: auto;
@@ -104,4 +104,15 @@ a {
   padding: 10px;
   top: 5px;
   right: 5px;
+}
+#main-content {
+  visibility: hidden;
+}
+#loading {
+  margin: 0 auto;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 45%;
+  font-size: 28pt;
 }

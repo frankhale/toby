@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'build/ping.min.js': 'src/ping.js',
+          'build/player.min.js': 'src/player.js',
           'build/toby.min.js': 'build/toby.js'
         }
       }
