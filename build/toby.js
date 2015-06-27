@@ -271,7 +271,7 @@ var Toby = (function() {
         });
 
         if (this.state.recentlyPlayedData.length > 0) {
-          recentlyPlayedStyle.display = "flex";
+          this.state.recentlyPlayedStyle.display = "block";
         }
       }
     },
