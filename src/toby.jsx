@@ -366,7 +366,7 @@ var Toby = (function() {
             visibility: "hidden"
           }
         });
-        
+
         browser.setTitle(appTitle);
       }
     },
@@ -470,7 +470,7 @@ var Toby = (function() {
       return (
         <div id="main-content">
           <div id="searchList" ref="searchList" style={this.state.searchListStyle}>
-            <input type="text" ref=" searchBox" id="searchBox" ref="searchBox" placeholder="search videos or enter youtube id..." onChange={this.handleSearch}></input>
+            <input type="text" ref=" searchBox" id="searchBox" ref="searchBox" placeholder="search your videos or enter youtube id..." onChange={this.handleSearch}></input>
             <div id="searchResults" ref="searchResults" style={this.state.searchResultsStyle}>
               {this.state.searchResults.sort(function(a, b) {
                 if (a.description < b.description) return -1;
