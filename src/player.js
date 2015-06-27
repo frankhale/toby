@@ -39,9 +39,6 @@ function onPlayerStateChange(event) {
   var data = event.target.getVideoData();
   var state = event.data;
 
-  console.log(event);
-  console.log("state: " + state);
-
   socket.emit('youtube-player-state-changed', {
     state: state,
     video_data: data
