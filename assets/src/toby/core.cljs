@@ -46,8 +46,6 @@
   :type "video" })
 (def app-title "Toby - A YouTube player for the desktop")
 
-(def video-search-owner (atom nil))
-
 (defn load-data-file []
   (let [no-data #js { :groups [] :videos [] }]
     (try
