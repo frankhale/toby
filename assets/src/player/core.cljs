@@ -10,10 +10,9 @@
 (defn on-player-state-change [e]
  (let [video-info (.getVideoData (.-target e))]
    (when-not (= video-title video-info.title)
-     (do
       (reset! video-title video-info.title)
       (js/console.log video-info)
-      (.emit socket "video-info" video-info)))))
+      (.emit socket "video-info" video-info))))
 
 ;(do
 ; (.emit socket "youtube-player-state-changed" #js {
