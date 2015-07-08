@@ -231,7 +231,7 @@ var Ma = function Ma(b, c, d) {
     throw z("IAssociative.-assoc", b);
   }
   return e.call(null, b, c, d);
-}, Na = {}, Oa = {}, Qa = function Qa(b) {
+}, Oa = {}, Pa = {}, Qa = function Qa(b) {
   if (b ? b.bb : b) {
     return b.bb();
   }
@@ -271,13 +271,13 @@ var Ma = function Ma(b, c, d) {
     throw z("IDeref.-deref", b);
   }
   return c.call(null, b);
-}, Va = {}, Wa = function Wa(b) {
+}, Wa = {}, Xa = function Xa(b) {
   if (b ? b.K : b) {
     return b.K(b);
   }
   var c;
-  c = Wa[r(null == b ? null : b)];
-  if (!c && (c = Wa._, !c)) {
+  c = Xa[r(null == b ? null : b)];
+  if (!c && (c = Xa._, !c)) {
     throw z("IMeta.-meta", b);
   }
   return c.call(null, b);
@@ -364,13 +364,13 @@ var bb = function bb(b, c) {
     throw z("IWriter.-write", b);
   }
   return d.call(null, b, c);
-}, gb = {}, hb = function hb(b, c, d) {
+}, gb = {}, ib = function ib(b, c, d) {
   if (b ? b.D : b) {
     return b.D(b, c, d);
   }
   var e;
-  e = hb[r(null == b ? null : b)];
-  if (!e && (e = hb._, !e)) {
+  e = ib[r(null == b ? null : b)];
+  if (!e && (e = ib._, !e)) {
     throw z("IPrintWithWriter.-pr-writer", b);
   }
   return e.call(null, b, c, d);
@@ -756,8 +756,8 @@ bb.number = function(a, b) {
   return a === b;
 };
 Ca["function"] = !0;
-Va["function"] = !0;
-Wa["function"] = function() {
+Wa["function"] = !0;
+Xa["function"] = function() {
   return null;
 };
 cb._ = function(a) {
@@ -1189,7 +1189,7 @@ f.call = function() {
     a = this;
     return a.f.F ? a.f.F() : a.f.call(null);
   }
-  var w = null, w = function(w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb, wc, Uc, Ld, ve) {
+  var w = null, w = function(w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb, wc, Uc, Ld, ve) {
     switch(arguments.length) {
       case 1:
         return za.call(this, w);
@@ -1218,23 +1218,23 @@ f.call = function() {
       case 13:
         return m.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha);
       case 14:
-        return l.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa);
+        return l.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na);
       case 15:
-        return k.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa);
+        return k.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va);
       case 16:
-        return h.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib);
+        return h.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb);
       case 17:
-        return g.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb);
+        return g.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb);
       case 18:
-        return e.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb);
+        return e.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb);
       case 19:
-        return d.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb, wc);
+        return d.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb, wc);
       case 20:
-        return c.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb, wc, Uc);
+        return c.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb, wc, Uc);
       case 21:
-        return b.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb, wc, Uc, Ld);
+        return b.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb, wc, Uc, Ld);
       case 22:
-        return a.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Pa, Xa, ib, wb, Wb, wc, Uc, Ld, ve);
+        return a.call(this, w, S, W, X, aa, da, ja, ka, ma, pa, sa, ya, Ha, Na, Va, hb, wb, Wb, wc, Uc, Ld, ve);
     }
     throw Error("Invalid arity: " + arguments.length);
   };
@@ -1334,10 +1334,10 @@ f.rb = function(a, b, c, d, e, g, h, k, l, m, n, p, q, t, u, v, A, C, F, K, ba) 
 };
 function mc(a) {
   var b = null != a;
-  return (b ? a ? a.m & 131072 || a.wb || (a.m ? 0 : y(Va, a)) : y(Va, a) : b) ? Wa(a) : null;
+  return (b ? a ? a.m & 131072 || a.wb || (a.m ? 0 : y(Wa, a)) : y(Wa, a) : b) ? Xa(a) : null;
 }
 function nc(a) {
-  return null == a ? !1 : a ? a.m & 1024 || a.ub ? !0 : a.m ? !1 : y(Na, a) : y(Na, a);
+  return null == a ? !1 : a ? a.m & 1024 || a.ub ? !0 : a.m ? !1 : y(Oa, a) : y(Oa, a);
 }
 function oc(a) {
   return a ? a.m & 16384 || a.Kb ? !0 : a.m ? !1 : y(Sa, a) : y(Sa, a);
@@ -3366,7 +3366,7 @@ f.H = function(a, b, c) {
 };
 f.Wa = function(a, b) {
   if (x(this.La)) {
-    if (b ? b.m & 2048 || b.vb || (b.m ? 0 : y(Oa, b)) : y(Oa, b)) {
+    if (b ? b.m & 2048 || b.vb || (b.m ? 0 : y(Pa, b)) : y(Pa, b)) {
       return nb(this, Pd.j ? Pd.j(b) : Pd.call(null, b), Qd.j ? Qd.j(b) : Qd.call(null, b));
     }
     for (var c = L(b), d = this;;) {
@@ -4003,7 +4003,7 @@ function me(a, b, c, d, e) {
 }
 function ne(a, b) {
   if (a.B) {
-    if (b ? b.m & 2048 || b.vb || (b.m ? 0 : y(Oa, b)) : y(Oa, b)) {
+    if (b ? b.m & 2048 || b.vb || (b.m ? 0 : y(Pa, b)) : y(Pa, b)) {
       return oe(a, Pd.j ? Pd.j(b) : Pd.call(null, b), Qd.j ? Qd.j(b) : Qd.call(null, b));
     }
     for (var c = L(b), d = a;;) {
@@ -4280,7 +4280,7 @@ function xe(a, b, c) {
   }
   if (x(function() {
     var b = fc(c, ua);
-    return x(b) ? (b = a ? a.m & 131072 || a.wb ? !0 : a.m ? !1 : y(Va, a) : y(Va, a)) ? mc(a) : b : b;
+    return x(b) ? (b = a ? a.m & 131072 || a.wb ? !0 : a.m ? !1 : y(Wa, a) : y(Wa, a)) ? mc(a) : b : b;
   }())) {
     J(b, "^");
     var d = mc(a);
@@ -4297,7 +4297,7 @@ function xe(a, b, c) {
         return c;
       }
     }
-  }, te(b, bc(['#inst "', "" + B(a.getUTCFullYear()), "-", d(a.getUTCMonth() + 1, 2), "-", d(a.getUTCDate(), 2), "T", d(a.getUTCHours(), 2), ":", d(a.getUTCMinutes(), 2), ":", d(a.getUTCSeconds(), 2), ".", d(a.getUTCMilliseconds(), 3), "-", '00:00"'], 0))) : x(a instanceof RegExp) ? te(b, bc(['#"', a.source, '"'], 0)) : (a ? a.m & 2147483648 || a.O || (a.m ? 0 : y(gb, a)) : y(gb, a)) ? hb(a, b, c) : te(b, bc(["#\x3c", "" + B(a), "\x3e"], 0));
+  }, te(b, bc(['#inst "', "" + B(a.getUTCFullYear()), "-", d(a.getUTCMonth() + 1, 2), "-", d(a.getUTCDate(), 2), "T", d(a.getUTCHours(), 2), ":", d(a.getUTCMinutes(), 2), ":", d(a.getUTCSeconds(), 2), ".", d(a.getUTCMilliseconds(), 3), "-", '00:00"'], 0))) : x(a instanceof RegExp) ? te(b, bc(['#"', a.source, '"'], 0)) : (a ? a.m & 2147483648 || a.O || (a.m ? 0 : y(gb, a)) : y(gb, a)) ? ib(a, b, c) : te(b, bc(["#\x3c", "" + B(a), "\x3e"], 0));
 }
 function Z(a, b, c) {
   var d = ze.j(c);
@@ -4487,7 +4487,6 @@ var Le = require("app"), Me = require("browser-window"), Ne = require("crash-rep
 function Se() {
   var a = new Me(Re);
   bd.h ? bd.h(Pe, a) : bd.call(null, Pe, a);
-  (Rb.j ? Rb.j(Pe) : Rb.call(null, Pe)).openDevTools();
   (Rb.j ? Rb.j(Pe) : Rb.call(null, Pe)).loadUrl([B("file://"), B(Qe), B("\\html\\toby.html")].join(""));
   return (Rb.j ? Rb.j(Pe) : Rb.call(null, Pe)).on("closed", function() {
     return bd.h ? bd.h(Pe, null) : bd.call(null, Pe, null);

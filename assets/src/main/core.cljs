@@ -17,7 +17,7 @@
 
 (defn init-browser []
 	(reset! main-window (browser-window. browser-options))
-	(.openDevTools @main-window)
+	;(.openDevTools @main-window)
   (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
 	(.on @main-window "closed" #(reset! main-window nil)))
 

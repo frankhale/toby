@@ -2,18 +2,10 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 7 July 2015
+; 8 July 2015
 ;
 ; License: GNU GPL v2
 ;
-
-;TODO TODO TODO
-;
-; Finish adding code to allow for new videos to be added to data.json
-; Videos played via YouTube ID need to have their RPL entry updated with proper video info
-;
-;TODO TODO TODO
-
 
 (ns toby.core
   (:require
@@ -40,10 +32,7 @@
 (def data-json-path (apply str (interpose path.sep [data-path "data.json"])))
 (def recently-played-json-path (apply str (interpose path.sep [data-path "recent.json"])))
 (def youtube-api-key "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E")
-(def youtube-search-options #js {
-  :maxResults 25,
-  :key youtube-api-key,
-  :type "video" })
+(def youtube-search-options #js { :maxResults 25, :key youtube-api-key, :type "video" })
 (def app-title "Toby - A YouTube player for the desktop")
 
 (defn load-data-file []
@@ -152,7 +141,9 @@
 (defn toggle-search-play-list-and-webview [owner]
   (let [recently-played-data (om/get-state owner :recently-played-data)
         search-list-style (om/get-state owner :search-list-style)
+        current-video-id (om/get-state owner :current-video-id)
         current-video-title (om/get-state owner :current-video-title)]
+    (when-not (and (empty? current-video-title) (empty? current-video-id))
      (if (= search-list-style.display "block")
        (do
          (om/update-state! owner #(assoc %
@@ -167,7 +158,7 @@
            :search-list-style #js { :display "block" }
            :recently-played-style #js { :display (if (> (.-length recently-played-data) 0) (str "block") (str "none")) }
            :webview-style #js { :visibility "hidden" }))
-         (.setTitle browser app-title)))))
+         (.setTitle browser app-title))))))
 
 (defn set-play-video-state [video owner]
   (fn []
@@ -192,7 +183,7 @@
 ; list.
 (defn add-to-recently-played-and-update-file [video owner]
  (let [recently-played-data (om/get-state owner :recently-played-data)
-       found (.find lodash recently-played-data (fn [v] (when (= (:ytid video) v.ytid))))]
+       found (.find lodash recently-played-data #js { :ytid (.-ytid video) })]
    (when (and (not (empty? (.-description video))) (= found js/undefined))
      (let [new-rpl (.slice recently-played-data)]
        (.unshift new-rpl #js { :description (.-description video) :ytid (.-ytid video) :play-video (set-play-video-state video owner) })
@@ -219,7 +210,8 @@
     (when (and (not (empty? new-title)) (not (= new-title current-video-title)))
       (om/update-state! owner #(assoc % :current-video-title new-title :current-video-id ytid))
       ; TODO: This should not be in this function!
-      (add-to-recently-played-and-update-file #js { :description new-title :ytid ytid } owner))))
+      (when-not (= current-video-title "Play video with YouTube ID:")
+        (add-to-recently-played-and-update-file #js { :description new-title :ytid ytid } owner)))))
 
 ;
 ; Notification component
@@ -313,19 +305,20 @@
       true
       false)))
 
-(defn add-misc-group-if-necessary [video-data]
-  (let [misc-group (.find lodash video-data (fn [d] (= (.-title d) "misc")))
-        misc-group-entry #js { :title "misc" :videos [] }]
+(defn add-video-to-misc-group [video-data new-entry]
+  (let [misc-group (.find lodash (.-groups video-data) #js { :title "misc" })
+        misc-group-entry #js { :title "misc" :videos [ new-entry ] }]
     (if (= misc-group js/undefined)
-      (conj misc-group misc-group-entry)
-      (video-data))))
-
-(defn does-video-already-exist [video-data video-entry]
-  ())
-
-(defn add-video-to-misc-group [video-data video-entry]
-  (let [video-data-with-misc-group (add-misc-group-if-necessary video-data)]
-    ()))
+      (do
+        ;(js/console.log "misc group not found")
+        (.push (.-groups video-data) misc-group-entry)
+        ;(js/console.log video-data)
+        video-data)
+      (do
+        ;(js/console.log "misc group found")
+        (.push (.-videos misc-group) new-entry)
+        ;(js/console.log misc-group)
+        video-data))))
 
 ; At the end of a video a list of other videos is displayed. If a user
 ; clicks on one of these videos let's allow them to add that video if
@@ -336,15 +329,19 @@
   (when (is-current-video-info-set owner)
     (let [current-video-title (om/get-state owner :current-video-title)
           current-video-id (om/get-state owner :current-video-id)
-          new-video-entry #js { :description current-video-title :ytid current-video-id }]
-      ; check to see if the video already exists
-      ; if not
-      ; check to see if the misc group exists
-      ; if not create it
-      ; add video to the misc group
-      ; save the file
-      (js/console.log "Add new video to data.json")
-      (js/console.log new-video-entry))))
+          new-entry #js { :description current-video-title :ytid current-video-id }
+          video-data (clj->js (om/get-state owner :video-data))
+          found (.find lodash (.-videos video-data) #js { :ytid current-video-id })]
+      (when (= found js/undefined)
+        (let [updated-video-data (add-video-to-misc-group video-data new-entry)
+              json-obj (.stringify js/JSON (.-groups updated-video-data) js/undefined 2)]
+          ;(js/console.log updated-video-data)
+          ;(js/console.log json-obj)
+          (.writeFile fs data-json-path json-obj (fn [err] (when err (js/console.log err))))
+          (om/set-state! owner :new-video-notification (str "Added: " current-video-title))
+          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500)
+          (js/console.log "Added new video to data.json")
+          (js/console.log new-entry))))))
 
 ; This is bad, this is all sorts of bad but I'm doing it for now...
 (defn add-play-handlers-to-recently-played-videos [owner]
