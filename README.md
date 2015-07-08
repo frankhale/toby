@@ -154,7 +154,7 @@ their own libchromiumcontent until I can release a full fledged API back upstrea
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-27 June 2015
+7 July 2015
 
 ##License
 
