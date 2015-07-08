@@ -1,18 +1,27 @@
+;
+; Toby - A YouTube player for the desktop
+;
+; Frank Hale <frankhale@gmail.com>
+; 8 July 2015
+;
+; License: GNU GPL v2
+;
 (ns main.core)
 
 (def app (js/require "app"))
+(def path (js/require "path"))
 (def browser-window (js/require "browser-window"))
 (def crash-reporter (js/require "crash-reporter"))
 (def process (js/require "process"))
 
 (def main-window (atom nil))
-(def assets-dir (str (.cwd process) "\\resources\\app\\assets"))
-
+(def assets-dir (apply str (interpose path.sep [(.cwd process) "resources" "app" "assets"])))
+(js/console.log assets-dir)
 (def browser-options (clj->js {
   :title "Toby - A YouTube player for the desktop"
   :width 640
   :height 400
-  :icon (str assets-dir "\\images\\t.png")
+  :icon (str assets-dir path.sep "images" path.sep "t.png")
   :resizable true}))
 
 (defn init-browser []

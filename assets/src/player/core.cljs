@@ -1,3 +1,11 @@
+;
+; Toby - A YouTube player for the desktop
+;
+; Frank Hale <frankhale@gmail.com>
+; 8 July 2015
+;
+; License: GNU GPL v2
+;
 (ns player.core)
 
 (def player (atom nil))

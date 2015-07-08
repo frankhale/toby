@@ -7,6 +7,11 @@
 ; License: GNU GPL v2
 ;
 
+;
+; NOTE: There is definitely some non-idiomatic code in here. I am also mutating
+;       state in some stupid ways. This will be resolved shortly!
+;
+
 (ns toby.core
   (:require
     [toby.server.core :as server]
@@ -130,8 +135,7 @@
       (when-not (= (.-display search-results-style) "none")
         (om/update-state! owner #(assoc %
           :search-results-data []
-          :search-results-style #js { :display "none" }))
-        (js/console.log "I would clear search results / hide search results")))))
+          :search-results-style #js { :display "none" }))))))
 
 (defn clear-search-box [owner]
  (let [search-box (om/get-node owner "search-box")]
@@ -224,17 +228,14 @@
        :message (:message data) })
    om/IWillReceiveProps
    (will-receive-props [_ next-props]
-     (do
-       (when-not (= (.-length (:message next-props)) 0)
-        (do
-          (js/console.log (str "update notification: " (:message next-props)))
-          (om/set-state! owner { :message (:message next-props)
-                                 :notification-style #js { :display "block" } })
-          ; set a timeout to hide the notification after 2.5 seconds
-          (js/setTimeout
-             (goog/bind
-               (fn [] (om/set-state! owner { :notification-style #js { :display "none" } :message "" }))
-               owner) 2500)))))
+     (when-not (= (.-length (:message next-props)) 0)
+        (om/set-state! owner { :message (:message next-props)
+                               :notification-style #js { :display "block" } })
+        ; set a timeout to hide the notification after 2.5 seconds
+        (js/setTimeout
+           (goog/bind
+             (fn [] (om/set-state! owner { :notification-style #js { :display "none" } :message "" }))
+             owner) 2500)))
    om/IRenderState
    (render-state [_ {:keys [ notification-style message ] } ]
      (dom/div #js { :id "notification" :style notification-style } message))))
@@ -307,17 +308,13 @@
 
 (defn add-video-to-misc-group [video-data new-entry]
   (let [misc-group (.find lodash (.-groups video-data) #js { :title "misc" })
-        misc-group-entry #js { :title "misc" :videos [ new-entry ] }]
+        misc-group-entry #js { :title "misc" :videos #js [ new-entry ] }]
     (if (= misc-group js/undefined)
       (do
-        ;(js/console.log "misc group not found")
         (.push (.-groups video-data) misc-group-entry)
-        ;(js/console.log video-data)
         video-data)
       (do
-        ;(js/console.log "misc group found")
         (.push (.-videos misc-group) new-entry)
-        ;(js/console.log misc-group)
         video-data))))
 
 ; At the end of a video a list of other videos is displayed. If a user
@@ -331,17 +328,16 @@
           current-video-id (om/get-state owner :current-video-id)
           new-entry #js { :description current-video-title :ytid current-video-id }
           video-data (clj->js (om/get-state owner :video-data))
-          found (.find lodash (.-videos video-data) #js { :ytid current-video-id })]
-      (when (= found js/undefined)
+          found-in-mem (.find lodash (.-videos video-data) #js { :ytid current-video-id })
+          found-in-file (.find lodash (.-videos (load-data-file)) #js { :ytid current-video-id })]
+      (when (and (= found-in-mem js/undefined) (= found-in-file js/undefined))
         (let [updated-video-data (add-video-to-misc-group video-data new-entry)
               json-obj (.stringify js/JSON (.-groups updated-video-data) js/undefined 2)]
-          ;(js/console.log updated-video-data)
-          ;(js/console.log json-obj)
           (.writeFile fs data-json-path json-obj (fn [err] (when err (js/console.log err))))
-          (om/set-state! owner :new-video-notification (str "Added: " current-video-title))
-          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500)
-          (js/console.log "Added new video to data.json")
-          (js/console.log new-entry))))))
+          (om/update-state! owner #(assoc %
+            :video-data updated-video-data
+            :new-video-notification (str "Added: " current-video-title)))
+          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500))))))
 
 ; This is bad, this is all sorts of bad but I'm doing it for now...
 (defn add-play-handlers-to-recently-played-videos [owner]
@@ -381,7 +377,7 @@
                e)))
         (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
         (resize-search-elements owner)
-        (watch-data-file (fn [data] (om/set-state! owner :data data)))
+        (watch-data-file (fn [data] (om/set-state! owner :video-data data)))
         (watch-recently-played-data-file (fn [data]
           (om/set-state! owner :recently-played-data data)
           (add-play-handlers-to-recently-played-videos owner)))
