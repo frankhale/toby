@@ -91,9 +91,9 @@ videos you love!
 
 **Important Key Combos:**
 
-F1 - Switch between video search and video playback (once a video has been selected and is playing)
-F5 - Add the current playing video to data.json (see Updating data.json)
-F7 - Toggle black and white video playback
+F1 - Switch between video search and video playback (once a video has been selected and is playing)  
+F5 - Add the current playing video to data.json (see Updating data.json)  
+F7 - Toggle black and white video playback  
 F8 - Toggle saturated video playback  
 F10 - Restart app (Still leaving this in here for debug purposes)  
 F12 - Open Developer tools (Still leaving this in here for debug purposes)
