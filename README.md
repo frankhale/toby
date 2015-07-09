@@ -10,47 +10,47 @@ love life!
 
 Video playback:
 
-<img src="screenshots/toby-video-playback.png" alt="Video Playback"/>
+<img src="screenshots/toby-video-playback.png" alt="Video Playback" style="border:1px solid black;"/>
 
 Video playback (Black & White):
 
-<img src="screenshots/toby-video-playback-black-and-white.png" alt="Video Playback (Black & White)"/>
+<img src="screenshots/toby-video-playback-black-and-white.png" alt="Video Playback (Black & White)" style="border:1px solid black;"/>
 
 Video playback (Saturated):
 
-<img src="screenshots/toby-video-playback-saturated.png" alt="Video Playback (Saturated)"/>
+<img src="screenshots/toby-video-playback-saturated.png" alt="Video Playback (Saturated)" style="border:1px solid black;"/>
 
 Search your playlist for a video:
 
 List all videos that start with the search term.
 
-<img src="screenshots/toby-video-search.png" alt="Video Selection"/>
+<img src="screenshots/toby-video-search.png" alt="Video Selection" style="border:1px solid black;"/>
 
 List all videos in your playlist:
 
 By typing %all% into the search box you will get a listing of all of your
 videos.
 
-<img src="screenshots/toby-video-search-all.png" alt="Video Selection - List All"/>
+<img src="screenshots/toby-video-search-all.png" alt="Video Selection - List All" style="border:1px solid black;"/>
 
 List videos by group name:
 
 By wrapping your video group with % you can get a listing of all videos in a
 specific group.
 
-<img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
+<img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group" style="border:1px solid black;"/>
 
 Search YouTube:
 
-<img src="screenshots/toby-youtube-search.png" alt="YouTube Search"/>
+<img src="screenshots/toby-youtube-search.png" alt="YouTube Search" style="border:1px solid black;"/>
 
 Play any video via it's YouTube video ID:
 
-<img src="screenshots/toby-play-video-with-id.png" alt="Video Selection - Play Any Video With Video ID"/>
+<img src="screenshots/toby-play-video-with-id.png" alt="Video Selection - Play Any Video With Video ID" style="border:1px solid black;"/>
 
 Recently played list:
 
-<img src="screenshots/toby-recently-played.png" alt="Recently Played List"/>
+<img src="screenshots/toby-recently-played.png" alt="Recently Played List" style="border:1px solid black;"/>
 
 ##Dependencies
 
