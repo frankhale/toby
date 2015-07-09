@@ -276,7 +276,7 @@
   (str @video-filter-grayscale-value))
 
 (defn get-video-saturate-filter-value []
-  (if (= @video-filter-saturate-value 1)
+  (if (<= @video-filter-saturate-value 1)
     (reset! video-filter-saturate-value 2.5)
     (reset! video-filter-saturate-value 1))
   (str @video-filter-saturate-value))

@@ -15,13 +15,15 @@
 		  :compiler
 			{:output-to "assets/build/main.js",
        :externs ["assets/externs/externs.js"],
-			 :optimizations :advanced}}
+			 :optimizations :advanced
+       :pretty-print false}}
      {:source-paths ["assets/src/toby"],
        :id "toby",
        :compiler
        {:output-to "assets/build/toby.js",
         :externs ["assets/externs/externs.js"],
-        :optimizations :advanced}}
+        :optimizations :advanced
+        :pretty-print false}}
      {:source-paths ["assets/src/player"],
       :id "player",
       :compiler
@@ -32,4 +34,5 @@
                       {:file "http://localhost:5150/socket.io/socket.io.js"
                        :provides ["io"]}],
        :externs ["assets/externs/externs.js"],
-       :optimizations :advanced}}]})
+       :optimizations :advanced
+       :pretty-print false}}]})
