@@ -46,5 +46,5 @@
             (fn []
               (do
                 (reset! socketio socket)
-                (js/console.log "call fire for youtube api ready...")
+                ;(js/console.log "call fire for youtube api ready...")
                 (fire "youtube-api-ready")))))))))

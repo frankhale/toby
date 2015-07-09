@@ -4422,18 +4422,12 @@ function Fe(a) {
   }
   var b = a.title;
   ad.h ? ad.h(Be, b) : ad.call(null, Be, b);
-  console.log(a);
   return Ce.emit("video-info", a);
 }
 window.onYouTubeIframeAPIReady = function() {
   Ce.emit("youtube-api-ready");
   return Ce.on("play", function(a) {
-    if (null == (Pb.j ? Pb.j(Ae) : Pb.call(null, Ae))) {
-      return a = new YT.Player("player", {videoId:a, playerVars:{autoplay:1, autohide:1}, events:{onStateChange:Fe}}), ad.h ? ad.h(Ae, a) : ad.call(null, Ae, a);
-    }
-    var b = [C("loading ytid: "), C(a)].join("");
-    console.log(b);
-    return (Pb.j ? Pb.j(Ae) : Pb.call(null, Ae)).loadVideoById(a);
+    return null == (Pb.j ? Pb.j(Ae) : Pb.call(null, Ae)) ? (a = new YT.Player("player", {videoId:a, playerVars:{autoplay:1, autohide:1}, events:{onStateChange:Fe}}), ad.h ? ad.h(Ae, a) : ad.call(null, Ae, a)) : (Pb.j ? Pb.j(Ae) : Pb.call(null, Ae)).loadVideoById(a);
   });
 };
 De.src = "https://www.youtube.com/iframe_api";

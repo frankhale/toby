@@ -7,6 +7,7 @@
 ; License: GNU GPL v2
 ;
 (ns player.core)
+  ;(:require [jayq.core :as jq]))
 
 (def player (atom nil))
 (def video-title (atom nil))
@@ -17,9 +18,10 @@
 
 (defn on-player-state-change [e]
  (let [video-info (.getVideoData (.-target e))]
-   (when-not (= video-title video-info.title)
+    (when-not (= video-title video-info.title)
+      ; If you want your videos to be black and white uncomment this line:
+      ;(.css (.find (.contents (js/jQuery "#player")) ".html5-main-video") "-webkit-filter" "grayscale(1.0)")
       (reset! video-title video-info.title)
-      (js/console.log video-info)
       (.emit socket "video-info" video-info))))
 
 ;(do
@@ -32,12 +34,13 @@
    (.emit socket "youtube-api-ready")
    (.on socket "play" (fn [ytid]
      (if (nil? @player)
-       (reset! player (YT.Player. "player" #js {
+       (do
+         (reset! player (YT.Player. "player" #js {
          :videoId ytid
          :playerVars #js { :autoplay 1 :autohide 1 }
-         :events #js { :onStateChange on-player-state-change }}))
+         :events #js { :onStateChange on-player-state-change }})))
        (do
-         (js/console.log (str "loading ytid: " ytid))
+         ;(js/console.log (str "loading ytid: " ytid))
          (.loadVideoById @player ytid)))))))
 
 (aset js/window "onYouTubeIframeAPIReady" on-youtube-api-ready)

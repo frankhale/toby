@@ -217,6 +217,60 @@
       (when-not (= current-video-title "Play video with YouTube ID:")
         (add-to-recently-played-and-update-file #js { :description new-title :ytid ytid } owner)))))
 
+(defn is-current-video-info-set [owner]
+  (let [current-video-title (om/get-state owner :current-video-title)
+        current-video-id (om/get-state owner :current-video-id)]
+    (if (and (not (empty? current-video-id)) (not (empty? current-video-title)))
+      true
+      false)))
+
+(defn add-video-to-misc-group [video-data new-entry]
+  (let [misc-group (.find lodash (.-groups video-data) #js { :title "misc" })
+        misc-group-entry #js { :title "misc" :videos #js [ new-entry ] }]
+    (if (= misc-group js/undefined)
+      (do
+        (.push (.-groups video-data) misc-group-entry)
+        video-data)
+      (do
+        (.push (.-videos misc-group) new-entry)
+        video-data))))
+
+; At the end of a video a list of other videos is displayed. If a user
+; clicks on one of these videos let's allow them to add that video if
+; they like it to their data.json file.
+;
+; We'll add it to a group called 'misc' for the time being
+(defn add-current-video-to-data-json [owner]
+  (when (is-current-video-info-set owner)
+    (let [current-video-title (om/get-state owner :current-video-title)
+          current-video-id (om/get-state owner :current-video-id)
+          new-entry #js { :description current-video-title :ytid current-video-id }
+          video-data (clj->js (om/get-state owner :video-data))
+          found-in-mem (.find lodash (.-videos video-data) #js { :ytid current-video-id })
+          found-in-file (.find lodash (.-videos (load-data-file)) #js { :ytid current-video-id })]
+      (when (and (= found-in-mem js/undefined) (= found-in-file js/undefined))
+        (let [updated-video-data (add-video-to-misc-group video-data new-entry)
+              json-obj (.stringify js/JSON (.-groups updated-video-data) js/undefined 2)]
+          (.writeFile fs data-json-path json-obj (fn [err] (when err (js/console.log err))))
+          (om/update-state! owner #(assoc %
+            :video-data updated-video-data
+            :new-video-notification (str "Added: " current-video-title)))
+          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500))))))
+
+; This is bad, this is all sorts of bad but I'm doing it for now...
+(defn add-play-handlers-to-recently-played-videos [owner]
+  (.forEach lodash (om/get-state owner :recently-played-data)
+    (fn [v] (
+      (do
+        (set! (.-play-video v) #(set-play-video-state v owner)))))))
+
+(defn recently-played-list-resize [owner]
+  (let [browser-size (.getContentSize browser)
+        recently-played (om/get-node owner "recently-played")
+        recently-played-list (om/get-node owner "recently-played-list")]
+    (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
+    (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 126) "px"))))
+
 ;
 ; Notification component
 ;
@@ -239,13 +293,6 @@
    om/IRenderState
    (render-state [_ {:keys [ notification-style message ] } ]
      (dom/div #js { :id "notification" :style notification-style } message))))
-
-(defn recently-played-list-resize [owner]
-  (let [browser-size (.getContentSize browser)
-        recently-played (om/get-node owner "recently-played")
-        recently-played-list (om/get-node owner "recently-played-list")]
-    (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
-    (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 126) "px"))))
 
 ;
 ; Recently played list component
@@ -298,53 +345,6 @@
           :ref "webview"
           :src "../html/player.html"
           :style style })))))
-
-(defn is-current-video-info-set [owner]
-  (let [current-video-title (om/get-state owner :current-video-title)
-        current-video-id (om/get-state owner :current-video-id)]
-    (if (and (not (empty? current-video-id)) (not (empty? current-video-title)))
-      true
-      false)))
-
-(defn add-video-to-misc-group [video-data new-entry]
-  (let [misc-group (.find lodash (.-groups video-data) #js { :title "misc" })
-        misc-group-entry #js { :title "misc" :videos #js [ new-entry ] }]
-    (if (= misc-group js/undefined)
-      (do
-        (.push (.-groups video-data) misc-group-entry)
-        video-data)
-      (do
-        (.push (.-videos misc-group) new-entry)
-        video-data))))
-
-; At the end of a video a list of other videos is displayed. If a user
-; clicks on one of these videos let's allow them to add that video if
-; they like it to their data.json file.
-;
-; We'll add it to a group called 'misc' for the time being
-(defn add-current-video-to-data-json [owner]
-  (when (is-current-video-info-set owner)
-    (let [current-video-title (om/get-state owner :current-video-title)
-          current-video-id (om/get-state owner :current-video-id)
-          new-entry #js { :description current-video-title :ytid current-video-id }
-          video-data (clj->js (om/get-state owner :video-data))
-          found-in-mem (.find lodash (.-videos video-data) #js { :ytid current-video-id })
-          found-in-file (.find lodash (.-videos (load-data-file)) #js { :ytid current-video-id })]
-      (when (and (= found-in-mem js/undefined) (= found-in-file js/undefined))
-        (let [updated-video-data (add-video-to-misc-group video-data new-entry)
-              json-obj (.stringify js/JSON (.-groups updated-video-data) js/undefined 2)]
-          (.writeFile fs data-json-path json-obj (fn [err] (when err (js/console.log err))))
-          (om/update-state! owner #(assoc %
-            :video-data updated-video-data
-            :new-video-notification (str "Added: " current-video-title)))
-          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500))))))
-
-; This is bad, this is all sorts of bad but I'm doing it for now...
-(defn add-play-handlers-to-recently-played-videos [owner]
-  (.forEach lodash (om/get-state owner :recently-played-data)
-    (fn [v] (
-      (do
-        (set! (.-play-video v) #(set-play-video-state v owner)))))))
 
 ;
 ; Video search component
@@ -416,8 +416,7 @@
 (jq/document-ready
   (do
     (server/listen 5150)
-    (om/root video-search []
-     {:target (. js/document (getElementById "ui"))})
+    (om/root video-search [] {:target (. js/document (getElementById "ui"))})
     (server/on "youtube-api-ready" (fn []
      (let [$mc (jq/$ :#main-content)
            $loading (jq/$ :#loading)]

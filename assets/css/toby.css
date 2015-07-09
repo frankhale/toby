@@ -3,6 +3,7 @@ body {
   background-color: #000;
   color: #fff;
   overflow: hidden;
+  background-image: url(../images/dark.jpg);
 }
 a {
   color: #000;
@@ -39,7 +40,7 @@ a {
   text-align:left;
   font-size: 12pt;
   left: 10px;
-  right: 15px;
+  right: 13px;
   top: 55px;
   padding-top: 10px;
   padding-left: 10px;
@@ -55,15 +56,16 @@ a {
   overflow-x: hidden;
 }
 #search-results a:hover {
-  background-color: #666;
+  background-color: #880000;
   color: #fff;
 }
 #recently-played {
+  background-color: rgba(50, 50, 50, 0.3);
   position: absolute;
   margin-top: 10px;
   margin-left: 12px;
   border: 2px solid #777;
-  background-color: #333;
+  /*background-color: #333;*/
   color: #fff;
   font-size: 12pt;
   border-top-left-radius: 5px;
@@ -92,8 +94,8 @@ a {
   color: #fff;
 }
 #recently-played a:hover {
-  background-color: #bbb;
-  color: #000;
+  background-color: #880000;
+  color: #FFF;
 }
 #notification {
   display: none;
@@ -116,4 +118,19 @@ a {
   text-align: center;
   top: 45%;
   font-size: 28pt;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
