@@ -2,14 +2,9 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 8 July 2015
+; 9 July 2015
 ;
 ; License: GNU GPL v2
-;
-
-;
-; NOTE: There is definitely some non-idiomatic code in here. I am also mutating
-;       state in some stupid ways. This will be resolved shortly!
 ;
 
 (ns toby.core
@@ -37,7 +32,9 @@
 (def data-json-path (apply str (interpose path.sep [data-path "data.json"])))
 (def recently-played-json-path (apply str (interpose path.sep [data-path "recent.json"])))
 (def youtube-api-key "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E")
-(def youtube-search-options #js { :maxResults 25, :key youtube-api-key, :type "video" })
+(def function-key-codes { :F1 112 :F2 113 :F3 114 :F4 115 :F5 116 :F6	117 :F7	118 :F8	119 :F9	120 :F10 121 :F11 122 :F12 123 })
+(def video-filter-grayscale-value (atom 0))
+(def video-filter-saturate-value (atom 0))
 (def app-title "Toby - A YouTube player for the desktop")
 
 (defn load-data-file []
@@ -55,11 +52,11 @@
       (catch js/Object e no-data))))
 
 (defn load-recently-played-data-file []
-  (let [no-data []]
+  (let [no-data #js []]
     (try
       (let [data (.readFileSync fs recently-played-json-path)
             data-obj (.parse js/JSON (.toString data))]
-        data-obj)
+          data-obj)
       (catch js/Object e no-data))))
 
 ; resizes the search box and search results DOM elements to fill up the window
@@ -71,15 +68,10 @@
     (set! (.-height (.-style search-results)) (str (- (last browser-size) 100) "px"))
     (set! (.-width (.-style search-box)) (str (- (first browser-size) 20) "px"))))
 
-(defn watch-data-file [data-changed]
-  (.watchFile fs data-json-path
+(defn watch-file [file-path data-changed]
+  (.watchFile fs file-path
     (fn [curr prev]
-      (data-changed (load-data-file)))))
-
-(defn watch-recently-played-data-file [data-changed]
-  (.watchFile fs recently-played-json-path
-    (fn [curr prev]
-      (data-changed (load-recently-played-data-file)))))
+      (data-changed))))
 
 (defn show-recently-played-list-if-exists [owner]
  (let [recently-played-data (om/get-state owner :recently-played-data)]
@@ -87,7 +79,7 @@
      (om/set-state! owner :recently-played-style #js { :display "block" }))))
 
 (defn get-search-results-from-youtube [search-term done]
-  (search-youtube search-term youtube-search-options (fn [err results]
+  (search-youtube search-term #js { :maxResults 25, :key youtube-api-key, :type "video" } (fn [err results]
     (if-not err
       (done (apply array (map (fn [r] #js { :description (.-title r) :ytid (.-id r) }) results)))
       []))))
@@ -99,15 +91,19 @@
       [])))
 
 (defn get-search-results-from-group [data group]
-  (let [group-data (.find lodash data (fn [g] (= group (.toLowerCase (.-title g)))))]
-    (if (and (not (= group-data js/undefined)) (> (.-length (.-videos group-data)) 0))
-      (.-videos group-data)
-      [])))
+  (if (= group "all")
+    (.-videos data)
+    (let [group-data (.find lodash (.-groups data) (fn [g] (= group (.toLowerCase (.-title g)))))]
+      (if (and (not (= group-data js/undefined)) (> (.-length (.-videos group-data)) 0))
+        (.-videos group-data)
+        []))))
 
-(defn get-search-result-for-youtube-id [search-term]
-  (array #js {
-    :description (str "Play video with YouTube ID: " search-term)
-    :ytid search-term }))
+(defn get-search-result-for-youtube-id [search-term done]
+  (when (.startsWith search-term "v=")
+    (search-youtube (.replace search-term "v=" "") #js { :maxResults 1, :key youtube-api-key, :type "video" } (fn [err results]
+      (if-not err
+        (done (apply array (map (fn [r] #js { :description (.-title r) :ytid (.-id r) }) results)))
+        [])))))
 
 (defn show-search-results [results owner]
   (when (> (.-length results) 0)
@@ -125,12 +121,13 @@
           (fn [data-results]
             (show-search-results data-results owner)))
         (if (and (.startsWith search-term-lower "%") (.endsWith search-term-lower "%"))
-          (when-let [data-results (get-search-results-from-group (.-groups video-data) (.trim (clojure.string/replace search-term-lower #"[%]" "")))]
+          (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"[%]" "")))]
             (show-search-results data-results owner))
           (let [data-results (get-search-results-from-data (.-videos video-data) search-term-lower)]
             (if (> (.-length data-results) 0)
               (show-search-results data-results owner)
-              (show-search-results (get-search-result-for-youtube-id search-term) owner))))))
+              (show-search-results (get-search-result-for-youtube-id search-term (fn [data-results]
+                (show-search-results data-results owner))) owner))))))
     (let [search-results-style (om/get-state owner :search-results-style)]
       (when-not (= (.-display search-results-style) "none")
         (om/update-state! owner #(assoc %
@@ -260,9 +257,7 @@
 ; This is bad, this is all sorts of bad but I'm doing it for now...
 (defn add-play-handlers-to-recently-played-videos [owner]
   (.forEach lodash (om/get-state owner :recently-played-data)
-    (fn [v] (
-      (do
-        (set! (.-play-video v) #(set-play-video-state v owner)))))))
+    (fn [v] ((set! (.-play-video v) #(set-play-video-state v owner))))))
 
 (defn recently-played-list-resize [owner]
   (let [browser-size (.getContentSize browser)
@@ -270,6 +265,21 @@
         recently-played-list (om/get-node owner "recently-played-list")]
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
     (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 126) "px"))))
+
+; Yeah I'm duplicating code here when I just need one nice smart function,,,
+; all in due time =) Additionally these two functions are wonky. There is
+; a better way,,, gotta be a better way than this. HAHA!
+(defn get-video-grayscale-filter-value []
+  (if (= @video-filter-grayscale-value 0)
+    (reset! video-filter-grayscale-value 1)
+    (reset! video-filter-grayscale-value 0))
+  (str @video-filter-grayscale-value))
+
+(defn get-video-saturate-filter-value []
+  (if (= @video-filter-saturate-value 1)
+    (reset! video-filter-saturate-value 2.5)
+    (reset! video-filter-saturate-value 1))
+  (str @video-filter-saturate-value))
 
 ;
 ; Notification component
@@ -369,18 +379,25 @@
       (do
         (set! (.-onkeydown js/window)
            (fn [e]
-             (case (.-keyCode e)
-               112 (toggle-search-play-list-and-webview owner) ; F1
-               116 (add-current-video-to-data-json owner)      ; F5
-               121 (.reload browser)                           ; F10
-               123 (.openDevTools browser)                     ; F12
-               e)))
+             (let [key-code (.-keyCode e)]
+               (cond
+                 (= (:F1 function-key-codes) key-code) (toggle-search-play-list-and-webview owner)
+                 (= (:F5 function-key-codes) key-code) (add-current-video-to-data-json owner)
+                 (= (:F7 function-key-codes) key-code) (server/send "video-settings" #js { :grayscale (get-video-grayscale-filter-value) })
+                 (= (:F8 function-key-codes) key-code) (server/send "video-settings" #js { :saturate (get-video-saturate-filter-value) })
+                 (= (:F10 function-key-codes) key-code) (.reload browser)
+                 (= (:F12 function-key-codes) key-code) (.openDevTools browser)
+                 :else e))))
         (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
         (resize-search-elements owner)
-        (watch-data-file (fn [data] (om/set-state! owner :video-data data)))
-        (watch-recently-played-data-file (fn [data]
-          (om/set-state! owner :recently-played-data data)
-          (add-play-handlers-to-recently-played-videos owner)))
+        (watch-file data-json-path (fn []
+          (let [data (load-data-file)]
+          (om/set-state! owner :video-data data))))
+        (watch-file recently-played-json-path
+          (fn []
+            (let [data (load-recently-played-data-file)]
+              (om/set-state! owner :recently-played-data data)
+              (add-play-handlers-to-recently-played-videos owner))))
         (let [rpd (om/get-state owner :recently-played-data)]
           (when (> (.-length rpd) 0)
             (om/set-state! owner :recently-played-style #js { :display "block" })))
@@ -401,25 +418,25 @@
             :id "search-box"
             :ref "search-box"
             :placeholder "search your videos or enter youtube id..."
-            :onKeyDown #(handle-search % owner)
-          }))
+            :onKeyDown #(handle-search % owner) })
         (dom/div #js { :id "search-results" :ref "search-results" :style search-results-style }
           (apply dom/div nil
             (map (fn [video] (dom/a #js {
                    :href "#"
                    :data-ytid (.-ytid video)
-                   :onClick #(handle-click % owner) } (.-description video))) search-results)))
-          (om/build recently-played-list { :videos recently-played-data :style recently-played-style})
-          (om/build video-playback { :style webview-style :update-title update-title })
-          (om/build notification { :message new-video-notification })))))
+                   :onClick #(handle-click % owner) } (.-description video))) search-results))))
+        (om/build recently-played-list { :videos recently-played-data :style recently-played-style})
+        (om/build video-playback { :style webview-style :update-title update-title })
+        (om/build notification { :message new-video-notification })))))
 
 (jq/document-ready
   (do
     (server/listen 5150)
     (om/root video-search [] {:target (. js/document (getElementById "ui"))})
-    (server/on "youtube-api-ready" (fn []
-     (let [$mc (jq/$ :#main-content)
-           $loading (jq/$ :#loading)]
-       (jq/css $mc {:visibility "visible"})
-       (jq/fade-out $loading "fast")
-       (jq/fade-in (jq/hide $mc) "slow"))))))
+    (server/on "youtube-api-ready"
+      (fn []
+        (let [$mc (jq/$ :#main-content)
+              $loading (jq/$ :#loading)]
+          (jq/css $mc {:visibility "visible"})
+          (jq/fade-out $loading "fast")
+          (jq/fade-in (jq/hide $mc) "slow"))))))

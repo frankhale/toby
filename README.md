@@ -12,6 +12,14 @@ Video playback:
 
 <img src="screenshots/toby-video-playback.png" alt="Video Playback"/>
 
+Video playback (Black & White):
+
+<img src="screenshots/toby-video-playback-black-and-white.png" alt="Video Playback (Black & White)"/>
+
+Video playback (Saturated):
+
+<img src="screenshots/toby-video-playback-saturated.png" alt="Video Playback (Saturated)"/>
+
 Search your playlist for a video:
 
 List all videos that start with the search term.
@@ -31,6 +39,10 @@ By wrapping your video group with % you can get a listing of all videos in a
 specific group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
+
+Search YouTube:
+
+<img src="screenshots/toby-youtube-search.png" alt="YouTube Search"/>
 
 Play any video via it's YouTube video ID:
 
@@ -56,7 +68,7 @@ How to run master in Electron:
 - Run npm install to install node modules
 - Run bower install to install JavaScript dependencies
 - Run Electron
-- Enjoy life and have fun listening to awesome music on YouTube!
+- Enjoy life and have fun listening to awesome music (or anything) on YouTube!
 
 ##Current Release
 
@@ -80,7 +92,9 @@ videos you love!
 **Important Key Combos:**
 
 F1 - Switch between video search and video playback (once a video has been selected and is playing)
-F5 - Add the current playing video to data.json (see Updating data.json)  
+F5 - Add the current playing video to data.json (see Updating data.json)
+F7 - Toggle black and white video playback
+F8 - Toggle saturated video playback  
 F10 - Restart app (Still leaving this in here for debug purposes)  
 F12 - Open Developer tools (Still leaving this in here for debug purposes)
 
@@ -154,7 +168,7 @@ their own libchromiumcontent until I can release a full fledged API back upstrea
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-7 July 2015
+9 July 2015
 
 ##License
 

@@ -101,4 +101,10 @@ var videoGroup = {
 var videoDataFile = {
   "groups": [],
   "videos": []
-}
+};
+
+var videoFilterSettings = {
+  "grayscale": 0,
+  "saturate": 0,
+  "sepia": 0
+};

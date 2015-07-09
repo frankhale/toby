@@ -42,6 +42,7 @@
           (.on socket "error" (fn [err] (js/console.log err)))
           (.on socket "video-info" (fn [data] (fire "video-info" data)))
           ;(.on socket "youtube-player-state-changed" (fn [data] (js/console.log data)))
+          (.on socket "video-settings" (fn [data] (fire "video-settings" data)))
           (.on socket "youtube-api-ready"
             (fn []
               (do

@@ -2,12 +2,11 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 8 July 2015
+; 9 July 2015
 ;
 ; License: GNU GPL v2
 ;
 (ns player.core)
-  ;(:require [jayq.core :as jq]))
 
 (def player (atom nil))
 (def video-title (atom nil))
@@ -21,6 +20,8 @@
     (when-not (= video-title video-info.title)
       ; If you want your videos to be black and white uncomment this line:
       ;(.css (.find (.contents (js/jQuery "#player")) ".html5-main-video") "-webkit-filter" "grayscale(1.0)")
+      ; If you want your videos more saturated uncomment this line and set the value to your preference
+      ;(.css (.find (.contents (js/jQuery "#player")) ".html5-main-video") "-webkit-filter" "saturate(3.5)")
       (reset! video-title video-info.title)
       (.emit socket "video-info" video-info))))
 
@@ -29,19 +30,30 @@
 ;    :title video-info.title
 ;   :video-id video-info.id })
 
+(defn set-webkit-filter [video-player setting value]
+  (.css video-player "-webkit-filter" (str setting "(" value ")")))
+
 (defn on-youtube-api-ready []
- (do
-   (.emit socket "youtube-api-ready")
-   (.on socket "play" (fn [ytid]
-     (if (nil? @player)
-       (do
-         (reset! player (YT.Player. "player" #js {
+  (.emit socket "youtube-api-ready")
+  (.on socket "play" (fn [ytid]
+   (if (nil? @player)
+     (do
+       (reset! player (YT.Player. "player" #js {
          :videoId ytid
          :playerVars #js { :autoplay 1 :autohide 1 }
-         :events #js { :onStateChange on-player-state-change }})))
-       (do
-         ;(js/console.log (str "loading ytid: " ytid))
-         (.loadVideoById @player ytid)))))))
+         :events #js { :onStateChange on-player-state-change }}))
+       (.on socket "video-settings" (fn [settings]
+         (let [video-player (.find (.contents (js/jQuery "#player")) ".html5-main-video")
+               grayscale-value (.-grayscale settings)
+               saturate-value (.-saturate settings)
+               sepia-value (.-sepia settings)]
+           (when-not (= grayscale-value js/undefined)
+            (set-webkit-filter video-player "grayscale" grayscale-value))
+           (when-not (= saturate-value js/undefined)
+            (set-webkit-filter video-player "saturate" saturate-value))
+           (when-not (= sepia-value js/undefined)
+            (set-webkit-filter video-player "sepia" sepia-value))))))
+       (.loadVideoById @player ytid)))))
 
 (aset js/window "onYouTubeIframeAPIReady" on-youtube-api-ready)
 (set! (.-src tag) "https://www.youtube.com/iframe_api")
