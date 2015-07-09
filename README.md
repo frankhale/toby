@@ -10,7 +10,7 @@ love life!
 
 Video playback:
 
-<img src="screenshots/toby-video-playback.png" alt="Video Playback" style="border:1px solid black;"/>
+<img src="screenshots/toby-video-playback.png" alt="Video Playback" border="1"/>
 
 Video playback (Black & White):
 
