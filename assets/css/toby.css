@@ -1,9 +1,13 @@
 body {
   margin: 0;
-  background-color: #000;
+  background-color: #111;
   color: #fff;
   overflow: hidden;
-  background-image: url(../images/dark.jpg);
+  /*background-image: url(../images/dark.jpg);*/
+  font-family: 'Quicksand', sans-serif;
+}
+input {
+  font-family: 'Quicksand', sans-serif;
 }
 a {
   color: #000;

@@ -264,7 +264,7 @@
         recently-played (om/get-node owner "recently-played")
         recently-played-list (om/get-node owner "recently-played-list")]
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
-    (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 126) "px"))))
+    (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 105) "px"))))
 
 ; Yeah I'm duplicating code here when I just need one nice smart function,,,
 ; all in due time =) Additionally these two functions are wonky. There is
@@ -317,7 +317,7 @@
     om/IRender
     (render [_]
       (dom/div #js { :id "recently-played" :ref "recently-played" :style (:style data) }
-        (dom/div #js { :id "recently-played-header" } "Recently Played")
+        ;(dom/div #js { :id "recently-played-header" } "Recently Played")
         (dom/div #js { :id "recently-played-list" :ref "recently-played-list" }
           (apply dom/div nil
             (map (fn [r] (dom/a #js {
