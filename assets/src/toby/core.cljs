@@ -14,7 +14,9 @@
     [om.core :as om]
     [om.dom :as dom]))
 
-(def version "0.14.0-SNAPSHOT")
+(def app-name "Toby")
+(def version "0.14") ; really need to grab this out of the package.json, will fix tomorrow
+(def app-title "Toby - A YouTube player for the desktop")
 
 (def fs (js/require "fs"))
 (def path (js/require "path"))
@@ -35,7 +37,6 @@
 (def function-key-codes { :F1 112 :F2 113 :F3 114 :F4 115 :F5 116 :F6	117 :F7	118 :F8	119 :F9	120 :F10 121 :F11 122 :F12 123 })
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
-(def app-title "Toby - A YouTube player for the desktop")
 
 (defn load-data-file []
   (let [no-data #js { :groups [] :videos [] }]
@@ -396,8 +397,12 @@
         (watch-file recently-played-json-path
           (fn []
             (let [data (load-recently-played-data-file)]
-              (om/set-state! owner :recently-played-data data)
-              (add-play-handlers-to-recently-played-videos owner))))
+              (if (> (.-length data) 0)
+                (do
+                  (om/set-state! owner :recently-played-data data)
+                  (om/set-state! owner :recently-played-style #js { :display "block" })
+                  (add-play-handlers-to-recently-played-videos owner))
+                (om/set-state! owner :recently-played-style #js { :display "none" })))))
         (let [rpd (om/get-state owner :recently-played-data)]
           (when (> (.-length rpd) 0)
             (om/set-state! owner :recently-played-style #js { :display "block" })))
@@ -412,6 +417,7 @@
                              new-video-notification
                              update-title]}]
      (dom/div #js { :id "main-content" }
+      (dom/h1 #js { :className "subdued-text" } (str app-name " " version))
       (dom/div #js { :id "search-list" :ref "search-list" :style search-list-style }
         (dom/input #js {
             :type "text"

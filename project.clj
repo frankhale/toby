@@ -1,4 +1,4 @@
-(defproject toby "0.14.0-SNAPSHOT"
+(defproject toby "0.14"
   :description "A YouTube player for the desktop"
   :url "http://github.com/frankhale/toby"
     :dependencies [[org.clojure/clojure "1.7.0"]

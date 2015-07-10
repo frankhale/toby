@@ -141,3 +141,14 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.subdued-text {
+  font-family: Helvetica, sans-serif;
+  font-size: 11pt;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  position: absolute;
+  bottom: 8px;
+  right: 28px;
+  color: #202020;
+}
