@@ -432,7 +432,7 @@
             :type "text"
             :id "search-box"
             :ref "search-box"
-            :placeholder "search your saved videos or youtube..."
+            :placeholder "search youtube or your saved videos..."
             :onKeyDown #(handle-search % owner) })
         (dom/div #js { :id "search-results" :ref "search-results" :style search-results-style }
           (apply dom/div nil
