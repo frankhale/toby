@@ -12,13 +12,21 @@ Video playback:
 
 <img src="screenshots/toby-video-playback.png" alt="Video Playback" />
 
+Video playback (Saturated):
+
+<img src="screenshots/toby-video-playback-saturated.png" alt="Video Playback (Saturated)"/>
+
 Video playback (Black & White):
 
 <img src="screenshots/toby-video-playback-black-and-white.png" alt="Video Playback (Black & White)"/>
 
-Video playback (Saturated):
+Search YouTube:
 
-<img src="screenshots/toby-video-playback-saturated.png" alt="Video Playback (Saturated)"/>
+<img src="screenshots/toby-youtube-search.png" alt="YouTube Search"/>
+
+Play any video via it's YouTube video ID:
+
+<img src="screenshots/toby-play-video-with-id.png" alt="Video Selection - Play Any Video With Video ID"/>
 
 Search your playlist for a video:
 
@@ -39,14 +47,6 @@ By wrapping your video group with % you can get a listing of all videos in a
 specific group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
-
-Search YouTube:
-
-<img src="screenshots/toby-youtube-search.png" alt="YouTube Search"/>
-
-Play any video via it's YouTube video ID:
-
-<img src="screenshots/toby-play-video-with-id.png" alt="Video Selection - Play Any Video With Video ID"/>
 
 Recently played list:
 
