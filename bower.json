@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "0.13.0",
+  "version": "0.14",
   "homepage": "https://github.com/frankhale/toby",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
@@ -19,8 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.13.3",
-    "lodash": "~3.9.3",
+    "lodash": "~3.10.0",
     "jquery": "~2.1.4",
     "font-awesome": "~4.3.0"
   }

@@ -1,8 +1,13 @@
 body {
   margin: 0;
-  background-color: #000;
+  background-color: #111;
   color: #fff;
   overflow: hidden;
+  /*background-image: url(../images/dark.jpg);*/
+  font-family: 'Quicksand', sans-serif;
+}
+input {
+  font-family: 'Quicksand', sans-serif;
 }
 a {
   color: #000;
@@ -18,11 +23,11 @@ a {
   position: absolute;
   background-color: #000;
 }
-#searchList {
+#search-list {
   text-align: center;
   margin: 0 auto;
 }
-#searchBox {
+#search-box {
   position: absolute;
   top: 15px;
   left: 7px;
@@ -32,14 +37,15 @@ a {
   border: 2px solid #aaa;
   outline: none;
 }
-#searchResults {
+#search-results {
   position: absolute;
   display: none;
+  z-index: 100;
   text-align:left;
   font-size: 12pt;
   left: 10px;
-  right: 15px;
-  top: 55px;
+  right: 13px;
+  top: 57px;
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 25px;
@@ -53,16 +59,17 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
 }
-#searchResults a:hover {
-  background-color: #666;
+#search-results a:hover {
+  background-color: #880000;
   color: #fff;
 }
-#recentlyPlayed {
+#recently-played {
+  background-color: rgba(50, 50, 50, 0.3);
   position: absolute;
   margin-top: 10px;
   margin-left: 12px;
   border: 2px solid #777;
-  background-color: #333;
+  /*background-color: #333;*/
   color: #fff;
   font-size: 12pt;
   border-top-left-radius: 5px;
@@ -74,25 +81,28 @@ a {
   top: 60px;
   overflow: hidden;
 }
-#recentlyPlayedHeader {
-  border-bottom: 2px solid #777;
-  background-color: #888;
+#recently-played-header {
+  border-left: 1px solid #777;
+  border-right: 1px solid #777;
+  border-bottom: 1px solid #777;
+  margin: 0 auto;
+  background-color: #880000;
   text-align: center;
-  font-size: 14pt;
+  font-size: 8pt;
   color: #fff;
-  min-height: 20px;
+  width: 100px;
 }
-#recentlyPlayedList {
+#recently-played-list {
   padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-#recentlyPlayed a {
+#recently-played a {
   color: #fff;
 }
-#recentlyPlayed a:hover {
-  background-color: #bbb;
-  color: #000;
+#recently-played a:hover {
+  background-color: #880000;
+  color: #FFF;
 }
 #notification {
   display: none;
@@ -115,4 +125,30 @@ a {
   text-align: center;
   top: 45%;
   font-size: 28pt;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.subdued-text {
+  font-family: Helvetica, sans-serif;
+  font-size: 11pt;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  position: absolute;
+  bottom: 8px;
+  right: 28px;
+  color: #202020;
 }

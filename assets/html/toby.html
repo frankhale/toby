@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Toby - A YouTube player for the desktop</title>
+    <link href="http://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" type="text/css">    
+    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/toby.css">
+  </head>
+
+  <body>
+    <div id="loading">
+      <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div id="ui"></div>
+
+    <script>
+      window.$ = window.jQuery = require('../../bower_components/jquery/dist/jquery.min.js');
+      window._ = require('../../bower_components/lodash/lodash.min.js')
+    </script>
+    <script src="../build/toby.js" type="text/javascript"></script>
+  </body>
+
+</html>
