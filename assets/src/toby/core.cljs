@@ -14,10 +14,6 @@
     [om.core :as om]
     [om.dom :as dom]))
 
-(def app-name "Toby")
-(def version "0.14") ; really need to grab this out of the package.json, will fix tomorrow
-(def app-title "Toby - A YouTube player for the desktop")
-
 (def fs (js/require "fs"))
 (def path (js/require "path"))
 (def process (js/require "process"))
@@ -30,6 +26,7 @@
 
 (def base-path (apply str (interpose path.sep [(.cwd process) "resources" "app"])))
 (def assets-path (apply str (interpose path.sep [base-path "assets"])))
+(def package-json-path (apply str (interpose path.sep [base-path "package.json"])))
 (def data-path (apply str (interpose path.sep [assets-path "data"])))
 (def data-json-path (apply str (interpose path.sep [data-path "data.json"])))
 (def recently-played-json-path (apply str (interpose path.sep [data-path "recent.json"])))
@@ -37,6 +34,8 @@
 (def function-key-codes { :F1 112 :F2 113 :F3 114 :F4 115 :F5 116 :F6	117 :F7	118 :F8	119 :F9	120 :F10 121 :F11 122 :F12 123 })
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
+
+(def app-title "Toby - A YouTube player for the desktop")
 
 (defn load-data-file []
   (let [no-data #js { :groups [] :videos [] }]
@@ -50,6 +49,14 @@
               :videos flattened-videos
             }]
           final-data)
+      (catch js/Object e no-data))))
+
+(defn load-package-json []
+  (let [no-data #js []]
+    (try
+      (let [data (.readFileSync fs package-json-path)
+            data-obj (.parse js/JSON (.toString data))]
+          data-obj)
       (catch js/Object e no-data))))
 
 (defn load-recently-played-data-file []
@@ -364,7 +371,8 @@
   (reify
     om/IInitState
     (init-state [_]
-      { :video-data (load-data-file)
+      { :package (load-package-json)
+        :video-data (load-data-file)
         :recently-played-data (load-recently-played-data-file)
         :search-results []
         :search-list-style #js { :display "block" }
@@ -408,7 +416,8 @@
             (om/set-state! owner :recently-played-style #js { :display "block" })))
         (add-play-handlers-to-recently-played-videos owner)))
     om/IRenderState
-    (render-state [_ {:keys [search-results
+    (render-state [_ {:keys [package
+                             search-results
                              recently-played-data
                              recently-played-style
                              search-list-style
@@ -417,7 +426,7 @@
                              new-video-notification
                              update-title]}]
      (dom/div #js { :id "main-content" }
-      (dom/h1 #js { :className "subdued-text" } (str app-name " " version))
+      (dom/h1 #js { :className "subdued-text" } (str (.-name package) " " (.-version package)))
       (dom/div #js { :id "search-list" :ref "search-list" :style search-list-style }
         (dom/input #js {
             :type "text"
