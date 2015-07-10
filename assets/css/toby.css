@@ -82,12 +82,15 @@ a {
   overflow: hidden;
 }
 #recently-played-header {
-  border-bottom: 2px solid #777;
-  background-color: #888;
+  border-left: 1px solid #777;
+  border-right: 1px solid #777;
+  border-bottom: 1px solid #777;
+  margin: 0 auto;
+  background-color: #880000;
   text-align: center;
-  font-size: 14pt;
+  font-size: 8pt;
   color: #fff;
-  min-height: 20px;
+  width: 100px;
 }
 #recently-played-list {
   padding: 10px;
