@@ -107,11 +107,12 @@
         []))))
 
 (defn get-search-result-for-youtube-id [search-term done]
-  (when (.startsWith search-term "v=")
+  (if (.startsWith search-term "v=")
     (search-youtube (.replace search-term "v=" "") #js { :maxResults 1, :key youtube-api-key, :type "video" } (fn [err results]
       (if-not err
         (done (apply array (map (fn [r] #js { :description (.-title r) :ytid (.-id r) }) results)))
-        [])))))
+        [])))
+  []))
 
 (defn show-search-results [results owner]
   (when (> (.-length results) 0)
