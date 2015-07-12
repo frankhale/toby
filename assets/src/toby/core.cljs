@@ -115,7 +115,7 @@
   []))
 
 (defn show-search-results [results owner]
-  (when (> (.-length results) 0)
+  (when (not (= results js/undefined)) (> (.-length results) 0)
     (om/update-state! owner #(assoc %
       :search-results results
       :search-results-style #js { :display "block" }))))
