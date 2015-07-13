@@ -371,6 +371,8 @@
     om/IDidMount
     (did-mount [_]
       (do
+        ; Okay registering shortcuts globally is not desirable but I really don't want a handle-click
+        ; rolled key handler like I had. I'm going to look around for a standard way to do this.
         (.register global-shortcut "F1" #(toggle-search-play-list-and-webview owner))
         (.register global-shortcut "F5" #(add-current-video-to-data-json owner))
         (.register global-shortcut "F7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
