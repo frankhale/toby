@@ -11,6 +11,7 @@
 (def app (js/require "app"))
 (def path (js/require "path"))
 (def browser-window (js/require "browser-window"))
+(def global-shortcut (js/require "global-shortcut"))
 (def crash-reporter (js/require "crash-reporter"))
 (def process (js/require "process"))
 
@@ -24,8 +25,18 @@
   :icon (str assets-dir path.sep "images" path.sep "t.png")
   :resizable true}))
 
+(defn toggle-dev-tools []
+  (when-let [focused-win (.getFocusedWindow browser-window)]
+    (.toggleDevTools focused-win)))
+
+(defn reload []
+  (when-let [focused-win (.getFocusedWindow browser-window)]
+    (.reloadIgnoringCache focused-win)))
+
 (defn init-browser []
 	(reset! main-window (browser-window. browser-options))
+  (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
+  (.register global-shortcut "CmdOrCtrl+R" #(reload))
 	;(.openDevTools @main-window)
   (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
 	(.on @main-window "closed" #(reset! main-window nil)))

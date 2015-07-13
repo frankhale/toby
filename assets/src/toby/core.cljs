@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 12 July 2015
+; 13 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -32,8 +32,10 @@
 (def recently-played-json-path (apply str (interpose path.sep [data-path "recent.json"])))
 (def youtube-api-key "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E")
 (def function-key-codes { :F1 112 :F2 113 :F3 114 :F4 115 :F5 116 :F6	117 :F7	118 :F8	119 :F9	120 :F10 121 :F11 122 :F12 123 })
+(def recently-played-entry-limit 50)
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
+(def video-filter-sepia-value (atom 0))
 
 (def app-title "Toby - A YouTube player for the desktop")
 
@@ -106,14 +108,6 @@
         (.-videos group-data)
         []))))
 
-(defn get-search-result-for-youtube-id [search-term done]
-  (if (.startsWith search-term "v=")
-    (search-youtube (.replace search-term "v=" "") #js { :maxResults 1, :key youtube-api-key, :type "video" } (fn [err results]
-      (if-not err
-        (done (apply array (map (fn [r] #js { :description (.-title r) :ytid (.-id r) }) results)))
-        [])))
-  []))
-
 (defn show-search-results [results owner]
   (when (not (= results js/undefined)) (> (.-length results) 0)
     (om/update-state! owner #(assoc %
@@ -133,10 +127,8 @@
           (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"[%]" "")))]
             (show-search-results data-results owner))
           (let [data-results (get-search-results-from-data (.-videos video-data) search-term-lower)]
-            (if (> (.-length data-results) 0)
-              (show-search-results data-results owner)
-              (show-search-results (get-search-result-for-youtube-id search-term (fn [data-results]
-                (show-search-results data-results owner))) owner))))))
+            (when (> (.-length data-results) 0)
+              (show-search-results data-results owner))))))
     (let [search-results-style (om/get-state owner :search-results-style)]
       (when-not (= (.-display search-results-style) "none")
         (om/update-state! owner #(assoc %
@@ -182,8 +174,8 @@
       :recently-played-style #js { :display "none" })))))
 
 (defn update-recently-played-data-file [recently-played-data]
- (let [only-top-25 (.take lodash recently-played-data 25)]
-   (.writeFile fs recently-played-json-path (.stringify js/JSON only-top-25 js/undefined 2)
+ (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
+   (.writeFile fs recently-played-json-path (.stringify js/JSON rpl-with-limit js/undefined 2)
     (fn [err] (when err (js/throw err))))))
 
 ; Need to wait until we get all the information. This will be called
@@ -233,6 +225,7 @@
 (defn add-video-to-misc-group [video-data new-entry]
   (let [misc-group (.find lodash (.-groups video-data) #js { :title "misc" })
         misc-group-entry #js { :title "misc" :videos #js [ new-entry ] }]
+    (.push (.-videos video-data) new-entry)
     (if (= misc-group js/undefined)
       (do
         (.push (.-groups video-data) misc-group-entry)
@@ -283,6 +276,12 @@
     (reset! video-filter-grayscale-value 1)
     (reset! video-filter-grayscale-value 0))
   (str @video-filter-grayscale-value))
+
+(defn get-video-sepia-filter-value []
+  (if (= @video-filter-sepia-value 0)
+    (reset! video-filter-sepia-value 1)
+    (reset! video-filter-sepia-value 0))
+  (str @video-filter-sepia-value))
 
 (defn get-video-saturate-filter-value []
   (if (<= @video-filter-saturate-value 1)
@@ -395,8 +394,7 @@
                  (= (:F5 function-key-codes) key-code) (add-current-video-to-data-json owner)
                  (= (:F7 function-key-codes) key-code) (server/send "video-settings" #js { :grayscale (get-video-grayscale-filter-value) })
                  (= (:F8 function-key-codes) key-code) (server/send "video-settings" #js { :saturate (get-video-saturate-filter-value) })
-                 (= (:F10 function-key-codes) key-code) (.reload browser)
-                 (= (:F12 function-key-codes) key-code) (.openDevTools browser)
+                 (= (:F9 function-key-codes) key-code) (server/send "video-settings" #js { :sepia (get-video-sepia-filter-value)})
                  :else e))))
         (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
         (resize-search-elements owner)

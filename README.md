@@ -80,8 +80,6 @@ A Windows x64 binary has been provided in this release.
 to override the HTTP referrer so that certain videos blocked from playback will
 play.
 
-NOTE: Mac & Linux binaries will come in the future
-
 ##Default Play List
 
 I ship my play list with Toby as an example. Feel free to replace this with
@@ -95,8 +93,8 @@ F1 - Switch between video search and video playback (once a video has been selec
 F5 - Add the current playing video to data.json (see Updating data.json)  
 F7 - Toggle black and white video playback  
 F8 - Toggle saturated video playback  
-F10 - Restart app (Still leaving this in here for debug purposes)  
-F12 - Open Developer tools (Still leaving this in here for debug purposes)
+Ctrl + R - Restart app (Still leaving this in here for debug purposes)  
+Ctrl + Shift + I - Open Developer tools (Still leaving this in here for debug purposes)
 
 NOTE: F5 adds a video to data.json only if it doesn't already exist. At the end
 of playing a YouTube video you'll receive suggestions for related videos that you
@@ -168,7 +166,7 @@ their own libchromiumcontent until I can release a full fledged API back upstrea
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-9 July 2015
+13 July 2015
 
 ##License
 

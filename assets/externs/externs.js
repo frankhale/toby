@@ -1,5 +1,3 @@
-// NOTE: These may or may not be totally correct. They are working for me as is.
-
 // various globals that refer to ElectronJS and third party libraries
 var app,
     fs,
@@ -9,6 +7,7 @@ var app,
     shell,
     CrashReporter,
     BrowserWindow,
+    globalShortcut,
     Socket,
     YT,
     _;
@@ -40,6 +39,13 @@ remote.getCurrentWindow = function() {};
 // ElectronJS: CrashReporter
 CrashReporter.start = function(opts) {};
 
+// ElectronJS: globalShortcut
+
+globalShortcut.register = function(accelerator, callback) {};
+globalShortcut.isRegistered = function(accelerator) {};
+globalShortcut.unregister = function(accelerator) {};
+globalShortcut.unregisterAll = function() {};
+
 // ElectronJS:  BrowserWindow
 BrowserWindow.loadUrl = function(url) {};
 BrowserWindow.on = function(eventName, callback) {};
@@ -47,8 +53,10 @@ BrowserWindow.openDevTools = function() {};
 BrowserWindow.closeDevTools = function() {};
 BrowserWindow.toggleDevTools = function() {};
 BrowserWindow.reload = function() {};
+BrowserWindow.reloadIgnoringCache = function() {};
 BrowserWindow.getContentSize = function() {};
 BrowserWindow.setTitle = function(title) {};
+BrowserWindow.getFocusedWindow = function() {};
 
 // YouTube API
 YT.Player = function(elem, opts) {};
@@ -79,6 +87,8 @@ _.find = function(coll, predicate) {};
 _.sortBy = function(coll, identity) {};
 _.take = function(coll, num) {};
 _.takeRight = function(coll, num) {};
+_.uniq = function(array, isSorted, iteratee, thisArg) {};
+_.map = function(coll, iteratee, thisArg) {};
 
 // JavaScript
 
