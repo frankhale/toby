@@ -18,10 +18,11 @@
 (def path (js/require "path"))
 (def process (js/require "process"))
 (def remote (js/require "remote"))
+(def global-shortcut (.require remote "global-shortcut"))
 (def shell (js/require "shell"))
 (def search-youtube (js/require "youtube-search"))
 (def browser (.getCurrentWindow remote))
-(def io ((js/require "socket.io")))
+(def io (js/require "socket.io"))
 (def lodash (.-_ js/window))
 
 (def base-path (apply str (interpose path.sep [(.cwd process) "resources" "app"])))
@@ -31,8 +32,8 @@
 (def data-json-path (apply str (interpose path.sep [data-path "data.json"])))
 (def recently-played-json-path (apply str (interpose path.sep [data-path "recent.json"])))
 (def youtube-api-key "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E")
-(def function-key-codes { :F1 112 :F2 113 :F3 114 :F4 115 :F5 116 :F6	117 :F7	118 :F8	119 :F9	120 :F10 121 :F11 122 :F12 123 })
 (def recently-played-entry-limit 50)
+(def new-video-notification-display-timeout 2500)
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
 (def video-filter-sepia-value (atom 0))
@@ -254,9 +255,8 @@
           (om/update-state! owner #(assoc %
             :video-data updated-video-data
             :new-video-notification (str "Added: " current-video-title)))
-          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) 2500))))))
+          (.setTimeout js/window (goog/bind (fn [] (om/set-state! owner :new-video-notification "")) owner) new-video-notification-display-timeout))))))
 
-; This is bad, this is all sorts of bad but I'm doing it for now...
 (defn add-play-handlers-to-recently-played-videos [owner]
   (.forEach lodash (om/get-state owner :recently-played-data)
     (fn [v] ((set! (.-play-video v) #(set-play-video-state v owner))))))
@@ -268,26 +268,11 @@
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
     (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 120) "px"))))
 
-; Yeah I'm duplicating code here when I just need one nice smart function,,,
-; all in due time =) Additionally these two functions are wonky. There is
-; a better way,,, gotta be a better way than this. HAHA!
-(defn get-video-grayscale-filter-value []
-  (if (= @video-filter-grayscale-value 0)
-    (reset! video-filter-grayscale-value 1)
-    (reset! video-filter-grayscale-value 0))
-  (str @video-filter-grayscale-value))
-
-(defn get-video-sepia-filter-value []
-  (if (= @video-filter-sepia-value 0)
-    (reset! video-filter-sepia-value 1)
-    (reset! video-filter-sepia-value 0))
-  (str @video-filter-sepia-value))
-
-(defn get-video-saturate-filter-value []
-  (if (<= @video-filter-saturate-value 1)
-    (reset! video-filter-saturate-value 2.5)
-    (reset! video-filter-saturate-value 1))
-  (str @video-filter-saturate-value))
+(defn toggle-video-filter-value [video-filter-atom min max]
+  (if (= @video-filter-atom min)
+    (reset! video-filter-atom max)
+    (reset! video-filter-atom min))
+  (str @video-filter-atom))
 
 ;
 ; Notification component
@@ -307,7 +292,7 @@
         (js/setTimeout
            (goog/bind
              (fn [] (om/set-state! owner { :notification-style #js { :display "none" } :message "" }))
-             owner) 2500)))
+             owner) new-video-notification-display-timeout)))
    om/IRenderState
    (render-state [_ {:keys [ notification-style message ] } ]
      (dom/div #js { :id "notification" :style notification-style } message))))
@@ -386,16 +371,11 @@
     om/IDidMount
     (did-mount [_]
       (do
-        (set! (.-onkeydown js/window)
-           (fn [e]
-             (let [key-code (.-keyCode e)]
-               (cond
-                 (= (:F1 function-key-codes) key-code) (toggle-search-play-list-and-webview owner)
-                 (= (:F5 function-key-codes) key-code) (add-current-video-to-data-json owner)
-                 (= (:F7 function-key-codes) key-code) (server/send "video-settings" #js { :grayscale (get-video-grayscale-filter-value) })
-                 (= (:F8 function-key-codes) key-code) (server/send "video-settings" #js { :saturate (get-video-saturate-filter-value) })
-                 (= (:F9 function-key-codes) key-code) (server/send "video-settings" #js { :sepia (get-video-sepia-filter-value)})
-                 :else e))))
+        (.register global-shortcut "F1" #(toggle-search-play-list-and-webview owner))
+        (.register global-shortcut "F5" #(add-current-video-to-data-json owner))
+        (.register global-shortcut "F7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
+        (.register global-shortcut "F8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
+        (.register global-shortcut "F9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
         (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
         (resize-search-elements owner)
         (watch-file data-json-path (fn []

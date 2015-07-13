@@ -35,6 +35,7 @@ shell.openExternal = function(url) {};
 
 // ElectronJS: remote
 remote.getCurrentWindow = function() {};
+remote.require = function(module) {};
 
 // ElectronJS: CrashReporter
 CrashReporter.start = function(opts) {};
