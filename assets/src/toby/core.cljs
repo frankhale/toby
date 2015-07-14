@@ -18,7 +18,7 @@
 (def path (js/require "path"))
 (def process (js/require "process"))
 (def remote (js/require "remote"))
-(def global-shortcut (.require remote "global-shortcut"))
+(def keymaster (js/require "keymaster"))
 (def shell (js/require "shell"))
 (def search-youtube (js/require "youtube-search"))
 (def browser (.getCurrentWindow remote))
@@ -371,13 +371,11 @@
     om/IDidMount
     (did-mount [_]
       (do
-        ; Okay registering shortcuts globally is not desirable but I really don't want a handle-click
-        ; rolled key handler like I had. I'm going to look around for a standard way to do this.
-        (.register global-shortcut "F1" #(toggle-search-play-list-and-webview owner))
-        (.register global-shortcut "F5" #(add-current-video-to-data-json owner))
-        (.register global-shortcut "F7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
-        (.register global-shortcut "F8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
-        (.register global-shortcut "F9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
+        (keymaster "f1" #(toggle-search-play-list-and-webview owner))
+        (keymaster "f5" #(add-current-video-to-data-json owner))
+        (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
+        (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
+        (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
         (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
         (resize-search-elements owner)
         (watch-file data-json-path (fn []

@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 8 July 2015
+; 13 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -37,7 +37,6 @@
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
   (.register global-shortcut "CmdOrCtrl+R" #(reload))
-	;(.openDevTools @main-window)
   (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
 	(.on @main-window "closed" #(reset! main-window nil)))
 
