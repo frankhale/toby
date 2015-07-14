@@ -1,12 +1,15 @@
 Toby
 ====
 
-Toby is a desktop YouTube video player. Toby takes the path of least resistance.
-It provides a way to specify videos and a way to look them up and play them.
-Nothing more, nothing less. Getter done! Play the videos you really like and
-love life!
+Toby is a YouTube player for the desktop that strives to be simple, elegant and
+not get in your way. You have videos you like and Toby wants it to be as
+painless as possible for you to start watching videos now!
 
 ##Screenshots
+
+Main user interface:
+
+<img src="screenshots/toby-main-ui.png" alt="Main User Interface"/>
 
 Video playback:
 
@@ -36,21 +39,17 @@ List all videos that start with the search term.
 
 List all videos in your playlist:
 
-By typing %all% into the search box you will get a listing of all of your
+By typing "group: all" into the search box you will get a listing of all of your
 videos.
 
 <img src="screenshots/toby-video-search-all.png" alt="Video Selection - List All"/>
 
 List videos by group name:
 
-By wrapping your video group with % you can get a listing of all videos in a
-specific group.
+By your search with group: you can get a listing of all videos in a specific
+group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
-
-Recently played list:
-
-<img src="screenshots/toby-recently-played.png" alt="Recently Played List"/>
 
 ##Dependencies
 
@@ -91,8 +90,9 @@ videos you love!
 
 F1 - Switch between video search and video playback (once a video has been selected and is playing)  
 F5 - Add the current playing video to data.json (see Updating data.json)  
-F7 - Toggle black and white video playback  
-F8 - Toggle saturated video playback  
+F7 - Toggle black and white video playback filter
+F8 - Toggle saturated video playback filter
+F9 - Toggle sepia video playback filter  
 Ctrl + R - Restart app (Still leaving this in here for debug purposes)  
 Ctrl + Shift + I - Open Developer tools (Still leaving this in here for debug purposes)
 

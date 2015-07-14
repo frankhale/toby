@@ -1,7 +1,7 @@
 {
   "name": "toby",
   "description": "A YouTube player for the desktop",
-  "version": "0.14",
+  "version": "0.14.0",
   "main": "assets/build/main.js",
   "homepage": "https://github.com/frankhale/toby",
   "authors": [
@@ -13,6 +13,7 @@
   },
   "license": "GPL-2.0",
   "dependencies": {
+    "keymaster": "^1.6.2",
     "socket.io": "^1.3.5",
     "youtube-search": "^1.0.4"
   }
