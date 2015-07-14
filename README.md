@@ -51,33 +51,20 @@ group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
 
-##Dependencies
-
-If you want to run the latest code from master feel free. Toby requires
-Electron to run.
-
-How to run master in Electron:
-
-- Download Electron from https://github.com/atom/electron
-- Unzip Electron
-- Navigate to the resources folder
-- Create a folder called app
-- Clone the source code for Toby and dump it directly in the app folder
-- Open terminal to app folder
-- Run npm install to install node modules
-- Run bower install to install JavaScript dependencies
-- Run Electron
-- Enjoy life and have fun listening to awesome music (or anything) on YouTube!
-
 ##Current Release
 
-https://github.com/frankhale/toby/releases/tag/v0.13.0
+https://github.com/frankhale/toby/releases/tag/v0.14.0
 
 A Windows x64 binary has been provided in this release.
 
-- Based on Electron 0.28.3, includes iojs 2.3.1 and a patched libchromiumcontent
-to override the HTTP referrer so that certain videos blocked from playback will
-play.
+- Based on Electron 0.29.2-master (after the 0.29.2 release), includes iojs 2.3.4
+and a patched libchromiumcontent to Chrome version 43.0.2357.132 as well as a
+patch to override the HTTP referrer so that videos blocked from playback by at least
+VEVO will play.
+
+Developer Note: This custom HTTP referrer override patch is different than the
+httpreferrer override option in the webview tag. This one overrides the referrer
+for all web requests.
 
 ##Default Play List
 
@@ -103,13 +90,29 @@ to add the video to your play list.
 
 ###How can I update the play list?
 
+Currently you can update your playlist with new videos in three ways. The data for
+all your saved videos is in a file called data.json. I've included my favorite
+videos as an example in this release to get you started.
+
+NOTE Location: toby-0.14.0\resources\app\assets\data\data.json
+
+1. Update data.json manually (see below)
+2. Search Youtube by prefixing your search with "youtube:" or "yt:" and then
+   using the F5 key to add a video you like to your playlist.
+2. After a video is played YouTube will show a listing of other videos you may
+   like to watch. If you click on one and like it you can hit the F5 key to add
+   it to your playlist. This will make it available when searching your videos
+   the next time you want to watch it. Files added in this way will be added to
+   a group called 'misc'. If you like you can edit your data.json and move them
+   to a different group. A UI will be provided in the future to make this easier.
+
+Updating data.json manually:  
+
 The data folder has a JSON file in it which is pretty self explanatory. There
 is an array of genres which have a set of videos that go with them. Basically
-what you do is you just grab the title of the video and the embed URL from
-YouTube and add it manually (for now) to the file. You can do this while the
+what you do is you just grab the title of the video and the video ID from the
+video URL on YouTube and add it manually to the file. You can do this while the
 app is running and the new entry will show up in your play list.
-
-NOTE: See section Updating data.json for more information.
 
 The data.json file has the following format:
 
@@ -133,35 +136,35 @@ that contain a description and a URL.
 }]
 ```
 
-###Recap Updating Play List
-
-Currently you can update data.json with new videos in two ways.
-
-1. Update data.json manually (explained above)
-2. After a video is played YouTube will show a listing of other videos you may
-   like to watch. If you click on one and like it you can hit the F5 key to add
-   it to your data.json. This will make it available when searching your videos
-   the next time you want to watch it. Files added in this way will be added to
-   a group called 'misc'. If you like you can edit your data.json and move them
-   to a different group.
-
-###Some videos are blocked, why?
+###Some videos are blocked (VEVO), why?
 
 From 0.13.0 forward I'm using the YouTube API so this requires a custom patch for
 libchromiumcontent so that the HTTP referrer is overridden for all web requests.
-Thus allowing blocked videos (from VEVO) to play.
-
-Before 0.13.0 I was using a webview which provides a way to override the HTTP
-referrer and I was combining this with YouTube embed URLs so I didn't need to use
-the YouTube API. This worked well but I always wanted to use the YouTube API deep
-down. Since I've moved forward my intention is to provide a fully exposed API to
-do this in libchromiumcontent content and Electron. Until that day comes my intention
-is that users of Toby that desire playing videos from VEVO will use my provided
-binary release of Toby 0.13.0 or patch their own libchromiumcontent so that these
-videos play.
+Thus allowing blocked videos (from VEVO) to play (because the YouTube API requires an iframe
+and the httpreferrer override option only exists in webviews for a single HTTP source).
 
 I will provide the necessary information for those developers inclined to patch
-their own libchromiumcontent until I can release a full fledged API back upstream.
+their own libchromiumcontent until the time I can release a full fledged API to do
+this back to upstream Electron.
+
+##Running Latest Code (not using the provided release binary)
+
+If you want to run the latest code from master feel free. Toby requires
+Electron to run.
+
+How to run master in Electron:
+
+- Download Electron from https://github.com/atom/electron
+- Unzip Electron
+- Navigate to the resources folder
+- Create a folder called app
+- Clone the source code using git or download a copy of this code from Github
+and dump it directly in the app folder
+- Open terminal to app folder
+- Run npm install to install node modules (requires iojs or node to be installed)
+- Run bower install to install JavaScript dependencies (requires bower to be installed)
+- Run Electron
+- Enjoy life and have fun listening to awesome music (or watching videos you love) on YouTube!
 
 ##Author(s)
 
