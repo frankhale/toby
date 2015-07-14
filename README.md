@@ -46,7 +46,7 @@ videos.
 
 List videos by group name:
 
-By your search with group: you can get a listing of all videos in a specific
+By prefixing your search with "group:" you can get a listing of all videos in a specific
 group.
 
 <img src="screenshots/toby-video-search-by-group.png" alt="Video Selection - List By Group"/>
