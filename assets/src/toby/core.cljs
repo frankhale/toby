@@ -123,7 +123,8 @@
       (if (re-matches #"^(youtube:|yt:)[\s\w]+" search-term-lower)
         (get-search-results-from-youtube (.trim (clojure.string/replace search-term-lower #"^(youtube:|yt:)" ""))
           (fn [data-results]
-            (show-search-results data-results owner)))
+            (when (> (.-length data-results) 0)
+              (show-search-results data-results owner))))
         (if (re-matches #"^(group:|g:)[\s\w]+" search-term-lower)
           (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"^(group:|g:)" "")))]
             (show-search-results data-results owner))
