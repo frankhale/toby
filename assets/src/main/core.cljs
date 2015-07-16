@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 13 July 2015
+; 15 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -17,7 +17,6 @@
 
 (def main-window (atom nil))
 (def assets-dir (apply str (interpose path.sep [(.cwd process) "resources" "app" "assets"])))
-(js/console.log assets-dir)
 (def browser-options (clj->js {
   :title "Toby - A YouTube player for the desktop"
   :width 640
@@ -34,16 +33,13 @@
     (.reloadIgnoringCache focused-win)))
 
 (defn init-browser []
+  (app.commandLine.appendSwitch "--override-http-referrer" "http://youtube.com") ; Make VEVO work, LOL! =)
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
   (.register global-shortcut "CmdOrCtrl+R" #(reload))
   (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
 	(.on @main-window "closed" #(reset! main-window nil)))
 
-(defn quit []
-  (js/console.log "app.quit called")
-  (.quit app))
-
 (.start crash-reporter)
-(.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (quit)))
+(.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (.quit app)))
 (.on app "ready" #(init-browser))

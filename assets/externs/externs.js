@@ -1,4 +1,11 @@
-// various globals that refer to ElectronJS and third party libraries
+//
+// Toby - A YouTube player for the desktop
+//
+// Frank Hale <frankhale@gmail.com>
+// 15 July 2015
+//
+// License: GNU GPL v2
+//
 var app,
     fs,
     path,
@@ -18,6 +25,7 @@ app.quit = function() {};
 app.getPath = function(path) {};
 app.getVersion = function() {};
 app.getName = function() {};
+app.commandLine.appendSwitch = function(switch_, value) {};
 
 // io.js: process
 process.cwd = function() {};

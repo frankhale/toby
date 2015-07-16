@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 9 July 2015
+; 15 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -18,10 +18,6 @@
 (defn on-player-state-change [e]
  (let [video-info (.getVideoData (.-target e))]
     (when-not (= video-title video-info.title)
-      ; If you want your videos to be black and white uncomment this line:
-      ;(.css (.find (.contents (js/jQuery "#player")) ".html5-main-video") "-webkit-filter" "grayscale(1.0)")
-      ; If you want your videos more saturated uncomment this line and set the value to your preference
-      ;(.css (.find (.contents (js/jQuery "#player")) ".html5-main-video") "-webkit-filter" "saturate(3.5)")
       (reset! video-title video-info.title)
       (.emit socket "video-info" video-info))))
 
