@@ -17,7 +17,8 @@
 
 (defn on-player-state-change [e]
  (let [video-info (.getVideoData (.-target e))]
-    (when-not (= video-title video-info.title)
+    (when-not (= @video-title video-info.title)
+      (js/console.log "sending video title info...")
       (reset! video-title video-info.title)
       (.emit socket "video-info" video-info))))
 
