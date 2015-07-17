@@ -32,20 +32,20 @@
           (.func l data)
           (.func l))))))))
 
+(defn close [] (.close io))
 (defn listen [port]
-  (do
-    (.listen io port)
-    (js/console.log (str "socket.io server listening on port: " port))
-    (.on io "connection"
-      (fn [socket]
-        (do
-          (.on socket "error" (fn [err] (js/console.log err)))
-          (.on socket "video-info" (fn [data] (fire "video-info" data)))
-          ;(.on socket "youtube-player-state-changed" (fn [data] (js/console.log data)))
-          (.on socket "video-settings" (fn [data] (fire "video-settings" data)))
-          (.on socket "youtube-api-ready"
-            (fn []
-              (do
-                (reset! socketio socket)
-                ;(js/console.log "call fire for youtube api ready...")
-                (fire "youtube-api-ready")))))))))
+  (.listen io port)
+  (js/console.log (str "socket.io server listening on port: " port))
+  (.on io "connection"
+    (fn [socket]
+      (do
+        (.on socket "error" (fn [err] (js/console.log err)))
+        (.on socket "video-info" (fn [data] (fire "video-info" data)))
+        ;(.on socket "youtube-player-state-changed" (fn [data] (js/console.log data)))
+        (.on socket "video-settings" (fn [data] (fire "video-settings" data)))
+        (.on socket "youtube-api-ready"
+          (fn []
+            (do
+              (reset! socketio socket)
+              ;(js/console.log "call fire for youtube api ready...")
+              (fire "youtube-api-ready"))))))))

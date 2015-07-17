@@ -38,8 +38,7 @@
   (app.commandLine.appendSwitch "--override-http-referrer" "http://youtube.com")
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
-  (.register global-shortcut "CmdOrCtrl+R" #(reload))
-  (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
+  (.loadUrl @main-window (str "file://" assets-dir (str path.sep "html" path.sep "toby.html")))
 	(.on @main-window "closed" #(reset! main-window nil)))
 
 ;(.start crash-reporter)

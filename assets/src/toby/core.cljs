@@ -34,6 +34,7 @@
 (def youtube-api-key "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E")
 (def recently-played-entry-limit 50)
 (def new-video-notification-display-timeout 2500)
+(def server-port 5150)
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
 (def video-filter-sepia-value (atom 0))
@@ -164,14 +165,13 @@
 
 (defn set-play-video-state [video owner]
   (fn []
-   (do
     (server/send "play" (.-ytid video))
     (om/update-state! owner #(assoc %
       :current-video-title (.-description video)
       :current-video-id (.-ytid video)
       :webview-style #js { :visibility "visible" }
       :search-list-style #js { :display "none" }
-      :recently-played-style #js { :display "none" })))))
+      :recently-played-style #js { :display "none" }))))
 
 (defn update-recently-played-data-file [recently-played-data]
  (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
@@ -303,9 +303,8 @@
   (reify
     om/IDidMount
     (did-mount [_]
-      (do
-        (.addEventListener js/window "resize" (fn [e] (recently-played-list-resize owner)))
-        (recently-played-list-resize owner)))
+      (.addEventListener js/window "resize" (fn [e] (recently-played-list-resize owner)))
+      (recently-played-list-resize owner))
     om/IRender
     (render [_]
       (dom/div #js { :id "recently-played" :ref "recently-played" :style (:style data) }
@@ -369,30 +368,30 @@
         :update-title (goog/bind (fn [title ytid] (update-title title ytid owner)) owner) })
     om/IDidMount
     (did-mount [_]
-      (do
-        (keymaster "f1" #(toggle-search-play-list-and-webview owner))
-        (keymaster "f5" #(add-current-video-to-data-json owner))
-        (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
-        (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
-        (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
-        (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
-        (resize-search-elements owner)
-        (watch-file data-json-path (fn []
-          (let [data (load-data-file)]
-          (om/set-state! owner :video-data data))))
-        (watch-file recently-played-json-path
-          (fn []
-            (let [data (load-recently-played-data-file)]
-              (if (> (.-length data) 0)
-                (do
-                  (om/set-state! owner :recently-played-data data)
-                  (om/set-state! owner :recently-played-style #js { :display "block" })
-                  (add-play-handlers-to-recently-played-videos owner))
-                (om/set-state! owner :recently-played-style #js { :display "none" })))))
-        (let [rpd (om/get-state owner :recently-played-data)]
-          (when (> (.-length rpd) 0)
-            (om/set-state! owner :recently-played-style #js { :display "block" })))
-        (add-play-handlers-to-recently-played-videos owner)))
+      (keymaster "f1" #(toggle-search-play-list-and-webview owner))
+      (keymaster "f5" #(add-current-video-to-data-json owner))
+      (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
+      (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
+      (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
+      (keymaster "command+r, ctrl+r" #((server/close)(.reload browser)))
+      (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
+      (resize-search-elements owner)
+      (watch-file data-json-path (fn []
+        (let [data (load-data-file)]
+        (om/set-state! owner :video-data data))))
+      (watch-file recently-played-json-path
+        (fn []
+          (let [data (load-recently-played-data-file)]
+            (if (> (.-length data) 0)
+              (do
+                (om/set-state! owner :recently-played-data data)
+                (om/set-state! owner :recently-played-style #js { :display "block" })
+                (add-play-handlers-to-recently-played-videos owner))
+              (om/set-state! owner :recently-played-style #js { :display "none" })))))
+      (let [rpd (om/get-state owner :recently-played-data)]
+        (when (> (.-length rpd) 0)
+          (om/set-state! owner :recently-played-style #js { :display "block" })))
+      (add-play-handlers-to-recently-played-videos owner))
     om/IRenderState
     (render-state [_ {:keys [package
                              search-results
@@ -424,7 +423,7 @@
 
 (jq/document-ready
   (do
-    (server/listen 5150)
+    (server/listen server-port)
     (om/root video-search [] {:target (. js/document (getElementById "ui"))})
     (server/on "youtube-api-ready"
       (fn []

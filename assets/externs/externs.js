@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 15 July 2015
+// 16 July 2015
 //
 // License: GNU GPL v2
 //
@@ -84,6 +84,7 @@ var videoData = {
 Socket.on = function(eventName, callback) {};
 Socket.listen = function(port) {};
 Socket.emit = function(message) {};
+Socket.close = function() {};
 
 // lodash (assumes attaching to _)
 
