@@ -77,8 +77,8 @@ videos you love!
 
 F1 - Switch between video search and video playback (once a video has been selected and is playing)  
 F5 - Add the current playing video to data.json (see Updating data.json)  
-F7 - Toggle black and white video playback filter
-F8 - Toggle saturated video playback filter
+F7 - Toggle black and white video playback filter  
+F8 - Toggle saturated video playback filter  
 F9 - Toggle sepia video playback filter  
 Ctrl + R - Restart app (Still leaving this in here for debug purposes)  
 Ctrl + Shift + I - Open Developer tools (Still leaving this in here for debug purposes)
@@ -99,7 +99,7 @@ NOTE Location: toby-0.14.0\resources\app\assets\data\data.json
 1. Update data.json manually (see below)
 2. Search Youtube by prefixing your search with "youtube:" or "yt:" and then
    using the F5 key to add a video you like to your playlist.
-2. After a video is played YouTube will show a listing of other videos you may
+3. After a video is played YouTube will show a listing of other videos you may
    like to watch. If you click on one and like it you can hit the F5 key to add
    it to your playlist. This will make it available when searching your videos
    the next time you want to watch it. Files added in this way will be added to
@@ -169,7 +169,7 @@ and dump it directly in the app folder
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-13 July 2015
+16 July 2015
 
 ##License
 
