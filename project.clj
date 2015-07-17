@@ -1,9 +1,9 @@
-(defproject toby "0.14"
+(defproject toby "0.15.0-SNAPSHOT"
   :description "A YouTube player for the desktop"
   :url "http://github.com/frankhale/toby"
     :dependencies [[org.clojure/clojure "1.7.0"]
                    [org.clojure/clojurescript "0.0-3308"]
-                   [org.omcljs/om "0.8.8"]
+                   [org.omcljs/om "0.9.0"]
                    [jayq "2.5.4"]
                    [cljsjs/jquery "2.1.4-0"]]
   :plugins [[lein-cljsbuild "1.0.6"]]
