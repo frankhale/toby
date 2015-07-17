@@ -154,17 +154,14 @@ Electron to run.
 
 How to run master in Electron:
 
-- Download Electron from https://github.com/atom/electron
-- Unzip Electron
-- Navigate to the resources folder
-- Create a folder called app
-- Clone the source code using git or download a copy of this code from Github
-and dump it directly in the app folder
-- Open terminal to app folder
-- Run npm install to install node modules (requires iojs or node to be installed)
-- Run bower install to install JavaScript dependencies (requires bower to be installed)
-- Run Electron
-- Enjoy life and have fun listening to awesome music (or watching videos you love) on YouTube!
+1. Install iojs https://iojs.org
+2. Install Electron-Prebuilt https://github.com/mafintosh/electron-prebuilt
+3. Clone the source code using git or download a copy of this code from Github
+4. Open terminal to app folder
+5. Run npm install to install node modules
+6. Install bower http://bower.io/
+6. Run bower install to install JavaScript dependencies
+7. Run electron <path-to-folder-containing-toby-source>
 
 ##Author(s)
 
