@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 15 July 2015
+; 16 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -12,7 +12,7 @@
 (def path (js/require "path"))
 (def browser-window (js/require "browser-window"))
 (def global-shortcut (js/require "global-shortcut"))
-(def crash-reporter (js/require "crash-reporter"))
+;(def crash-reporter (js/require "crash-reporter"))
 (def process (js/require "process"))
 
 (def main-window (atom nil))
@@ -33,13 +33,15 @@
     (.reloadIgnoringCache focused-win)))
 
 (defn init-browser []
-  (app.commandLine.appendSwitch "--override-http-referrer" "http://youtube.com") ; Make VEVO work, LOL! =)
+  ; This command line switch requires a patched libchromiumcontent to work
+  ; Make VEVO videos play, LOL! =)
+  (app.commandLine.appendSwitch "--override-http-referrer" "http://youtube.com")
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
   (.register global-shortcut "CmdOrCtrl+R" #(reload))
   (.loadUrl @main-window (str "file://" assets-dir "\\html\\toby.html"))
 	(.on @main-window "closed" #(reset! main-window nil)))
 
-(.start crash-reporter)
+;(.start crash-reporter)
 (.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (.quit app)))
 (.on app "ready" #(init-browser))

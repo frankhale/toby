@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 15 July 2015
+; 16 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -18,14 +18,8 @@
 (defn on-player-state-change [e]
  (let [video-info (.getVideoData (.-target e))]
     (when-not (= @video-title video-info.title)
-      (js/console.log "sending video title info...")
       (reset! video-title video-info.title)
       (.emit socket "video-info" video-info))))
-
-;(do
-; (.emit socket "youtube-player-state-changed" #js {
-;    :title video-info.title
-;   :video-id video-info.id })
 
 (defn set-webkit-filter [video-player setting value]
   (.css video-player "-webkit-filter" (str setting "(" value ")")))

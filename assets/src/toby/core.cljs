@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 13 July 2015
+; 16 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -110,32 +110,30 @@
         []))))
 
 (defn show-search-results [results owner]
-  (when (not (= results js/undefined)) (> (.-length results) 0)
-    (om/update-state! owner #(assoc %
+  (let [current-display (.-display (om/get-state owner :search-results-style))
+        display (if (and (not= results js/undefined) (> (.-length results) 0)) "block" "none")]
+    (when-not (= current-display display)
+      (om/update-state! owner #(assoc %
       :search-results results
-      :search-results-style #js { :display "block" }))))
+      :search-results-style #js { :display display })))))
 
 (defn handle-search [e owner]
   (if (and (= (.-keyCode e) 13) (> (.-length (.-value (.-target e))) 0))
     (let [video-data (om/get-state owner :video-data)
           search-term (.trim (.-value (.-target e)))
-          search-term-lower (.toLowerCase search-term)]
+          search-term-lower (.trim (.toLowerCase search-term))]
       (if (re-matches #"^(youtube:|yt:)[\s\w\W]+" search-term-lower)
-        (get-search-results-from-youtube (.trim (clojure.string/replace search-term-lower #"^(youtube:|yt:)" ""))
-          (fn [data-results]
-            (when (> (.-length data-results) 0)
-              (show-search-results data-results owner))))
+        (get-search-results-from-youtube (clojure.string/replace search-term-lower #"^(youtube:|yt:)" "")
+          (fn [data-results] (show-search-results data-results owner)))
         (if (re-matches #"^(group:|g:)[\s\w\W]+" search-term-lower)
           (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"^(group:|g:)" "")))]
             (show-search-results data-results owner))
           (let [data-results (get-search-results-from-data (.-videos video-data) search-term-lower)]
-            (when (> (.-length data-results) 0)
-              (show-search-results data-results owner))))))
-    (let [search-results-style (om/get-state owner :search-results-style)]
-      (when-not (= (.-display search-results-style) "none")
-        (om/update-state! owner #(assoc %
-          :search-results-data []
-          :search-results-style #js { :display "none" }))))))
+            (if (> (.-length data-results) 0)
+              (show-search-results data-results owner)
+              (get-search-results-from-youtube search-term-lower
+                (fn [data-results] (show-search-results data-results owner))))))))
+    (show-search-results #js [] owner)))
 
 (defn clear-search-box [owner]
  (let [search-box (om/get-node owner "search-box")]
