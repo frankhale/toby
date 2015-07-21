@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 16 July 2015
+; 20 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -297,6 +297,20 @@
      (dom/div #js { :id "notification" :style notification-style } message))))
 
 ;
+; Getting started component
+;
+; Eventually:
+;   - List the various key bindings
+;   - External link to README
+;
+; (defn getting-started-component [data owner]
+;  (reify
+;    om/IRender
+;    (render [_]
+;      (dom/div #js { :id "getting-started" }
+;        (dom/h1 nil "Getting Started")))))
+
+;
 ; Recently played list component
 ;
 (defn recently-played-list [data owner]
@@ -368,12 +382,15 @@
         :update-title (goog/bind (fn [title ytid] (update-title title ytid owner)) owner) })
     om/IDidMount
     (did-mount [_]
+      (set! (.-filter keymaster) (fn [e] true)) ; disable input et al filtering
       (keymaster "f1" #(toggle-search-play-list-and-webview owner))
       (keymaster "f5" #(add-current-video-to-data-json owner))
       (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
       (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
       (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
-      (keymaster "command+r, ctrl+r" #((server/close)(.reload browser)))
+      (keymaster "ctrl+r" (fn []
+                            (server/close)
+                            (.reload browser)))
       (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
       (resize-search-elements owner)
       (watch-file data-json-path (fn []

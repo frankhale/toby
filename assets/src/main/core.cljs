@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 16 July 2015
+; 20 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -12,7 +12,6 @@
 (def path (js/require "path"))
 (def browser-window (js/require "browser-window"))
 (def global-shortcut (js/require "global-shortcut"))
-;(def crash-reporter (js/require "crash-reporter"))
 (def process (js/require "process"))
 
 (def main-window (atom nil))
@@ -41,6 +40,5 @@
   (.loadUrl @main-window (str "file://" assets-dir (str path.sep "html" path.sep "toby.html")))
 	(.on @main-window "closed" #(reset! main-window nil)))
 
-;(.start crash-reporter)
 (.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (.quit app)))
 (.on app "ready" #(init-browser))

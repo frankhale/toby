@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 16 July 2015
+// 20 July 2015
 //
 // License: GNU GPL v2
 //
@@ -12,6 +12,7 @@ var app,
     process,
     remote,
     shell,
+    key,
     CrashReporter,
     BrowserWindow,
     globalShortcut,
@@ -99,6 +100,10 @@ _.take = function(coll, num) {};
 _.takeRight = function(coll, num) {};
 _.uniq = function(array, isSorted, iteratee, thisArg) {};
 _.map = function(coll, iteratee, thisArg) {};
+
+// keymaster
+
+key.filter = function(event) {};
 
 // JavaScript
 

@@ -32,7 +32,8 @@
           (.func l data)
           (.func l))))))))
 
-(defn close [] (.close io))
+(defn close []
+  (.close io))
 (defn listen [port]
   (.listen io port)
   (js/console.log (str "socket.io server listening on port: " port))
