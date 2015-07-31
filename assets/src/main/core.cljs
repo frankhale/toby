@@ -38,7 +38,7 @@
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
   (.loadUrl @main-window (str "file://" assets-dir (str path.sep "html" path.sep "toby.html")))
-	(.on @main-window "closed" #(reset! main-window nil)))
+  (.on @main-window "closed" #(reset! main-window nil)))
 
 (.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (.quit app)))
 (.on app "ready" #(init-browser))

@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 20 July 2015
+// 31 July 2015
 //
 // License: GNU GPL v2
 //
@@ -13,6 +13,7 @@ var app,
     remote,
     shell,
     key,
+    Cookies,
     CrashReporter,
     BrowserWindow,
     globalShortcut,
@@ -67,6 +68,12 @@ BrowserWindow.reloadIgnoringCache = function() {};
 BrowserWindow.getContentSize = function() {};
 BrowserWindow.setTitle = function(title) {};
 BrowserWindow.getFocusedWindow = function() {};
+BrowserWindow.webContents = {};
+BrowserWindow.webContents.on = function(event, callback) {}
+BrowserWindow.webContents.session.cookies.get = function(details, callback) {}
+BrowserWindow.webContents.session.cookies.set = function(details, callback) {}
+BrowserWindow.webContents.session.cookies.remove = function(details, callback) {}
+BrowserWindow.webContents.insertCSS = function(css) {};
 
 // YouTube API
 YT.Player = function(elem, opts) {};
@@ -104,6 +111,10 @@ _.map = function(coll, iteratee, thisArg) {};
 // keymaster
 
 key.filter = function(event) {};
+
+// js-cookie
+
+Cookies.set = function(key, value, attributes) {}
 
 // JavaScript
 

@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 20 July 2015
+; 31 July 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -22,6 +22,7 @@
 (def shell (js/require "shell"))
 (def search-youtube (js/require "youtube-search"))
 (def browser (.getCurrentWindow remote))
+(def browser-cookies (.-cookies (.-session (.-webContents browser))))
 (def io (js/require "socket.io"))
 (def lodash (.-_ js/window))
 
@@ -273,6 +274,10 @@
     (reset! video-filter-atom min))
   (str @video-filter-atom))
 
+(defn set-youtube-transparent-ui []
+  (.remove browser-cookies #js { :name "VISITOR_INFO1_LIVE" :url "http://youtube.com" } (fn [error] (when-not (nil? error) (js/console.log error))))
+  (.set browser-cookies #js { :name "VISITOR_INFO1_LIVE" :value "Q06SngRDTGA" :url "http://youtube.com" :domain ".youtube.com" } (fn [error cookies] (when-not (nil? error) (js/console.log error)))))
+
 ;
 ; Notification component
 ;
@@ -446,6 +451,7 @@
       (fn []
         (let [$mc (jq/$ :#main-content)
               $loading (jq/$ :#loading)]
+          (set-youtube-transparent-ui)
           (jq/css $mc {:visibility "visible"})
           (jq/fade-out $loading "fast")
           (jq/fade-in (jq/hide $mc) "slow"))))))
