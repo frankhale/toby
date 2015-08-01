@@ -91,11 +91,35 @@
     (when (> (.-length (.-value search-box)) 0)
       (set! (.-value search-box) ""))))
 
-(defn set-play-video-state [video owner]
+(defn update-recently-played-data-file [recently-played-data]
+ (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
+   (.writeFile fs recently-played-json-path (.stringify js/JSON rpl-with-limit js/undefined 2)
+    (fn [err] (when err (js/throw err))))))
+
+; Oh no, LOL! There are circular dependencies ahead for add-to-recently-played-and-update-file
+; and play-video
+(declare play-video)
+
+; Need to wait until we get all the information. This will be called
+; multiple times and it appears as though YouTube doesn't provide the
+; title on the first time, we have to wait until the video title is
+; provided before we actually add this video to the recently played
+; list.
+(defn add-to-recently-played-and-update-file [video owner]
+ (let [recently-played-data (om/get-state owner :recently-played-data)
+       found (.find lodash recently-played-data #js { :ytid (.-ytid video) })]
+   (when (and (not (empty? (.-description video))) (= found js/undefined))
+     (let [new-rpl (.slice recently-played-data)]
+       (.unshift new-rpl #js { :description (.-description video) :ytid (.-ytid video) :play-video (play-video video owner) })
+       (update-recently-played-data-file new-rpl)))))
+
+(defn play-video [video owner]
   (fn []
+    (add-to-recently-played-and-update-file #js { :description (.-description video) :ytid (.-ytid video) } owner)
     (server/send "play" (.-ytid video))
     (clear-search-box owner)
     (om/update-state! owner #(assoc %
+      :search-results []
       :current-video-title (.-description video)
       :current-video-id (.-ytid video)
       :webview-style #js { :visibility "visible" }
@@ -129,7 +153,7 @@
 
 (defn show-search-results [results owner]
   (if (= (.-length results) 1)
-    ((set-play-video-state (first results) owner))
+    ((play-video (first results) owner))
     (let [current-display (.-display (om/get-state owner :search-results-style))
           display (if (and (not= results js/undefined) (> (.-length results) 0)) "block" "none")]
       (when-not (= current-display display)
@@ -177,39 +201,11 @@
            :webview-style #js { :visibility "hidden" }))
          (.setTitle browser app-title))))))
 
-(defn update-recently-played-data-file [recently-played-data]
- (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
-   (.writeFile fs recently-played-json-path (.stringify js/JSON rpl-with-limit js/undefined 2)
-    (fn [err] (when err (js/throw err))))))
-
-; Need to wait until we get all the information. This will be called
-; multiple times and it appears as though YouTube doesn't provide the
-; title on the first time, we have to wait until the video title is
-; provided before we actually add this video to the recently played
-; list.
-(defn add-to-recently-played-and-update-file [video owner]
- (let [recently-played-data (om/get-state owner :recently-played-data)
-       found (.find lodash recently-played-data #js { :ytid (.-ytid video) })]
-   (when (and (not (empty? (.-description video))) (= found js/undefined))
-     (let [new-rpl (.slice recently-played-data)]
-       (.unshift new-rpl #js { :description (.-description video) :ytid (.-ytid video) :play-video (set-play-video-state video owner) })
-       (update-recently-played-data-file new-rpl)))))
-
 (defn handle-click [e owner]
   (let [title e.target.text
        dataset (.-dataset (. e -target))
        ytid (aget dataset "ytid")]
-     (add-to-recently-played-and-update-file #js { :description title :ytid ytid } owner)
-     (server/send "play" ytid)
-     (om/update-state! owner #(assoc %
-       :search-results []
-       :current-video-title title
-       :current-video-id ytid
-       :search-list-style #js { :display "none" }
-       :search-results-style #js { :display "none" }
-       :recently-played-style #js { :display "block" }
-       :webview-style #js { :visibility "visible" }))
-     (clear-search-box owner)))
+     (play-video #js { :description title :ytid ytid } owner)))
 
 (defn update-title [new-title ytid owner]
   (let [current-video-title (om/get-state owner :current-video-title)]
@@ -262,7 +258,7 @@
 
 (defn add-play-handlers-to-recently-played-videos [owner]
   (.forEach lodash (om/get-state owner :recently-played-data)
-    (fn [v] ((set! (.-play-video v) #(set-play-video-state v owner))))))
+    (fn [v] ((set! (.-play-video v) #(play-video v owner))))))
 
 (defn recently-played-list-resize [owner]
   (let [browser-size (.getContentSize browser)
