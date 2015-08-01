@@ -11,7 +11,7 @@ Main user interface:
 
 <img src="screenshots/toby-main-ui.png" alt="Main User Interface"/>
 
-Video playback:
+Video playback (YouTube's transparent look and feel default):
 
 <img src="screenshots/toby-video-playback.png" alt="Video Playback" />
 
@@ -22,6 +22,10 @@ Video playback (Saturated):
 Video playback (Black & White):
 
 <img src="screenshots/toby-video-playback-black-and-white.png" alt="Video Playback (Black & White)"/>
+
+Video playback (Sepia):
+
+<img src="screenshots/toby-video-playback-sepia.png" alt="Video Playback (Sepia)"/>
 
 Search YouTube:
 
@@ -166,7 +170,7 @@ How to run master in Electron:
 ##Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-16 July 2015
+31 July 2015
 
 ##License
 
