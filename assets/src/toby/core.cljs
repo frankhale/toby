@@ -86,6 +86,23 @@
     (fn [curr prev]
       (data-changed))))
 
+(defn clear-search-box [owner]
+  (let [search-box (om/get-node owner "search-box")]
+    (when (> (.-length (.-value search-box)) 0)
+      (set! (.-value search-box) ""))))
+
+(defn set-play-video-state [video owner]
+  (fn []
+    (js/console.log (str "video: " (.-ytid video)))
+    (server/send "play" (.-ytid video))
+    (clear-search-box owner)
+    (om/update-state! owner #(assoc %
+      :current-video-title (.-description video)
+      :current-video-id (.-ytid video)
+      :webview-style #js { :visibility "visible" }
+      :search-list-style #js { :display "none" }
+      :recently-played-style #js { :display "none" }))))
+
 (defn show-recently-played-list-if-exists [owner]
  (let [recently-played-data (om/get-state owner :recently-played-data)]
    (when (> (.-length recently-played-data) 0)
@@ -112,12 +129,14 @@
         []))))
 
 (defn show-search-results [results owner]
-  (let [current-display (.-display (om/get-state owner :search-results-style))
-        display (if (and (not= results js/undefined) (> (.-length results) 0)) "block" "none")]
-    (when-not (= current-display display)
-      (om/update-state! owner #(assoc %
-      :search-results results
-      :search-results-style #js { :display display })))))
+  (if (= (.-length results) 1)
+    ((set-play-video-state (first results) owner))
+    (let [current-display (.-display (om/get-state owner :search-results-style))
+          display (if (and (not= results js/undefined) (> (.-length results) 0)) "block" "none")]
+      (when-not (= current-display display)
+        (om/update-state! owner #(assoc %
+        :search-results results
+        :search-results-style #js { :display display }))))))
 
 (defn handle-search [e owner]
   (if (and (= (.-keyCode e) 13) (> (.-length (.-value (.-target e))) 0))
@@ -136,11 +155,6 @@
               (get-search-results-from-youtube search-term-lower
                 (fn [data-results] (show-search-results data-results owner))))))))
     (show-search-results #js [] owner)))
-
-(defn clear-search-box [owner]
- (let [search-box (om/get-node owner "search-box")]
-   (when (> (.-length (.-value search-box)) 0)
-     (set! (.-value search-box) ""))))
 
 (defn toggle-search-play-list-and-webview [owner]
   (let [recently-played-data (om/get-state owner :recently-played-data)
@@ -163,16 +177,6 @@
            :recently-played-style #js { :display (if (> (.-length recently-played-data) 0) (str "block") (str "none")) }
            :webview-style #js { :visibility "hidden" }))
          (.setTitle browser app-title))))))
-
-(defn set-play-video-state [video owner]
-  (fn []
-    (server/send "play" (.-ytid video))
-    (om/update-state! owner #(assoc %
-      :current-video-title (.-description video)
-      :current-video-id (.-ytid video)
-      :webview-style #js { :visibility "visible" }
-      :search-list-style #js { :display "none" }
-      :recently-played-style #js { :display "none" }))))
 
 (defn update-recently-played-data-file [recently-played-data]
  (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
