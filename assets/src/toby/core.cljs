@@ -205,7 +205,7 @@
   (let [title e.target.text
        dataset (.-dataset (. e -target))
        ytid (aget dataset "ytid")]
-     (play-video #js { :description title :ytid ytid } owner)))
+     ((play-video #js { :description title :ytid ytid } owner))))
 
 (defn update-title [new-title ytid owner]
   (let [current-video-title (om/get-state owner :current-video-title)]
