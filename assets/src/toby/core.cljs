@@ -124,6 +124,7 @@
       :current-video-id (.-ytid video)
       :webview-style #js { :visibility "visible" }
       :search-list-style #js { :display "none" }
+      :search-results-style #js { :display "none" }
       :recently-played-style #js { :display "none" }))))
 
 (defn show-recently-played-list-if-exists [owner]
