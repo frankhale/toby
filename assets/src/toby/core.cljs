@@ -93,7 +93,6 @@
 
 (defn set-play-video-state [video owner]
   (fn []
-    (js/console.log (str "video: " (.-ytid video)))
     (server/send "play" (.-ytid video))
     (clear-search-box owner)
     (om/update-state! owner #(assoc %
