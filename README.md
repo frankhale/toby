@@ -141,4 +141,4 @@ Frank Hale &lt;frankhale@gmail.com&gt;
 
 ## License
 
-GNU GPL v2 - see LICENSE.txt
+GNU GPL v2 - see [LICENSE](LICENSE)
