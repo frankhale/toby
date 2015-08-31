@@ -6,7 +6,7 @@
                    [org.omcljs/om "0.9.0"]
                    [jayq "2.5.4"]
                    [cljsjs/jquery "2.1.4-0"]]
-  :plugins [[lein-cljsbuild "1.0.6"]]
+  :plugins [[lein-cljsbuild "1.1.0"]]
   :source-paths ["assets/src"]
   :cljsbuild {
     :builds
