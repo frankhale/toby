@@ -4,47 +4,168 @@
     "videos": [
       {
         "description": "Trance mix 2014 - Armin Van Buuren,W&W,Paul Oakenfold....",
-        "ytid": "p68MTskBUnM"
+        "ytid": "p68MTskBUnM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/p68MTskBUnM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/p68MTskBUnM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/p68MTskBUnM/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Progressive Trance Top 10 (February 2014) / New Trance Mix / Paradise",
-        "ytid": "g2L0OWterVg"
+        "ytid": "g2L0OWterVg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/g2L0OWterVg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/g2L0OWterVg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/g2L0OWterVg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Goodbye 2013 Mix (Progressive Trance House Trouse Uplifting Melodic Vocal)",
-        "ytid": "RLVs7Csdmf8"
+        "ytid": "RLVs7Csdmf8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/RLVs7Csdmf8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/RLVs7Csdmf8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/RLVs7Csdmf8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Best of Progressive & Melodic Trance 2013 Yearmix [5 Hour Set] [HD] - Shane Collins - APJ #32",
-        "ytid": "seBS2MEtALE"
+        "ytid": "seBS2MEtALE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/seBS2MEtALE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/seBS2MEtALE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/seBS2MEtALE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Arctic Moon Megamix - best tracks & remixes",
-        "ytid": "aX00On-X7K8"
+        "ytid": "aX00On-X7K8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/aX00On-X7K8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/aX00On-X7K8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/aX00On-X7K8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Seven Lions Mix (Hour Long Melodic Dubstep / Trancestep Mix)",
-        "ytid": "7KfKft2lcog"
+        "ytid": "7KfKft2lcog",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7KfKft2lcog/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7KfKft2lcog/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7KfKft2lcog/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "BEST OF VOCAL TRANCE | MIX#4",
-        "ytid": "VZT9HGsv01A"
+        "ytid": "VZT9HGsv01A",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VZT9HGsv01A/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VZT9HGsv01A/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VZT9HGsv01A/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "This Was The Summer Of Hardstyle 2013",
-        "ytid": "kQko_qnKoW4"
+        "ytid": "kQko_qnKoW4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/kQko_qnKoW4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/kQko_qnKoW4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/kQko_qnKoW4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Incredible Emotional Vocal Trance Mix l April 2015 (Vol. 26)",
-        "ytid": "3l2FHxVd71o"
+        "ytid": "3l2FHxVd71o",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/3l2FHxVd71o/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/3l2FHxVd71o/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/3l2FHxVd71o/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin - The Official Video Hit Mix",
-        "ytid": "U6l9NdAJwRk"
+        "ytid": "U6l9NdAJwRk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/U6l9NdAJwRk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/U6l9NdAJwRk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/U6l9NdAJwRk/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)",
-        "ytid": "tS1NCigEB_I"
+        "ytid": "tS1NCigEB_I",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tS1NCigEB_I/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tS1NCigEB_I/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tS1NCigEB_I/hqdefault.jpg"
+          }
+        }
       }
     ]
   },
@@ -53,219 +174,783 @@
     "videos": [
       {
         "description": "Dash Berlin - Underneath The Sky (Sunsound Chillout Remix)",
-        "ytid": "UEqMD-5urik"
+        "ytid": "UEqMD-5urik",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UEqMD-5urik/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UEqMD-5urik/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UEqMD-5urik/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
-        "ytid": "5UwnhliP5N8"
-      },
-      {
-        "description": "Dash Berlin ft. Christon Rigby - Underneath The Sky (ASOT 667 Official Preview) #WeAre",
-        "ytid": "8X3XhQS-ZtA"
+        "ytid": "5UwnhliP5N8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5UwnhliP5N8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5UwnhliP5N8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5UwnhliP5N8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Yuri Kane - Right back",
-        "ytid": "G9AG0wkLIp0"
+        "ytid": "G9AG0wkLIp0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/G9AG0wkLIp0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/G9AG0wkLIp0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/G9AG0wkLIp0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin feat. Jonathan Mendelsohn - Better Half Of Me (Acoustic)",
-        "ytid": "De3Cjo23dOs"
+        "ytid": "De3Cjo23dOs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Kyau & Albert - Another Time [Official Video] + Lyrics",
-        "ytid": "zlBo93AqZmg"
-      },
-      {
-        "description": "Photographer vs Armin van Buuren Airport Shivers Accapella AvB Mash Up",
-        "ytid": "_gcyOUOPQiw"
+        "ytid": "zlBo93AqZmg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/zlBo93AqZmg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/zlBo93AqZmg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/zlBo93AqZmg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "R3hab & NERVO & Ummet Ozcan - Revolution (Vocal Mix)",
-        "ytid": "92P57Uk1VbM"
+        "ytid": "92P57Uk1VbM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/92P57Uk1VbM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/92P57Uk1VbM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/92P57Uk1VbM/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery feat. Roxanne Emery - Soldier",
-        "ytid": "7b1WeyQ5cHw"
+        "ytid": "7b1WeyQ5cHw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7b1WeyQ5cHw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7b1WeyQ5cHw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7b1WeyQ5cHw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Paul van Dyk feat. Adam Young - Eternity (Official Music Video)",
-        "ytid": "FzT9YppKeeQ"
+        "ytid": "FzT9YppKeeQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/FzT9YppKeeQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/FzT9YppKeeQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/FzT9YppKeeQ/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "BT feat Jes - Every other way (armin mix)",
-        "ytid": "cTXdgzb4wkU"
+        "ytid": "cTXdgzb4wkU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/cTXdgzb4wkU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/cTXdgzb4wkU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/cTXdgzb4wkU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "New World - Ushio (Emotional Intro Mix) [As Played on Uplifting Only 090]",
-        "ytid": "gfAzQDCrUnQ"
+        "ytid": "gfAzQDCrUnQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/gfAzQDCrUnQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/gfAzQDCrUnQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/gfAzQDCrUnQ/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery - Long Way Home [Official Video]",
-        "ytid": "0bj4i-sW44s"
+        "ytid": "0bj4i-sW44s",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/0bj4i-sW44s/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0bj4i-sW44s/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/0bj4i-sW44s/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dreamy - Fusion (New World Remix) [Diverted Music Promo]",
-        "ytid": "D_8y-XX9wM8"
+        "ytid": "D_8y-XX9wM8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/D_8y-XX9wM8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/D_8y-XX9wM8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/D_8y-XX9wM8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Sunbrothers - Everything (Original Mix)",
-        "ytid": "wrMBe5cyNKA"
+        "ytid": "wrMBe5cyNKA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wrMBe5cyNKA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wrMBe5cyNKA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wrMBe5cyNKA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Somna & Jennifer Rene - Because You're Here (Sunset Remixi)",
-        "ytid": "8hERMvja-fA"
+        "ytid": "8hERMvja-fA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8hERMvja-fA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8hERMvja-fA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8hERMvja-fA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin & Disfunktion feat. Chris Arnott - People Of The Night",
-        "ytid": "b4ZuXTiWX44"
+        "ytid": "b4ZuXTiWX44",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/b4ZuXTiWX44/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/b4ZuXTiWX44/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/b4ZuXTiWX44/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Morgan Page, Sultan + Ned Shepard, & BT - In the Air feat. Angela McCluskey",
-        "ytid": "WyK_82zrfTY"
+        "ytid": "WyK_82zrfTY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WyK_82zrfTY/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WyK_82zrfTY/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WyK_82zrfTY/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Afrojack - Ten Feet Tall (Lyric Video) ft. Wrabel",
-        "ytid": "bltr_Dsk5EY"
+        "ytid": "bltr_Dsk5EY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bltr_Dsk5EY/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bltr_Dsk5EY/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bltr_Dsk5EY/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery feat. Roxanne Emery - Too Dark Tonight",
-        "ytid": "WZFgVGU7pFk"
+        "ytid": "WZFgVGU7pFk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WZFgVGU7pFk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WZFgVGU7pFk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WZFgVGU7pFk/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Arcane Science feat. Melissa Loretta - Still Feel (You Here) (Intro Mix)",
-        "ytid": "v9zmvPSHj9I"
+        "ytid": "v9zmvPSHj9I",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/v9zmvPSHj9I/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/v9zmvPSHj9I/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/v9zmvPSHj9I/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Beat Service & Ana Criado - So Much Of Me Is You (Original Mix)",
-        "ytid": "an_FDsq1Pkk"
+        "ytid": "an_FDsq1Pkk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/an_FDsq1Pkk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/an_FDsq1Pkk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/an_FDsq1Pkk/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Estiva & Cardinal feat. Arielle Maren - Wait Forever (Daniel Kandi's Bangin Remix)",
-        "ytid": "P0fp7fDxcVA"
+        "ytid": "P0fp7fDxcVA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/P0fp7fDxcVA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/P0fp7fDxcVA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/P0fp7fDxcVA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "A.M.R. feat. Ai Takekawa - Beyond The Moon (Original Mix)",
-        "ytid": "VXPor8AsY48"
+        "ytid": "VXPor8AsY48",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VXPor8AsY48/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VXPor8AsY48/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VXPor8AsY48/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Moonbeam feat. Matvey Emerson - Wanderer (Original Mix)",
-        "ytid": "hT8KPRbzP8g"
+        "ytid": "hT8KPRbzP8g",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/hT8KPRbzP8g/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/hT8KPRbzP8g/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/hT8KPRbzP8g/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Rigby - Earth Meets Water (Official Video)",
-        "ytid": "8d3fWzPzP4A"
+        "ytid": "8d3fWzPzP4A",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8d3fWzPzP4A/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8d3fWzPzP4A/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8d3fWzPzP4A/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Rigby - Earth Meets Water (Wildstylez Remix)",
-        "ytid": "TyKvwXUy1aU"
+        "ytid": "TyKvwXUy1aU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/TyKvwXUy1aU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/TyKvwXUy1aU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/TyKvwXUy1aU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Tom Swoon, Lush & Simon - Ahead Of Us (Lyric Video)",
-        "ytid": "Btz1lteUtuM"
+        "ytid": "Btz1lteUtuM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Btz1lteUtuM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Btz1lteUtuM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Btz1lteUtuM/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Skrux ft. Delacey - My Love Is A Weapon",
-        "ytid": "oqbmz9ZncEs"
+        "ytid": "oqbmz9ZncEs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/oqbmz9ZncEs/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/oqbmz9ZncEs/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/oqbmz9ZncEs/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Myon & Shane54 feat Aruna Helpless",
-        "ytid": "mgmPydUzhgg"
+        "ytid": "mgmPydUzhgg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mgmPydUzhgg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mgmPydUzhgg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mgmPydUzhgg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "illitheas - Epica (Intro Mix) [Abora Skies] Promo [Uplifting Only #119] Video Edit",
-        "ytid": "GxfwZMdSt4w"
+        "ytid": "GxfwZMdSt4w",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GxfwZMdSt4w/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GxfwZMdSt4w/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GxfwZMdSt4w/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Lost Frequencies - Are You With Me (Dash Berlin Remix) (Lyrics Music Video)",
-        "ytid": "KYkRKvHYTls"
+        "ytid": "KYkRKvHYTls",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/KYkRKvHYTls/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/KYkRKvHYTls/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/KYkRKvHYTls/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Ikerya Project feat. Muhib Khan - It's Over Now (Original Mix) [As Played on Uplifting Only 115]",
-        "ytid": "flXZE9izGP0"
+        "ytid": "flXZE9izGP0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/flXZE9izGP0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/flXZE9izGP0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/flXZE9izGP0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Syntouch - Into The Sky (Extended Orchestral Mix) [As Played on Uplifting Only 109]",
-        "ytid": "OuAkh9FqXs0"
+        "ytid": "OuAkh9FqXs0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OuAkh9FqXs0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OuAkh9FqXs0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OuAkh9FqXs0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Phoebe Ryan - Mine (Illenium Remix)",
-        "ytid": "OHid2FWShAw"
+        "ytid": "OHid2FWShAw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OHid2FWShAw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OHid2FWShAw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OHid2FWShAw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin ft. Sarah Howells - Go It Alone (Official Music Video)",
-        "ytid": "IMepLfEJu6w"
+        "ytid": "IMepLfEJu6w",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/IMepLfEJu6w/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/IMepLfEJu6w/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/IMepLfEJu6w/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Cosmic Gate & Emma Hewitt - Be Your Sound (Official Music Video)",
-        "ytid": "FxMtO7HvXzA"
+        "ytid": "FxMtO7HvXzA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/FxMtO7HvXzA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/FxMtO7HvXzA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/FxMtO7HvXzA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin feat. Jonathan Mendelsohn - Better Half Of Me (Acoustic) [Official Music Video]",
-        "ytid": "De3Cjo23dOs"
+        "ytid": "De3Cjo23dOs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/De3Cjo23dOs/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery feat. Christina Novelli - Dynamite",
-        "ytid": "N2rj3os3IYg"
+        "ytid": "N2rj3os3IYg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/N2rj3os3IYg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/N2rj3os3IYg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/N2rj3os3IYg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Giuseppe Ottaviani feat. Amba Shepherd - Lost For Words (Official Music Video)",
-        "ytid": "94CwUWWEgxw"
+        "ytid": "94CwUWWEgxw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/94CwUWWEgxw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/94CwUWWEgxw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/94CwUWWEgxw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin ft. Kate Walsh - When You Were Around (Official Music Video)",
-        "ytid": "LlGtQyOv2WA"
+        "ytid": "LlGtQyOv2WA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/LlGtQyOv2WA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/LlGtQyOv2WA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/LlGtQyOv2WA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dash Berlin - Never Cry Again (Jorn van Deynhoven Radio Mix) (Official Music Video) [High Quality]",
-        "ytid": "5gLIVqA9dFg"
+        "ytid": "5gLIVqA9dFg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5gLIVqA9dFg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5gLIVqA9dFg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5gLIVqA9dFg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery feat. Christina Novelli - Concrete Angel [Official Music Video]",
-        "ytid": "0dFz10R529g"
+        "ytid": "0dFz10R529g",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/0dFz10R529g/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0dFz10R529g/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/0dFz10R529g/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Roman Messer feat. Christina Novelli - Frozen (Official Music Video)",
-        "ytid": "LNJZSyl7RtE"
+        "ytid": "LNJZSyl7RtE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/LNJZSyl7RtE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/LNJZSyl7RtE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/LNJZSyl7RtE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Rigby - Lighter (Official Video)",
-        "ytid": "dxa47ePobPs"
+        "ytid": "dxa47ePobPs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/dxa47ePobPs/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/dxa47ePobPs/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/dxa47ePobPs/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Sub Focus - Tidal Wave ft. Alpines",
-        "ytid": "B8vlk1UR99k"
+        "ytid": "B8vlk1UR99k",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/B8vlk1UR99k/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/B8vlk1UR99k/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/B8vlk1UR99k/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Knife Party - Fire Hive (Krewella Remix) [Dubstep]",
-        "ytid": "iuTOmyGXW6o"
+        "ytid": "iuTOmyGXW6o",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iuTOmyGXW6o/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iuTOmyGXW6o/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iuTOmyGXW6o/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Luke Bond feat. Roxanne Emery - On Fire [Official Music Video]",
-        "ytid": "pNM7bjb9JYw"
+        "ytid": "pNM7bjb9JYw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/pNM7bjb9JYw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/pNM7bjb9JYw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/pNM7bjb9JYw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Gareth Emery feat. Bo Bruce - U (Official Video)",
-        "ytid": "jF7qGaKKD4M"
+        "ytid": "jF7qGaKKD4M",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/jF7qGaKKD4M/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/jF7qGaKKD4M/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/jF7qGaKKD4M/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Craig Connelly & Christina Novelli - Black Hole [Official Music Video]",
-        "ytid": "WPVv-Jjb0wQ"
+        "ytid": "WPVv-Jjb0wQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WPVv-Jjb0wQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WPVv-Jjb0wQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WPVv-Jjb0wQ/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Armin van Buuren feat. Trevor Guthrie - This Is What It Feels Like (Official Music Video)",
-        "ytid": "BR_DFMUzX4E"
+        "ytid": "BR_DFMUzX4E",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BR_DFMUzX4E/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BR_DFMUzX4E/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BR_DFMUzX4E/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Armin van Buuren presents Gaia - J'ai Envie De Toi (Official Music Video)",
-        "ytid": "0FgKQdc96k4"
+        "ytid": "0FgKQdc96k4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/0FgKQdc96k4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0FgKQdc96k4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/0FgKQdc96k4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Armin van Buuren feat. Fiora - Waiting For The Night (Official International Music Video)",
-        "ytid": "dU26cGlmkRg"
+        "ytid": "dU26cGlmkRg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/dU26cGlmkRg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/dU26cGlmkRg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/dU26cGlmkRg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Armin van Buuren vs Sophie Ellis-Bextor - Not Giving Up On Love (Dash Berlin 4AM Mix) Official Video",
-        "ytid": "MQKt1RoUB9c"
+        "ytid": "MQKt1RoUB9c",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/MQKt1RoUB9c/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/MQKt1RoUB9c/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/MQKt1RoUB9c/hqdefault.jpg"
+          }
+        }
       }
     ]
   },
@@ -274,23 +959,78 @@
     "videos": [
       {
         "description": "NEEDTOBREATHE - 'Multiplied' (Official Video)",
-        "ytid": "fGF-MGGLpB0"
+        "ytid": "fGF-MGGLpB0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fGF-MGGLpB0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fGF-MGGLpB0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fGF-MGGLpB0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "NEEDTOBREATHE - 'Multiplied' (Live Acoustic Video)",
-        "ytid": "vWT4gxAFQBs"
+        "ytid": "vWT4gxAFQBs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vWT4gxAFQBs/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vWT4gxAFQBs/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vWT4gxAFQBs/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Sanctus Real - Lay It Down (Lyric Video)",
-        "ytid": "q3f9GrbOXSA"
+        "ytid": "q3f9GrbOXSA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/q3f9GrbOXSA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/q3f9GrbOXSA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/q3f9GrbOXSA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - Whom Shall I Fear [God of Angel Armies] [Lyrics]",
-        "ytid": "qOkImV2cJDg"
+        "ytid": "qOkImV2cJDg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/qOkImV2cJDg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/qOkImV2cJDg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/qOkImV2cJDg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - I Lift My Hands",
-        "ytid": "c24En0r-lXg"
+        "ytid": "c24En0r-lXg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/c24En0r-lXg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/c24En0r-lXg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/c24En0r-lXg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - How Great is Our God",
@@ -298,23 +1038,63 @@
       },
       {
         "description": "Chris Tomlin - I Will Rise (Live)",
-        "ytid": "CKRF8UihM5s"
-      },
-      {
-        "description": "Newsboys - Live With Abandon",
-        "ytid": "-SJR2vdJFXw"
+        "ytid": "CKRF8UihM5s",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/CKRF8UihM5s/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/CKRF8UihM5s/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/CKRF8UihM5s/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Audrey Assad - Breaking You (Live)",
-        "ytid": "RYuGuxr7MB0"
+        "ytid": "RYuGuxr7MB0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/RYuGuxr7MB0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/RYuGuxr7MB0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/RYuGuxr7MB0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Audrey Assad - Death, Be Not Proud",
-        "ytid": "sikF_phQHZw"
+        "ytid": "sikF_phQHZw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sikF_phQHZw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sikF_phQHZw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sikF_phQHZw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Audrey Assad - I Shall Not Want",
-        "ytid": "e5xEYgGr6ms"
+        "ytid": "e5xEYgGr6ms",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/e5xEYgGr6ms/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/e5xEYgGr6ms/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/e5xEYgGr6ms/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dave Barnes - God Gave Me You",
@@ -322,75 +1102,273 @@
       },
       {
         "description": "Danny Gokey - Hope In Front of Me",
-        "ytid": "O5GFiDdGGGM"
+        "ytid": "O5GFiDdGGGM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/O5GFiDdGGGM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/O5GFiDdGGGM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/O5GFiDdGGGM/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Among The Thirsty - Completely",
-        "ytid": "sFC-d9PTusw"
+        "ytid": "sFC-d9PTusw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sFC-d9PTusw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sFC-d9PTusw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sFC-d9PTusw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "7eventh Time Down 'Just Say Jesus'",
-        "ytid": "T8CLgiYZyZE"
+        "ytid": "T8CLgiYZyZE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/T8CLgiYZyZE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/T8CLgiYZyZE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/T8CLgiYZyZE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Switchfoot -- Love Alone Is Worth The Fight [Official Video]",
-        "ytid": "rk9Pj3ID0UE"
+        "ytid": "rk9Pj3ID0UE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/rk9Pj3ID0UE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/rk9Pj3ID0UE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/rk9Pj3ID0UE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Kari Jobe - I Am Not Alone (Lyric Video/Live)",
-        "ytid": "I2oel0_Xa54"
+        "ytid": "I2oel0_Xa54",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/I2oel0_Xa54/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/I2oel0_Xa54/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/I2oel0_Xa54/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Crowder - Come As You Are (Music Video)",
-        "ytid": "r2zhf2mqEMI"
+        "ytid": "r2zhf2mqEMI",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/r2zhf2mqEMI/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/r2zhf2mqEMI/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/r2zhf2mqEMI/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Francesca Battistelli - He Knows My Name (Official Audio)",
-        "ytid": "1NHQJWdXfFE"
+        "ytid": "1NHQJWdXfFE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/1NHQJWdXfFE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/1NHQJWdXfFE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/1NHQJWdXfFE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Matt Redman - You Never Let Go (Passion '06)",
-        "ytid": "76ifTTuL4XI"
+        "ytid": "76ifTTuL4XI",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/76ifTTuL4XI/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/76ifTTuL4XI/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/76ifTTuL4XI/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Lauren Daigle - How Can It Be (Lyric Video)",
-        "ytid": "6UXn_OuJkvE"
+        "ytid": "6UXn_OuJkvE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/6UXn_OuJkvE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/6UXn_OuJkvE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/6UXn_OuJkvE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Francesca Battistelli - Write Your Story (Official Audio)",
-        "ytid": "ecV1NHmELuA"
+        "ytid": "ecV1NHmELuA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ecV1NHmELuA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ecV1NHmELuA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ecV1NHmELuA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "TobyMac - Speak Life",
-        "ytid": "ZeBv9r92VQ0"
+        "ytid": "ZeBv9r92VQ0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZeBv9r92VQ0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZeBv9r92VQ0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZeBv9r92VQ0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Luminate - \"Banner of Love\" (Lyric Video)",
-        "ytid": "z4xk0dcc6gY"
+        "ytid": "z4xk0dcc6gY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/z4xk0dcc6gY/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/z4xk0dcc6gY/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/z4xk0dcc6gY/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - Awake My Soul (with Lecrae) [Lyrics]",
-        "ytid": "fWpvknKuYrg"
+        "ytid": "fWpvknKuYrg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fWpvknKuYrg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fWpvknKuYrg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fWpvknKuYrg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Big Daddy Weave - \"Redeemed\" (Official Music Video)",
-        "ytid": "VzGAYNKDyIU"
+        "ytid": "VzGAYNKDyIU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VzGAYNKDyIU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VzGAYNKDyIU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VzGAYNKDyIU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Crowder - I Am (Lyric Video)",
-        "ytid": "cH_LLGiE0f0"
+        "ytid": "cH_LLGiE0f0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/cH_LLGiE0f0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/cH_LLGiE0f0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/cH_LLGiE0f0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Crowder - \"Come As You Are\" | Live at the Grand Ole Opry | Opry",
-        "ytid": "OuX9oTGBCw8"
+        "ytid": "OuX9oTGBCw8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OuX9oTGBCw8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OuX9oTGBCw8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OuX9oTGBCw8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - Jesus Messiah (Lyrics And Chords)",
-        "ytid": "tdxSC1tHJn0"
+        "ytid": "tdxSC1tHJn0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tdxSC1tHJn0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tdxSC1tHJn0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tdxSC1tHJn0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Chris Tomlin - How Great Is Our God (Lyrics And Chords)",
-        "ytid": "KBD18rsVJHk"
+        "ytid": "KBD18rsVJHk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/KBD18rsVJHk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/KBD18rsVJHk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/KBD18rsVJHk/hqdefault.jpg"
+          }
+        }
       }
     ]
   },
@@ -399,139 +1377,513 @@
     "videos": [
       {
         "description": "Mantra Music: Ong Namo by Snatam Kaur",
-        "ytid": "c1XCS0g6J4A"
+        "ytid": "c1XCS0g6J4A",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/c1XCS0g6J4A/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/c1XCS0g6J4A/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/c1XCS0g6J4A/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Boyce Avenue - Speed Limit (Acoustic)",
-        "ytid": "i9PxU3ZftmI"
+        "ytid": "i9PxU3ZftmI",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/i9PxU3ZftmI/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/i9PxU3ZftmI/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/i9PxU3ZftmI/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Boyce Avenue - On My Way",
-        "ytid": "Ie9VxRF7ucM"
+        "ytid": "Ie9VxRF7ucM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Ie9VxRF7ucM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Ie9VxRF7ucM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Ie9VxRF7ucM/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "One Republic - Apologize",
-        "ytid": "fm0T7_SGee4"
+        "ytid": "fm0T7_SGee4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fm0T7_SGee4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fm0T7_SGee4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fm0T7_SGee4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Varun Rajput - State of Grace (Liquid Tension Experiment Cover)",
-        "ytid": "2bVNP9vd4FU"
+        "ytid": "2bVNP9vd4FU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2bVNP9vd4FU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2bVNP9vd4FU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2bVNP9vd4FU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Eric Stanley ft. Kyle Landry - Inception 'Time' (Hans Zimmer Cover)",
-        "ytid": "NUtvWyJ0F_o"
+        "ytid": "NUtvWyJ0F_o",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NUtvWyJ0F_o/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NUtvWyJ0F_o/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NUtvWyJ0F_o/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Yiruma, (이루마) - River Flows in You",
-        "ytid": "7maJOI3QMu0"
+        "ytid": "7maJOI3QMu0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7maJOI3QMu0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7maJOI3QMu0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7maJOI3QMu0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Howard Jones - No One Is To Blame",
-        "ytid": "ENB2eX-U3a8"
+        "ytid": "ENB2eX-U3a8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ENB2eX-U3a8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ENB2eX-U3a8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ENB2eX-U3a8/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Birdy - Wings (acoustic version)",
-        "ytid": "7tz1eYadQVY"
+        "ytid": "7tz1eYadQVY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZyZ_S9Ezd2I/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZyZ_S9Ezd2I/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZyZ_S9Ezd2I/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "The Fighter Remix - Kait Weston (feat. Saint Maurice and Eppic)",
-        "ytid": "ijRVrGSaTms"
+        "ytid": "ijRVrGSaTms",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ijRVrGSaTms/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ijRVrGSaTms/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ijRVrGSaTms/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Robyn - Call Your Girlfriend - cover by Kait Weston Ft Sean Scanlon",
-        "ytid": "VAlgkvKTOZ0"
+        "ytid": "VAlgkvKTOZ0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VAlgkvKTOZ0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VAlgkvKTOZ0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VAlgkvKTOZ0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "B.o.B - Paper Route [Official Video]",
-        "ytid": "t99LQ3zo8DU"
+        "ytid": "t99LQ3zo8DU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/t99LQ3zo8DU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/t99LQ3zo8DU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/t99LQ3zo8DU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "You Raise Me Up Violin Cover - Josh Groban - Daniel Jang",
-        "ytid": "Z-zvV5Bsshc"
+        "ytid": "Z-zvV5Bsshc",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Z-zvV5Bsshc/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Z-zvV5Bsshc/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Z-zvV5Bsshc/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Thirty Seconds To Mars - Kings and Queens",
-        "ytid": "onMdBNeGiK4"
+        "ytid": "onMdBNeGiK4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/onMdBNeGiK4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/onMdBNeGiK4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/onMdBNeGiK4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Ludovico Einaudi - Nuvole Bianche [HD]",
-        "ytid": "kcihcYEOeic"
+        "ytid": "kcihcYEOeic",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/kcihcYEOeic/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/kcihcYEOeic/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/kcihcYEOeic/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "PJ Simas - Show Goes On Remix",
-        "ytid": "vAhjWd4_LZ0"
+        "ytid": "vAhjWd4_LZ0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vAhjWd4_LZ0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vAhjWd4_LZ0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vAhjWd4_LZ0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "The Weeknd - Earned It (Fifty Shades Of Grey) (Lyric Video)",
-        "ytid": "xe_iCkFsQKE"
+        "ytid": "xe_iCkFsQKE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xe_iCkFsQKE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xe_iCkFsQKE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xe_iCkFsQKE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Metallica - Enter Sandman Live Moscow 1991 HD",
-        "ytid": "_W7wqQwa-TU"
+        "ytid": "_W7wqQwa-TU",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/_W7wqQwa-TU/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/_W7wqQwa-TU/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/_W7wqQwa-TU/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Def Leppard - Adrenalize - 1992 (FULL ALBUM)",
-        "ytid": "BTs98_pjwL4"
+        "ytid": "BTs98_pjwL4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BTs98_pjwL4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BTs98_pjwL4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BTs98_pjwL4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Metallica Fade to Black in real HD !!!! awesome !!!!",
-        "ytid": "0FMfsT11pdA"
+        "ytid": "0FMfsT11pdA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/0FMfsT11pdA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0FMfsT11pdA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/0FMfsT11pdA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Fun.: We Are Young ft. Janelle Monáe [OFFICIAL VIDEO]",
-        "ytid": "Sv6dMFF_yts"
+        "ytid": "Sv6dMFF_yts",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Sv6dMFF_yts/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Sv6dMFF_yts/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "30 Seconds To Mars - Closer To The Edge",
-        "ytid": "mLqHDhF-O28"
+        "ytid": "mLqHDhF-O28",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mLqHDhF-O28/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mLqHDhF-O28/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mLqHDhF-O28/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Thirty Seconds To Mars - This Is War",
-        "ytid": "Zcps2fJKuAI"
+        "ytid": "Zcps2fJKuAI",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Zcps2fJKuAI/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Zcps2fJKuAI/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Zcps2fJKuAI/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Fun.: Some Nights [OFFICIAL VIDEO]",
-        "ytid": "qQkBeOisNM0"
+        "ytid": "qQkBeOisNM0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/qQkBeOisNM0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/qQkBeOisNM0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/qQkBeOisNM0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Fun.: Carry On [OFFICIAL VIDEO]",
-        "ytid": "q7yCLn-O-Y0"
+        "ytid": "q7yCLn-O-Y0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/q7yCLn-O-Y0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/q7yCLn-O-Y0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/q7yCLn-O-Y0/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Rachel Platten - Fight Song (Official Video)",
-        "ytid": "xo1VInw-SKc"
+        "ytid": "xo1VInw-SKc",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xo1VInw-SKc/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xo1VInw-SKc/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xo1VInw-SKc/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Dark Fusion ft. Amy Kirkpatrick - I Just Close My Eyes (Sunset Remix) [TranceFamily] Promo Video",
-        "ytid": "avuoLKAi718"
+        "ytid": "avuoLKAi718",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/avuoLKAi718/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/avuoLKAi718/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/avuoLKAi718/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "UDM - New Sunrise (Radio Edit) [As Played on Uplifting Only 124]",
-        "ytid": "kC44uGao2es"
+        "ytid": "kC44uGao2es",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/kC44uGao2es/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/kC44uGao2es/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/kC44uGao2es/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Andy Blueman - Reflections (Original 2004 Mix)",
-        "ytid": "fB8u-vUNZhQ"
+        "ytid": "fB8u-vUNZhQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fB8u-vUNZhQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fB8u-vUNZhQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fB8u-vUNZhQ/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Mark Eteson feat. Audrey Gallagher - Breathe On My Own [Official Music Video]",
-        "ytid": "jwO51I9zlaE"
+        "ytid": "jwO51I9zlaE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/jwO51I9zlaE/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/jwO51I9zlaE/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/jwO51I9zlaE/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Ace of Base - The Sign (Official)",
-        "ytid": "iqu132vTl5Y"
+        "ytid": "iqu132vTl5Y",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iqu132vTl5Y/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iqu132vTl5Y/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iqu132vTl5Y/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Third Day - Cry Out To Jesus",
-        "ytid": "JmVxRl5bc4Y"
+        "ytid": "JmVxRl5bc4Y",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/JmVxRl5bc4Y/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/JmVxRl5bc4Y/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/JmVxRl5bc4Y/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Bob Cartel feat. Ai Takekawa - Lie To Me (Akku Remix) [Just Music Records] ✸Promo✸Video Edit",
-        "ytid": "ZmPlAHxalfw"
+        "ytid": "ZmPlAHxalfw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZmPlAHxalfw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZmPlAHxalfw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZmPlAHxalfw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Colleen D'Agostino ft. deadmau5 - Stay (Drop The Poptart Edit)",
-        "ytid": "YPkwDy9okws"
+        "ytid": "YPkwDy9okws",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/YPkwDy9okws/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/YPkwDy9okws/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/YPkwDy9okws/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "3 Hours of Best Female Vocal Dubstep Mix May 2015",
@@ -539,47 +1891,168 @@
       },
       {
         "description": "Dark Matters feat. Jess Morgan - The Perfect Lie (Beat Service Remix)",
-        "ytid": "dGd-QFuEUTA"
+        "ytid": "dGd-QFuEUTA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/dGd-QFuEUTA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/dGd-QFuEUTA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/dGd-QFuEUTA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Alex H feat. Mona Moua - There's No Turning Back (Original Mix)",
-        "ytid": "9vYULN-72Oo"
+        "ytid": "9vYULN-72Oo",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/9vYULN-72Oo/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/9vYULN-72Oo/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/9vYULN-72Oo/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Ferry Corsten feat. Betsie Larkin - Not Coming Down (Dash Berlin 4AM Remix)",
-        "ytid": "A-gljGbLt-A"
+        "ytid": "A-gljGbLt-A",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/A-gljGbLt-A/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/A-gljGbLt-A/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/A-gljGbLt-A/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Arnej feat. Sally Saifi - Free Of You (8 Wonders Mix)",
-        "ytid": "yr-kJ5PgAN4"
+        "ytid": "yr-kJ5PgAN4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yr-kJ5PgAN4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yr-kJ5PgAN4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yr-kJ5PgAN4/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "A.M.R feat Ai Takekawa - Beyond The Moon (Orbion Uplifting Remix)",
-        "ytid": "liF-EZ4CFOw"
+        "ytid": "liF-EZ4CFOw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/liF-EZ4CFOw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/liF-EZ4CFOw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/liF-EZ4CFOw/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "The Chainsmokers - Let You Go ft. Great Good Fine Ok",
-        "ytid": "iiNXf0n_hrA"
+        "ytid": "iiNXf0n_hrA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iiNXf0n_hrA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iiNXf0n_hrA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iiNXf0n_hrA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Inception - Time - Piano Solo HD",
-        "ytid": "JOtDS0vRwxg"
+        "ytid": "JOtDS0vRwxg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/JOtDS0vRwxg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/JOtDS0vRwxg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/JOtDS0vRwxg/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Betsie Larkin & Solarstone  - Breathe You In (Solarstone Pure Mix)",
-        "ytid": "7-LpBG809Po"
+        "ytid": "7-LpBG809Po",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7-LpBG809Po/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7-LpBG809Po/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7-LpBG809Po/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Ferry Corsten presents Gouryella - Anahera [Official Music Video]",
-        "ytid": "7ZMZHbAKvGA"
+        "ytid": "7ZMZHbAKvGA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7ZMZHbAKvGA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7ZMZHbAKvGA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7ZMZHbAKvGA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Lqd Hrmny - La Distance",
-        "ytid": "DhqYIyvnAvA"
+        "ytid": "DhqYIyvnAvA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/DhqYIyvnAvA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/DhqYIyvnAvA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/DhqYIyvnAvA/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Aaron Lewis - What Hurts The Most HD Live in Lake Tahoe 8/06/2011",
-        "ytid": "Yk9ByJZ0vrQ"
+        "ytid": "Yk9ByJZ0vrQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Yk9ByJZ0vrQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Yk9ByJZ0vrQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Yk9ByJZ0vrQ/hqdefault.jpg"
+          }
+        }
       },
       {
         "description": "Taylor Swift - Style",
@@ -587,7 +2060,288 @@
       },
       {
         "description": "Farhad Mahdavi - Yearning [As Played on Uplifting Only 126]",
-        "ytid": "GqTM7eKZITg"
+        "ytid": "GqTM7eKZITg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GqTM7eKZITg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GqTM7eKZITg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GqTM7eKZITg/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "DEF LEPPARD - \"Long Long Way To Go\" (Official Music Video)",
+        "ytid": "E2KTcr1Mir0",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/E2KTcr1Mir0/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/E2KTcr1Mir0/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/E2KTcr1Mir0/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Dash Berlin - #MusicIsLife - Album",
+        "ytid": "DSOEUj8FAQ4",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/DSOEUj8FAQ4/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/DSOEUj8FAQ4/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/DSOEUj8FAQ4/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Dash Berlin ft. Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)",
+        "ytid": "eWaANlb3q68",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/eWaANlb3q68/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/eWaANlb3q68/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/eWaANlb3q68/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "illitheas - Endless (Final Version) [As Played on Uplifting Only 113]",
+        "ytid": "kqnOnilA6ac",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/kqnOnilA6ac/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/kqnOnilA6ac/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/kqnOnilA6ac/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Cinderella - Long Cold Winter - 1988 (FULL ALBUM)",
+        "ytid": "BldJ5ejRKqw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BldJ5ejRKqw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BldJ5ejRKqw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BldJ5ejRKqw/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Slaughter - Stick It To Ya  (Full Album)",
+        "ytid": "5ZZvO3uBY-I",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5ZZvO3uBY-I/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5ZZvO3uBY-I/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5ZZvO3uBY-I/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Ai Takekawa & Adam Sobiech - Break The Light (Ryo Nakamura Remix)",
+        "ytid": "N7u4wRwRQFM",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/N7u4wRwRQFM/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/N7u4wRwRQFM/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/N7u4wRwRQFM/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Denis Sender - Liquid Dreams (Ellez Ria Remix)",
+        "ytid": "2Vjjx72CVSY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2Vjjx72CVSY/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2Vjjx72CVSY/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2Vjjx72CVSY/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Annie Lennox - Why (Official Music Video)",
+        "ytid": "HG7I4oniOyA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/HG7I4oniOyA/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/HG7I4oniOyA/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/HG7I4oniOyA/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "A.M.R feat.Ai Takekawa - Beyond The Moon - (Orbion Uplifting Remix) [HD]",
+        "ytid": "8tpvAptO7Vk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8tpvAptO7Vk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8tpvAptO7Vk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8tpvAptO7Vk/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Break Every Chain by Jesus Culture Lyrics",
+        "ytid": "EtyVdC7E6Wo",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/EtyVdC7E6Wo/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/EtyVdC7E6Wo/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/EtyVdC7E6Wo/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Syntouch - Lost Coast (Original Mix) *Promo* [Trancer Recordings]",
+        "ytid": "jj8EkplRBqk",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/jj8EkplRBqk/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/jj8EkplRBqk/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/jj8EkplRBqk/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Aeden - Tempest Sonata (Six Senses Remix) [TFB Records] [EXCLUSIVE PREMIERE]",
+        "ytid": "Y4pg6v74C5s",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Hozier - Take Me To Church",
+        "ytid": "PVjiKRfKpPI",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/PVjiKRfKpPI/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/PVjiKRfKpPI/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/PVjiKRfKpPI/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Metallica Live In Russia 1991 HQ - Monsters Of Rock Moscow",
+        "ytid": "WJkeTEIUJhY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WJkeTEIUJhY/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WJkeTEIUJhY/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WJkeTEIUJhY/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Matt Maher - Lord, I Need You (feat. Audrey Assad) - Acoustic",
+        "ytid": "iaVPupbNFAo",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iaVPupbNFAo/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iaVPupbNFAo/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iaVPupbNFAo/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Francesca Battistelli - He Knows My Name (Official Video)",
+        "ytid": "jYpBgJHmGmw",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/jYpBgJHmGmw/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/jYpBgJHmGmw/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/jYpBgJHmGmw/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Usher - Yeah! ft. Lil Jon, Ludacris",
+        "ytid": "GxBSyx85Kp8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GxBSyx85Kp8/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GxBSyx85Kp8/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GxBSyx85Kp8/hqdefault.jpg"
+          }
+        }
       }
     ]
   }

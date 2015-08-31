@@ -97,6 +97,22 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
 }
+.video-link-container {
+  /* Don't know what is going to go in here yet */
+  /*border: 1px solid red;*/
+}
+.video-thumbnail {
+  display: inline-block;
+}
+.video-title {
+  display: inline-block;
+  margin-left: 10px;
+  margin-left: 15px;
+  margin-top: 15px;
+  width: 575px; /* I am going to change this through code to dynamically resize it */
+  vertical-align: top;
+  font-size: 14pt;
+}
 #recently-played a {
   color: #fff;
 }
@@ -125,6 +141,10 @@ a {
   text-align: center;
   top: 45%;
   font-size: 28pt;
+}
+#getting-started {
+  visibility:hidden;
+  margin-left: 5px;
 }
 
 ::-webkit-scrollbar-track {

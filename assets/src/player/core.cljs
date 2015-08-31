@@ -11,6 +11,7 @@
 (def player (atom nil))
 (def video-title (atom nil))
 (def socket (js/io "http://localhost:5150"))
+(def lodash (.-_ js/window))
 
 (def tag (.createElement js/document "script"))
 (def first-script-tag (first (array-seq (.getElementsByTagName js/document "script"))))
@@ -23,6 +24,9 @@
 
 (defn set-webkit-filter [video-player setting value]
   (.css video-player "-webkit-filter" (str setting "(" value ")")))
+
+; well clicking one of the suggested videos added the thumbnails to the recently
+; played list, at least I did something right! LOL! =)
 
 (defn on-youtube-api-ready []
   (.emit socket "youtube-api-ready")
@@ -44,7 +48,13 @@
             (set-webkit-filter video-player "saturate" saturate-value))
            (when-not (= sepia-value js/undefined)
             (set-webkit-filter video-player "sepia" sepia-value))))))
-       (.loadVideoById @player ytid)))))
+       (do
+         (.loadVideoById @player ytid))))))
+         ;(.forEach lodash
+           ;(.find (.contents (js/jQuery "#player")) ".annotation")
+           ;(fn [annotation]
+            ; (js/console.log annotation))))))))
+             ;(.-display (.-style annotation) "none"))) ; OMG, what is wrong here?
 
 (aset js/window "onYouTubeIframeAPIReady" on-youtube-api-ready)
 (set! (.-src tag) "https://www.youtube.com/iframe_api")
