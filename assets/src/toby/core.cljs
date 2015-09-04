@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 30 August 2015
+; 4 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -294,11 +294,12 @@
   (let [browser-size (.getContentSize browser)
         recently-played (om/get-node owner "recently-played")
         recently-played-list (om/get-node owner "recently-played-list")
+        video-containers (jq/$ :.video-link-container)
         video-titles (jq/$ :.video-title)]
-    ;(js/console.log video-titles)
-    ; it'll be a miracle if this works! =)
     (.forEach lodash video-titles
       (fn [vt] (set! (.-width (.-style vt)) (str (- (first browser-size) 220) "px"))))
+    (.forEach lodash video-containers
+      (fn [vc] (set! (.-width (.-style vc)) (str (- (first browser-size) 60) "px"))))
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
     (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 120) "px"))))
 
@@ -365,16 +366,33 @@
         (dom/div #js { :id "recently-played-list" :ref "recently-played-list" }
           (apply dom/div nil
             (map (fn [r]
-              (dom/div #js { :className "video-link-container" }
-                (when-not (nil? (aget r "thumbnails"))
-                  (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
-                (dom/a #js {
+              (dom/a #js {
                   :ref "video-title"
-                  :className "video-title"
+                  :className "video-link-container"
                   :href "#"
                   :data-ytid (.-ytid r)
                   :onClick (.-play-video r)
-                } (.-description r)))) (.sortBy lodash (:videos data) "description"))))))))
+                }
+                (dom/div nil
+                  (when-not (nil? (aget r "thumbnails"))
+                    (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
+                  (dom/div #js { :className "video-title" }
+                    (.-description r))))
+            ) (.sortBy lodash (:videos data) "description"))))))))
+
+
+  ; (dom/div #js { :className "video-link-container" }
+  ;   (when-not (nil? (aget r "thumbnails"))
+  ;     (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
+  ;   (dom/a #js {
+  ;     :ref "video-title"
+  ;     :className "video-title"
+  ;     :href "#"
+  ;     :data-ytid (.-ytid r)
+  ;     :onClick (.-play-video r)
+  ;   } (.-description r)))) (.sortBy lodash (:videos data) "description"))))))))
+
+
 
 ;
 ; Video playback component

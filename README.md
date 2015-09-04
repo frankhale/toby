@@ -137,7 +137,7 @@ How to run master in Electron:
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-31 July 2015
+4 September 2015
 
 ## License
 
