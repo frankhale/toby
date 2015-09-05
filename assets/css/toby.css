@@ -59,11 +59,11 @@ a {
   overflow-x: hidden;
 }
 #recently-played {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(100, 100, 100, 0.3);
   position: absolute;
   margin-top: 10px;
   margin-left: 12px;
-  border: 2px solid #222;
+  border: 2px solid #555;
   color: #fff;
   font-size: 12pt;
   border-top-left-radius: 5px;
