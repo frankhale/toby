@@ -3,7 +3,6 @@ body {
   background-color: #111;
   color: #fff;
   overflow: hidden;
-  /*background-image: url(../images/dark.jpg);*/
   font-family: 'Quicksand', sans-serif;
 }
 input {
@@ -59,17 +58,12 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
 }
-#search-results a:hover {
-  background-color: #880000;
-  color: #fff;
-}
 #recently-played {
   background-color: rgba(50, 50, 50, 0.3);
   position: absolute;
   margin-top: 10px;
   margin-left: 12px;
   border: 2px solid #777;
-  /*background-color: #333;*/
   color: #fff;
   font-size: 12pt;
   border-top-left-radius: 5px;
@@ -97,12 +91,28 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
 }
-#recently-played a {
+.video-link-container {
+  /*border: 1px solid red;*/
+}
+.video-link-container:hover {
+  background-color: #880000;
   color: #fff;
 }
-#recently-played a:hover {
-  background-color: #880000;
-  color: #FFF;
+.video-thumbnail {
+  margin-top: 4px;
+}
+.video-title {
+  /*border: 1px solid blue;*/
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14pt;
+  width: 500px;
+  margin-left: 10px;
+  margin-left: 15px;
+  margin-top: 25px;
+}
+#recently-played a {
+  color: #fff;
 }
 #notification {
   display: none;
@@ -125,6 +135,10 @@ a {
   text-align: center;
   top: 45%;
   font-size: 28pt;
+}
+#getting-started {
+  visibility:hidden;
+  margin-left: 5px;
 }
 
 ::-webkit-scrollbar-track {

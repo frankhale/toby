@@ -2,7 +2,7 @@
 // Toby - A YouTube player for the desktop
 //
 // Frank Hale <frankhale@gmail.com>
-// 31 July 2015
+// 30 August 2015
 //
 // License: GNU GPL v2
 //
@@ -126,7 +126,18 @@ String.prototype.endsWith = function(searchString, position) {};
 
 var videoInfo = {
   "description": "",
-  "ytid": ""
+  "ytid": "",
+  "thumbnails": {}
+};
+
+var thumbnailInfo = {
+  "default": "",
+  "medium": "",
+  "high": ""
+};
+
+var urlInfo = {
+  "url": ""
 };
 
 var videoGroup = {

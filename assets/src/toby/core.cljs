@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 31 July 2015
+; 4 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -93,12 +93,14 @@
 
 (defn update-recently-played-data-file [recently-played-data]
  (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
+   (js/console.log rpl-with-limit)
    (.writeFile fs recently-played-json-path (.stringify js/JSON rpl-with-limit js/undefined 2)
     (fn [err] (when err (js/throw err))))))
 
 ; Oh no, LOL! There are circular dependencies ahead for add-to-recently-played-and-update-file
 ; and play-video
 (declare play-video)
+(declare get-search-results-from-youtube)
 
 ; Need to wait until we get all the information. This will be called
 ; multiple times and it appears as though YouTube doesn't provide the
@@ -110,12 +112,20 @@
        found (.find lodash recently-played-data #js { :ytid (.-ytid video) })]
    (when (and (not (empty? (.-description video))) (= found js/undefined))
      (let [new-rpl (.slice recently-played-data)]
-       (.unshift new-rpl #js { :description (.-description video) :ytid (.-ytid video) :play-video (play-video video owner) })
-       (update-recently-played-data-file new-rpl)))))
+      (get-search-results-from-youtube (.-ytid video)
+        (fn [data-results]
+          (.unshift new-rpl #js {
+            :description (.-description video)
+            :ytid (.-ytid video)
+            :thumbnails (.-thumbnails (first data-results))
+            :play-video (play-video video owner) })
+          (update-recently-played-data-file new-rpl)))))))
 
 (defn play-video [video owner]
   (fn []
-    (add-to-recently-played-and-update-file #js { :description (.-description video) :ytid (.-ytid video) } owner)
+    (add-to-recently-played-and-update-file #js {
+      :description (.-description video)
+      :ytid (.-ytid video) } owner)
     (server/send "play" (.-ytid video))
     (clear-search-box owner)
     (om/update-state! owner #(assoc %
@@ -135,7 +145,12 @@
 (defn get-search-results-from-youtube [search-term done]
   (search-youtube search-term #js { :maxResults 25, :key youtube-api-key, :type "video" } (fn [err results]
     (if-not err
-      (done (apply array (map (fn [r] #js { :description (.-title r) :ytid (.-id r) }) results)))
+      (done
+        (apply array (map (fn [r] #js {
+          :description (.-title r)
+          :ytid (.-id r)
+          :thumbnails (.-thumbnails r)
+        }) results)))
       []))))
 
 (defn get-search-results-from-data [data search-term]
@@ -169,7 +184,9 @@
           search-term-lower (.trim (.toLowerCase search-term))]
       (if (re-matches #"^(youtube:|yt:)[\s\w\W]+" search-term-lower)
         (get-search-results-from-youtube (clojure.string/replace search-term-lower #"^(youtube:|yt:)" "")
-          (fn [data-results] (show-search-results data-results owner)))
+          (fn [data-results]
+            ;(js/console.log data-results)
+            (show-search-results data-results owner)))
         (if (re-matches #"^(group:|g:)[\s\w\W]+" search-term-lower)
           (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"^(group:|g:)" "")))]
             (show-search-results data-results owner))
@@ -206,15 +223,27 @@
   (let [title e.target.text
        dataset (.-dataset (. e -target))
        ytid (aget dataset "ytid")]
-     ((play-video #js { :description title :ytid ytid } owner))))
+     ((play-video #js {
+       :description title
+       :ytid ytid } owner))))
 
+; The only way we know if anyone clicked one of those videos that YT shows you
+; at the end of playing a video is that if the person clicks it the title of
+; the video will change. Here we'll need to perform a search to get the YT
+; thumbnails if we don't already have them.
 (defn update-title [new-title ytid owner]
   (let [current-video-title (om/get-state owner :current-video-title)]
     (when (and (not (empty? new-title)) (not (= new-title current-video-title)))
       (om/update-state! owner #(assoc % :current-video-title new-title :current-video-id ytid))
-      ; TODO: This should not be in this function!
       (when-not (= current-video-title "Play video with YouTube ID:")
-        (add-to-recently-played-and-update-file #js { :description new-title :ytid ytid } owner)))))
+        ; TODO: suppose YT search fails, we still need to add the video to the recently played list (fix later)
+        (get-search-results-from-youtube ytid (fn [data-results] (
+          ; TODO: gonna need to make sure we have search results, will do that later
+          (add-to-recently-played-and-update-file #js {
+            :description new-title
+            :ytid ytid
+            :thumbnails (.-thumbnails (first data-results))
+          } owner))))))))
 
 (defn is-current-video-info-set [owner]
   (let [current-video-title (om/get-state owner :current-video-title)
@@ -264,7 +293,13 @@
 (defn recently-played-list-resize [owner]
   (let [browser-size (.getContentSize browser)
         recently-played (om/get-node owner "recently-played")
-        recently-played-list (om/get-node owner "recently-played-list")]
+        recently-played-list (om/get-node owner "recently-played-list")
+        video-containers (jq/$ :.video-link-container)
+        video-titles (jq/$ :.video-title)]
+    (.forEach lodash video-titles
+      (fn [vt] (set! (.-width (.-style vt)) (str (- (first browser-size) 220) "px"))))
+    (.forEach lodash video-containers
+      (fn [vc] (set! (.-width (.-style vc)) (str (- (first browser-size) 60) "px"))))
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
     (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 120) "px"))))
 
@@ -330,11 +365,34 @@
         (dom/div #js { :id "recently-played-header" } "Recently Played")
         (dom/div #js { :id "recently-played-list" :ref "recently-played-list" }
           (apply dom/div nil
-            (map (fn [r] (dom/a #js {
-              :href "#"
-              :data-ytid (.-ytid r)
-              :onClick (.-play-video r)
-              } (.-description r))) (.sortBy lodash (:videos data) "description"))))))))
+            (map (fn [r]
+              (dom/a #js {
+                  :ref "video-title"
+                  :className "video-link-container"
+                  :href "#"
+                  :data-ytid (.-ytid r)
+                  :onClick (.-play-video r)
+                }
+                (dom/div nil
+                  (when-not (nil? (aget r "thumbnails"))
+                    (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
+                  (dom/div #js { :className "video-title" }
+                    (.-description r))))
+            ) (.sortBy lodash (:videos data) "description"))))))))
+
+
+  ; (dom/div #js { :className "video-link-container" }
+  ;   (when-not (nil? (aget r "thumbnails"))
+  ;     (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
+  ;   (dom/a #js {
+  ;     :ref "video-title"
+  ;     :className "video-title"
+  ;     :href "#"
+  ;     :data-ytid (.-ytid r)
+  ;     :onClick (.-play-video r)
+  ;   } (.-description r)))) (.sortBy lodash (:videos data) "description"))))))))
+
+
 
 ;
 ; Video playback component
@@ -433,12 +491,19 @@
             :ref "search-box"
             :placeholder "search youtube or your saved videos..."
             :onKeyDown #(handle-search % owner) })
+        ; Oh man, search results should be it's own component, damn! It's almost
+        ; identical to the recently played list.
         (dom/div #js { :id "search-results" :ref "search-results" :style search-results-style }
           (apply dom/div nil
-            (map (fn [video] (dom/a #js {
-                   :href "#"
-                   :data-ytid (.-ytid video)
-                   :onClick #(handle-click % owner) } (.-description video))) search-results))))
+            (map (fn [video]
+              (dom/div #js { :className "video-link-container" }
+              (when-not (nil? (aget video "thumbnails")) (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget video "thumbnails") "default") "url") }))
+              (dom/a #js {
+                :ref "video-title"
+                :className "video-title"
+                :href "#"
+                :data-ytid (.-ytid video)
+                :onClick #(handle-click % owner) } (.-description video)))) search-results))))
         (om/build recently-played-list { :videos recently-played-data :style recently-played-style})
         (om/build video-playback { :style webview-style :update-title update-title })
         (om/build notification { :message new-video-notification })))))

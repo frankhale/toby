@@ -18,8 +18,8 @@
 (def assets-dir (apply str (interpose path.sep [(.cwd process) "resources" "app" "assets"])))
 (def browser-options (clj->js {
   :title "Toby - A YouTube player for the desktop"
-  :width 640
-  :height 400
+  :width 840
+  :height 500
   :icon (str assets-dir path.sep "images" path.sep "t.png")
   :resizable true}))
 
