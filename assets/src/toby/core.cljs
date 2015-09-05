@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 4 September 2015
+; 5 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -185,7 +185,6 @@
       (if (re-matches #"^(youtube:|yt:)[\s\w\W]+" search-term-lower)
         (get-search-results-from-youtube (clojure.string/replace search-term-lower #"^(youtube:|yt:)" "")
           (fn [data-results]
-            ;(js/console.log data-results)
             (show-search-results data-results owner)))
         (if (re-matches #"^(group:|g:)[\s\w\W]+" search-term-lower)
           (when-let [data-results (get-search-results-from-group video-data (.trim (clojure.string/replace search-term-lower #"^(group:|g:)" "")))]
@@ -231,24 +230,32 @@
 ; at the end of playing a video is that if the person clicks it the title of
 ; the video will change. Here we'll need to perform a search to get the YT
 ; thumbnails if we don't already have them.
+
+;(when-not (= current-video-title "Play video with YouTube ID:")
+
 (defn update-title [new-title ytid owner]
-  (let [current-video-title (om/get-state owner :current-video-title)]
-    (when (and (not (empty? new-title)) (not (= new-title current-video-title)))
-      (om/update-state! owner #(assoc % :current-video-title new-title :current-video-id ytid))
-      (when-not (= current-video-title "Play video with YouTube ID:")
-        ; TODO: suppose YT search fails, we still need to add the video to the recently played list (fix later)
-        (get-search-results-from-youtube ytid (fn [data-results] (
-          ; TODO: gonna need to make sure we have search results, will do that later
-          (add-to-recently-played-and-update-file #js {
-            :description new-title
-            :ytid ytid
-            :thumbnails (.-thumbnails (first data-results))
-          } owner))))))))
+  (get-search-results-from-youtube ytid (fn [data-results] (
+    (let [current-video-title (om/get-state owner :current-video-title)
+          thumbnails (.-thumbnails (first data-results))]
+      (when (empty? (om/get-state owner :current-video-thumbnails))
+        (om/update-state! owner #(assoc % :current-video-thumbnails thumbnails)))
+      (when (and (not (empty? new-title)) (not (= new-title current-video-title)))
+        (om/update-state! owner #(assoc %
+          :current-video-title new-title
+          :current-video-id ytid))
+        (add-to-recently-played-and-update-file #js {
+          :description new-title
+          :ytid ytid
+          :thumbnails thumbnails
+        } owner)))))))
 
 (defn is-current-video-info-set [owner]
   (let [current-video-title (om/get-state owner :current-video-title)
-        current-video-id (om/get-state owner :current-video-id)]
-    (if (and (not (empty? current-video-id)) (not (empty? current-video-title)))
+        current-video-id (om/get-state owner :current-video-id)
+        current-video-thumbnails (om/get-state owner :current-video-thumbnails)]
+    (if (and (not (empty? current-video-id))
+             (not (empty? current-video-title))
+             (not (> (.-length current-video-thumbnails) 0)))
       true
       false)))
 
@@ -273,7 +280,12 @@
   (when (is-current-video-info-set owner)
     (let [current-video-title (om/get-state owner :current-video-title)
           current-video-id (om/get-state owner :current-video-id)
-          new-entry #js { :description current-video-title :ytid current-video-id }
+          current-video-thumbnails (om/get-state owner :current-video-thumbnails)
+          new-entry #js {
+              :description current-video-title
+              :ytid current-video-id
+              :thumbnails current-video-thumbnails
+          }
           video-data (clj->js (om/get-state owner :video-data))
           found-in-mem (.find lodash (.-videos video-data) #js { :ytid current-video-id })
           found-in-file (.find lodash (.-videos (load-data-file)) #js { :ytid current-video-id })]
@@ -440,6 +452,7 @@
         :webview-style #js { :visibility "hidden" }
         :current-video-title ""
         :current-video-id ""
+        :current-video-thumbnails []
         :new-video-notification ""
         :update-title (goog/bind (fn [title ytid] (update-title title ytid owner)) owner) })
     om/IDidMount
