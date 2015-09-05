@@ -72,15 +72,6 @@
           data-obj)
       (catch js/Object e no-data))))
 
-; resizes the search box and search results DOM elements to fill up the window
-; size proportionally.
-(defn resize-search-elements [owner]
-  (let [browser-size (.getContentSize browser)
-        search-box (om/get-node owner "search-box")
-        search-results (om/get-node owner "search-results")]
-    (set! (.-height (.-style search-results)) (str (- (last browser-size) 100) "px"))
-    (set! (.-width (.-style search-box)) (str (- (first browser-size) 20) "px"))))
-
 (defn watch-file [file-path data-changed]
   (.watchFile fs file-path
     (fn [curr prev]
@@ -101,6 +92,7 @@
 ; and play-video
 (declare play-video)
 (declare get-search-results-from-youtube)
+(declare resize-video-container-and-titles)
 
 ; Need to wait until we get all the information. This will be called
 ; multiple times and it appears as though YouTube doesn't provide the
@@ -167,15 +159,23 @@
         (.-videos group-data)
         []))))
 
+(defn resize-titles-in-search-results-if-visible []
+  (js/setInterval (fn []
+    (resize-video-container-and-titles) 10000)
+      (when (= (.css (jq/$ :#search-results) "display") "block")
+        (js/clearInterval resize-titles-in-search-results-if-visible))))
+
 (defn show-search-results [results owner]
   (if (= (.-length results) 1)
     ((play-video (first results) owner))
     (let [current-display (.-display (om/get-state owner :search-results-style))
           display (if (and (not= results js/undefined) (> (.-length results) 0)) "block" "none")]
       (when-not (= current-display display)
-        (om/update-state! owner #(assoc %
-        :search-results results
-        :search-results-style #js { :display display }))))))
+        (do
+          (om/update-state! owner #(assoc %
+            :search-results results
+            :search-results-style #js { :display display }))
+          (resize-titles-in-search-results-if-visible))))))
 
 (defn handle-search [e owner]
   (if (and (= (.-keyCode e) 13) (> (.-length (.-value (.-target e))) 0))
@@ -290,16 +290,30 @@
   (.forEach lodash (om/get-state owner :recently-played-data)
     (fn [v] ((set! (.-play-video v) #(play-video v owner))))))
 
-(defn recently-played-list-resize [owner]
+(defn resize-video-container-and-titles []
   (let [browser-size (.getContentSize browser)
-        recently-played (om/get-node owner "recently-played")
-        recently-played-list (om/get-node owner "recently-played-list")
         video-containers (jq/$ :.video-link-container)
         video-titles (jq/$ :.video-title)]
     (.forEach lodash video-titles
       (fn [vt] (set! (.-width (.-style vt)) (str (- (first browser-size) 220) "px"))))
     (.forEach lodash video-containers
-      (fn [vc] (set! (.-width (.-style vc)) (str (- (first browser-size) 60) "px"))))
+      (fn [vc] (set! (.-width (.-style vc)) (str (- (first browser-size) 60) "px"))))))
+
+; resizes the search box and search results DOM elements to fill up the window
+; size proportionally.
+(defn resize-search-elements [owner]
+  (let [browser-size (.getContentSize browser)
+      search-box (om/get-node owner "search-box")
+      search-results (om/get-node owner "search-results")]
+    (resize-video-container-and-titles)
+    (set! (.-height (.-style search-results)) (str (- (last browser-size) 100) "px"))
+    (set! (.-width (.-style search-box)) (str (- (first browser-size) 20) "px"))))
+
+(defn recently-played-list-resize [owner]
+  (let [browser-size (.getContentSize browser)
+        recently-played (om/get-node owner "recently-played")
+        recently-played-list (om/get-node owner "recently-played-list")]
+    (resize-video-container-and-titles)
     (set! (.-width (.-style recently-played)) (str (- (first browser-size) 30) "px"))
     (set! (.-height (.-style recently-played-list)) (str (- (last browser-size) 120) "px"))))
 
@@ -377,22 +391,7 @@
                   (when-not (nil? (aget r "thumbnails"))
                     (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
                   (dom/div #js { :className "video-title" }
-                    (.-description r))))
-            ) (.sortBy lodash (:videos data) "description"))))))))
-
-
-  ; (dom/div #js { :className "video-link-container" }
-  ;   (when-not (nil? (aget r "thumbnails"))
-  ;     (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
-  ;   (dom/a #js {
-  ;     :ref "video-title"
-  ;     :className "video-title"
-  ;     :href "#"
-  ;     :data-ytid (.-ytid r)
-  ;     :onClick (.-play-video r)
-  ;   } (.-description r)))) (.sortBy lodash (:videos data) "description"))))))))
-
-
+                    (.-description r))))) (.sortBy lodash (:videos data) "description"))))))))
 
 ;
 ; Video playback component
