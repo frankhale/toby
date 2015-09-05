@@ -59,11 +59,11 @@ a {
   overflow-x: hidden;
 }
 #recently-played {
-  background-color: rgba(50, 50, 50, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   margin-top: 10px;
   margin-left: 12px;
-  border: 2px solid #777;
+  border: 2px solid #222;
   color: #fff;
   font-size: 12pt;
   border-top-left-radius: 5px;
@@ -92,14 +92,23 @@ a {
   overflow-x: hidden;
 }
 .video-link-container {
-  /*border: 1px solid red;*/
+  border: 1px solid rgb(128, 128, 128, 0.3);
 }
 .video-link-container:hover {
   background-color: #880000;
   color: #fff;
+  border-radius: 8px;
+  border: 1px solid #220000;
+  margin:-1px;
+}
+.video-link-container:hover .video-title {
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 12px #fff;
 }
 .video-thumbnail {
   margin-top: 4px;
+  padding: 8px;
 }
 .video-title {
   /*border: 1px solid blue;*/
