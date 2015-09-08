@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 5 September 2015
+; 6 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -10,6 +10,7 @@
 (ns toby.core
   (:require
     [toby.server.core :as server]
+    [toby.archive.core :as archive]
     [jayq.core :as jq]
     [om.core :as om]
     [om.dom :as dom]))
@@ -25,6 +26,7 @@
 (def browser-cookies (.-cookies (.-session (.-webContents browser))))
 (def io (js/require "socket.io"))
 (def lodash (.-_ js/window))
+(def moment (.-moment js/window))
 
 (def base-path (apply str (interpose path.sep [(.cwd process) "resources" "app"])))
 (def assets-path (apply str (interpose path.sep [base-path "assets"])))
@@ -39,8 +41,13 @@
 (def video-filter-grayscale-value (atom 0))
 (def video-filter-saturate-value (atom 0))
 (def video-filter-sepia-value (atom 0))
-
 (def app-title "Toby - A YouTube player for the desktop")
+
+; Oh no, LOL! There are circular dependencies ahead for add-to-recently-played-and-update-file
+; and play-video
+(declare play-video)
+(declare get-search-results-from-youtube)
+(declare resize-video-container-and-titles)
 
 (defn load-data-file []
   (let [no-data #js { :groups [] :videos [] }]
@@ -84,15 +91,8 @@
 
 (defn update-recently-played-data-file [recently-played-data]
  (let [rpl-with-limit (.take lodash recently-played-data recently-played-entry-limit)]
-   (js/console.log rpl-with-limit)
    (.writeFile fs recently-played-json-path (.stringify js/JSON rpl-with-limit js/undefined 2)
     (fn [err] (when err (js/throw err))))))
-
-; Oh no, LOL! There are circular dependencies ahead for add-to-recently-played-and-update-file
-; and play-video
-(declare play-video)
-(declare get-search-results-from-youtube)
-(declare resize-video-container-and-titles)
 
 ; Need to wait until we get all the information. This will be called
 ; multiple times and it appears as though YouTube doesn't provide the
@@ -135,15 +135,19 @@
      (om/set-state! owner :recently-played-style #js { :display "block" }))))
 
 (defn get-search-results-from-youtube [search-term done]
-  (search-youtube search-term #js { :maxResults 25, :key youtube-api-key, :type "video" } (fn [err results]
-    (if-not err
-      (done
-        (apply array (map (fn [r] #js {
-          :description (.-title r)
-          :ytid (.-id r)
-          :thumbnails (.-thumbnails r)
-        }) results)))
-      []))))
+  (let [found (archive/get-from search-term)]
+    (if (empty? found)
+      (search-youtube search-term #js { :maxResults 25, :key youtube-api-key, :type "video" } (fn [err results]
+        (if-not err
+          (let [final-results (apply array (map (fn [r] #js {
+                            :description (.-title r)
+                            :ytid (.-id r)
+                            :thumbnails (.-thumbnails r)
+                          }) results))]
+            (archive/add-to search-term final-results)
+            (done final-results))
+            [])))
+     found)))
 
 (defn get-search-results-from-data [data search-term]
   (let [results (.filter lodash data (fn [v] (.includes (.toLowerCase (.-description v)) search-term)))]
@@ -463,9 +467,8 @@
       (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
       (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
       (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
-      (keymaster "ctrl+r" (fn []
-                            (server/close)
-                            (.reload browser)))
+      (keymaster "ctrl+r" (fn [] (server/close) (.reload browser)))
+      (archive/run-expire)
       (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
       (resize-search-elements owner)
       (watch-file data-json-path (fn []

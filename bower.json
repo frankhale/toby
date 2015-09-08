@@ -21,6 +21,7 @@
   "dependencies": {
     "lodash": "~3.10.0",
     "jquery": "~2.1.4",
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "moment": "~2.10.6"
   }
 }

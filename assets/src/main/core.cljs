@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 20 July 2015
+; 7 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -16,10 +16,12 @@
 
 (def main-window (atom nil))
 (def assets-dir (apply str (interpose path.sep [(.cwd process) "resources" "app" "assets"])))
+(def main-page (str "file://" assets-dir (str path.sep "html" path.sep "toby.html")))
+;(def main-page-figwheel "http://localhost:3449/toby.html")
 (def browser-options (clj->js {
   :title "Toby - A YouTube player for the desktop"
-  :width 840
-  :height 500
+  :width 640
+  :height 400
   :icon (str assets-dir path.sep "images" path.sep "t.png")
   :resizable true}))
 
@@ -37,7 +39,7 @@
   (app.commandLine.appendSwitch "--override-http-referrer" "http://youtube.com")
 	(reset! main-window (browser-window. browser-options))
   (.register global-shortcut (if (= js/process.platform "darwin") "Cmd+Alt+I" "Ctrl+Shift+I") #(toggle-dev-tools))
-  (.loadUrl @main-window (str "file://" assets-dir (str path.sep "html" path.sep "toby.html")))
+  (.loadUrl @main-window main-page)
   (.on @main-window "closed" #(reset! main-window nil)))
 
 (.on app "window-all-closed" #(when-not (= js/process.platform "darwin") (.quit app)))
