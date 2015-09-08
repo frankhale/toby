@@ -79,6 +79,9 @@ BrowserWindow.webContents.insertCSS = function(css) {};
 // moment.js
 
 moment.format = function() {};
+moment.add = function(number, string) {};
+moment.isAfter = function(datetime, string) {};
+moment.isBefore = function(datetime, string) {};
 
 // YouTube API
 YT.Player = function(elem, opts) {};
@@ -162,7 +165,8 @@ var videoFilterSettings = {
 };
 
 var cachedSearchResults = {
-  "search-term": "",
-  "time-added": "",
+  "searchTerm": "",
+  "timeAdded": "",
+  "expireAfter": "",
   "results": []
 };

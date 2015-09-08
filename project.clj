@@ -4,6 +4,7 @@
     :dependencies [[org.clojure/clojure "1.7.0"]
                    [org.clojure/clojurescript "1.7.122"]
                    [org.omcljs/om "0.9.0"]
+                   ;[figwheel "0.3.9"]
                    [jayq "2.5.4"]
                    [cljsjs/jquery "2.1.4-0"]]
   :plugins [[lein-cljsbuild "1.1.0"]]

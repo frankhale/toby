@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 6 September 2015
+; 8 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -10,7 +10,7 @@
 (ns toby.core
   (:require
     [toby.server.core :as server]
-    [toby.archive.core :as archive]
+    [toby.cache.core :as cache]
     [jayq.core :as jq]
     [om.core :as om]
     [om.dom :as dom]))
@@ -135,7 +135,7 @@
      (om/set-state! owner :recently-played-style #js { :display "block" }))))
 
 (defn get-search-results-from-youtube [search-term done]
-  (let [found (archive/get-from search-term)]
+  (let [found (cache/get-from search-term)]
     (if (empty? found)
       (search-youtube search-term #js { :maxResults 25, :key youtube-api-key, :type "video" } (fn [err results]
         (if-not err
@@ -144,7 +144,7 @@
                             :ytid (.-id r)
                             :thumbnails (.-thumbnails r)
                           }) results))]
-            (archive/add-to search-term final-results)
+            (cache/add-to search-term final-results)
             (done final-results))
             [])))
      found)))
@@ -404,8 +404,11 @@
                   :onClick (.-play-video r)
                 }
                 (dom/div nil
-                  (when-not (nil? (aget r "thumbnails"))
-                    (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget r "thumbnails") "default") "url") }))
+                  (when-not (nil? (.-thumbnails r))
+                    (dom/img #js {
+                      :className "video-thumbnail"
+                      :src (.-url (aget (.-thumbnails r) "default"))
+                    }))
                   (dom/div #js { :className "video-title" }
                     (.-description r))))) (.sortBy lodash (:videos data) "description"))))))))
 
@@ -468,7 +471,7 @@
       (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
       (keymaster "f9" #(server/send "video-settings" #js { :sepia (toggle-video-filter-value video-filter-sepia-value 0 1) }))
       (keymaster "ctrl+r" (fn [] (server/close) (.reload browser)))
-      (archive/run-expire)
+      (cache/run-expire)
       (.addEventListener js/window "resize" (fn [e] (resize-search-elements owner)))
       (resize-search-elements owner)
       (watch-file data-json-path (fn []
@@ -512,7 +515,10 @@
           (apply dom/div nil
             (map (fn [video]
               (dom/div #js { :className "video-link-container" }
-              (when-not (nil? (aget video "thumbnails")) (dom/img #js { :className "video-thumbnail" :src (aget (aget (aget video "thumbnails") "default") "url") }))
+              (when-not (nil? (.-thumbnails video))
+                (dom/img #js {
+                  :className "video-thumbnail"
+                  :src (.-url (aget (.-thumbnails video) "default")) }))
               (dom/a #js {
                 :ref "video-title"
                 :className "video-title"
