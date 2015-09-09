@@ -2,7 +2,7 @@
 ; Toby - A YouTube player for the desktop
 ;
 ; Frank Hale <frankhale@gmail.com>
-; 8 September 2015
+; 9 September 2015
 ;
 ; License: GNU GPL v2
 ;
@@ -367,20 +367,6 @@
      (dom/div #js { :id "notification" :style notification-style } message))))
 
 ;
-; Getting started component
-;
-; Eventually:
-;   - List the various key bindings
-;   - External link to README
-;
-; (defn getting-started-component [data owner]
-;  (reify
-;    om/IRender
-;    (render [_]
-;      (dom/div #js { :id "getting-started" }
-;        (dom/h1 nil "Getting Started")))))
-
-;
 ; Recently played list component
 ;
 (defn recently-played-list [data owner]
@@ -442,6 +428,36 @@
           :src "../html/player.html"
           :style style })))))
 
+; This is a work in progress, LOL!
+(defn usage-info [data owner]
+ (reify
+   om/IWillReceiveProps
+   (will-receive-props [_ next-props]
+     (om/update-state! owner #(assoc %
+       :is-visible (:is-visible next-props))))
+   om/IRenderState
+   (render-state [_ {:keys [ is-visible ] } ]
+     (let [style (if is-visible
+                    #js { :display "block" }
+                    #js { :display "none" })]
+      (dom/div #js { :id "usage-info" :style style }
+       (dom/h1 nil "Usage Info")
+        (str "F1 - Toggle between video search and video playback")
+        (dom/br nil)
+        (str "F2 - Display usage information")
+        (dom/br nil)
+        (str "F5 - Add video to local data file")
+        (dom/br nil)
+        (str "F7 - Set video playback filter black and white")
+        (dom/br nil)
+        (str "F8 - Set video playback filter saturated")
+        (dom/br nil)
+        (str "F9 - Set video playback filter sepia")
+        (dom/br nil)
+        (str "CTRL+R - Reload app")
+        (dom/br nil)
+        (str "CTRL+Shift+I - Open Developer Tools"))))))
+
 ;
 ; Video search component
 ;
@@ -461,11 +477,22 @@
         :current-video-id ""
         :current-video-thumbnails []
         :new-video-notification ""
+        :show-usage-info false
         :update-title (goog/bind (fn [title ytid] (update-title title ytid owner)) owner) })
     om/IDidMount
     (did-mount [_]
       (set! (.-filter keymaster) (fn [e] true)) ; disable input et al filtering
       (keymaster "f1" #(toggle-search-play-list-and-webview owner))
+      (keymaster "f2" #(if (= (om/get-state owner :show-usage-info) false)
+                        (do
+                          (om/set-state! owner :search-list-style #js { :display "none" })
+                          (om/set-state! owner :search-results-style #js { :display "none" })
+                          (om/set-state! owner :recently-played-style #js { :display "none" })
+                          (om/set-state! owner :show-usage-info true))
+                        (do
+                          (om/set-state! owner :show-usage-info false)
+                          (om/set-state! owner :search-list-style #js { :display "block" })
+                          (om/set-state! owner :recently-played-style #js { :display "block" }))))
       (keymaster "f5" #(add-current-video-to-data-json owner))
       (keymaster "f7" #(server/send "video-settings" #js { :grayscale (toggle-video-filter-value video-filter-grayscale-value 0 1) }))
       (keymaster "f8" #(server/send "video-settings" #js { :saturate (toggle-video-filter-value video-filter-saturate-value 0 2.5) }))
@@ -499,6 +526,7 @@
                              search-results-style
                              webview-style
                              new-video-notification
+                             show-usage-info
                              update-title]}]
      (dom/div #js { :id "main-content" }
       (dom/h1 #js { :className "subdued-text" } (str (.-name package) " " (.-version package)))
@@ -527,7 +555,8 @@
                 :onClick #(handle-click % owner) } (.-description video)))) search-results))))
         (om/build recently-played-list { :videos recently-played-data :style recently-played-style})
         (om/build video-playback { :style webview-style :update-title update-title })
-        (om/build notification { :message new-video-notification })))))
+        (om/build notification { :message new-video-notification })
+        (om/build usage-info { :is-visible show-usage-info })))))
 
 (jq/document-ready
   (do

@@ -66,7 +66,8 @@ I ship my play list with Toby as an example. Feel free to replace this with vide
 **Important Key Combos:**
 
 <kbd>F1</kbd> - Switch between video search and video playback (once a video has been selected and is playing)  
-<kbd>F5</kbd> - Add the current playing video to data.json (see Updating `data.json`)  
+<kbd>F5</kbd> - Add the current playing video to data.json (see Updating `data.json`)
+<kbd>F2</kbd> - Display usage information
 <kbd>F7</kbd> - Toggle black and white video playback filter  
 <kbd>F8</kbd> - Toggle saturated video playback filter  
 <kbd>F9</kbd> - Toggle sepia video playback filter  
@@ -133,7 +134,7 @@ How to run master in Electron:
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-4 September 2015
+9 September 2015
 
 ## License
 

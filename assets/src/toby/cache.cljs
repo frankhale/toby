@@ -1,5 +1,5 @@
 ;
-; A simple store to cache YouTube search results
+; A simple cache to store YouTube search results
 ;
 ; Frank Hale <frankhale@gmail.com>
 ; 8 September 2015
@@ -13,9 +13,6 @@
 (def moment (.-moment js/window))
 (def expiration-cycle 900000) ; every 15 minutes
 
-; The schema of this array has not been defined yet. This is an array of objects
-; so off the top of my head an object will probably look like this:
-;
 ; {
 ;   "searchTerm": "Dash Berlin"
 ;   "timeAdded": "the time these results were added to the archive"
@@ -38,15 +35,15 @@
 ;     }
 ;   ]
 ; }
-(def store (atom []))
+(def cache (atom []))
 
 (defn add-to [search-term results]
   (let [search-term-lower (.trim (.toLowerCase search-term))
         now (.format (moment.))
         expire-after (.format (.add (moment.) 30 "minutes"))
-        found (.find lodash (to-array @store) #js { :searchTerm search-term-lower })]
+        found (.find lodash (to-array @cache) #js { :searchTerm search-term-lower })]
     (when (nil? found)
-      (swap! store conj #js {
+      (swap! cache conj #js {
          :searchTerm search-term-lower
          :timeAdded now
          :expireAfter expire-after
@@ -56,7 +53,7 @@
 (defn get-from [search-term]
   (when-not (empty? search-term)
     (let [search-term-lower (.trim (.toLowerCase search-term))
-          found (.find lodash (to-array @store) #js { :searchTerm search-term-lower })]
+          found (.find lodash (to-array @cache) #js { :searchTerm search-term-lower })]
       (if-not (nil? found)
         (.-results found)
         [])))
@@ -64,11 +61,11 @@
 
 (defn run-expire []
   (.setInterval js/window (fn []
-    (when-not (empty? @store)
-      (.forEach lodash (to-array @store)
+    (when-not (empty? @cache)
+      (.forEach lodash (to-array @cache)
         (fn [r]
           (let [now (moment.)
                 is-expire-time-after-now (.isAfter (moment. (.-expireAfter r)) (moment.))]
             (when-not is-expire-time-after-now
-              (let [cache-without-this-item (.reject lodash (to-array @store) #js { "searchTerm" (.trim (.-searchTerm r))})]
-                (reset! store (into [] cache-without-this-item))))))))) expiration-cycle))
+              (let [cache-without-this-item (.reject lodash (to-array @cache) #js { "searchTerm" (.trim (.-searchTerm r))})]
+                (reset! cache (into [] cache-without-this-item))))))))) expiration-cycle))
