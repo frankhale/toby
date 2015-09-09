@@ -145,9 +145,8 @@ a {
   top: 45%;
   font-size: 28pt;
 }
-#getting-started {
-  visibility:hidden;
-  margin-left: 5px;
+#usage-info {
+  margin-left: 15px;
 }
 
 ::-webkit-scrollbar-track {
