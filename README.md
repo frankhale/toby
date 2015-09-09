@@ -29,10 +29,6 @@ Search YouTube:
 
 ![YouTube Search](screenshots/toby-youtube-search.png)
 
-Play any video via it's YouTube Video ID:
-
-![Video Selection - Play Any Video With Video ID](screenshots/toby-play-video-with-id.png)
-
 Search your playlist for a video:
 
 List all videos that start with the search term.
