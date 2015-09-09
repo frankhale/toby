@@ -2342,6 +2342,66 @@
             "url": "https://i.ytimg.com/vi/GxBSyx85Kp8/hqdefault.jpg"
           }
         }
+      },
+      {
+        "description": "\"Come Alive (Dry Bones)\" featuring Lauren Daigle - Live from the CentricWorship Retreat",
+        "ytid": "7XAeyFagceQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7XAeyFagceQ/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7XAeyFagceQ/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7XAeyFagceQ/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Sunlight Project feat. Danny Claire - Stay (tranzLift Remix) ⭐Promo⭐",
+        "ytid": "yWQvWTM7Hqg",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Simon O'Shine & Sergey Nevone - Last Goodbye (Original Mix)",
+        "ytid": "QLqbwLPE-LY",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yWQvWTM7Hqg/hqdefault.jpg"
+          }
+        }
+      },
+      {
+        "description": "Chopin - The 21 Nocturnes (reference recording : Claudio Arrau)",
+        "ytid": "uUdoxvigIl8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/default.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/mqdefault.jpg"
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Y4pg6v74C5s/hqdefault.jpg"
+          }
+        }
       }
     ]
   }
