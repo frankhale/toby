@@ -43,8 +43,6 @@
 (def video-filter-sepia-value (atom 0))
 (def app-title "Toby - A YouTube player for the desktop")
 
-; Oh no, LOL! There are circular dependencies ahead for add-to-recently-played-and-update-file
-; and play-video
 (declare play-video)
 (declare get-search-results-from-youtube)
 (declare resize-video-container-and-titles)
@@ -229,13 +227,6 @@
      ((play-video #js {
        :description title
        :ytid ytid } owner))))
-
-; The only way we know if anyone clicked one of those videos that YT shows you
-; at the end of playing a video is that if the person clicks it the title of
-; the video will change. Here we'll need to perform a search to get the YT
-; thumbnails if we don't already have them.
-
-;(when-not (= current-video-title "Play video with YouTube ID:")
 
 (defn update-title [new-title ytid owner]
   (get-search-results-from-youtube ytid (fn [data-results] (
@@ -537,8 +528,6 @@
             :ref "search-box"
             :placeholder "search youtube or your saved videos..."
             :onKeyDown #(handle-search % owner) })
-        ; Oh man, search results should be it's own component, damn! It's almost
-        ; identical to the recently played list.
         (dom/div #js { :id "search-results" :ref "search-results" :style search-results-style }
           (apply dom/div nil
             (map (fn [video]
