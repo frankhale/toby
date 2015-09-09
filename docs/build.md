@@ -6,50 +6,50 @@ Things you're going to need:
 
 - Need a Java development kit
 
-http://www.oracle.com/technetwork/java/javase/downloads/index.html
+  >http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 - Need Leiningen (http://leiningen.org/)
 
-http://leiningen.org/
-
-Install instructions can be found here:
-
-http://leiningen.org/#install
+  >http://leiningen.org/
+  >
+  >Install instructions can be found here:
+  >
+  >http://leiningen.org/#install
 
 - Need to make sure leiningen is in the path
 
-Both Java and the lein.bat (or bash script) file need to be in your environment
+  >Both Java and the lein.bat (or bash script) file need to be in your environment
 path so that they are usable from a command line.
-
-https://java.com/en/download/help/path.xml
+  >
+  >https://java.com/en/download/help/path.xml
 
 - Need io.js
 
-https://iojs.org
+  >https://iojs.org
 
 - Need Electron
 
-https://github.com/atom/electron/releases
+  >https://github.com/atom/electron/releases
 
-Once you download a release of Electron unzip it. Have a look at the contents
+  >Once you download a release of Electron unzip it. Have a look at the contents
 of the files/folders that are extracted from the release. The resources folder
 will be important because that is where we are going to put the source for Toby.
 
 - Need Git
 
-You can either download a zip of the source or you can clone the source using
+  >You can either download a zip of the source or you can clone the source using
 git.
 
-http://git-scm.com/
+  >http://git-scm.com/
 
 - If you want to clone the source for Toby
 - Open a command prompt
 
-NOTE: The following needs to be done in relation to the Electron/resources
+  >NOTE: The following needs to be done in relation to the Electron/resources
 folder. We need to put the source for Toby into a folder called 'app' under the
 resources folder.
 
-```
+  >```
 git clone https://github.com/frankhale/toby.git
 ```
 
@@ -58,47 +58,47 @@ Once cloned rename the folder to app.
 - Change the directory to that of the clone repo
 - Need bower
 
-http://bower.io/
+  >http://bower.io/
 
-```
+  >```
 npm install -g bower
 ```
 
 - bower install to download JS dependencies
 
-From within the repository directory we need to download Javascript related
+  >From within the repository directory we need to download Javascript related
 dependencies that are being tracked via Bower.
 
-```
+  >```
 bower install
 ```
 
 - npm install to download node dependencies
 
-From within the repository directory we need to download Node related
+  >From within the repository directory we need to download Node related
 dependencies that are being tracked via npm.
 
-```
+  >```
 npm install
 ```
 
 - lein cljsbuild once (or auto to keep it open for continuous development)
 
-WOW, that was a lot of steps to get up and running!
+  >WOW, that was a lot of steps to get up and running!
 
-Before we run the leiningen build too we need to remove the current build folder.
+  >Before we run the leiningen build too we need to remove the current build folder.
 I have elected to ship the prebuilt files in the build directory so that it can
 be ran in Electron without running through all the steps above. In order for the
 ClojureScript compiler to compile the files when we run lein cljsbuild we need to
 remove the current prebuilt files otherwise it will think nothing has changed.
 
-The last step is to compile the ClojureScript source. For this we need to use leiningen. The first time it's ran it will download a bunch of ClojureScript specific dependencies and then compile the code and put the results in the assets\build folder.
+  >The last step is to compile the ClojureScript source. For this we need to use leiningen. The first time it's ran it will download a bunch of ClojureScript specific dependencies and then compile the code and put the results in the assets\build folder.
 
-```
+  >```
 lein cljsbuild once
 ```
 
-Note: the cljsbuild lein plugin can accept 'once' or 'auto'. The 'auto' option
+  >Note: the cljsbuild lein plugin can accept 'once' or 'auto'. The 'auto' option
 will keep the compiler alive and looking for changes to the source. If a change
 is detected then it will compile the code again.
 
