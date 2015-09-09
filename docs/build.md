@@ -41,7 +41,7 @@ Things you're going to need:
 - If you want to clone the source for Toby
 - Open a command prompt
 
-  >NOTE: The following needs to be done in relation to the >Electron/resources folder. We need to put the source for Toby into a folder called 'app' under the resources folder.
+  >NOTE: The following needs to be done in relation to the Electron/resources folder. We need to put the source for Toby into a folder called 'app' under the resources folder.
   >
   >```
   >git clone https://github.com/frankhale/toby.git
@@ -60,7 +60,7 @@ Once cloned rename the folder to app.
 
 - bower install to download JS dependencies
 
-  >From within the repository directory we need to download >Javascript related dependencies that are being tracked via Bower.
+  >From within the repository directory we need to download Javascript related dependencies that are being tracked via Bower.
   >
   >```
   >bower install
@@ -78,7 +78,7 @@ Once cloned rename the folder to app.
 
   >WOW, that was a lot of steps to get up and running!
   >
-  >Before we run the leiningen build too we need to remove the >current build folder. I have elected to ship the prebuilt files in the build directory so that it can be ran in Electron without running through all the steps above. In order for the ClojureScript compiler to compile the files when we run lein cljsbuild we need to remove the current prebuilt files otherwise it will think nothing has changed.
+  >Before we run the leiningen build too we need to remove the current build folder. I have elected to ship the prebuilt files in the build directory so that it can be ran in Electron without running through all the steps above. In order for the ClojureScript compiler to compile the files when we run lein cljsbuild we need to remove the current prebuilt files otherwise it will think nothing has changed.
 
   >The last step is to compile the ClojureScript source. For this we need to use leiningen. The first time it's ran it will download a bunch of ClojureScript specific dependencies and then compile the code and put the results in the assets\build folder.
   >
@@ -86,7 +86,7 @@ Once cloned rename the folder to app.
   >lein cljsbuild once
   >```
   >
-  >Note: the cljsbuild lein plugin can accept 'once' or 'auto'. The 'auto' option will keep the compiler alive and looking for >changes to the source. If a change is detected then it will >compile the code again.
+  >Note: the cljsbuild lein plugin can accept 'once' or 'auto'. The 'auto' option will keep the compiler alive and looking for changes to the source. If a change is detected then it will compile the code again.
 
 ###Patching libchromiumcontent for overriding Http Referrer
 
