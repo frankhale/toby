@@ -1,0 +1,28 @@
+start
+  = group+
+
+group = g:word+ "{" e:entry* "}" _
+  {
+    return {
+      "group": g.join(" "),
+      "entries": e
+    };
+  }
+
+entry
+  = _ t:word+ ":" _ ytid:word _
+    {
+      return {
+        title: t.join(" "),
+        ytid: ytid
+      };
+    }
+
+word
+  = ws word:[a-zA-Z0-9_.,&#*!@\|\[\]\/\(\)\+\-\n']+ _
+    {
+      return word.map((w)=> { return w.trim(); }).join("");
+    }
+
+ws = [ \t]*
+_ = [ \t\n\r]*

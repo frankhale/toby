@@ -1,27 +1,25 @@
 {
-  "name": "toby",
-  "version": "0.15.0-SNAPSHOT",
-  "homepage": "https://github.com/frankhale/toby",
+  "name": "Toby",
+  "description": "A YouTube player for the desktop",
+  "version": "0.16.0",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
   ],
-  "description": "A YouTube player for the desktop",
-  "main": "main.js",
-  "moduleType": [
-    "globals"
-  ],
-  "license": "GPL-2.0",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/frankhale/electron-with-express",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "public/components/",
     "test",
     "tests"
   ],
   "dependencies": {
-    "lodash": "~3.10.0",
-    "jquery": "~2.1.4",
-    "font-awesome": "~4.3.0",
-    "moment": "~2.10.6"
+    "jquery": "^2.2.1",
+    "lodash": "^4.6.1",
+    "react": "^0.14.7",
+    "keymaster": "^1.6.3"
   }
 }

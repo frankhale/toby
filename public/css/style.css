@@ -1,0 +1,110 @@
+body {
+  padding:0;
+  margin:0;
+  background-color: #000;
+  color: #fff;
+  font-size: 24pt;
+  overflow: hidden;
+}
+body:hover {
+  overflow: auto;
+}
+#player {
+  position: absolute;
+  width:100%;
+  height:100%;
+  display: none;
+}
+* {
+  font-family: 'VT323', sans-serif;
+}
+*:hover {
+  outline: none;
+}
+pre {
+  outline: none !important;
+  border-left: 4px solid black;
+  background-color: #eee;
+  white-space: pre-wrap;
+  margin-left: 40px !important;
+  margin-right: 40px !important;
+}
+blockquote {
+  border-left: 4px solid black;
+  background-color: #eee;
+  padding: 10px;
+}
+/* Command Input */
+.command-container {
+  padding-left: 10px;
+  font-size: 22pt;
+}
+.command-input {
+  border: none;
+  outline: none;
+  padding-left: 2px;
+  padding-top: 5px;
+  margin-bottom: 20px;
+  font-size: 24pt;
+  background-color: #000;
+  color: #fff;
+}
+/* Content Panel */
+.content-panel {
+  padding-left: 10px;
+  padding-bottom: 25px;
+  font-size: 20pt;
+}
+.slimScrollBar {
+  background-color: #fff !important;
+}
+.highlightRow {
+  width: 760px;
+  border-radius: 8px;
+  border: 2px solid #000;
+}
+.highlightRow:hover {
+  background-color: #003e80;
+  color: #fff;
+  border: 2px solid #001130;
+  text-shadow: 0 0 6px #001130;
+  font-weight: bold;
+}
+.alignDiv {
+  display: inline-block;
+  vertical-align: middle;
+}
+.videoTitle {
+  width: 525px;
+  margin-left: 25px;
+  cursor: default;
+}
+.videoThumbnail {
+  margin-top: 4px;
+  padding: 8px;
+}
+.videoAddedNotification {
+  position: fixed;
+  border: 2px solid #001130;
+  background-color: #003e80;
+  color: #fff;
+  padding: 10px;
+  top: 5px;
+  right: 5px;
+  font-size: 11pt;
+  z-index: 10000;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background: #999;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+::-webkit-scrollbar-corner {
+    background: #fff;
+}
