@@ -237,6 +237,17 @@ var backend = (function () {
           var foundGroup = _.find(videoData, {
             "group": group
           });
+
+          if (group.toLowerCase() === "recently played") {
+            var foundRecentlyPlayedVideo = _.find(foundGroup.entries, {
+              "ytid": req.body.ytid
+            });
+
+            if (foundRecentlyPlayedVideo) {
+              return;
+            }
+          }
+
           if (foundGroup === undefined) {
             videoData.push({
               group: group,
@@ -258,7 +269,7 @@ var backend = (function () {
 
           if (group.toLowerCase() === "recently played") {
             // trim to 30 video entries
-            foundGroup = _.takeRight(_.uniq(foundGroup), numberOfMaxRecentlyPlayedVideos);
+            foundGroup = _.takeRight(foundGroup, numberOfMaxRecentlyPlayedVideos);
           }
 
           writeDataFile(createDataFileString(videoData));

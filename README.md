@@ -69,7 +69,8 @@ npm start
 ### Things still not implemented since rewrite
 
 - Caching YouTube search results for a bit to avoid querying YouTube over and over for the same thing
-- Usage from within the app
+- Usage info from within the app
+- Hiding of (annoying) annotations on YouTube videos
 
 ### Updating the data file
 
