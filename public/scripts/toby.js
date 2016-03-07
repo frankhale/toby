@@ -172,7 +172,8 @@ var Toby = (function () {
       var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(ContentPanel).call(this));
 
       _this3.state = {
-        data: []
+        data: [],
+        applyFilter: ""
       };
       return _this3;
     }
@@ -182,7 +183,8 @@ var Toby = (function () {
       value: function componentWillReceiveProps(nextProps) {
         if (nextProps.data !== undefined) {
           this.setState({
-            data: nextProps.data
+            data: nextProps.data,
+            applyFilter: nextProps.applyFilter !== undefined ? nextProps.applyFilter : ""
           });
         }
       }
@@ -226,7 +228,7 @@ var Toby = (function () {
               { className: 'highlightRow', style: highlightRowStyle, onClick: d.playVideo.bind(_this4, d) },
               React.createElement(
                 'div',
-                { className: 'alignDiv videoThumbnail' },
+                { className: "alignDiv videoThumbnail " + _this4.state.applyFilter },
                 React.createElement('img', { src: d.thumbnail })
               ),
               React.createElement(
@@ -441,12 +443,33 @@ var Toby = (function () {
               });
             }
           } else if (keycode === 117) {
+            //$(".videoThumbnail").css("-webkit-filter", "grayscale(1)");
+            this.setState({
+              applyFilter: "blackandwhite"
+            });
+
             $("#player").contents().find(".html5-main-video").css("-webkit-filter", "grayscale(1)");
           } else if (keycode === 118) {
+            //$(".videoThumbnail").css("-webkit-filter", "saturate(2.5)");
+            this.setState({
+              applyFilter: "saturate"
+            });
+
             $("#player").contents().find(".html5-main-video").css("-webkit-filter", "saturate(2.5)");
           } else if (keycode === 119) {
+            //$(".videoThumbnail").css("-webkit-filter", "sepia(1)");
+            this.setState({
+              applyFilter: "sepia"
+            });
+
             $("#player").contents().find(".html5-main-video").css("-webkit-filter", "sepia(1)");
           } else if (keycode === 120) {
+            //$(".videoThumbnail").css("-webkit-filter", "");
+
+            this.setState({
+              applyFilter: ""
+            });
+
             $("#player").contents().find(".html5-main-video").css("-webkit-filter", "");
           }
         }).bind(this));
@@ -510,7 +533,7 @@ var Toby = (function () {
           null,
           React.createElement(VideoAddedNotification, { message: this.state.videoAddedNotification }),
           React.createElement(CommandInput, { onKeyEnter: this.onCommandEntered, onKeyChanged: this.onCommandChanged }),
-          React.createElement(ContentPanel, { data: this.state.searchResults }),
+          React.createElement(ContentPanel, { data: this.state.searchResults, applyFilter: this.state.applyFilter }),
           React.createElement('div', { id: 'player' })
         );
       }

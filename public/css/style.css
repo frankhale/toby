@@ -95,6 +95,16 @@ blockquote {
   z-index: 10000;
 }
 
+.blackandwhite {
+  -webkit-filter: grayscale(1);
+}
+.saturate {
+  -webkit-filter: saturate(2.5);
+}
+.sepia {
+  -webkit-filter: sepia(1);
+}
+
 ::-webkit-scrollbar {
     height: 4px;
     width: 4px;

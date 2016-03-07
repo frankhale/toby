@@ -129,13 +129,15 @@ const Toby = (function() {
       super();
 
       this.state = {
-        data: []
+        data: [],
+        applyFilter: ""
       };
     }
     componentWillReceiveProps(nextProps) {
       if(nextProps.data !== undefined) {
         this.setState({
-          data: nextProps.data
+          data: nextProps.data,
+          applyFilter: (nextProps.applyFilter !== undefined) ? nextProps.applyFilter : ""
         });
       }
     }
@@ -170,7 +172,7 @@ const Toby = (function() {
             //return <div dangerouslySetInnerHTML={markdownThisShit(d)} key={i}></div>;
             return (
               <div className="highlightRow" style={highlightRowStyle} onClick={d.playVideo.bind(this, d)}>
-                <div className="alignDiv videoThumbnail"><img src={d.thumbnail}></img></div>
+                <div className={"alignDiv videoThumbnail " + this.state.applyFilter}><img src={d.thumbnail}></img></div>
                 <div className="alignDiv videoTitle" style={videoTitleStyle}>{d.title}</div>
               </div>
             );
@@ -352,12 +354,33 @@ const Toby = (function() {
             });
           }
         } else if(keycode === 117) {
+          //$(".videoThumbnail").css("-webkit-filter", "grayscale(1)");
+          this.setState({
+            applyFilter: "blackandwhite"
+          });
+
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "grayscale(1)");
         } else if(keycode === 118) {
+          //$(".videoThumbnail").css("-webkit-filter", "saturate(2.5)");
+          this.setState({
+            applyFilter: "saturate"
+          });
+
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "saturate(2.5)");
         } else if(keycode === 119) {
+          //$(".videoThumbnail").css("-webkit-filter", "sepia(1)");
+          this.setState({
+            applyFilter: "sepia"
+          });
+
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "sepia(1)");
         } else if(keycode === 120) {
+          //$(".videoThumbnail").css("-webkit-filter", "");
+
+          this.setState({
+            applyFilter: ""
+          });
+
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "");
         }
       }.bind(this));
@@ -384,7 +407,7 @@ const Toby = (function() {
 
       return results;
     }
-    playVideo(video) {      
+    playVideo(video) {
       this.state.player.loadVideoById(video.ytid);
       //this.state.player.setVolume(30);
 
@@ -414,7 +437,7 @@ const Toby = (function() {
         <div>
           <VideoAddedNotification message={this.state.videoAddedNotification} />
           <CommandInput onKeyEnter={this.onCommandEntered} onKeyChanged={this.onCommandChanged} />
-          <ContentPanel data={this.state.searchResults} />
+          <ContentPanel data={this.state.searchResults} applyFilter={this.state.applyFilter} />
           <div id="player"></div>
         </div>
       );
