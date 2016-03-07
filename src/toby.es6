@@ -354,29 +354,24 @@ const Toby = (function() {
             });
           }
         } else if(keycode === 117) {
-          //$(".videoThumbnail").css("-webkit-filter", "grayscale(1)");
           this.setState({
             applyFilter: "blackandwhite"
           });
 
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "grayscale(1)");
         } else if(keycode === 118) {
-          //$(".videoThumbnail").css("-webkit-filter", "saturate(2.5)");
           this.setState({
             applyFilter: "saturate"
           });
 
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "saturate(2.5)");
         } else if(keycode === 119) {
-          //$(".videoThumbnail").css("-webkit-filter", "sepia(1)");
           this.setState({
             applyFilter: "sepia"
           });
 
           $("#player").contents().find(".html5-main-video").css("-webkit-filter", "sepia(1)");
         } else if(keycode === 120) {
-          //$(".videoThumbnail").css("-webkit-filter", "");
-
           this.setState({
             applyFilter: ""
           });
