@@ -226,7 +226,11 @@ var backend = (function () {
           group = req.body.group;
         }
 
-        var flattenedVideos = _.flatten(_.pluckMany(videoData, ["entries"]).map(function (x) {
+        var vidoesWithoutRecentlyPlayed = _.filter(videoData, function (v) {
+          return v.group.toLowerCase() !== "recently played";
+        });
+
+        var flattenedVideos = _.flatten(_.pluckMany(vidoesWithoutRecentlyPlayed, ["entries"]).map(function (x) {
           return x.entries;
         }));
         var foundVideo = _.find(flattenedVideos, {
