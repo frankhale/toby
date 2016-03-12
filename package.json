@@ -1,7 +1,7 @@
 {
   "name": "Toby",
   "description": "A YouTube player for the desktop",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "main": "build/main.js",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
@@ -23,7 +23,7 @@
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
-    "electron-prebuilt": "^0.36.10",
+    "electron-prebuilt": "^0.36.11",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "load-grunt-tasks": "^3.4.1",
