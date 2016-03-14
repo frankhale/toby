@@ -20,10 +20,11 @@
     "load-grunt-tasks": "^3.3.0"
   },
   "dependencies": {
+    "500px": "^0.5.1",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
-    "electron-prebuilt": "^0.36.11",
+    "electron-prebuilt": "^0.37.2",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "load-grunt-tasks": "^3.4.1",
