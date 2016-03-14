@@ -188,6 +188,11 @@ misc {
 	Dash Berlin & Syzz feat. Adam Jensen - Leave It All Behind : OKgmwQNSW1g
 	Tom Swoon, Lush & Simon - Ahead of Us : dH8hqgoRVFY
 	Gareth Emery feat. Wayward Daughter - Reckless (Standerwick Remix) STANDERWICK Live ASOT 750 Toronto : Y7CGTzM5nsQ
+	Gareth Emery feat. Wayward Daughter - Reckless : J78Zp5i5Loo
+	illitheas & Johannes Fischer - Tears of Hope (Chillout Mix) [As Played on Uplifting Only 154] : PPXT3eMkk3w
+	illitheas & Johannes Fischer - Tears of Hope (Original Mix) [As Played on Uplifting Only 153] : aN1oTHHNafc
+	Gareth Emery Feat. Lydia McAllister - Reckless (Standerwick Remix) : _R9JpmSL6To
+	Danger Danger - I Still Think About You : id1Po8ryJrU
 }
 
 Recently Played {
@@ -212,4 +217,21 @@ Recently Played {
 	Gareth Emery feat. Wayward Daughter - Reckless (Standerwick Remix) STANDERWICK Live ASOT 750 Toronto : Y7CGTzM5nsQ
 	Gareth Emery feat. Wayward Daughter - Reckless (Official Music Video) : oOMB_nL_eBc
 	Gareth Emery feat. Wayward Daughter - Reckless : tc7U9q1C4iA
+	Gareth Emery feat. Wayward Daughter - Reckless : J78Zp5i5Loo
+	Reckless : IeV0pflxg2s
+	Thirty Seconds To Mars - Kings and Queens : onMdBNeGiK4
+	Solis & Sean Truby feat. Anthya - Timeless (Ultimate Remix) [Infrasonic Recordings] : 2v0zijZjC0U
+	Arnej feat Sally Saifi - Free Of You (8 Wonders Mix) : yr-kJ5PgAN4
+	Break Every Chain by Jesus Culture Lyrics : EtyVdC7E6Wo
+	Ai Takekawa & Adam Sobiech - Break The Light (Ryo Nakamura Remix) : N7u4wRwRQFM
+	Birdy - Wings (acoustic version) : 7tz1eYadQVY
+	Moonbeam feat Matvey Emerson - Wanderer (Original Mix) : hT8KPRbzP8g
+	Estiva & Cardinal feat Arielle Maren - Wait Forever (Daniel Kandi's Bangin Remix) : P0fp7fDxcVA
+	Photographer & Susana - Find A Way : sbXNQCZfJBI
+	illitheas & Johannes Fischer - Tears of Hope (Chillout Mix) [As Played on Uplifting Only 154] : PPXT3eMkk3w
+	illitheas & Johannes Fischer - Tears of Hope (Original Mix) [As Played on Uplifting Only 153] : aN1oTHHNafc
+	[Progressive House] Gareth Emery - Reckless ft. Wayward Daughter : pbLz4slke88
+	Gareth Emery Feat. Lydia McAllister - Reckless (Standerwick Remix) : _R9JpmSL6To
+	Danger Danger - I Still Think About You : id1Po8ryJrU
+	Varun Rajput - State of Grace (Liquid Tension Experiment Cover) : 2bVNP9vd4FU
 }
