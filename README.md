@@ -34,7 +34,9 @@ Video Playback (YouTube's transparent look and feel default):
 
 ### How can I run this code?
 
-Install [Node](http://nodejs.org) and [Bower](http://bower.io)
+***In lieu of a current release (coming soon!) you'll have to build the code yourself.***
+
+Install [Node](http://nodejs.org), [Bower](http://bower.io) and [Grunt](http://gruntjs.com/)
 
 Get all the node modules:
 
@@ -46,6 +48,12 @@ Get all the front end modules:
 
 ```
 bower install
+```
+
+Build the code:
+
+```
+grunt
 ```
 
 Run:
@@ -98,7 +106,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-2 March 2016
+16 March 2016
 
 ## License
 
