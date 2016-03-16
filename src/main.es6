@@ -62,7 +62,7 @@ app.on("ready", function() {
   });
 
   backend.init(function() {
-      mainWindow.loadURL("http://127.0.0.1:3000");
+      mainWindow.loadURL("http://127.0.0.1:62375");
       mainWindow.webContents.on("did-finish-load", function() {
         mainWindow.show();
         //mainWindow.webContents.openDevTools();
