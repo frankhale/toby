@@ -16,6 +16,9 @@
 
 const backend = (function() {
 
+  // The Express bits are mostly the boilerplate generated
+  // from Express Generator.
+
   const _ = require("lodash");
   const path = require("path");
   const express = require("express");
@@ -26,7 +29,7 @@ const backend = (function() {
   const expressApp = express();
   const debug = require("debug")("express-test:server");
   const http = require("http");
-  const port = normalizePort(process.env.PORT || "3000");
+  const port = normalizePort(process.env.PORT || "62375");
   const PEG = require("pegjs");
   const fs = require("fs");
   const youtubeSearch = require("youtube-search");
@@ -43,6 +46,8 @@ const backend = (function() {
     type: "video"
   };
 
+  // Got this off StackOverflow (I think) but don't remember
+  // the link at the moment to give proper credit.
   _.mixin({
     'pluckMany': (data, columns) => {
       return _.map(data, _.partialRight(_.pick, columns));
@@ -145,7 +150,7 @@ const backend = (function() {
       res.json(videoData);
     });
 
-    expressApp.get("/api/search/:term", function(req, res, next) {
+    expressApp.get("/api/search/:term", (req, res, next) => {
       let searchTerm = decodeURIComponent(req.params.term);
       const flattenedVideos = _.flatten(_.pluckMany(videoData, ["entries"]).map((x) => {
         return x.entries
@@ -206,7 +211,7 @@ const backend = (function() {
     //   });
     // });
 
-    expressApp.post("/api/add", function(req, res, next) {
+    expressApp.post("/api/add", (req, res, next) => {
       let result = {}
 
       if (req.body.title !== undefined && req.body.title.length > 0 &&
@@ -265,12 +270,12 @@ const backend = (function() {
           });
 
           if (group.toLowerCase() === "recently played") {
-            // trim to 30 video entries
-            foundGroup = _.takeRight(foundGroup, numberOfMaxRecentlyPlayedVideos);
+            // trim video entries based on numberOfMaxRecentlyPlayedVideos
+            foundGroup.entries = _.takeRight(foundGroup.entries, numberOfMaxRecentlyPlayedVideos);
+            videoData.splice(_.indexOf(videoData, _.find(videoData, { group: "Recently Played" })), 1, foundGroup);
           }
 
           writeDataFile(createDataFileString(videoData));
-
         } else {
           result.status = `${req.body.title} already in data file`;
         }

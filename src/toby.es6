@@ -277,7 +277,10 @@ const Toby = (function() {
       window.onYouTubeIframeAPIReady = function() {
         player = new YT.Player('player', {
           //videoId: '',
-          playerVars: { 'autoplay': 1, 'autohide': 1 },
+          playerVars: {
+            'autoplay': 1,
+            'autohide': 1,
+            'iv_load_policy': 3 },
           events: {
             onReady: onPlayerReady,
             onStateChange: onPlayerStateChange
