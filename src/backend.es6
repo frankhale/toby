@@ -34,7 +34,7 @@ const backend = (function() {
   const fs = require("fs");
   const youtubeSearch = require("youtube-search");
 
-  let server, onReady, dataParser, browser, appPath;
+  let io, server, onReady, dataParser, browser, appPath;
   let defaultWindowTitle = "";
   let videoDataPath = "";
   let videoData = [];
@@ -101,7 +101,7 @@ const backend = (function() {
     debug('Listening on ' + bind);
 
     if (onReady !== undefined || onReady !== null) {
-      onReady();
+      onReady(io);
     }
   }
 
@@ -211,8 +211,8 @@ const backend = (function() {
     //   });
     // });
 
-    expressApp.post("/api/add", (req, res, next) => {
-      let result = {}
+    expressApp.post("/api/insertIntoDataFile", (req, res, next) => {
+      let result = {};
 
       if (req.body.title !== undefined && req.body.title.length > 0 &&
         req.body.ytid !== undefined && req.body.ytid.length > 0) {
@@ -367,6 +367,8 @@ const backend = (function() {
     });
 
     server = http.createServer(expressApp);
+    io = require('socket.io')(server);
+    io.on('connection', () => { console.log("socket.io connection established..."); });
     server.listen(port);
     server.on('error', onError);
     server.on('listening', onListening);

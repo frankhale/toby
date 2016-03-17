@@ -28,6 +28,7 @@ const Toby = (function() {
   });
 
   let notificationTimeout = 3000;
+  let socket = io("http://localhost:62375");
 
   class CommandInput extends React.Component {
     constructor() {
@@ -295,6 +296,18 @@ const Toby = (function() {
           player: player
         });
 
+        // User clicked on a link inside the YouTube player
+        socket.on("play-video", function(data) {
+          if(this.state.videoInfo.video_id !== data.ytid) {
+            this.setState({
+              videoInfo: {}
+            }, function() {
+              // Once the video loads we'll get a notification from YouTube
+              // about what the title is. Then everything falls into place.
+              this.playVideo({ title: "", ytid: data.ytid });
+            });
+          }
+        }.bind(this));
       }.bind(this);
 
       var onPlayerReady = function(e) {
@@ -308,9 +321,8 @@ const Toby = (function() {
       var onPlayerStateChange = function(e) {
         let videoInfo = e.target.getVideoData();
 
-        if(videoInfo.title !== "" &&
-           (this.state.videoInfo.title === undefined ||
-           this.state.videoInfo.title !== videoInfo.title)) {
+        if(videoInfo.title !== "" && videoInfo.title !== undefined &&
+           this.state.videoInfo.title !== videoInfo.title) {
           this.setState({
             videoInfo: videoInfo
           }, function() {
@@ -319,10 +331,19 @@ const Toby = (function() {
               url: "/api/title",
               data: {
                 title: videoInfo.title
-              }//,
-              //success: function(data) {
-              // console.log(data);
-              //}
+              },
+              complete: function() {
+                // The insert will check to see if it already exists
+                $.ajax({
+                  url: "/api/insertIntoDataFile",
+                  type: "POST",
+                  data: {
+                    title: videoInfo.title,
+                    ytid: videoInfo.video_id,
+                    group: "Recently Played" // recently played group
+                  }
+                });
+              }
             });
           });
         }
@@ -334,15 +355,13 @@ const Toby = (function() {
 
         if(keycode === 116) {
           if(!(_.isEmpty(this.state.videoInfo))) {
-            //console.log(this.state.videoInfo);
-
             $.ajax({
-              url: "/api/add",
+              url: "/api/insertIntoDataFile",
               type: "POST",
               data: {
                 title: this.state.videoInfo.title,
                 ytid: this.state.videoInfo.video_id,
-                group: "misc" // <- making way for user selection
+                group: "misc" // <- making way for user selection, for now hard code
               },
               success: function(data) {
                 //console.log(data);
@@ -407,28 +426,13 @@ const Toby = (function() {
     }
     playVideo(video) {
       this.state.player.loadVideoById(video.ytid);
-      //this.state.player.setVolume(30);
 
-      $("#player").css("display", "block");
+      let $player = $("#player");
 
-      //document.getElementById("player").scrollIntoView(true);
-      $('html, body').animate({ scrollTop: $("#player").offset().top }, 250);
-
-      $.ajax({
-        type: "POST",
-        url: "/api/title",
-        data: { title: video.title}
-      });
-
-      $.ajax({
-        url: "/api/add",
-        type: "POST",
-        data: {
-          title: video.title,
-          ytid: video.ytid,
-          group: "Recently Played" // recently played group
-        }
-      });
+      if($player.css('display').toLowerCase() !== 'block') {
+        $player.css("display", "block");
+        $('html, body').animate({ scrollTop: $("#player").offset().top }, 250);
+      }
     }
     render() {
       return (

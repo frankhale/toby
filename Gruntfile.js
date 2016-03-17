@@ -24,6 +24,8 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
+          "build/main.min.js": "build/main.js",
+          "build/backend.min.js": "build/backend.js",
           "public/scripts/toby.min.js": "public/scripts/toby.js"
         }
       }

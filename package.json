@@ -1,8 +1,8 @@
 {
   "name": "Toby",
   "description": "A YouTube player for the desktop",
-  "version": "0.16.2",
-  "main": "build/main.js",
+  "version": "0.16.3",
+  "main": "build/main.min.js",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
   ],
@@ -32,6 +32,7 @@
     "morgan": "^1.6.1",
     "pegjs": "^0.9.0",
     "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.5",
     "youtube-search": "^1.0.4"
   }
 }

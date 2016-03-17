@@ -26,7 +26,7 @@ const globalShortcut = electron.globalShortcut;
 
 const backend = require("./backend.js");
 
-var mainWindow = null;
+let socket, mainWindow = null;
 
 app.on("window-all-closed", function() {
   if (process.platform != "darwin") {
@@ -61,7 +61,8 @@ app.on("ready", function() {
     mainWindow.reloadIgnoringCache();
   });
 
-  backend.init(function() {
+  backend.init(function(io) {
+      socket = io;
       mainWindow.loadURL("http://127.0.0.1:62375");
       mainWindow.webContents.on("did-finish-load", function() {
         mainWindow.show();
@@ -74,7 +75,35 @@ app.on("ready", function() {
 
   mainWindow.webContents.on("new-window", function(e, url) {
     e.preventDefault();
-    shell.openExternal(url);
+
+    // Looks like we can differentiate between clicking the YouTube icon
+    // in the player where we want it to open an external browser and clicking
+    // a suggested video link after a video is played.
+    //
+    // When clicking the YouTube link "time_continue" is present in the url.
+    // {url: "https://www.youtube.com/watch?time_continue=1&v=ctrZdbExVrk"}
+    //
+    // When clicking on a suggested video the link is just an ordinary YouTube
+    // video link with video ID.
+    // {url: "https://www.youtube.com/watch?v=4nYMdMtGsPo"}
+
+    if(url.includes("time_continue")) {
+      shell.openExternal(url);
+    } else if(url.includes("?v=")) {
+      // the id extraction is almost verbatim from:
+      // http://stackoverflow.com/a/3452617/170217
+      var video_id = url.split('v=')[1];
+      var ampersandPosition = video_id.indexOf('&');
+      if(ampersandPosition != -1) {
+        video_id = video_id.substring(0, ampersandPosition);
+      }
+      //------------------------------------------
+
+      socket.emit("play-video", {
+        url: url,
+        ytid: video_id
+      });
+    }
   });
 
   mainWindow.on("closed", function() {
