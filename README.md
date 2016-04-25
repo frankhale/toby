@@ -1,5 +1,7 @@
 # Toby
 
+[![Join the chat at https://gitter.im/frankhale/toby](https://badges.gitter.im/frankhale/toby.svg)](https://gitter.im/frankhale/toby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Toby is a YouTube player for the desktop.
 
 ### Screenshots
