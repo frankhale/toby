@@ -1,16 +1,19 @@
 {
   "name": "toby",
-  "description": "A YouTube player for the desktop",
+  "description": "A simple YouTube player",
   "homepage": "https://github.com/frankhale/toby",
-  "version": "0.16.4",
-  "main": "build/main.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frankhale/toby.git"
+  },
+  "version": "0.17.0",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
   ],
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "start": "node ./start-electron.js"
+    "start": "nodemon ./build/app.js"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.7.4",
@@ -21,17 +24,18 @@
     "load-grunt-tasks": "^3.4.1"
   },
   "dependencies": {
-    "body-parser": "^1.14.2",
-    "cookie-parser": "^1.4.1",
-    "debug": "^2.2.0",
-    "electron-prebuilt": "^0.37.4",
-    "express": "^4.13.4",
-    "jade": "^1.11.0",
-    "lodash": "^4.8.2",
+    "body-parser": "~1.15.0",
+    "cookie-parser": "~1.4.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "hbs": "~4.0.0",
+    "killable": "^1.0.0",
+    "lodash": "^4.11.1",
     "morgan": "^1.6.1",
     "pegjs": "^0.9.0",
-    "serve-favicon": "^2.3.0",
+    "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
+    "sqlite3": "^3.1.3",
     "youtube-search": "^1.0.4"
   }
 }

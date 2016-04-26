@@ -14,7 +14,8 @@ entry
     {
       return {
         title: t.join(" "),
-        ytid: ytid
+        ytid: ytid,
+        isArchived: true
       };
     }
 

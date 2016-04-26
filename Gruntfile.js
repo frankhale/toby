@@ -12,9 +12,15 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          "build/main.js": "src/main.es6",
-          "build/backend.js": "src/backend.es6",
-          "public/scripts/toby.js": "src/toby.es6"
+          // BUILD DIR
+          "build/api.js": "src/api.js",
+          "build/app.js": "src/app.js",
+          "build/index.js": "src/index.js",
+          // PUBLIC/SCRIPTS DIR
+          "public/scripts/video-list-ui.js": "src/video-list-ui.js",
+          "public/scripts/command-input-ui.js": "src/command-input-ui.js",
+          "public/scripts/youtube-ui.js": "src/youtube-ui.js",
+          "public/scripts/toby-ui.js": "src/toby-ui.js"
         }
       }
     },
@@ -24,9 +30,10 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          "build/main.min.js": "build/main.js",
-          "build/backend.min.js": "build/backend.js",
-          "public/scripts/toby.min.js": "public/scripts/toby.js"
+          "public/scripts/command-input-ui.min.js": "public/scripts/command-input-ui.js",
+          "public/scripts/video-list-ui.min.js": "public/scripts/video-list-ui.js",
+          "public/scripts/youtube-ui.min.js": "public/scripts/youtube-ui.js",
+          "public/scripts/toby-ui.min.js": "public/scripts/toby-ui.js"
         }
       }
     }

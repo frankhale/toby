@@ -119,7 +119,6 @@ misc {
 	Eric Stanley ft Kyle Landry - Inception 'Time' (Hans Zimmer Cover) : NUtvWyJ0F_o
 	Yiruma - River Flows in You : 7maJOI3QMu0
 	Howard Jones - No One Is To Blame : ENB2eX-U3a8
-	Birdy - Wings (acoustic version) : 7tz1eYadQVY
 	The Fighter Remix - Kait Weston (feat Saint Maurice and Eppic) : ijRVrGSaTms
 	Robyn - Call Your Girlfriend - cover by Kait Weston Ft Sean Scanlon : VAlgkvKTOZ0
 	BoB - Paper Route [Official Video] : t99LQ3zo8DU
@@ -145,7 +144,6 @@ misc {
 	Ace of Base - The Sign (Official) : iqu132vTl5Y
 	Bob Cartel feat Ai Takekawa - Lie To Me (Akku Remix) [Just Music Records] Promo : ZmPlAHxalfw
 	Colleen D'Agostino ft deadmau5 - Stay (Drop The Poptart Edit) : YPkwDy9okws
-	3 Hours of Best Female Vocal Dubstep Mix May 2015 : SPgrxCHpyg8
 	Dark Matters feat Jess Morgan - The Perfect Lie (Beat Service Remix) : dGd-QFuEUTA
 	Alex H feat Mona Moua - There's No Turning Back (Original Mix) : 9vYULN-72Oo
 	Ferry Corsten feat Betsie Larkin - Not Coming Down (Dash Berlin 4AM Remix) : A-gljGbLt-A
@@ -194,16 +192,11 @@ misc {
 	Gareth Emery Feat. Lydia McAllister - Reckless (Standerwick Remix) : _R9JpmSL6To
 	Danger Danger - I Still Think About You : id1Po8ryJrU
 	Aurosonic & Neev Kennedy - Now I See (Chill Out Mix) : uBwIvFQwHr4
-	Driftmoon - Bittersweet (Temple One Remix) : ojhr_PMkZsM
 	Hazem Beltagui & Allan V. - We Are (Original Mix) : XArJECXJ4Lw
+	Amir Hussain - Time Lapse (Extended Mix) : A7kDgupVz6g
 }
 
 Recently Played {
-	illitheas & Johannes Fischer - Tears of Hope (Chillout Mix) [As Played on Uplifting Only 154] : PPXT3eMkk3w
-	illitheas & Johannes Fischer - Tears of Hope (Original Mix) [As Played on Uplifting Only 153] : aN1oTHHNafc
-	[Progressive House] Gareth Emery - Reckless ft. Wayward Daughter : pbLz4slke88
-	Gareth Emery Feat. Lydia McAllister - Reckless (Standerwick Remix) : _R9JpmSL6To
-	Danger Danger - I Still Think About You : id1Po8ryJrU
 	Varun Rajput - State of Grace (Liquid Tension Experiment Cover) : 2bVNP9vd4FU
 	Dash Berlin - Underneath The Sky (Sunsound Chillout Remix) : UEqMD-5urik
 	Chris Tomlin - Good Good Father ft. Pat Barrett : qlsQrycKKsY
@@ -219,8 +212,7 @@ Recently Played {
 	First State ft. Sarah Howells - Seeing Stars : 9QRB-j5qVXs
 	[Progressive House] - First State ft. Quilla - Where You Are [Premiere] : 1fx4TUXRD-w
 	Andy Moor & Somna featuring Amy Kirkpatrick - One Thing About You : ZXYY2IxP3tI
-	Giuseppe Ottaviani featuring Jennifer Rene - Lean On Me : LG3JIbElkr0
-	Driftmoon - Bittersweet (Temple One Remix) : ojhr_PMkZsM
+	Giuseppe Ottaviani featuring Jennifer Rene - Lean On Me : LG3JIbElkr0	
 	Richard Durand - Always The Sun (Falldown Mix) : UzMbXIZkID0
 	Richard Durand & Pedro Del Mar feat. Roberta Harrison - Paint the Sky : hTjbuka0YQ4
 	Beat Service & Ana Criado - So Much Of Me Is You (Original Mix) : an_FDsq1Pkk
@@ -229,4 +221,9 @@ Recently Played {
 	Aleksey Yakovlev & Kristoffer Ljundberg - Reverie (Hazem Beltagui's Deep Mix) : 9lXLNHIvAgw
 	Dash Berlin & Disfunktion feat. Chris Arnott - People Of The Night : b4ZuXTiWX44
 	BT feat Jes - Every other way (armin mix) : cTXdgzb4wkU
+	Yuri Kane & Ana Criado - Running Wild (Original Mix) : ls8MNlh6xOU
+	Manuel Rocca - Lionheart (Original Mix) [As Played on Uplifting Only 164] : d_kEKwK_qzM
+	Dash Berlin - The Official Video Hit Mix : U6l9NdAJwRk
+	Ferry Corsten presents Gouryella - Anahera [Official Music Video] : 7ZMZHbAKvGA
+	Amir Hussain - Time Lapse (Extended Mix) : A7kDgupVz6g
 }
