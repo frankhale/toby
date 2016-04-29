@@ -287,9 +287,9 @@ const API = (function() {
     }
   });
 
-  router.get("/videos/raw", (req, res, next) => {
+  //router.get("/videos/raw", (req, res, next) => {
     //res.send(createDataFileString(videoData));
-  });
+  //});
 
   router.post("/videos/add", (req, res, next) => {
     let _videoData = [],
@@ -410,6 +410,10 @@ const API = (function() {
 
       res.json(recentlyPlayedWithQuota);
     })
+  });
+
+  router.post("/videos/recently-played/trim", (req, res, next) => {
+    
   });
 
   router.get("/videos/archive", (req, res, next) => {

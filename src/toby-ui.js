@@ -21,6 +21,7 @@ class TobyUI extends React.Component {
     super();
 
     this.onCommandEntered = this.onCommandEntered.bind(this);
+    this.addVideoButtonHandler = this.addVideoButtonHandler.bind(this);
 
     this.state = {
       videoData: [],
@@ -182,14 +183,22 @@ class TobyUI extends React.Component {
     return results;
   }
   addVideoButtonHandler(video) {
-    $.post({
-      url: `/api/videos/add`,
-      data: {
-        title: video.title,
-        ytid: video.ytid,
-        group: "misc"
-      }
-    });
+    // vox8sNkFdAQ
+
+    let found = _.find(this.state.searchResults, { ytid: video.ytid });
+
+    if(found !== undefined) {
+      found.isArchived = true;
+      
+      $.post({
+        url: `/api/videos/add`,
+        data: {
+          title: video.title,
+          ytid: video.ytid,
+          group: "misc" // <- this will be selectable later
+        }
+      });
+    }
   }
   playVideo(video) {
     this.setState({
@@ -214,7 +223,9 @@ class TobyUI extends React.Component {
     return (
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
-        <VideoList data={this.state.searchResults} applyFilter={this.state.applyFilter} addVideoButtonHandler={this.addVideoButtonHandler} />
+        <VideoList data={this.state.searchResults}
+                   applyFilter={this.state.applyFilter}
+                   addVideoButtonHandler={this.addVideoButtonHandler} />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );

@@ -99,8 +99,8 @@ blockquote {
   z-index: 10000;
 }
 .addVideoButton {
-  float: right;
-  right: 25px;
+  position: absolute;
+  right: 15px;
   z-index: 1000;
 }
 

@@ -18,7 +18,10 @@ class YouTubeUI extends React.Component {
 
     const onPlayerStateChange = function(e) {
       let videoInfo = e.target.getVideoData();
-      if(videoInfo.title !== "") {
+
+      if(videoInfo.title !== "" &&
+        this.state.currentVideo.title === "" ||
+        this.state.currentVideo.title !== videoInfo.title) {
         document.title = videoInfo.title;
 
         this.setState({
@@ -28,13 +31,13 @@ class YouTubeUI extends React.Component {
           }
         });
 
-        // $.post({
-        //   url: '/api/videos/recently-played/add',
-        //   data: {
-        //     title: video.title,
-        //     ytid: video.ytid
-        //   }
-        // });
+        $.post({
+          url: '/api/videos/recently-played/add',
+          data: {
+            title: videoInfo.title,
+            ytid: videoInfo.video_id
+          }
+        });
       }
     }.bind(this);
 
@@ -101,9 +104,6 @@ class YouTubeUI extends React.Component {
     //this.setupYTPlayer();
   }
   componentWillReceiveProps(nextProps) {
-    console.log("YouTube Component - RecieveProps");
-    console.log(nextProps);
-
     if((navigator.userAgent.includes("nwjs") ||
         navigator.userAgent.includes("Electron")) &&
       nextProps.applyFilter !== undefined  && nextProps.applyFilter.length > 0) {
@@ -132,8 +132,6 @@ class YouTubeUI extends React.Component {
           applyFilter: nextProps.applyFilter
         });
 
-        console.log("We have an applyFilter set so returning without causing play() to happen...");
-
         return;
       }
     }
@@ -154,7 +152,7 @@ class YouTubeUI extends React.Component {
       $("#player").css("display", "none");
 
       this.setState({
-        currentVideo: ""
+        currentVideo: {}
       });
     }
   }
