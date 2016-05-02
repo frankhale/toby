@@ -6,18 +6,10 @@
 
 Toby is a YouTube player for the desktop.
 
-## About Code
-
-Information not here yet (coming later):
-
-- Build dependency information
-- How to run in either Electron or NWjs
-- Any information about what the rewrite entails or the changes to Toby from previous builds
-
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-25 April 2016
+2 May 2016
 
 ## License
 

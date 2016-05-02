@@ -29,7 +29,9 @@ const port = normalizePort(process.env.PORT || "3000");
 const server = http.createServer(app);
 const spawn = require('child_process').spawn
 
-const api = require("./api");
+const db = require("./db");
+
+const api = require("./api")(db);
 const index = require("./index")
 
 server.listen(port);
@@ -37,7 +39,7 @@ server.on("error", onError);
 server.on("listening", onListening);
 server.on("close", function() {
   console.log("Shutting down database connection...");
-  api.close();
+  db.close();
 });
 
 killable(server);
@@ -56,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-api.router.post("/app/close", (req, res, next) => {
+api.post("/app/close", (req, res, next) => {
   console.log("server has been requested to shutdown...");
   server.kill(function () {
     console.log("server has shutdown!");
@@ -65,7 +67,7 @@ api.router.post("/app/close", (req, res, next) => {
 });
 
 app.use("/", index);
-app.use("/api", api.router);
+app.use("/api", api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

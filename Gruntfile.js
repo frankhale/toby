@@ -13,6 +13,7 @@ module.exports = function(grunt) {
       dist: {
         files: {
           // BUILD DIR
+          "build/db.js": "src/db.js",
           "build/api.js": "src/api.js",
           "build/app.js": "src/app.js",
           "build/index.js": "src/index.js",

@@ -33,7 +33,7 @@ class TobyUI extends React.Component {
   }
   performSearch(searchTerm) {
     $.post({
-      url: `/api/videos/search`,
+      url: "/api/videos/search",
       data: { searchTerm: searchTerm }
     })
     .done(function(data) {
@@ -120,8 +120,17 @@ class TobyUI extends React.Component {
           }
         }
         break;
+      case "/history":
       case "/rp": // shortcut to get a listing of recently played
         this.performSearch("g: Recently Played");
+        break;
+      case "/rptrim":
+
+        $.post({
+          url: "/api/videos/recently-played/trim"
+        }).done(function(data) {
+          console.log(data);
+        });
         break;
       // case "/shutdown":
       //   $.post({
@@ -189,9 +198,9 @@ class TobyUI extends React.Component {
 
     if(found !== undefined) {
       found.isArchived = true;
-      
+
       $.post({
-        url: `/api/videos/add`,
+        url: "/api/videos/add",
         data: {
           title: video.title,
           ytid: video.ytid,
@@ -205,13 +214,9 @@ class TobyUI extends React.Component {
       currentVideo: video
     });
 
-    console.log("inside playVideo()");
-    console.log(video);
-    console.log("====");
-
     if(video.title !== undefined && video.title.length > 0) {
       $.post({
-        url: '/api/videos/recently-played/add',
+        url: "/api/videos/recently-played/add",
         data: {
           title: video.title,
           ytid: video.ytid

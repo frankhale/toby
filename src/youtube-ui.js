@@ -75,8 +75,6 @@ class YouTubeUI extends React.Component {
     }.bind(this);
   }
   playVideo(video) {
-    console.log(`Inside YouTubeUI playVideo() - ${video.ytid}`);
-
     this.state.player.setVolume(30);
     this.state.player.loadVideoById(video.ytid);
 
