@@ -1,4 +1,4 @@
-// app.js - Express setup and initiation
+// server.js - Express setup and initiation
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const killable = require('killable');
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -22,27 +21,18 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const debug = require("debug")("toby-xxx:server");
+const debug = require("debug")("toby-next:server");
 const http = require("http");
 const process = require("process");
 const port = normalizePort(process.env.PORT || "3000");
 const server = http.createServer(app);
-const spawn = require('child_process').spawn
-
 const db = require("./db");
-
 const api = require("./api")(db);
 const index = require("./index")
 
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-server.on("close", function() {
-  console.log("Shutting down database connection...");
-  db.close();
-});
-
-killable(server);
 
 app.set("port", port);
 
@@ -59,11 +49,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
 api.post("/app/close", (req, res, next) => {
-  console.log("server has been requested to shutdown...");
-  server.kill(function () {
-    console.log("server has shutdown!");
-    process.exit(0);
-  });
+  const fs = require("fs");
+  db.close();
+  server.close();  
+  process.exit(0);
 });
 
 app.use("/", index);
@@ -149,9 +138,6 @@ function onListening() {
     ? "pipe " + addr
     : "port " + addr.port;
   debug("Listening on " + bind);
-
-  // const nwDir = `${process.cwd()}/nwjs`;
-  // spawn(`${nwDir}/nw.exe`, [ `${nwDir}/toby` ]);
 }
 
 module.exports = app;

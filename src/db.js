@@ -138,7 +138,7 @@ var DB = (function() {
     db.run("DELETE FROM videos WHERE [group] = 'Recently Played'");
   };
 
-  _export.closeDB = function() {
+  _export.close = function() {
     db.close();
   };
 

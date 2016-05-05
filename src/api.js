@@ -14,28 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const API = (function() {
+const API = (function(db) {
 
-  const appTitle = "Toby - A Simple YouTube Player";
-  const maxSearchResults = 25;
-  const maxRecentlyPlayedVideos = 30;
+  const appTitle = "Toby - A Simple YouTube Player",
+        maxSearchResults = 25,
+        maxRecentlyPlayedVideos = 30,
+        youtubeSearchOpts = {
+          maxResults: maxSearchResults,
+          key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
+          type: "video"
+        };
 
-  const youtubeSearchOpts = {
-    maxResults: maxSearchResults,
-    key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
-    type: "video"
-  };
-
-  const _ = require("lodash");
-  const express = require("express");
-  const router = express.Router();
-  const PEG = require("pegjs");
-  const fs = require("fs");
-  const youtubeSearch = require("youtube-search");
-  const shared = require("./shared");
-  const dataPath = `${__dirname}/../data`;
-  const dataFilePath = `${dataPath}/data.txt`;
-  const dataParser = PEG.buildParser(fs.readFileSync(`${dataPath}/data-grammar.txt`, 'utf8'));
+  const _ = require("lodash"),
+        express = require("express"),
+        router = express.Router(),
+        PEG = require("pegjs"),
+        fs = require("fs"),
+        youtubeSearch = require("youtube-search"),
+        validator = require('validator'),
+        dataPath = `${__dirname}/../data`,
+        dataFilePath = `${dataPath}/data.txt`,
+        dataParser = PEG.buildParser(fs.readFileSync(`${dataPath}/data-grammar.txt`, 'utf8'));
 
   function createDataFileString(data) {
     let results = [];
@@ -79,162 +78,22 @@ const API = (function() {
     videoData = readDataFile(dataFilePath);
   });
 
-  var sqlite3 = require('sqlite3').verbose();
-  var db = new sqlite3.Database(`${dataPath}/videoDB`);
+  // API Routes
 
-  db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, ytid  TEXT, [group] TEXT)");
-
-    db.each("SELECT COUNT(*) as count FROM videos", function(err, row) {
-      if(row.count === 0) {
-        _.forEach(videoData, function(g) {
-          _.forEach(g.entries, function(e) {
-            db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [ e.title, e.ytid, g.group ]);
-          });
-        });
-      }
+  router.get("/app/title", (req, res, next) => {
+    res.json({
+      title: appTitle
     });
   });
 
-  function getAllVideosFromDB(finished) {
-    db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", function(err, rows) {
-      if(finished !== undefined) {
-        var _rows = _.forEach(rows, function(d) {
-          d.isArchived = true;
-        });
-
-        finished(_rows);
-      }
-    });
-  }
-
-  function getAllVideosOrderedByGroupDB(finished) {
-    db.all("SELECT title, ytid, [group] FROM videos ORDER BY [group]", function(err, rows) {
-      if(finished !== undefined) {
-        finished(rows);
-      }
-    });
-  }
-
-  function getVideoFromDB(ytid, finished) {
-    db.get("SELECT title, ytid, [group] FROM videos WHERE ytid = ? AND [group] IS NOT 'Recently Played'", [ytid], function(err, row) {
-      if(finished !== undefined) {
-        finished(row);
-      }
-    });
-  }
-
-  function getAllGroupsFromDB(finished) {
-    db.all("SELECT DISTINCT [group] FROM videos", function(err, rows) {
-      if(finished !== undefined) {
-        finished(rows);
-      }
-    });
-  }
-
-  function getAllVideosForGroupFromDB(group, finished) {
-    db.all("SELECT title, ytid, [group] FROM videos WHERE [group] = ?", [group], function(err, rows) {
-      if(finished !== undefined) {
-        var _rows = _.forEach(rows, function(d) {
-          d.isArchived = true;
-        });
-
-        finished(_rows);
-      }
-    });
-  }
-
-  function getVideosWhereTitleLikeFromDB(searchTerm, finished) {
-    searchTerm = `%${searchTerm.trim()}%`;
-
-    db.all("SELECT title, ytid, [group] FROM videos WHERE title LIKE (?) AND [group] IS NOT 'Recently Played'", [searchTerm], function(err, rows) {
-      if(finished !== undefined) {
-        var _rows = _.forEach(rows, function(d) {
-          d.isArchived = true;
-        });
-
-        finished(_rows);
-      }
-    });
-  }
-
-  function getVideosFromGroupWhereTitleLikeFromDB(searchTerm, group, finished) {
-    searchTerm = `%${searchTerm.trim()}%`;
-
-    db.all("SELECT title, ytid, [group] FROM videos WHERE title LIKE ? AND [group] = ?", [searchTerm, group], function(err, rows) {
-      if(finished !== undefined) {
-        var _rows = _.forEach(rows, function(d) {
-          d.isArchived = true;
-        });
-
-        finished(_rows);
-      }
-    });
-  }
-
-  function addVideoToDB(title, ytid, group) {
-    if(title !== undefined || title !== "" &&
-       group !== undefined || group !== "") {
-      db.get("SELECT ytid FROM videos WHERE ytid = ? AND [group] = ?", [ytid, group], function(err, rows) {
-        if(rows === undefined) {
-          console.log(`inserting ${title} into ${group}`);
-          db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [ title, ytid, group ]);
-        }
-      });
-    }
-  }
-
-  function deleteVideoFromDB(ytid) {
-    db.get("SELECT ytid FROM videos WHERE ytid = (?)", [ytid], function(err, rows) {
-      if(rows !== undefined) {
-        db.run("DELETE FROM videos WHERE ytid = (?)", [ytid]);
-      }
-    });
-  }
-
-  function updateVideoFromDB(title, ytid, group) {
-    if(title !== undefined || title !== "" &&
-       group !== undefined || group !== "") {
-        db.get("SELECT ytid FROM videos WHERE ytid = ?", [ytid], function(err, rows) {
-          if(rows !== undefined) {
-            db.run("UPDATE videos SET title = ?, group = ? WHERE ytid = ?", [title, group, ytid]);
-          }
-      });
-    }
-  }
-
-  function deleteRecentlyPlayedVideosFromDB() {
-    db.run("DELETE FROM videos WHERE [group] = 'Recently Played'");
-  }
-
-  //db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [ "TEST", "ag3ZI4nA4IB", "TEST"]);
-  // db.run("UPDATE videos SET title = (?), [group] = (?) WHERE ytid = (?)", ["FUCK", "FUCK", "ag3ZI4nA4IB"]);
-  // db.get("SELECT * FROM videos WHERE ytid = (?)", ["ag3ZI4nA4IB"], function(err, row) {
-  //   console.log(row);
-  // });
-
-  // getAllVideosFromDB(function(data) {
-  //   console.log(data);
-  // });
-
-  // db.all("SELECT * FROM videos WHERE [group] = ?", ["EDM"], function(err, rows) {
-  //   console.log(rows);
-  // });
-
-  // getVideosWhereTitleLikeFromDB("chris tomlin", function(data) {
-  //   console.log(data);
-  // });
-
-  // API Routes
-
   router.get("/videos", (req, res, next) => {
-    getAllVideosFromDB(function(data) {
+    db.getAllVideosFromDB(function(data) {
       res.json(data);
     });
   });
 
   router.get("/videos/groups", (req, res, next) => {
-    getAllGroupsFromDB(function(data) {
+    db.getAllGroupsFromDB(function(data) {
       res.json(data);
     })
   });
@@ -248,7 +107,7 @@ const API = (function() {
       youtubeSearch(searchTerm, youtubeSearchOpts, function(err, results) {
         if (err) return console.log(err);
 
-        getVideosWhereTitleLikeFromDB(searchTerm, function(localData) {
+        db.getVideosWhereTitleLikeFromDB(searchTerm, function(localData) {
           var finalResults = [];
 
           //console.log(localData);
@@ -270,26 +129,22 @@ const API = (function() {
       searchTerm = searchTerm.replace("g:", "").trim();
 
       if (searchTerm === "all") {
-        getAllVideosFromDB(function(data) {
+        db.getAllVideosFromDB(function(data) {
           res.json(data);
         });
       } else {
-        getAllVideosForGroupFromDB(searchTerm, function(data) {
+        db.getAllVideosForGroupFromDB(searchTerm, function(data) {
           res.json(data);
         });
       }
     } else {
       let results = [];
 
-      getVideosWhereTitleLikeFromDB(searchTerm, function(data) {
+      db.getVideosWhereTitleLikeFromDB(searchTerm, function(data) {
         res.json(data);
       });
     }
   });
-
-  //router.get("/videos/raw", (req, res, next) => {
-    //res.send(createDataFileString(videoData));
-  //});
 
   router.post("/videos/add", (req, res, next) => {
     let _videoData = [],
@@ -300,7 +155,7 @@ const API = (function() {
     if(title !== undefined && title.length > 0 &&
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
-      addVideoToDB(title, ytid, group);
+      db.addVideoToDB(title, ytid, group);
     }
 
     res.json({
@@ -313,7 +168,7 @@ const API = (function() {
         ytid = req.body.ytid;
 
     if(ytid !== undefined && ytid.length > 0) {
-      deleteVideoFromDB(ytid);
+      db.deleteVideoFromDB(ytid);
     }
 
     res.json({
@@ -330,7 +185,7 @@ const API = (function() {
     if(title !== undefined && title.length > 0 &&
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
-      updateVideoFromDB(title, ytid, group);
+      db.updateVideoFromDB(title, ytid, group);
     }
 
     res.json({
@@ -348,7 +203,7 @@ const API = (function() {
       // Recently Played is the last 30 (by default) videos played
 
       // get all of the recently played videos
-      getAllVideosForGroupFromDB("Recently Played", function(data) {
+      db.getAllVideosForGroupFromDB("Recently Played", function(data) {
         // If the video we are trying to add is already in the Recently Played
         // group then we need to exit gracefully...
 
@@ -360,27 +215,7 @@ const API = (function() {
             message: message
           });
         } else {
-          addVideoToDB(title, ytid, "Recently Played");
-
-          // add new recently played video
-          // data.push({
-          //   title: title,
-          //   ytid: ytid
-          // });
-
-          // take top 30
-          //let top30RecentlyPlayed = _.takeRight(data, numberOfMaxRecentlyPlayedVideos);
-
-          //console.log(`before: ${data.length}`);
-          //console.log(`after: ${top30RecentlyPlayed.length}`);
-
-          // delete all recently played from db
-          //deleteRecentlyPlayedVideosFromDB();
-
-          // add recently played back to DB
-          //_.forEach(top30RecentlyPlayed, function(rp) {
-          //  addVideoToDB(rp.title, rp.ytid, "Recently Played");
-          //});
+          db.addVideoToDB(title, ytid, "Recently Played");
 
           res.json({
             success: true
@@ -398,7 +233,7 @@ const API = (function() {
   router.get("/videos/recently-played/search", (req, res, next) => {
     let searchTerm = req.body.searchTerm;
 
-    this.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", function(data) {
+    db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", function(data) {
 
       let recentlyPlayedWithQuota = _.takeRight(data, maxRecentlyPlayedVideos);
 
@@ -413,18 +248,45 @@ const API = (function() {
   });
 
   router.post("/videos/recently-played/trim", (req, res, next) => {
-    
+    // This is going to trim the recently played rows down to the max number
+    // which defaults to 30
+    db.getAllVideosForGroupFromDB("Recently Played", function(data) {
+      // take top 30
+      let top30RecentlyPlayed = _.takeRight(data, maxRecentlyPlayedVideos);
+
+      console.log(`before: ${data.length}`);
+      console.log(`after: ${top30RecentlyPlayed.length}`);
+
+      // delete all recently played from db
+      db.deleteRecentlyPlayedVideosFromDB();
+
+      // add trimmed recently played back to DB
+      _.forEach(top30RecentlyPlayed, function(rp) {
+        db.addVideoToDB(rp.title, rp.ytid, "Recently Played");
+      });
+
+      res.json(top30RecentlyPlayed);
+    });
   });
 
   router.get("/videos/archive", (req, res, next) => {
-    getAllGroupsFromDB(function(groups) {
-      getAllVideosOrderedByGroupDB(function(data) {
+    db.getAllGroupsFromDB(function(groups) {
+      db.getAllVideosOrderedByGroupDB(function(data) {
         let results = [];
 
         _.forEach(groups, function(g) {
+          let entries = _.sortBy(_.filter(data, { "group": g.group }), ["title"]);
+
+          entries = _.map(entries, function(e) {
+            return {
+              title: e.title.replace(/[^\x00-\x7F]/g, ""),
+              ytid: e.ytid
+            };
+          });
+
           results.push({
             group: g.group,
-            entries: _.sortBy(_.filter(data, { "group": g.group }), ["title"])
+            entries: entries
           });
         });
 
@@ -436,10 +298,7 @@ const API = (function() {
     });
   });
 
-  return {
-    router: router,
-    close: () => { db.close(); }
-  };
-})();
+  return router;
+});
 
 module.exports = API;

@@ -1,3 +1,14 @@
+if(navigator.userAgent.includes("nwjs")) {
+  // This is here because when exiting fullscreen in NW.js the page scrolls to
+  // top instead of centering on the YouTube player. This is called by an
+  // injected script into the webview that Toby lives inside of when running in
+  // NW.js.
+  function snapToPlayer() {
+    let $ui = $("#ui");
+    $ui.prop("scrollTop", $ui.prop("scrollHeight"));
+  }
+}
+
 class YouTubeUI extends React.Component {
   constructor() {
     super();
@@ -22,7 +33,12 @@ class YouTubeUI extends React.Component {
       if(videoInfo.title !== "" &&
         this.state.currentVideo.title === "" ||
         this.state.currentVideo.title !== videoInfo.title) {
+
         document.title = videoInfo.title;
+
+        if(socket!==undefined) {
+          socket.emit("title", { title: videoInfo.title });
+        }
 
         this.setState({
           currentVideo: {
@@ -60,8 +76,9 @@ class YouTubeUI extends React.Component {
       // });
 
       if(navigator.userAgent.includes("nwjs")) {
-        console.log("setting nwdisable on YouTube player iframe...");
+        //console.log("setting nwdisable on YouTube player iframe...");
         $("#player").attr("nwdisable", "");
+        $("#player").attr("nwfaketop", "");
       }
 
       this.setState({
@@ -70,7 +87,7 @@ class YouTubeUI extends React.Component {
 
       setInterval(function() {
         $("#player").contents().find(".adDisplay").css("display", "none");
-      }, 2000);
+      }, 1000);
 
     }.bind(this);
   }
@@ -94,19 +111,11 @@ class YouTubeUI extends React.Component {
         this.setupYTPlayer();
       }
     }.bind(this));
-
-    // var tag = document.createElement('script');
-    // tag.src = "https://www.youtube.com/iframe_api";
-    // var firstScriptTag = document.getElementsByTagName('script')[0];
-    // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    //this.setupYTPlayer();
   }
   componentWillReceiveProps(nextProps) {
-    if((navigator.userAgent.includes("nwjs") ||
-        navigator.userAgent.includes("Electron")) &&
-      nextProps.applyFilter !== undefined  && nextProps.applyFilter.length > 0) {
-
-      if(this.state.applyFilter !== undefined &&
+    if(navigator.userAgent.includes("nwjs") || navigator.userAgent.includes("Electron")) {
+      if(nextProps.applyFilter !== undefined  &&
+         nextProps.applyFilter.length > 0 &&
          this.state.applyFilter !== nextProps.applyFilter) {
 
         let $player = $("#player").contents().find(".html5-main-video");
@@ -140,18 +149,15 @@ class YouTubeUI extends React.Component {
       if(this.state.currentVideo !== undefined &&
          this.state.currentVideo.ytid === nextProps.video.ytid) return;
 
-      this.setState({
-        currentVideo: nextProps.video
-      });
-
+      this.setState({ currentVideo: nextProps.video });
       this.playVideo(nextProps.video);
     } else {
-      this.state.player.stopVideo();
-      $("#player").css("display", "none");
+      if(!(_.isEmpty(this.state.currentVideo))) {
+        this.state.player.stopVideo();
+        $("#player").css("display", "none");
 
-      this.setState({
-        currentVideo: {}
-      });
+        this.setState({ currentVideo: {} });
+      }
     }
   }
   render() {

@@ -2,6 +2,11 @@
 
 <script src="http://localhost:62375/socket.io/socket.io.js"></script>
 
+<script>
+  const socket = (navigator.userAgent.includes("nwjs") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
+  //const socket = io("http://localhost:62375");
+</script>
+
 <script src="/scripts/command-input-ui.js"></script>
 <script src="/scripts/youtube-ui.js"></script>
 <script src="/scripts/video-list-ui.js"></script>

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
           // BUILD DIR
           "build/db.js": "src/db.js",
           "build/api.js": "src/api.js",
-          "build/app.js": "src/app.js",
+          "build/server.js": "src/server.js",
           "build/index.js": "src/index.js",
           // PUBLIC/SCRIPTS DIR
           "public/scripts/video-list-ui.js": "src/video-list-ui.js",

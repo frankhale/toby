@@ -27,8 +27,7 @@ class TobyUI extends React.Component {
       videoData: [],
       searchResults: [],
       applyFilter: "",
-      currentVideo: "",
-      socket: (navigator.userAgent.includes("nwjs") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined
+      currentVideo: ""
     };
   }
   performSearch(searchTerm) {
@@ -87,10 +86,14 @@ class TobyUI extends React.Component {
       case "/clear":
         this.setState({
           searchResults: [],
-          currentVideo: "",
+          currentVideo: {},
           applyFilter: ""
         });
         document.title = appTitle;
+
+        if(socket!==undefined) {
+          socket.emit("title", { title: appTitle });
+        }
         break;
       case "/mc":
         this.setState({ applyFilter: "grayscale" });
@@ -146,9 +149,9 @@ class TobyUI extends React.Component {
   componentDidMount() {
     document.title = appTitle;
 
-    if(this.state.socket!==undefined) {
+    if(socket!==undefined) {
       // User clicked on a link inside the YouTube player
-      this.state.socket.on("play-video", function(data) {
+      socket.on("play-video", function(data) {
         console.log(`received: play-video for: ${data.ytid}`);
         console.log(`currentView.ytid = ${this.state.currentVideo.ytid}`);
 

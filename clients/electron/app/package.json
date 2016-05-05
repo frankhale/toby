@@ -1,8 +1,0 @@
-{
-  "name": "Toby",
-  "version": "0.17.0",
-  "main": "main.js",
-  "dependencies": {
-    "socket.io": "^1.4.5"
-  }
-}

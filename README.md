@@ -9,7 +9,7 @@ Toby is a YouTube player for the desktop.
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-2 May 2016
+5 May 2016
 
 ## License
 
