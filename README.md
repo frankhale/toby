@@ -9,6 +9,22 @@ Toby is a YouTube player for the desktop.
 Heavy development! Things are in a state of flux. All efforts right now are in
 the NW.js build and everything else to follow... The README is primitive right now!
 
+### Screenshots
+
+Toby In Action:
+
+![Toby In Action](screenshots/toby-video-playback.png)
+
+Toby Video List:
+
+![Toby Server Log](screenshots/toby-video-list.png)
+
+Toby Server Log:
+
+![Toby Server Log](screenshots/toby-server-log.png)
+
+
+
 ### How can I run this code?
 
 Toby is becoming more generic and not just for Electron. In a perfect world Toby
