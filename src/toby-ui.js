@@ -150,24 +150,18 @@ class TobyUI extends React.Component {
     document.title = appTitle;
 
     if(socket!==undefined) {
-      // User clicked on a link inside the YouTube player
+      // User clicked on a recommended video at the end of playing a video
       socket.on("play-video", function(data) {
-        console.log(`received: play-video for: ${data.ytid}`);
-        console.log(`currentView.ytid = ${this.state.currentVideo.ytid}`);
-
-        //if(this.state.currentVideo.ytid !== data.ytid) {
         this.setState({
+          // Once the video loads we'll get a notification from YouTube
+          // about what the title is. Then everything falls into place.
           currentVideo: {
+            title: "",
             ytid: data.ytid
           }
         }, function() {
-          // Once the video loads we'll get a notification from YouTube
-          // about what the title is. Then everything falls into place.
-          console.log("calling playVideo()");
-
           this.playVideo(data);
         });
-        //}
       }.bind(this));
     }
   }
@@ -195,8 +189,6 @@ class TobyUI extends React.Component {
     return results;
   }
   addVideoButtonHandler(video) {
-    // vox8sNkFdAQ
-
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {

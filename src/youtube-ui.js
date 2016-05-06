@@ -75,19 +75,20 @@ class YouTubeUI extends React.Component {
       //     $(top.document).trigger('keydown', e);
       // });
 
+      let $player = $("#player");
+
       if(navigator.userAgent.includes("nwjs")) {
-        //console.log("setting nwdisable on YouTube player iframe...");
-        $("#player").attr("nwdisable", "");
-        $("#player").attr("nwfaketop", "");
+        $player.attr("nwdisable", "");
+        $player.attr("nwfaketop", "");
+
+        setInterval(function() {
+          $player.contents().find(".adDisplay").css("display", "none");
+        }, 1000);
       }
 
       this.setState({
         player: player
       });
-
-      setInterval(function() {
-        $("#player").contents().find(".adDisplay").css("display", "none");
-      }, 1000);
 
     }.bind(this);
   }
@@ -105,7 +106,7 @@ class YouTubeUI extends React.Component {
     $ui.animate({ scrollTop: $ui.prop("scrollHeight")}, 250);
   }
   componentDidMount() {
-    $.getScript("https://www.youtube.com/iframe_api", function(data, textStatus, jqxhr) {
+    $.getScript("//www.youtube.com/iframe_api", function(data, textStatus, jqxhr) {
       if(textStatus === "success") {
         console.log("YouTube API loaded...");
         this.setupYTPlayer();
