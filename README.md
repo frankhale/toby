@@ -153,7 +153,7 @@ order.
 thumbnails in search results
 - `/sat` : (NW.js/Electron only) Short cut to set the saturated video filter and
 thumbnails in search results
-- `/sep : (NW.js/Electron only) Short cut to set the sepia video filter and
+- `/sep` : (NW.js/Electron only) Short cut to set the sepia video filter and
 thumbnails in search results
 - `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
 thumbnails in search results
@@ -170,7 +170,7 @@ thumbnails in search results
 - Add `/import` to import new videos in the data.txt file
 - Add better support for larger data sets. Currently if there are a large number
 of search results (excluding YouTube searches which default to 25 results) all \
-the results will be listed. 
+the results will be listed.
 
 ### Updating the data file
 
