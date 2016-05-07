@@ -13,9 +13,10 @@
   "license": "GPL-3.0",
   "private": true,
   "main": "index.html",
-  "node-remote": "http://localhost:3000",
+  "node-remote": "http://localhost:3000/",
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 nwjs",
   "window": {
+    "title": "Toby - A Simple YouTube Player",
     "icon": "./public/images/toby.png",
     "toolbar": false,
     "width": 640,
@@ -33,7 +34,7 @@
     "load-grunt-tasks": "^3.4.1"
   },
   "dependencies": {
-    "body-parser": "~1.15.0",
+    "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.1",
     "debug": "~2.2.0",
     "express": "~4.13.4",
@@ -42,6 +43,7 @@
     "lodash": "^4.11.2",
     "morgan": "^1.6.1",
     "pegjs": "^0.9.0",
+    "request": "^2.72.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.6",
     "split": "^1.0.0",
