@@ -103,17 +103,19 @@ TODO
 <kbd>F5</kbd> - Usage Info (NOT IMPLEMENTED YET)  
 <kbd>F11</kbd> - Toggle Fullscreen
 
-### Things still not implemented since rewrite
+### Features TODO
 
 - Caching YouTube search results for a bit to avoid querying YouTube over and
   over for the same thing
 - Usage info from within the app
+- Add `/import` to import new videos in the data.txt file
 
 ### Updating the data file
 
 Unlike previous versions of Toby the data.txt file located in the data folder is
 now only used initially to create the database which stores your favorite
-videos. Videos stored in the database can be exported by entering the `/archive` command in the search box.
+videos. Videos stored in the database can be exported by entering the `/archive` command in the search box. A corresponding `/import` command has not been implemented
+yet.
 
 The data format for your favorite videos is very simple. It can contain one or
 more groups. The 'Recently Played' group is special and will be added if it's
@@ -141,7 +143,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-5 May 2016
+7 May 2016
 
 ## License
 
