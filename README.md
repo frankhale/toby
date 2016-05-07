@@ -23,8 +23,6 @@ Toby Server Log:
 
 ![Toby Server Log](screenshots/toby-server-log.png)
 
-
-
 ### How can I run this code?
 
 Toby is becoming more generic and not just for Electron. In a perfect world Toby
@@ -55,6 +53,16 @@ when a proper distribution will be available).
 The required Node binaries are located here (for example):
 
 https://nodejs.org/dist/v6.0.0/win-x64/
+
+Here is what the directories look like:
+
+NW.js root dir:
+
+![NW.js root](screenshots/nwjs-root-dir.png)
+
+package.nw dir:
+
+![NW.js package.nw root](screenshots/package-nw-root.png)
 
 Install dependencies  
 
