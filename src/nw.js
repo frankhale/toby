@@ -43,8 +43,10 @@
     $content.append("Socket.IO connection established...<br/>");
 
     s.on("title", function(t) {
-      $content.append(`setting title to: ${t.title}<br/>`);
-      document.title = t.title;
+      if(t.title !== undefined && t.title !== "") {
+        $content.append(`setting title to: ${t.title}<br/>`);
+        document.title = t.title;
+      }
     });
   });
 
