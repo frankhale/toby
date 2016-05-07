@@ -2,13 +2,7 @@
 
 [![Join the chat at https://gitter.im/frankhale/toby](https://badges.gitter.im/frankhale/toby.svg)](https://gitter.im/frankhale/toby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Toby is a YouTube player for the desktop.
-
-## Status
-
-Heavy development! Things are in a state of flux. All efforts right now are in
-the NW.js build and everything else to follow... The README is primitive right
-now!
+Toby is a simple YouTube player for the desktop.
 
 ### Screenshots
 
@@ -47,6 +41,11 @@ web API is not password protected in any way and there has been no attempt to
 protect the data Toby collects. Toby only cares about a few things, namely
 YouTube video titles, ids and the groups you decide to store your favorite
 videos in.
+
+## Status
+
+Heavy development! Things are in a state of flux. All efforts right now are in
+the NW.js build and everything else to follow...
 
 ### How can I run this code?
 
@@ -133,12 +132,45 @@ TODO
 <kbd>F5</kbd> - Usage Info (NOT IMPLEMENTED YET)  
 <kbd>F11</kbd> - Toggle Fullscreen
 
+In addition to keyboard shortcuts there are commands that can be typed into the
+search box that will perform various things.
+
+Here is a list (there will be additional ones added soon):
+
+NOTE: the names / functionality of these commands are rough and subject to
+change (they will most certainly change). These are listed in no particular
+order.
+
+- `[name hint]` : Lists locally saved videos based on the [name hint]
+- `yt: [search term]` : Searches YouTube for the [search term]
+- `g: [group name]` : Lists the videos for the [group name]
+- `/list` : List all videos contained in the database
+- `/rp` or `/history` : Lists the recently played videos
+- `/rptrim` : List last 30 recently played videos
+- `/archive` : Export the contents of the database to the data.txt file
+- `/clear` : Clears search results
+- `/mc` : (NW.js/Electron only) Short cut to set the monochrome video filter and
+thumbnails in search results
+- `/sat` : (NW.js/Electron only) Short cut to set the saturated video filter and
+thumbnails in search results
+- `/sep : (NW.js/Electron only) Short cut to set the sepia video filter and
+thumbnails in search results
+- `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
+thumbnails in search results
+- `/filter saturate` : (NW.js/Electron only) Short cut to set the saturated video filter and
+thumbnails in search results
+- `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video filter and
+thumbnails in search results
+
 ### Features TODO
 
 - Caching YouTube search results for a bit to avoid querying YouTube over and
   over for the same thing
 - Usage info from within the app
 - Add `/import` to import new videos in the data.txt file
+- Add better support for larger data sets. Currently if there are a large number
+of search results (excluding YouTube searches which default to 25 results) all \
+the results will be listed. 
 
 ### Updating the data file
 
