@@ -7,7 +7,8 @@ Toby is a YouTube player for the desktop.
 ## Status
 
 Heavy development! Things are in a state of flux. All efforts right now are in
-the NW.js build and everything else to follow... The README is primitive right now!
+the NW.js build and everything else to follow... The README is primitive right
+now!
 
 ### Screenshots
 
@@ -22,6 +23,30 @@ Toby Video List:
 Toby Server Log:
 
 ![Toby Server Log](screenshots/toby-server-log.png)
+
+### Architecture
+
+The old Toby architecture was geared towards an Electron deployment and I loaded
+all the code from the file system. The new architecture puts Toby behind an
+Express web application that is spawned from a regular Node process so that more
+deployment scenarios.
+
+A Toby deployment would ship the regular Node.exe and Node.dll files along side
+the source code. We know NW.js and Electron ship with Node embedded but shipping
+Node as an external resource allows us to run Toby in a regular Node process and
+unencumbered by NW.js / Electron specific compiling requirements for any
+potential native Node modules we may want to use in the future. The only native
+Node module being used to my knowledge is SQLite3.
+
+Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
+Electron and support a regular web browser. You need a fairly minimal set of
+supporting files to bootstrap the app in those environments.
+
+Toby is meant as a personal application running on a personal computer and it's
+web API is not password protected in any way and there has been no attempt to
+protect the data Toby collects. Toby only cares about a few things, namely
+YouTube video titles, ids and the groups you decide to store your favorite
+videos in.
 
 ### How can I run this code?
 
@@ -38,7 +63,8 @@ All that said, I use Toby all the time so if things are broken they probably
 won't stay broken for long.
 
 It should be noted that these instructions are for the impatient and that a
-proper distribution will be created and released that is easy to get up and running and requires none of the instructions that are or will be listed below.
+proper distribution will be created and released that is easy to get up and
+running and requires none of the instructions that are or will be listed below.
 
 #### Dependencies
 
@@ -46,7 +72,11 @@ proper distribution will be created and released that is easy to get up and runn
 - Grunt : http://gruntjs.com
 - Bower : http://bower.io/
 
-In addition to installing Node on your machine so you can download the dependencies and build the code you'll also need a copy of the Node binaries to place at the root of the source code folder. This is because when NW.js and eventually the Electron build are executed they will spawn a Node process and start the Toby server. The requirement to ship the two Node binaries is so that
+In addition to installing Node on your machine so you can download the
+dependencies and build the code you'll also need a copy of the Node binaries to
+place at the root of the source code folder. This is because when NW.js and
+eventually the Electron build are executed they will spawn a Node process and
+start the Toby server. The requirement to ship the two Node binaries is so that
 we can support machines that don't have Node installed (this is for the time
 when a proper distribution will be available).
 
@@ -114,8 +144,9 @@ TODO
 
 Unlike previous versions of Toby the data.txt file located in the data folder is
 now only used initially to create the database which stores your favorite
-videos. Videos stored in the database can be exported by entering the `/archive` command in the search box. A corresponding `/import` command has not been implemented
-yet.
+videos. Videos stored in the database can be exported by entering the `/archive`
+command in the search box. A corresponding `/import` command has not been
+implemented yet.
 
 The data format for your favorite videos is very simple. It can contain one or
 more groups. The 'Recently Played' group is special and will be added if it's
