@@ -1,4 +1,4 @@
-if(navigator.userAgent.includes("nwjs")) {
+if(navigator.userAgent.includes("node-webkit")) {
   // This is here because when exiting fullscreen in NW.js the page scrolls to
   // top instead of centering on the YouTube player. This is called by an
   // injected script into the webview that Toby lives inside of when running in
@@ -77,9 +77,8 @@ class YouTubeUI extends React.Component {
 
       let $player = $("#player");
 
-      if(navigator.userAgent.includes("nwjs")) {
+      if(navigator.userAgent.includes("node-webkit")) {
         $player.attr("nwdisable", "");
-        $player.attr("nwfaketop", "");
 
         setInterval(function() {
           $player.contents().find(".adDisplay").css("display", "none");
@@ -114,7 +113,7 @@ class YouTubeUI extends React.Component {
     }.bind(this));
   }
   componentWillReceiveProps(nextProps) {
-    if(navigator.userAgent.includes("nwjs") || navigator.userAgent.includes("Electron")) {
+    if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
       if(nextProps.applyFilter !== undefined  &&
          nextProps.applyFilter.length > 0 &&
          this.state.applyFilter !== nextProps.applyFilter) {

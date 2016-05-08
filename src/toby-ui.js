@@ -90,7 +90,6 @@ class TobyUI extends React.Component {
           applyFilter: ""
         });
         document.title = appTitle;
-
         if(socket!==undefined) {
           socket.emit("title", { title: appTitle });
         }
@@ -128,7 +127,6 @@ class TobyUI extends React.Component {
         this.performSearch("g: Recently Played");
         break;
       case "/rptrim":
-
         $.post({
           url: "/api/videos/recently-played/trim"
         }).done(function(data) {

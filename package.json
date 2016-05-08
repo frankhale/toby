@@ -14,7 +14,7 @@
   "private": true,
   "main": "index.html",
   "node-remote": "http://localhost:3000/",
-  "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 nwjs",
+  "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 node-webkit-%nwver",
   "window": {
     "title": "Toby - A Simple YouTube Player",
     "icon": "./public/images/toby.png",
