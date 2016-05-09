@@ -171,6 +171,7 @@ thumbnails in search results
 - Add better support for larger data sets. Currently if there are a large number
 of search results (excluding YouTube searches which default to 25 results) all \
 the results will be listed.
+- UI to manage videos (eg. delete, move videos between groups, etc...)
 
 ### Updating the data file
 
@@ -206,7 +207,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-7 May 2016
+8 May 2016
 
 ## License
 

@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "jquery": "^3.0.0-beta1",
-    "lodash": "^4.11.2",
+    "lodash": "^4.12.0",
     "react": "^15.0.2",
     "keymaster": "^1.6.3",
     "font-awesome": "^4.6.2"

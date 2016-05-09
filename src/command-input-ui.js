@@ -75,7 +75,7 @@ class CommandInput extends React.Component {
           this.props.onKeyEnter(textEntered);
         }
 
-        this.state.commandText.val("");
+        //this.state.commandText.val("");
       });
     }
   }

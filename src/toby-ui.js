@@ -162,6 +162,15 @@ class TobyUI extends React.Component {
         });
       }.bind(this));
     }
+
+    $.ajax({
+      url: '/api/videos/groups'
+    }).done(function(data) {
+      console.log(data);
+      this.setState({
+        groups: data
+      })
+    }.bind(this));
   }
   buildVideoResults(data) {
     var results = [];
@@ -222,6 +231,7 @@ class TobyUI extends React.Component {
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
         <VideoList data={this.state.searchResults}
+                   groups={this.state.groups}
                    applyFilter={this.state.applyFilter}
                    addVideoButtonHandler={this.addVideoButtonHandler} />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />

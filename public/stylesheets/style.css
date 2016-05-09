@@ -58,17 +58,33 @@ blockquote {
   padding-bottom: 25px;
   font-size: 20px;
 }
-.highlightRow {
-  width: 760px;
-  border-radius: 8px;
-  border: 2px solid #000;
+/* misc */
+.thumbnailIMGWidth {
+  width: 50px;
 }
-.highlightRow:hover {
+.buttonContainerWidth {
+  width: 1px;
+  white-space: nowrap;
+}
+.textAlignMiddle {
+  vertical-align: middle;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+tr:hover td {
   background-color: #003e80;
   color: #fff;
-  border: 2px solid #001130;
   text-shadow: 0 0 6px #001130;
   font-weight: bold;
+  cursor:pointer;
+}
+tr:hover td.border-left {
+  border-radius: 8px 0 0 8px;
+}
+tr:hover td.border-right {
+  border-radius: 0 8px 8px 0;
 }
 .alignDiv {
   display: inline-block;
@@ -93,10 +109,9 @@ blockquote {
   font-size: 11pt;
   z-index: 10000;
 }
-.addVideoButton {
-  position: absolute;
-  right: 15px;
-  z-index: 1000;
+.star {
+  color: #fff;
+  vertical-align: middle;
 }
 
 .grayscale {
@@ -108,7 +123,6 @@ blockquote {
 .sepia {
   -webkit-filter: sepia(1);
 }
-
 ::-webkit-scrollbar {
     height: 8px;
     width: 8px;
@@ -121,4 +135,39 @@ blockquote {
 }
 ::-webkit-scrollbar-corner {
     background: #fff;
+}
+
+/* Select style borrowed from: http://codepen.io/AmrSubZero/pen/dxpri */
+select {
+  background-color:#357;
+  background-repeat:no-repeat;
+  background-position: right 10px top 10px;
+  background-size: 11px 11px;
+  padding:8px;
+  width:auto;
+  font-family:arial,tahoma;
+  font-size:10px;
+  font-weight:bold;
+  color:#fff;
+  text-align:center;
+  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-radius:3px;
+  /*-webkit-appearance: none;*/
+  border:0;
+  outline:0;
+  -webkit-transition:0.3s ease all;
+	        transition:0.3s ease all;
+}
+
+select:focus, select:active {
+  border:0;
+  outline:0;
+}
+
+.groupDropDown:hover {
+  background-color:#123;
+}
+
+.groupDropDown {
+  margin-right: 5px;
 }

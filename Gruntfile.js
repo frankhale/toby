@@ -19,6 +19,7 @@ module.exports = function(grunt) {
           "build/server.js": "src/server.js",
           "build/index.js": "src/index.js",
           // PUBLIC/SCRIPTS DIR
+          "public/scripts/dropdown-ui.js": "src/dropdown-ui.js",
           "public/scripts/video-list-ui.js": "src/video-list-ui.js",
           "public/scripts/command-input-ui.js": "src/command-input-ui.js",
           "public/scripts/youtube-ui.js": "src/youtube-ui.js",
@@ -32,6 +33,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
+          "public/scripts/dropdown-ui.min.js": "public/scripts/dropdown-ui.js",
           "public/scripts/command-input-ui.min.js": "public/scripts/command-input-ui.js",
           "public/scripts/video-list-ui.min.js": "public/scripts/video-list-ui.js",
           "public/scripts/youtube-ui.min.js": "public/scripts/youtube-ui.js",
