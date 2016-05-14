@@ -195,7 +195,7 @@ class TobyUI extends React.Component {
 
     return results;
   }
-  addVideoButtonHandler(video) {
+  addVideoButtonHandler(video, group) {
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -206,14 +206,15 @@ class TobyUI extends React.Component {
         data: {
           title: video.title,
           ytid: video.ytid,
-          group: "misc" // <- this will be selectable later
+          group: (group !== undefined) ? group : "misc"
         }
       });
     }
   }
-  playVideo(video) {
+  playVideo(video, data) {
     this.setState({
-      currentVideo: video
+      currentVideo: video,
+      searchResults: data
     });
 
     if(video.title !== undefined && video.title.length > 0) {

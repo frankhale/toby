@@ -24,6 +24,7 @@ class DropDown extends React.Component {
       this.setState({
         name: props.name,
         items: props.items,
+        disabled: (props.disabled === undefined) ? "" : "disabled",
         onDropDownChange: (props.onDropDownChange !== undefined) ? props.onDropDownChange : function() {}
       });
     }
@@ -58,7 +59,8 @@ class DropDown extends React.Component {
               name={this.state.name}
               onChange={this.onDropDownChange}
               style={(this.props.style !== undefined) ? this.props.style : {}}
-              className={(this.props.className !== undefined) ? this.props.className : ""}>
+              className={(this.props.className !== undefined) ? this.props.className : ""}
+              disabled={this.state.disabled}>
         {renderedItems}
       </select>
     );
