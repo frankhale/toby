@@ -109,10 +109,11 @@ tr:hover td.border-right {
   font-size: 11pt;
   z-index: 10000;
 }
-.starButton {
+.manageButton {
   color: #fff;
   vertical-align: middle;
   text-decoration: none;
+  margin-right: 2px;
 }
 
 .grayscale {
@@ -176,4 +177,12 @@ select:focus, select:active {
 
 .groupDropDown {
   margin-right: 5px;
+}
+
+#version {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  font-weight: bold;
+  color: #111;
 }

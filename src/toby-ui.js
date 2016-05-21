@@ -22,12 +22,15 @@ class TobyUI extends React.Component {
 
     this.onCommandEntered = this.onCommandEntered.bind(this);
     this.addVideoButtonHandler = this.addVideoButtonHandler.bind(this);
+    this.updateVideoButtonHandler = this.updateVideoButtonHandler.bind(this);
+    this.deleteVideoButtonHandler = this.deleteVideoButtonHandler.bind(this);
 
     this.state = {
       videoData: [],
       searchResults: [],
       applyFilter: "",
-      currentVideo: ""
+      currentVideo: "",
+      manage: false
     };
   }
   performSearch(searchTerm) {
@@ -46,23 +49,16 @@ class TobyUI extends React.Component {
     let command = commandSegments[0];
 
     switch(command) {
-      case "/videos":
-        $.ajax({
-          url: '/api/videos'
-        }).done(function(data) {
-          console.log(data);
-        });
-        break;
-      case "/groups":
-        $.ajax({
-          url: '/api/videos/groups'
-        }).done(function(data) {
-          console.log(data);
-        });
-        break;
-      // case "/raw":
+      // case "/videos":
       //   $.ajax({
-      //     url: '/api/videos/raw'
+      //     url: '/api/videos'
+      //   }).done(function(data) {
+      //     console.log(data);
+      //   });
+      //   break;
+      // case "/groups":
+      //   $.ajax({
+      //     url: '/api/videos/groups'
       //   }).done(function(data) {
       //     console.log(data);
       //   });
@@ -74,7 +70,7 @@ class TobyUI extends React.Component {
           console.log(data);
         });
         break;
-      case "/list":
+      case "/list-all":
         $.ajax({
           url: '/api/videos'
         }).done(function(data) {
@@ -122,22 +118,28 @@ class TobyUI extends React.Component {
           }
         }
         break;
+      case "/rp":
+      case "/recently-played":
       case "/history":
-      case "/rp": // shortcut to get a listing of recently played
         this.performSearch("g: Recently Played");
         break;
-      case "/rptrim":
+      case "/trimrp": // shortcut to get a listing of recently played
         $.post({
           url: "/api/videos/recently-played/trim"
         }).done(function(data) {
           console.log(data);
         });
         break;
-      // case "/shutdown":
-      //   $.post({
-      //     url: '/api/app/close'
-      //   });
-      //   break;
+      case "/manage":
+        $.ajax({
+          url: '/api/videos'
+        }).done(function(data) {
+          this.setState({
+            searchResults: this.buildVideoResults(data),
+            manage: true
+          });
+        }.bind(this));
+        break;
 
       default:
         this.performSearch(searchTerm);
@@ -166,7 +168,7 @@ class TobyUI extends React.Component {
     $.ajax({
       url: '/api/videos/groups'
     }).done(function(data) {
-      console.log(data);
+      //console.log(data);
       this.setState({
         groups: data
       })
@@ -211,6 +213,15 @@ class TobyUI extends React.Component {
       });
     }
   }
+  updateVideoButtonHandler(video, group) {
+    console.log(`updateVideoButtonHandler() :: Called`);
+    console.log(video);
+    console.log(group);
+  }
+  deleteVideoButtonHandler(video) {
+    console.log(`deleteVideoButtonHandler() :: Called`);
+    console.log(video);
+  }
   playVideo(video, data) {
     this.setState({
       currentVideo: video,
@@ -228,13 +239,19 @@ class TobyUI extends React.Component {
     }
   }
   render() {
+    let versionDisplay = (this.state.searchResults.length > 0) ? false : true;
+
     return (
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
         <VideoList data={this.state.searchResults}
                    groups={this.state.groups}
+                   manage={this.state.manage}
                    applyFilter={this.state.applyFilter}
-                   addVideoButtonHandler={this.addVideoButtonHandler} />
+                   addVideoButtonHandler={this.addVideoButtonHandler}
+                   updateVideoButtonHandler={this.updateVideoButtonHandler}
+                   deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
+        <Version display={versionDisplay} info="Toby-1.0-SNAPSHOT"  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );

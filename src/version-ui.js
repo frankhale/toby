@@ -1,4 +1,4 @@
-// index.js
+// version-ui.js
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const express = require("express");
-const router = express.Router();
+class Version extends React.Component {
+  constructor() {
+    super();
 
-/* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index");
-});
-
-module.exports = router;
+    this.state = {
+      display: false,
+      info: ""
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.display !== undefined && nextProps.info !== undefined) {
+      this.setState({
+        display: nextProps.display,
+        info: nextProps.info
+      });
+    }
+  }
+  render() {
+    if(this.state.display) {
+      return <div id="version">{this.state.info}</div>
+    } else {
+      return <div></div>;
+    }
+  }
+}
