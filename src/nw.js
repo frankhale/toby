@@ -67,7 +67,7 @@
   });
 
   win.on("loaded", function() {
-    win.showDevTools();
+    //win.showDevTools();
     win.show();
   });
 

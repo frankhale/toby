@@ -135,6 +135,10 @@ class VideoList extends React.Component {
 
     if(this.state.onDeleteVideoButtonHandler !== undefined && video !== undefined) {
       this.state.onDeleteVideoButtonHandler(video);
+
+      this.setState({
+        data: _.reject(data, { ytid: video.ytid })
+      });
     }
   }
   onDropDownChange(selected, id) {

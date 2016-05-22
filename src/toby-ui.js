@@ -40,7 +40,8 @@ class TobyUI extends React.Component {
     })
     .done(function(data) {
       this.setState({
-        searchResults: this.buildVideoResults(data)
+        searchResults: this.buildVideoResults(data),
+        manage: false
       });
     }.bind(this));
   }
@@ -117,17 +118,19 @@ class TobyUI extends React.Component {
               break;
           }
         }
-        break;
-      case "/rp":
-      case "/recently-played":
+        break;            
       case "/history":
         this.performSearch("g: Recently Played");
         break;
-      case "/trimrp": // shortcut to get a listing of recently played
+      case "/rp":
+      case "/recently-played":
         $.post({
           url: "/api/videos/recently-played/trim"
         }).done(function(data) {
-          console.log(data);
+          this.setState({
+            searchResults: this.buildVideoResults(data),
+            manage: false
+          });
         });
         break;
       case "/manage":
@@ -217,15 +220,47 @@ class TobyUI extends React.Component {
     console.log(`updateVideoButtonHandler() :: Called`);
     console.log(video);
     console.log(group);
+
+    let found = _.find(this.state.searchResults, { ytid: video.ytid });
+
+    if(found !== undefined) {
+      found.isArchived = true;
+      found.title = video.title;
+
+      $.post({
+        url: "/api/videos/update",
+        data: {
+          title: video.title,
+          ytid: video.ytid,
+          group: (group !== undefined) ? group : "misc"
+        }
+      });
+    }
   }
   deleteVideoButtonHandler(video) {
     console.log(`deleteVideoButtonHandler() :: Called`);
     console.log(video);
+
+    let found = _.find(this.state.searchResults, { ytid: video.ytid });
+
+    if(found !== undefined) {
+      $.post({
+        url: "/api/videos/delete",
+        data: {
+          ytid: video.ytid
+        }
+      });
+
+      this.setState({
+        searchResults: _.reject(this.state.searchResults, { ytid: video.ytid })
+      });
+    }
   }
   playVideo(video, data) {
     this.setState({
       currentVideo: video,
-      searchResults: data
+      searchResults: data,
+      manage: false
     });
 
     if(video.title !== undefined && video.title.length > 0) {
