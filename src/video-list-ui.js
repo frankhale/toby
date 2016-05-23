@@ -160,7 +160,7 @@ class VideoList extends React.Component {
         if (d.justAdded) {
           clickHandler = function(e){ e.preventDefault(); e.stopPropagation(); };
           dropDownClass = "groupDropDownDisabled";
-          addButtonClass = "starButton fa fa-star";
+          addButtonClass = "manageButton fa fa-star";
           addButton =  <td className="border-right buttonContainerWidth"><span>
               <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
               <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
