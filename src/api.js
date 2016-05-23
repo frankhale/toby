@@ -101,8 +101,8 @@ const API = (function(db) {
   router.post("/videos/search", (req, res, next) => {
     let searchTerm = req.body.searchTerm;
 
-    if (searchTerm.startsWith("yt:")) {
-      searchTerm = searchTerm.replace("yt:", "");
+    if (searchTerm.startsWith("/yt")) {
+      searchTerm = searchTerm.replace("/yt", "");
 
       youtubeSearch(searchTerm, youtubeSearchOpts, function(err, results) {
         if (err) return console.log(err);
@@ -125,8 +125,8 @@ const API = (function(db) {
           res.json(finalResults);
         });
       });
-    } else if (searchTerm.startsWith("g:")) {
-      searchTerm = searchTerm.replace("g:", "").trim();
+    } else if (searchTerm.startsWith("/g")) {
+      searchTerm = searchTerm.replace("/g", "").trim();
 
       if (searchTerm === "all") {
         db.getAllVideosFromDB(function(data) {
