@@ -185,4 +185,5 @@ select:focus, select:active {
   right: 25px;
   font-weight: bold;
   color: #111;
+  opacity: .5;
 }

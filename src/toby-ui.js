@@ -91,14 +91,17 @@ class TobyUI extends React.Component {
           socket.emit("title", { title: appTitle });
         }
         break;
-      case "/mc":
+      case "/monochrome":
         this.setState({ applyFilter: "grayscale" });
         break;
-      case "/sat":
+      case "/saturate":
         this.setState({ applyFilter: "saturate" });
         break;
-      case "/sep":
+      case "/sepia":
         this.setState({ applyFilter: "sepia" });
+        break;
+      case "/normal":
+        this.setState({ applyFilter: "normal" });
         break;
       case "/filter":
         if(commandSegments.length > 0) {
@@ -118,7 +121,7 @@ class TobyUI extends React.Component {
               break;
           }
         }
-        break;            
+        break;
       case "/history":
         this.performSearch("g: Recently Played");
         break;
@@ -131,7 +134,7 @@ class TobyUI extends React.Component {
             searchResults: this.buildVideoResults(data),
             manage: false
           });
-        });
+        }.bind(this));
         break;
       case "/manage":
         $.ajax({
@@ -198,7 +201,7 @@ class TobyUI extends React.Component {
       });
     }.bind(this));
 
-    return results;
+    return _.sortBy(results, "title");
   }
   addVideoButtonHandler(video, group) {
     let found = _.find(this.state.searchResults, { ytid: video.ytid });

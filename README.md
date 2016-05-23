@@ -10,9 +10,21 @@ Toby In Action:
 
 ![Toby In Action](screenshots/toby-video-playback.png)
 
+Toby Main UI:
+
+![Toby Main UI](screenshots/toby-main.png)
+
 Toby Video List:
 
 ![Toby Server Log](screenshots/toby-video-list.png)
+
+Toby Recently Played:
+
+![Toby Recently Played](screenshots/toby-recently-played.png)
+
+Toby Manage Videos:
+
+![Toby Manage Videos](screenshots/toby-manage.png)
 
 Toby Server Log:
 
@@ -137,24 +149,22 @@ search box that will perform various things.
 
 Here is a list (there will be additional ones added soon):
 
-NOTE: the names / functionality of these commands are rough and subject to
-change (they will most certainly change). These are listed in no particular
-order.
-
 - `[name hint]` : Lists locally saved videos based on the [name hint]
 - `yt: [search term]` : Searches YouTube for the [search term]
 - `g: [group name]` : Lists the videos for the [group name]
 - `/list` : List all videos contained in the database
-- `/rp` or `/history` : Lists the recently played videos
-- `/rptrim` : List last 30 recently played videos
+- `/history` : Lists the recently played videos
+- `/rp` or `/recently-played` : List last 30 recently played videos
 - `/manage` : Manage what groups videos are in and also provide ability to delete videos
 - `/archive` : Export the contents of the database to the data.txt file
 - `/clear` : Clears search results
-- `/mc` : (NW.js/Electron only) Short cut to set the monochrome video filter and
+- `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
 thumbnails in search results
-- `/sat` : (NW.js/Electron only) Short cut to set the saturated video filter and
+- `/saturate` : (NW.js/Electron only) Short cut to set the saturated video filter and
 thumbnails in search results
-- `/sep` : (NW.js/Electron only) Short cut to set the sepia video filter and
+- `/sepia` : (NW.js/Electron only) Short cut to set the sepia video filter and
+thumbnails in search results
+- `/normal` : (NW.js/Electron only) Short cut to set the normal video filter and
 thumbnails in search results
 - `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
 thumbnails in search results
@@ -170,7 +180,7 @@ thumbnails in search results
 - Usage info from within the app
 - Add `/import` to import new videos in the data.txt file
 - Add better support for larger data sets. Currently if there are a large number
-of search results (excluding YouTube searches which default to 25 results) all \
+of search results (excluding YouTube searches which default to 25 results) all
 the results will be listed.
 
 ### Updating the data file

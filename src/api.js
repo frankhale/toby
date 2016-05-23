@@ -252,7 +252,7 @@ const API = (function(db) {
     // which defaults to 30
     db.getAllVideosForGroupFromDB("Recently Played", function(data) {
       // take top 30
-      let top30RecentlyPlayed = _.takeRight(data, maxRecentlyPlayedVideos);
+      let top30RecentlyPlayed = _.takeRight(_.uniqBy(data, "ytid"), maxRecentlyPlayedVideos);
 
       console.log(`before: ${data.length}`);
       console.log(`after: ${top30RecentlyPlayed.length}`);
