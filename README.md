@@ -150,8 +150,8 @@ search box that will perform various things.
 Here is a list (there will be additional ones added soon):
 
 - `[name hint]` : Lists locally saved videos based on the [name hint]
-- `yt: [search term]` : Searches YouTube for the [search term]
-- `g: [group name]` : Lists the videos for the [group name]
+- `/yt [search term]` : Searches YouTube for the [search term]
+- `/g [group name]` : Lists the videos for the [group name]
 - `/list` : List all videos contained in the database
 - `/history` : Lists the recently played videos
 - `/rp` or `/recently-played` : List last 30 recently played videos
@@ -217,7 +217,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-22 May 2016
+23 May 2016
 
 ## License
 

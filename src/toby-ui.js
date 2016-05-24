@@ -196,6 +196,7 @@ class TobyUI extends React.Component {
         playVideo: this.playVideo.bind(this),
         title: v.title,
         ytid: v.ytid,
+        group: v.group,
         thumbnail: `https://i.ytimg.com/vi/${v.ytid}/default.jpg`,
         isArchived: v.isArchived
       });
@@ -277,7 +278,10 @@ class TobyUI extends React.Component {
     }
   }
   render() {
-    let versionDisplay = (this.state.searchResults.length > 0) ? false : true;
+    let versionDisplay = true;
+    if (this.state.searchResults !== undefined && this.state.searchResults.length > 0) {
+      versionDisplay = false;
+    }
 
     return (
       <div>

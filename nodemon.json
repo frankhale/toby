@@ -1,0 +1,14 @@
+{
+  "verbose": false,
+  "ignore": [
+    "src/*",
+    "public/*",
+    "build/*.map",
+    "build/api.js",
+    "build/db.js",
+    "build/index.js",
+    "clients/*",
+    "data/*",
+    "views/*"
+  ]
+}

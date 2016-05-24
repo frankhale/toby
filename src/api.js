@@ -118,6 +118,7 @@ const API = (function(db) {
             finalResults.push({
               title: r.title,
               ytid: r.id,
+              group: r.group,
               isArchived: (found !== undefined) ? true : false
             });
           });

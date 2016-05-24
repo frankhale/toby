@@ -115,7 +115,9 @@ tr:hover td.border-right {
   text-decoration: none;
   margin-right: 2px;
 }
-
+.manageButton:hover {
+  color: #999;
+}
 .grayscale {
   -webkit-filter: grayscale(1);
 }
@@ -138,7 +140,6 @@ tr:hover td.border-right {
 ::-webkit-scrollbar-corner {
     background: #fff;
 }
-
 /* Select style borrowed from: http://codepen.io/AmrSubZero/pen/dxpri */
 select {
   background-color:#357;
@@ -160,25 +161,20 @@ select {
   -webkit-transition:0.3s ease all;
 	        transition:0.3s ease all;
 }
-
 select:focus, select:active {
   border:0;
   outline:0;
 }
-
 .groupDropDown:hover {
   background-color:#123;
 }
-
 .groupDropDownDisabled {
   margin-right: 5px;
   background-color:#333;
 }
-
 .groupDropDown {
   margin-right: 5px;
 }
-
 #version {
   position: fixed;
   bottom: 25px;

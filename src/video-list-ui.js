@@ -26,7 +26,6 @@ class VideoList extends React.Component {
     this.state = {
       data: [],
       applyFilter: "",
-      manageButtonItems: [],
       onAddVideoButtonHandler: function() {},
       onUpdateVideoButtonHandler: function() {},
       onDeleteVideoButtonHandler: function() {}
@@ -66,25 +65,28 @@ class VideoList extends React.Component {
       });
     }
 
-    this.setState({
-      items: items,
-      data: nextProps.data.map(function(d, i) {
+    let videos = [];
+
+    if(nextProps.data !== undefined && nextProps.data.length > 0) {
+      videos = nextProps.data.map(function(d, i) {
+        //console.log(d);
+
         return {
           playVideo: d.playVideo,
           title: d.title,
           ytid: d.ytid,
+          group: d.group,
           thumbnail: d.thumbnail,
           isArchived: d.isArchived,
           justAdded: (d.justAdded !== undefined) ? d.justAdded : false
         };
-      }.bind(this)),
+      }.bind(this));
+    }
+
+    this.setState({
+      items: items,
+      data: videos,
       applyFilter: (nextProps.applyFilter !== undefined) ? nextProps.applyFilter : "",
-      manageButtonItems: nextProps.data.map(function(d, i) {
-        return {
-          title: d.title,
-          ytid: d.ytid
-        };
-      }),
       onAddVideoButtonHandler: nextProps.addVideoButtonHandler,
       onUpdateVideoButtonHandler: nextProps.updateVideoButtonHandler,
       onDeleteVideoButtonHandler: nextProps.deleteVideoButtonHandler,
@@ -95,7 +97,7 @@ class VideoList extends React.Component {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.manageButtonItems, { "ytid": id }),
+        video = _.find(this.state.data, { "ytid": id }),
         group = $(`#groupSelector-${video.ytid}`).val();
 
     if(group === "-1") return;
@@ -118,7 +120,7 @@ class VideoList extends React.Component {
     console.log($(e.target).prop("id").replace("star-", ""));
 
     let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.manageButtonItems, { "ytid": id }),
+        video = _.find(this.state.data, { "ytid": id }),
         group = $(`#groupSelector-${video.ytid}`).val();
 
     if(group === "-1") return;
@@ -131,7 +133,7 @@ class VideoList extends React.Component {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.manageButtonItems, { "ytid": id });
+        video = _.find(this.state.data, { "ytid": id });
 
     if(this.state.onDeleteVideoButtonHandler !== undefined && video !== undefined) {
       this.state.onDeleteVideoButtonHandler(video);
@@ -178,7 +180,7 @@ class VideoList extends React.Component {
 
         manageButton =
           <td className="border-right buttonContainerWidth"><span>
-            <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
+            <DropDown name={"groupSelector-" + d.ytid } selected={d.group} items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
             <a href="#" id={"star-" + d.ytid} onClick={this.onUpdateVideoButtonHandler} className={updateButtonClass}></a>
             <a href="#" id={"star-" + d.ytid} onClick={this.onDeleteVideoButtonHandler} className={deleteButtonClass}></a>
           </span></td>;
