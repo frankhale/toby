@@ -56,8 +56,8 @@ videos in.
 
 ## Status
 
-Heavy development! Things are in a state of flux. All efforts right now are in
-the NW.js build and everything else to follow...
+NW.js and Electron should be working (I need to provide some info here on ways
+to run the code from a development perspective, TODO!)
 
 ### How can I run this code?
 
@@ -217,7 +217,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-23 May 2016
+25 May 2016
 
 ## License
 

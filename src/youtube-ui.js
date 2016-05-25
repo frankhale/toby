@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if(navigator.userAgent.includes("node-webkit")) {
+if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
   // This is here because when exiting fullscreen in NW.js the page scrolls to
   // top instead of centering on the YouTube player. This is called by an
   // injected script into the webview that Toby lives inside of when running in
@@ -95,7 +95,9 @@ class YouTubeUI extends React.Component {
 
       if(navigator.userAgent.includes("node-webkit")) {
         $player.attr("nwdisable", "");
+      }
 
+      if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
         setInterval(function() {
           $player.contents().find(".adDisplay").css("display", "none");
         }, 1000);
@@ -121,7 +123,7 @@ class YouTubeUI extends React.Component {
     $ui.animate({ scrollTop: $ui.prop("scrollHeight")}, 250);
   }
   componentDidMount() {
-    $.getScript("//www.youtube.com/iframe_api", function(data, textStatus, jqxhr) {
+    $.getScript("https://www.youtube.com/iframe_api", function(data, textStatus, jqxhr) {
       if(textStatus === "success") {
         console.log("YouTube API loaded...");
         this.setupYTPlayer();

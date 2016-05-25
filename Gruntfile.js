@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       dist: {
         files: {
           // BUILD DIR
-          "build/nw.js": "src/nw.js",
+          "build/platform.js": "src/platform.js",
           "build/db.js": "src/db.js",
           "build/api.js": "src/api.js",
           "build/server.js": "src/server.js",
