@@ -56,26 +56,66 @@ videos in.
 
 ## Status
 
-NW.js and Electron should be working (I need to provide some info here on ways
-to run the code from a development perspective, TODO!)
+NW.js, Electron and normal web browser are supported.
 
-### How can I run this code?
+### How can I run the latest code?
 
-Toby is becoming more generic and not just for Electron. In a perfect world Toby
-will run in Electron, NW.js and in a web browser. That said, it takes time to
-make sure all environments keep up. At the moment I am concentrating on
-delivering NW.js support. When I get finished with NW.js I will work on
-Electron. Likewise for web but I've already done a bunch of work to make sure it
-works on web so that should still be working. Please note that it's highly
-likely that this 'rewrite' branch is broken at any given time but I will do my
-best to make sure it's not.
+NOTE: If you want to run Toby you can just run it from the latest 1.0-SNAPSHOT
+release. If you are impatient you can follow the steps below.
 
-All that said, I use Toby all the time so if things are broken they probably
-won't stay broken for long.
+I've provided a 1.0-SNAPSHOT release. This release uses NW.js. I plan to release
+an updated 1.0-SNAPSHOT tomorrow (Friday, 27 May 2016) that will actually be two
+releases, one based on NW.js and one based on Electron.
 
-It should be noted that these instructions are for the impatient and that a
-proper distribution will be created and released that is easy to get up and
-running and requires none of the instructions that are or will be listed below.
+If you want to run the latest code then I'll provide my development workflow
+here. Set up the folder structure for working with either NW.js or Electron like
+this:
+
+```
+Toby-Master
+  - toby [source code from the rewrite branch]
+  - nwjs [http://nwjs.io] (I'm using 0.15 Windows x64)
+  - electron [http://electron.atom.io] (I'm using 1.1.3 Windows x64)
+```
+
+Depending on what platform you want to run Toby in (Electron or NW.js) you'll
+need to make sure the main property in package.json is set accordingly:
+
+##### NW.js
+
+NOTE: I'll probably rename this to nwjs.html to make it more obvious.
+
+```
+main: "index.html"
+```
+
+##### Electron
+
+```
+main: "electron.js"
+```
+
+In order to run Toby you'll need to download the dependencies and build the
+source code, those steps are listed below.
+
+Assuming all dependencies are downloaded and the source code has been compiled
+perform the following:
+
+Running in NW.js
+
+Open a terminal to: `Toby-Master\nwjs` and issue the command:
+
+```
+nw.exe c:\path\to\Toby-Master\toby
+```
+
+Running in Electron
+
+Open a terminal to: `Toby-Master\electron` and issue the command:
+
+```
+electron.exe c:\path\to\Toby-Master\toby
+```
 
 #### Dependencies
 
@@ -85,25 +125,19 @@ running and requires none of the instructions that are or will be listed below.
 
 In addition to installing Node on your machine so you can download the
 dependencies and build the code you'll also need a copy of the Node binaries to
-place at the root of the source code folder. This is because when NW.js and
-eventually the Electron build are executed they will spawn a Node process and
-start the Toby server. The requirement to ship the two Node binaries is so that
-we can support machines that don't have Node installed (this is for the time
-when a proper distribution will be available).
+place at the root of the source code folder. This is because when NW.js or
+Electron are executed they will spawn their own external Node process and start
+the Toby server.
 
 The required Node binaries are located here (for example):
 
-https://nodejs.org/dist/v6.0.0/win-x64/
+https://nodejs.org/dist/v6.2.0/win-x64/
 
 Here is what the directories look like:
 
-NW.js root dir:
+toby source dir:
 
-![NW.js root](screenshots/nwjs-root-dir.png)
-
-package.nw dir:
-
-![NW.js package.nw root](screenshots/package-nw-root.png)
+![NW.js package.nw root](screenshots/toby-source-root-dir.png)
 
 Install dependencies  
 
@@ -117,24 +151,6 @@ The code needs to be built using Grunt
 ```
 grunt
 ```
-
-Running in NW.js
-
-- Download a copy of NW.js from : nwjs.io
-- Unzip NW.js
-- Create package.nw directory inside the unzipped NW.js folder
-- Copy the Toby distribution files to the package.nw
-- Install all Toby dependencies using npm and bower (see above)
-- Build Toby using grunt (see above)
-- Double click the nw.exe in the NW.js unzipped folder
-
-Running in Electron
-
-TODO
-
-Running in a web browser
-
-TODO
 
 ### Usage
 
