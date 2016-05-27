@@ -24,7 +24,7 @@ const bodyParser = require("body-parser");
 const debug = require("debug")("toby-next:server");
 const http = require("http");
 const process = require("process");
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "62374");
 const server = http.createServer(app);
 const db = require("./db");
 const api = require("./api")(db);
@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 api.post("/app/close", (req, res, next) => {
   const fs = require("fs");
   db.close();
-  server.close();  
+  server.close();
   process.exit(0);
 });
 

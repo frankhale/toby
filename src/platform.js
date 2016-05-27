@@ -20,9 +20,9 @@
         split = require("split"),
         _ = require("lodash"),
         request = require("request"),
-        node = spawn("node.exe", ["./build/server.js"], { cwd: `${process.cwd()}${path.sep}..${path.sep}toby` }),
+        //node = spawn("node.exe", ["./build/server.js"], { cwd: `${process.cwd()}${path.sep}..${path.sep}toby` }),
         // When deploying the path for the node spawn needs to be this:
-        // node = spawn("node.exe", ["./build/server.js"], { cwd: process.cwd() }),
+        node = spawn("node.exe", ["./build/server.js"], { cwd: process.cwd() }),
         $content = $("#content"),
         $webview = $("#webview"),
         webview = $webview[0],
@@ -75,7 +75,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://localhost:3000/api/app/close",
+        url: "/api/app/close",
         async:false
       });
 
@@ -182,7 +182,7 @@
     window.addEventListener("beforeunload", function(e) {
       $.ajax({
         type: "POST",
-        url: "http://localhost:3000/api/app/close",
+        url: "/api/app/close",
         async:false
       });
     });
@@ -212,9 +212,9 @@
   redirectOutput(node.stderr);
 
   function checkServerRunning() {
-    request('http://localhost:3000', function (error, response, body) {
+    request('http://localhost:62374', function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        $webview.attr("src", "http://localhost:3000");
+        $webview.attr("src", "http://localhost:62374");
         $("#loading").css("display", "none");
         $webview.css("display", "block");
       } else {
