@@ -15,24 +15,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
-  const spawn = require("child_process").spawn,
+  const path = require("path"),
+        spawn = require("child_process").spawn,
         split = require("split"),
         _ = require("lodash"),
         request = require("request"),
-        node = spawn("node.exe", ["./build/server.js"], { cwd: `${process.cwd()}\\..\\toby` }),
+        node = spawn("node.exe", ["./build/server.js"], { cwd: `${process.cwd()}${path.sep}..${path.sep}toby` }),
+        // When deploying the path for the node spawn needs to be this:
+        // node = spawn("node.exe", ["./build/server.js"], { cwd: process.cwd() }),
         $content = $("#content"),
         $webview = $("#webview"),
         webview = $webview[0],
         snapToPlayerCodeBlock = `var actualCode = '(' + function() {
-          snapToPlayer();
-        } + ')();';
-        var script = document.createElement('script');
-        script.textContent = actualCode;
-        (document.head||document.documentElement).appendChild(script);
-        script.parentNode.removeChild(script);`;
-
-  //navigator.userAgent.includes("node-webkit")
-  //navigator.userAgent.includes("Electron")
+            snapToPlayer();
+          } + ')();';
+          var script = document.createElement('script');
+          script.textContent = actualCode;
+          (document.head||document.documentElement).appendChild(script);
+          script.parentNode.removeChild(script);`;
 
   key("f1", function() {
     if($content.css("visibility") === "hidden") {
@@ -56,7 +56,7 @@
     });
 
     win.on("loaded", function() {
-      win.showDevTools();
+      //win.showDevTools();
       win.show();
     });
 
@@ -187,13 +187,24 @@
       });
     });
 
-    webview.addEventListener('dom-ready', () => {
-      webview.openDevTools();
+    // webview.addEventListener("dom-ready", () => {
+    //   webview.openDevTools();
+    // });
+
+    const browserWindow = require("electron").remote.getCurrentWindow();
+    browserWindow.on("leave-html-full-screen", function() {
+      webview.executeJavaScript(snapToPlayerCodeBlock);//, null, function(result) {
+      //  console.log(result);
+      //});
     });
 
-    const browserWindow = require('electron').remote.getCurrentWindow();
-    browserWindow.on("leave-html-full-screen", function() {
-      webview.executeJavaScript(snapToPlayerCodeBlock);
+    key("f11", function() {
+      if(bowserWindow.isFullScreen()) {
+        bowserWindow.setFullScreen(false);
+        webview.executeJavaScript(snapToPlayerCodeBlock);
+      } else {
+        bowserWindow.setFullScreen(true);
+      }
     });
   }
 
