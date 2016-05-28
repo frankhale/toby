@@ -60,15 +60,11 @@ NW.js, Electron and normal web browser are supported.
 
 ### How can I run the latest code?
 
-NOTE: If you want to run Toby you can just run it from the latest 1.0-SNAPSHOT
-release. If you are impatient you can follow the steps below.
+NOTE: If you want to run Toby you can just run it from the latest 1.0-RC1
+release if you are on Windows. If you aren't on Windows or want to run the
+latest code you can follow the instructions below.
 
-I've provided a 1.0-SNAPSHOT release. This release uses NW.js. I plan to release
-an updated 1.0-SNAPSHOT tomorrow (Friday, 27 May 2016) that will actually be two
-releases, one based on NW.js and one based on Electron.
-
-If you want to run the latest code then I'll provide my development workflow
-here. Set up the folder structure for working with either NW.js or Electron like
+Set up the folder structure for working with either NW.js or Electron like
 this:
 
 ```
