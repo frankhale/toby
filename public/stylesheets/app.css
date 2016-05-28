@@ -6,8 +6,14 @@ body {
   font-size: 24pt;
   overflow: hidden;
 }
-body:hover {
-  overflow: auto;
+#ui {
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+#ui:hover {
+  overflow-y: auto;
 }
 #player {
   position: absolute;
@@ -17,9 +23,6 @@ body:hover {
 }
 * {
   font-family: 'VT323', sans-serif;
-}
-*:hover {
-  outline: none;
 }
 pre {
   outline: none !important;
@@ -53,35 +56,47 @@ blockquote {
 .content-panel {
   padding-left: 10px;
   padding-bottom: 25px;
-  font-size: 20pt;
+  font-size: 20px;
 }
-.slimScrollBar {
-  background-color: #fff !important;
+/* misc */
+.thumbnailIMGWidth {
+  width: 50px;
 }
-.highlightRow {
-  width: 760px;
-  border-radius: 8px;
-  border: 2px solid #000;
+.buttonContainerWidth {
+  width: 1px;
+  white-space: nowrap;
 }
-.highlightRow:hover {
+.textAlignMiddle {
+  vertical-align: middle;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+tr:hover td {
   background-color: #003e80;
   color: #fff;
-  border: 2px solid #001130;
   text-shadow: 0 0 6px #001130;
   font-weight: bold;
+  cursor:pointer;
+}
+tr:hover td.border-left {
+  border-radius: 8px 0 0 8px;
+}
+tr:hover td.border-right {
+  border-radius: 0 8px 8px 0;
 }
 .alignDiv {
   display: inline-block;
   vertical-align: middle;
 }
 .videoTitle {
-  width: 525px;
-  margin-left: 25px;
   cursor: default;
 }
 .videoThumbnail {
   margin-top: 4px;
-  padding: 8px;
+  padding: 6px;
+  width: 50px;
 }
 .videoAddedNotification {
   position: fixed;
@@ -94,8 +109,16 @@ blockquote {
   font-size: 11pt;
   z-index: 10000;
 }
-
-.blackandwhite {
+.manageButton {
+  color: #fff;
+  vertical-align: middle;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.manageButton:hover {
+  color: #999;
+}
+.grayscale {
   -webkit-filter: grayscale(1);
 }
 .saturate {
@@ -104,10 +127,9 @@ blockquote {
 .sepia {
   -webkit-filter: sepia(1);
 }
-
 ::-webkit-scrollbar {
-    height: 4px;
-    width: 4px;
+    height: 8px;
+    width: 8px;
     background: #000;
 }
 ::-webkit-scrollbar-thumb {
@@ -117,4 +139,47 @@ blockquote {
 }
 ::-webkit-scrollbar-corner {
     background: #fff;
+}
+/* Select style borrowed from: http://codepen.io/AmrSubZero/pen/dxpri */
+select {
+  background-color:#357;
+  background-repeat:no-repeat;
+  background-position: right 10px top 10px;
+  background-size: 11px 11px;
+  padding:8px;
+  width:auto;
+  font-family:arial,tahoma;
+  font-size:10px;
+  font-weight:bold;
+  color:#fff;
+  text-align:center;
+  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-radius:3px;
+  /*-webkit-appearance: none;*/
+  border:0;
+  outline:0;
+  -webkit-transition:0.3s ease all;
+	        transition:0.3s ease all;
+}
+select:focus, select:active {
+  border:0;
+  outline:0;
+}
+.groupDropDown:hover {
+  background-color:#123;
+}
+.groupDropDownDisabled {
+  margin-right: 5px;
+  background-color:#333;
+}
+.groupDropDown {
+  margin-right: 5px;
+}
+#version {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  font-weight: bold;
+  color: #111;
+  opacity: .5;
 }

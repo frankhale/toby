@@ -14,12 +14,13 @@ entry
     {
       return {
         title: t.join(" "),
-        ytid: ytid
+        ytid: ytid,
+        isArchived: true
       };
     }
 
 word
-  = ws word:[a-zA-Z0-9_.,&#*!@\|\[\]\/\(\)\+\-\n']+ _
+  = ws word:[a-zA-Z0-9_.,&#*!@\|\[\]\/\(\)\+\-\?\n']+ _
     {
       return word.map((w)=> { return w.trim(); }).join("");
     }

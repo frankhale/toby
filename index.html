@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Toby - A Simple YouTube Player</title>
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="./public/images/toby.ico" /> -->
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=VT323" />
+    <link rel="stylesheet" href="./public/components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./public/stylesheets/main.css">
+
+    <script src="./public/components/jquery/dist/jquery.min.js"></script>
+
+    <script>
+      if(navigator.userAgent.includes("Electron")) {
+        window.$ = window.jQuery = require("./public/components/jquery/dist/jquery.min.js");
+      }
+    </script>
+
+    <script src="./public/components/keymaster/keymaster.js"></script>
+  </head>
+  <body>
+    <div id="loading">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i>
+    </div>
+    <div id="content"></div>
+    <webview id="webview" allowtransparency disablewebsecurity></webview>
+
+    <script src="./build/platform.js"></script>
+  </body>
+</html>
