@@ -35,14 +35,14 @@ Toby Server Log:
 The old Toby architecture was geared towards an Electron deployment and I loaded
 all the code from the file system. The new architecture puts Toby behind an
 Express web application that is spawned from a regular Node process so that more
-deployment scenarios.
+deployment scenarios are possible.
 
 A Toby deployment would ship the regular Node.exe and Node.dll files along side
 the source code. We know NW.js and Electron ship with Node embedded but shipping
 Node as an external resource allows us to run Toby in a regular Node process and
 unencumbered by NW.js / Electron specific compiling requirements for any
 potential native Node modules we may want to use in the future. The only native
-Node module being used to my knowledge is SQLite3.
+Node module being at the moment is SQLite3.
 
 Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
 Electron and support a regular web browser. You need a fairly minimal set of
@@ -51,8 +51,8 @@ supporting files to bootstrap the app in those environments.
 Toby is meant as a personal application running on a personal computer and it's
 web API is not password protected in any way and there has been no attempt to
 protect the data Toby collects. Toby only cares about a few things, namely
-YouTube video titles, ids and the groups you decide to store your favorite
-videos in.
+YouTube video titles, YouTube video IDs and the groups you decide to store your
+favorite videos in.
 
 ## Status
 
