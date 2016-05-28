@@ -123,7 +123,7 @@ class TobyUI extends React.Component {
         }
         break;
       case "/history":
-        this.performSearch("g: Recently Played");
+        this.performSearch("/g Recently Played");
         break;
       case "/rp":
       case "/recently-played":
