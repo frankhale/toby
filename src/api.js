@@ -31,10 +31,11 @@ const API = (function(db) {
         PEG = require("pegjs"),
         fs = require("fs"),
         youtubeSearch = require("youtube-search"),
-        validator = require('validator'),
-        dataPath = `${__dirname}/../data`,
-        dataFilePath = `${dataPath}/data.txt`,
-        dataParser = PEG.buildParser(fs.readFileSync(`${dataPath}/data-grammar.txt`, 'utf8'));
+        validator = require("validator"),
+        path = require("path"),
+        dataPath = `${__dirname}${path.sep}..${path.sep}data`,
+        dataFilePath = `${dataPath}${path.sep}data.txt`,
+        dataParser = PEG.buildParser(fs.readFileSync(`${dataPath}${path.sep}data-grammar.txt`, "utf8"));
 
   function createDataFileString(data) {
     let results = [];
@@ -72,10 +73,10 @@ const API = (function(db) {
     }
   }
 
-  let videoData = readDataFile(dataFilePath);
+  db.importIntoDB(readDataFile(dataFilePath));
 
   fs.watch(dataFilePath, (event, filename) => {
-    videoData = readDataFile(dataFilePath);
+    db.importIntoDB(readDataFile(dataFilePath));
   });
 
   // API Routes
@@ -255,8 +256,10 @@ const API = (function(db) {
       // take top 30
       let top30RecentlyPlayed = _.takeRight(_.uniqBy(data, "ytid"), maxRecentlyPlayedVideos);
 
-      console.log(`before: ${data.length}`);
-      console.log(`after: ${top30RecentlyPlayed.length}`);
+      //console.log(`before: ${data.length}`);
+      //console.log(`after: ${top30RecentlyPlayed.length}`);
+
+      console.log("Trimming the Recently Played group");
 
       // delete all recently played from db
       db.deleteRecentlyPlayedVideosFromDB();

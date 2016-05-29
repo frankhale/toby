@@ -19,23 +19,30 @@ var DB = (function() {
   let _export = {};
 
   const _ = require("lodash"),
-        sqlite3 = require('sqlite3').verbose(),
-        dataPath = `${__dirname}/../data`,
-        db = new sqlite3.Database(`${dataPath}/videoDB`);
+        sqlite3 = require("sqlite3").verbose(),
+        path = require("path"),
+        dataPath = `${__dirname}${path.sep}..${path.sep}data`,
+        db = new sqlite3.Database(`${dataPath}${path.sep}videoDB`);
 
-  db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, ytid  TEXT, [group] TEXT)");
+  _export.importIntoDB = function(videoData) {
+    db.serialize(function() {
+      db.run("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, ytid  TEXT, [group] TEXT)");
 
-    db.each("SELECT COUNT(*) as count FROM videos", function(err, row) {
-      if(row.count === 0) {
+      db.each("SELECT COUNT(*) as count FROM videos", function(err, row) {
         _.forEach(videoData, function(g) {
           _.forEach(g.entries, function(e) {
-            db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [ e.title, e.ytid, g.group ]);
+            _export.getVideoFromDB(e.ytid, function(row) {
+              if(row === undefined && g.group !== "Recently Played") {
+                //console.log(row);
+                console.log(`importing ${e.title} | ${g.group}`);
+                db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [ e.title, e.ytid, g.group ]);
+              }
+            });
           });
         });
-      }
+      });
     });
-  });
+  };
 
   _export.getAllVideosFromDB = function(finished) {
     db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", function(err, rows) {

@@ -20,8 +20,6 @@
         split = require("split"),
         _ = require("lodash"),
         request = require("request"),
-        //node = spawn("node.exe", ["./build/server.js"], { cwd: `${process.cwd()}${path.sep}..${path.sep}toby` }),
-        // When deploying the path for the node spawn needs to be this:
         node = spawn("node.exe", ["./build/server.js"], { cwd: process.cwd() }),
         $content = $("#content"),
         $webview = $("#webview"),
