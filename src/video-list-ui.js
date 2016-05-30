@@ -21,7 +21,7 @@ class VideoList extends React.Component {
     this.onAddVideoButtonHandler = this.onAddVideoButtonHandler.bind(this);
     this.onUpdateVideoButtonHandler = this.onUpdateVideoButtonHandler.bind(this);
     this.onDeleteVideoButtonHandler = this.onDeleteVideoButtonHandler.bind(this);
-    this.onDropDownChange = this.onDropDownChange.bind(this);
+    //this.onDropDownChange = this.onDropDownChange.bind(this);
 
     this.state = {
       data: [],
@@ -117,7 +117,7 @@ class VideoList extends React.Component {
   onUpdateVideoButtonHandler(e) {
     e.preventDefault();
 
-    console.log($(e.target).prop("id").replace("star-", ""));
+    //console.log($(e.target).prop("id").replace("star-", ""));
 
     let id = $(e.target).prop("id").replace("star-", ""),
         video = _.find(this.state.data, { "ytid": id }),
@@ -143,9 +143,9 @@ class VideoList extends React.Component {
       });
     }
   }
-  onDropDownChange(selected, id) {
-    console.log(`video-list-ui.js: ${selected}`);
-  }
+  //onDropDownChange(selected, id) {
+    //console.log(`video-list-ui.js: ${selected}`);
+  //}
   render() {
     let videoResults = this.state.data.map((d, i) => {
       let addButton = "",
@@ -163,14 +163,16 @@ class VideoList extends React.Component {
           clickHandler = function(e){ e.preventDefault(); e.stopPropagation(); };
           dropDownClass = "groupDropDownDisabled";
           addButtonClass = "manageButton fa fa-star";
+          // onDropDownChange={this.onDropDownChange}
           addButton =  <td className="border-right buttonContainerWidth"><span>
-              <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
+              <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
               <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
             </span></td>;
         } else {
+          // onDropDownChange={this.onDropDownChange}
           addButton =
             <td className="border-right buttonContainerWidth"><span>
-              <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
+              <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
               <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
             </span></td>;
         }

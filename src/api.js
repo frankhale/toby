@@ -249,7 +249,12 @@ const API = (function(db) {
     })
   });
 
-  router.post("/videos/recently-played/trim", (req, res, next) => {
+  router.post("/videos/recently-played/last30", (req, res, next) => {
+    let trim = false;
+    if(req.body.trim !== undefined) {
+      trim = req.body.trim;
+    }
+
     // This is going to trim the recently played rows down to the max number
     // which defaults to 30
     db.getAllVideosForGroupFromDB("Recently Played", function(data) {
@@ -259,15 +264,15 @@ const API = (function(db) {
       //console.log(`before: ${data.length}`);
       //console.log(`after: ${top30RecentlyPlayed.length}`);
 
-      console.log("Trimming the Recently Played group");
-
-      // delete all recently played from db
-      db.deleteRecentlyPlayedVideosFromDB();
-
-      // add trimmed recently played back to DB
-      _.forEach(top30RecentlyPlayed, function(rp) {
-        db.addVideoToDB(rp.title, rp.ytid, "Recently Played");
-      });
+      if(req.body.trim) {
+        console.log("Trimming the Recently Played group");
+        // delete all recently played from db
+        db.deleteRecentlyPlayedVideosFromDB();
+        // add trimmed recently played back to DB
+        _.forEach(top30RecentlyPlayed, function(rp) {
+          db.addVideoToDB(rp.title, rp.ytid, "Recently Played");
+        });
+      }
 
       res.json(top30RecentlyPlayed);
     });

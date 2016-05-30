@@ -128,7 +128,19 @@ class TobyUI extends React.Component {
       case "/rp":
       case "/recently-played":
         $.post({
-          url: "/api/videos/recently-played/trim"
+          url: "/api/videos/recently-played/last30"
+        }).done(function(data) {
+          this.setState({
+            searchResults: this.buildVideoResults(data),
+            manage: false
+          });
+        }.bind(this));
+        break;
+      case "/rptrim":
+      case "/trim-recently-played":
+        $.post({
+          url: "/api/videos/recently-played/last30",
+          data: { trim: true }
         }).done(function(data) {
           this.setState({
             searchResults: this.buildVideoResults(data),
@@ -221,9 +233,9 @@ class TobyUI extends React.Component {
     }
   }
   updateVideoButtonHandler(video, group) {
-    console.log(`updateVideoButtonHandler() :: Called`);
-    console.log(video);
-    console.log(group);
+    // console.log(`updateVideoButtonHandler() :: Called`);
+    // console.log(video);
+    // console.log(group);
 
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
@@ -242,8 +254,8 @@ class TobyUI extends React.Component {
     }
   }
   deleteVideoButtonHandler(video) {
-    console.log(`deleteVideoButtonHandler() :: Called`);
-    console.log(video);
+    // console.log(`deleteVideoButtonHandler() :: Called`);
+    // console.log(video);
 
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
