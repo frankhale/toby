@@ -136,6 +136,19 @@ class TobyUI extends React.Component {
           });
         }.bind(this));
         break;
+      case "/rps":
+      case "/recently-played-search":
+        $.post({
+          url: "/api/videos/recently-played/search",
+          data: { searchTerm: searchTerm.replace(command, "") }
+        })
+        .done(function(data) {
+          this.setState({
+            searchResults: this.buildVideoResults(data),
+            manage: false
+          });
+        }.bind(this));
+        break;
       case "/rptrim":
       case "/trim-recently-played":
         $.post({
@@ -305,7 +318,7 @@ class TobyUI extends React.Component {
                    addVideoButtonHandler={this.addVideoButtonHandler}
                    updateVideoButtonHandler={this.updateVideoButtonHandler}
                    deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
-        <Version display={versionDisplay} info="Toby-1.0-SNAPSHOT"  />
+        <Version display={versionDisplay} info="Toby-1.0-RC2"  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );

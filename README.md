@@ -167,6 +167,7 @@ Here is a list (there will be additional ones added soon):
 - `/list` : List all videos contained in the database
 - `/history` : Lists the recently played videos
 - `/rp` or `/recently-played` : List last 30 recently played videos
+- `/rps` or `/recently-played-search` : Search recently played videos
 - `/manage` : Manage what groups videos are in and also provide ability to delete videos
 - `/archive` : Export the contents of the database to the data.txt file
 - `/clear` : Clears search results
@@ -229,7 +230,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-28 May 2016
+2 June 2016
 
 ## License
 

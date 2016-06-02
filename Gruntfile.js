@@ -3,12 +3,12 @@ module.exports = function(grunt) {
   require("load-grunt-tasks")(grunt);
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON("package.json"),
     "babel": {
       options: {
         sourceMap: true,
         plugins: ["transform-react-jsx"],
-        presets: ['babel-preset-es2015']
+        presets: ["babel-preset-es2015"]
       },
       dist: {
         files: {
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks("grunt-contrib-uglify");
 
-  grunt.registerTask('default', ['babel', 'uglify']);
+  grunt.registerTask("default", ["babel", "uglify"]);
 };

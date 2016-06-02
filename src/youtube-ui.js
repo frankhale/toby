@@ -52,7 +52,7 @@ class YouTubeUI extends React.Component {
 
         document.title = videoInfo.title;
 
-        if(socket!==undefined) {
+        if(socket !== undefined) {
           socket.emit("title", { title: videoInfo.title });
         }
 

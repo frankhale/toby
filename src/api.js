@@ -67,7 +67,7 @@ const API = (function(db) {
 
   function writeDataFile(dataFilePath, dataString) {
     try {
-      fs.writeFileSync(dataFilePath, dataString, 'utf8');
+      fs.writeFileSync(dataFilePath, dataString, "utf8");
     } catch (e) {
       console.log(`Error writing data file: ${e}`);
     }
@@ -96,7 +96,7 @@ const API = (function(db) {
   router.get("/videos/groups", (req, res, next) => {
     db.getAllGroupsFromDB(function(data) {
       res.json(data);
-    })
+    });
   });
 
   router.post("/videos/search", (req, res, next) => {
@@ -140,8 +140,6 @@ const API = (function(db) {
         });
       }
     } else {
-      let results = [];
-
       db.getVideosWhereTitleLikeFromDB(searchTerm, function(data) {
         res.json(data);
       });
@@ -158,11 +156,15 @@ const API = (function(db) {
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
       db.addVideoToDB(title, ytid, group);
-    }
 
-    res.json({
-      success: true
-    });
+      res.json({
+        success: true
+      });
+    } else {
+      res.json({
+        success: false
+      });
+    }
   });
 
   router.post("/videos/delete", (req, res, next) => {
@@ -171,11 +173,15 @@ const API = (function(db) {
 
     if(ytid !== undefined && ytid.length > 0) {
       db.deleteVideoFromDB(ytid);
-    }
 
-    res.json({
-      success: true
-    });
+      res.json({
+        success: true
+      });
+    } else {
+      res.json({
+        success: true
+      });
+    }
   });
 
   router.post("/videos/update", (req, res, next) => {
@@ -188,11 +194,15 @@ const API = (function(db) {
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
       db.updateVideoFromDB(title, ytid, group);
-    }
 
-    res.json({
-      success: true
-    });
+      res.json({
+        success: true
+      });
+    } else {
+      res.json({
+        success: false
+      });
+    }
   });
 
   router.post("/videos/recently-played/add", (req, res, next) => {
@@ -232,21 +242,16 @@ const API = (function(db) {
     }
   });
 
-  router.get("/videos/recently-played/search", (req, res, next) => {
+  router.post("/videos/recently-played/search", (req, res, next) => {
     let searchTerm = req.body.searchTerm;
 
-    db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", function(data) {
-
-      let recentlyPlayedWithQuota = _.takeRight(data, maxRecentlyPlayedVideos);
-
-      console.log(data);
-      console.log(recentlyPlayedWithQuota);
-
-      console.log(data.length);
-      console.log(recentlyPlayedWithQuota.length);
-
-      res.json(recentlyPlayedWithQuota);
-    })
+    if(searchTerm !== undefined && searchTerm.length > 0) {
+      db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", function(data) {
+        res.json(data);
+      });
+    } else {
+      res.json([]);
+    }
   });
 
   router.post("/videos/recently-played/last30", (req, res, next) => {

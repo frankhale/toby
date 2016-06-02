@@ -62,8 +62,7 @@ class DropDown extends React.Component {
     }
   }
   render() {
-    let renderedItems =  this.state.items.map(function(e, i) {
-      //console.log(`${e.name} === ${this.props.selected}`);
+    let renderedItems =  this.state.items.map(function(e, i) {      
       if(e.selected || (this.props.selected !== undefined && this.props.selected === e.name)) {
         return <option key={i} value={e.value} selected>{e.name}</option>
       } else {

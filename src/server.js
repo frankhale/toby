@@ -48,8 +48,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-api.post("/app/close", (req, res, next) => {
-  const fs = require("fs");
+api.post("/app/close", (req, res, next) => {  
   db.close();
   server.close();
   process.exit(0);

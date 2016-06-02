@@ -62,11 +62,11 @@
       webview.executeScript({ code: snapToPlayerCodeBlock });
     });
 
-    win.on('new-win-policy', function(frame, url, policy){
+    win.on("new-win-policy", function(frame, url, policy){
       policy.ignore();
     });
 
-    win.on('close', function() {
+    win.on("close", function() {
       win.hide();
 
       $webview.remove();
@@ -123,8 +123,8 @@
       if(url.includes("?v=")) {
         // the id extraction is almost verbatim from:
         // http://stackoverflow.com/a/3452617/170217
-        let video_id = url.split('v=')[1];
-        let ampersandPosition = video_id.indexOf('&');
+        let video_id = url.split("v=")[1];
+        let ampersandPosition = video_id.indexOf("&");
         if(ampersandPosition != -1) {
           video_id = video_id.substring(0, ampersandPosition);
         }
@@ -155,13 +155,13 @@
 
   function strip(s) {
     // regex from: http://stackoverflow.com/a/29497680/170217
-    return s.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
+    return s.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
   }
 
   function redirectOutput(x) {
     let lineBuffer = "";
 
-    x.on('data', function (data) {
+    x.on("data", function (data) {
       lineBuffer += data.toString();
       var lines = lineBuffer.split("\n");
 
@@ -210,7 +210,7 @@
   redirectOutput(node.stderr);
 
   function checkServerRunning() {
-    request('http://localhost:62374', function (error, response, body) {
+    request("http://localhost:62374", function (error, response, body) {
       if (!error && response.statusCode == 200) {
         $webview.attr("src", "http://localhost:62374");
         $("#loading").css("display", "none");
