@@ -35,7 +35,7 @@ const API = (function(db) {
         path = require("path"),
         dataPath = `${__dirname}${path.sep}..${path.sep}data`,
         dataFilePath = `${dataPath}${path.sep}data.txt`,
-        dataParser = PEG.buildParser(fs.readFileSync(`${dataPath}${path.sep}data-grammar.txt`, "utf8"));
+        dataParser = PEG.generate(fs.readFileSync(`${dataPath}${path.sep}data-grammar.txt`, "utf8"));
 
   function createDataFileString(data) {
     let results = [];

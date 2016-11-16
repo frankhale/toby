@@ -15,12 +15,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
+
   const path = require("path"),
         spawn = require("child_process").spawn,
         split = require("split"),
         _ = require("lodash"),
         request = require("request"),
-        node = spawn("node.exe", ["./build/server.js"], { cwd: process.cwd() }),
+        node = spawn(".\\node.exe", ["./build/server.js"], { cwd: process.cwd() }),
         $content = $("#content"),
         $webview = $("#webview"),
         webview = $webview[0],
@@ -101,7 +102,7 @@
       }
     });
 
-    webview.addEventListener("newwindow", function(e) {
+    const newWindowHandler = (e) => {
       // Looks like we can differentiate between clicking the YouTube icon
       // in the player where we want it to open an external browser and clicking
       // a suggested video link after a video is played.
@@ -113,13 +114,17 @@
       // video link with video ID.
       // {url: "https://www.youtube.com/watch?v=4nYMdMtGsPo"}
 
+      // NOTE: What I said above is only partially true, the video has to start
+      // playing for the time_continue to be present in the URL. You cannot 
+      // click the YouTube link and have it open an external browser if the 
+      // video has not started to play.
+
       e.preventDefault();
 
-      const url = e.targetUrl;
+      const url = e.targetUrl || e.url;
 
-      //if(url.includes("time_continue")) {
-      //  nw.Shell.openExternal(url);
-      //} else
+      //console.log(url);
+
       if(url.includes("?v=")) {
         // the id extraction is almost verbatim from:
         // http://stackoverflow.com/a/3452617/170217
@@ -137,9 +142,20 @@
           ytid: video_id
         });
       } else {
-        nw.Shell.openExternal(url);
+        if(navigator.userAgent.includes("node-webkit")) {
+          nw.Shell.openExternal(url);
+        } else if(navigator.userAgent.includes("Electron")) {
+          const {shell} = require("electron");
+          shell.openExternal(url);
+        }
       }
-    });
+    };
+
+    if(navigator.userAgent.includes("Electron")) {
+      webview.addEventListener('new-window', newWindowHandler);
+    } else if (navigator.userAgent.includes("node-webkit")) {
+      webview.addEventListener("newwindow", newWindowHandler);
+    }
   }
 
   var resizeContent = function() {
@@ -181,7 +197,7 @@
       $.ajax({
         type: "POST",
         url: "/api/app/close",
-        async:false
+        async: false
       });
     });
 

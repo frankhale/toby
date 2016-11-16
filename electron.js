@@ -1,8 +1,5 @@
-const electron = require("electron"),
-      path = require("path");
-
-const app = electron.app,
-      BrowserWindow = electron.BrowserWindow;
+const path = require("path"),
+      { app, BrowserWindow } = require("electron");
 
 let mainWindow;
 
@@ -18,23 +15,31 @@ function createWindow () {
     show: false
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-  mainWindow.webContents.on("did-finish-load", function() {
+  mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show();
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   });
-  mainWindow.on("closed", function (e) {
+  mainWindow.on("closed", (e) => {
     mainWindow = null;
   });
 }
 
+// Found an issue with recent versions of electron in that focus would run crazy
+// in certain situations.
+// 
+// Issue: https://github.com/electron/electron/issues/7655
+//
+// This command line switch seems to make the problem go away
+app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false');
+
 app.on("ready", createWindow);
-app.on("window-all-closed", function () {
+app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on("activate", function () {
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }

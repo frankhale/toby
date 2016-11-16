@@ -318,7 +318,7 @@ class TobyUI extends React.Component {
                    addVideoButtonHandler={this.addVideoButtonHandler}
                    updateVideoButtonHandler={this.updateVideoButtonHandler}
                    deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
-        <Version display={versionDisplay} info="Toby-1.0-RC2"  />
+        <Version display={versionDisplay} info="Toby-1.0-RC3"  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );
