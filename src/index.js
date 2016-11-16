@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const express = require("express");
-const router = express.Router();
+const express = require("express"),
+      router = express.Router();
 
 /* GET home page. */
 router.get("/", (req, res, next) => {

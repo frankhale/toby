@@ -64,7 +64,7 @@ class CommandInput extends React.Component {
         commandIndex = 0;
       }
 
-      this.setState({ commandIndex: commandIndex}, function() {
+      this.setState({ commandIndex: commandIndex }, function() {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
 

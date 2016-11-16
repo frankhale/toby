@@ -212,6 +212,7 @@ select:active {
 
 .groupDropDown {
   margin-right: 5px;
+  width: 110px;
 }
 
 #version {
@@ -219,6 +220,6 @@ select:active {
   bottom: 25px;
   right: 25px;
   font-weight: bold;
-  color: #111;
+  color: #444;
   opacity: .5;
 }

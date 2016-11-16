@@ -105,7 +105,7 @@ class VideoList extends React.Component {
     if(this.state.onAddVideoButtonHandler !== undefined && video !== undefined) {
       this.state.onAddVideoButtonHandler(video, group);
 
-      let _d = _.forEach(this.state.data, function(d) {
+      let _d = _.forEach(this.state.data, (d) => {
         if (d.ytid === id) {
           d.justAdded=true;
         }

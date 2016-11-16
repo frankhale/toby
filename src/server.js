@@ -14,21 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const express = require("express");
-const app = express();
-const path = require("path");
-const favicon = require("serve-favicon");
-const logger = require("morgan");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const debug = require("debug")("toby-next:server");
-const http = require("http");
-const process = require("process");
-const port = normalizePort(process.env.PORT || "62374");
-const server = http.createServer(app);
-const db = require("./db");
-const api = require("./api")(db);
-const index = require("./index")
+const express = require("express"),
+      app = express(),
+      path = require("path"),
+      favicon = require("serve-favicon"),
+      logger = require("morgan"),
+      cookieParser = require("cookie-parser"),
+      bodyParser = require("body-parser"),
+      debug = require("debug")("toby-next:server"),
+      http = require("http"),
+      process = require("process"),
+      port = normalizePort(process.env.PORT || "62374"),
+      server = http.createServer(app),
+      db = require("./db"),
+      api = require("./api")(db),
+      index = require("./index");
 
 server.listen(port);
 server.on("error", onError);
@@ -58,8 +58,8 @@ app.use("/", index);
 app.use("/api", api);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error("Not Found");
+app.use((req, res, next) => {
+  let err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
@@ -69,7 +69,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get("env") === "development") {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
 
     console.log(err.stack);
@@ -83,7 +83,7 @@ if (app.get("env") === "development") {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error", {
     message: err.message,

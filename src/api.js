@@ -40,10 +40,10 @@ const API = (function(db) {
   function createDataFileString(data) {
     let results = [];
 
-    _.forEach(data, function(group) {
+    _.forEach(data, (group) => {
       results.push(`${group.group} {`);
 
-      _.forEach(group.entries, function(entry) {
+      _.forEach(group.entries, (entry) => {
         results.push(`\t${entry.title} : ${entry.ytid}`);
       });
 
@@ -88,13 +88,13 @@ const API = (function(db) {
   });
 
   router.get("/videos", (req, res, next) => {
-    db.getAllVideosFromDB(function(data) {
+    db.getAllVideosFromDB((data) => {
       res.json(data);
     });
   });
 
   router.get("/videos/groups", (req, res, next) => {
-    db.getAllGroupsFromDB(function(data) {
+    db.getAllGroupsFromDB((data) => {
       res.json(data);
     });
   });
@@ -105,15 +105,15 @@ const API = (function(db) {
     if (searchTerm.startsWith("/yt")) {
       searchTerm = searchTerm.replace("/yt", "");
 
-      youtubeSearch(searchTerm, youtubeSearchOpts, function(err, results) {
+      youtubeSearch(searchTerm, youtubeSearchOpts, (err, results) => {
         if (err) return console.log(err);
 
-        db.getVideosWhereTitleLikeFromDB(searchTerm, function(localData) {
+        db.getVideosWhereTitleLikeFromDB(searchTerm, (localData) => {
           var finalResults = [];
 
           //console.log(localData);
 
-          _.forEach(results, function(r) {
+          _.forEach(results, (r) => {
             let found = _.find(localData, { "ytid": r.id });
 
             finalResults.push({
@@ -131,16 +131,16 @@ const API = (function(db) {
       searchTerm = searchTerm.replace("/g", "").trim();
 
       if (searchTerm === "all") {
-        db.getAllVideosFromDB(function(data) {
+        db.getAllVideosFromDB((data) => {
           res.json(data);
         });
       } else {
-        db.getAllVideosForGroupFromDB(searchTerm, function(data) {
+        db.getAllVideosForGroupFromDB(searchTerm, (data) => {
           res.json(data);
         });
       }
     } else {
-      db.getVideosWhereTitleLikeFromDB(searchTerm, function(data) {
+      db.getVideosWhereTitleLikeFromDB(searchTerm, (data) => {
         res.json(data);
       });
     }
@@ -215,7 +215,7 @@ const API = (function(db) {
       // Recently Played is the last 30 (by default) videos played
 
       // get all of the recently played videos
-      db.getAllVideosForGroupFromDB("Recently Played", function(data) {
+      db.getAllVideosForGroupFromDB("Recently Played", (data) => {
         // If the video we are trying to add is already in the Recently Played
         // group then we need to exit gracefully...
 
@@ -246,7 +246,7 @@ const API = (function(db) {
     let searchTerm = req.body.searchTerm;
 
     if(searchTerm !== undefined && searchTerm.length > 0) {
-      db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", function(data) {
+      db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", (data) => {
         res.json(data);
       });
     } else {
@@ -262,7 +262,7 @@ const API = (function(db) {
 
     // This is going to trim the recently played rows down to the max number
     // which defaults to 30
-    db.getAllVideosForGroupFromDB("Recently Played", function(data) {
+    db.getAllVideosForGroupFromDB("Recently Played", (data) => {
       // take top 30
       let top30RecentlyPlayed = _.takeRight(_.uniqBy(data, "ytid"), maxRecentlyPlayedVideos);
 
@@ -274,7 +274,7 @@ const API = (function(db) {
         // delete all recently played from db
         db.deleteRecentlyPlayedVideosFromDB();
         // add trimmed recently played back to DB
-        _.forEach(top30RecentlyPlayed, function(rp) {
+        _.forEach(top30RecentlyPlayed, (rp) => {
           db.addVideoToDB(rp.title, rp.ytid, "Recently Played");
         });
       }
@@ -284,14 +284,14 @@ const API = (function(db) {
   });
 
   router.get("/videos/archive", (req, res, next) => {
-    db.getAllGroupsFromDB(function(groups) {
-      db.getAllVideosOrderedByGroupDB(function(data) {
+    db.getAllGroupsFromDB((groups) => {
+      db.getAllVideosOrderedByGroupDB((data) => {
         let results = [];
 
-        _.forEach(groups, function(g) {
+        _.forEach(groups, (g) => {
           let entries = _.sortBy(_.filter(data, { "group": g.group }), ["title"]);
 
-          entries = _.map(entries, function(e) {
+          entries = _.map(entries, (e) => {
             return {
               title: e.title.replace(/[^\x00-\x7F]/g, ""),
               ytid: e.ytid

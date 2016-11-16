@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
-
   const path = require("path"),
         spawn = require("child_process").spawn,
         split = require("split"),
@@ -33,7 +32,7 @@
           (document.head||document.documentElement).appendChild(script);
           script.parentNode.removeChild(script);`;
 
-  key("f1", function() {
+  key("f1", () => {
     if($content.css("visibility") === "hidden") {
       $content.css("visibility", "visible");
       $webview.css("visibility", "hidden");
@@ -46,7 +45,7 @@
   if(navigator.userAgent.includes("node-webkit")) {
     let win = nw.Window.get();
 
-    key("f11", function() {
+    key("f11", () => {
       if(win.isFullscreen) {
         win.leaveFullscreen();
       } else {
@@ -54,7 +53,7 @@
       }
     });
 
-    win.on("loaded", function() {
+    win.on("loaded", () => {
       //win.showDevTools();
       win.show();
     });
@@ -63,11 +62,11 @@
       webview.executeScript({ code: snapToPlayerCodeBlock });
     });
 
-    win.on("new-win-policy", function(frame, url, policy){
+    win.on("new-win-policy", (frame, url, policy) => {
       policy.ignore();
     });
 
-    win.on("close", function() {
+    win.on("close", () => {
       win.hide();
 
       $webview.remove();
@@ -85,7 +84,7 @@
   if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
     let socket = require("socket.io")(62375);
 
-    socket.on("connection", function(s) {
+    socket.on("connection", (s) => {
       $content.append("Socket.IO connection established...<br/>");
 
       s.on("title", function(t) {
@@ -96,13 +95,13 @@
       });
     });
 
-    webview.addEventListener("permissionrequest", function(e) {
+    webview.addEventListener("permissionrequest", (e) => {
       if (e.permission === "fullscreen") {
         e.request.allow();
       }
     });
 
-    const newWindowHandler = (e) => {
+    function newWindowHandler(e) {
       // Looks like we can differentiate between clicking the YouTube icon
       // in the player where we want it to open an external browser and clicking
       // a suggested video link after a video is played.
@@ -158,12 +157,12 @@
     }
   }
 
-  var resizeContent = function() {
+  function resizeContent() {
     $content.css("width", window.innerWidth - 20);
     $content.css("height", window.innerHeight - 20);
-  };
+  }
 
-  window.addEventListener("resize", function(e) {
+  window.addEventListener("resize", (e) => {
     resizeContent();
   });
 
@@ -177,11 +176,11 @@
   function redirectOutput(x) {
     let lineBuffer = "";
 
-    x.on("data", function (data) {
+    x.on("data", (data) => {
       lineBuffer += data.toString();
       var lines = lineBuffer.split("\n");
 
-      _.forEach(lines, function(l) {
+      _.forEach(lines, (l) => {
         if(l !== "") {
           //console.log(strip(l));
           $content.append(strip(l) + "<br/>");
@@ -193,7 +192,7 @@
   }
 
   if(navigator.userAgent.includes("Electron")) {
-    window.addEventListener("beforeunload", function(e) {
+    window.addEventListener("beforeunload", (e) => {
       $.ajax({
         type: "POST",
         url: "/api/app/close",
@@ -206,7 +205,7 @@
     // });
 
     const browserWindow = require("electron").remote.getCurrentWindow();
-    browserWindow.on("leave-html-full-screen", function() {
+    browserWindow.on("leave-html-full-screen", () => {
       webview.executeJavaScript(snapToPlayerCodeBlock);//, null, function(result) {
       //  console.log(result);
       //});
@@ -226,7 +225,7 @@
   redirectOutput(node.stderr);
 
   function checkServerRunning() {
-    request("http://localhost:62374", function (error, response, body) {
+    request("http://localhost:62374", (error, response, body) => {
       if (!error && response.statusCode == 200) {
         $webview.attr("src", "http://localhost:62374");
         $("#loading").css("display", "none");
