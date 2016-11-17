@@ -87,7 +87,7 @@ The required Node binaries are located here (for example):
 
 https://nodejs.org/dist/v7.0.0/win-x64/
 
-Depending on what platform you want to run toby in (Electron or NW.js) you'll
+Depending on what platform you want to run Toby in (Electron or NW.js) you'll
 need to make sure the main property in package.json is set accordingly:
 
 ##### NW.js
@@ -102,7 +102,7 @@ main: "index.html"
 main: "electron.js"
 ```
 
-In order to run toby you'll need to download the dependencies and build the
+In order to run Toby you'll need to download the dependencies and build the
 source code. Open a terminal to the source code repository and run the following
 commands.
 
@@ -183,7 +183,7 @@ thumbnails in search results
 
 ### Updating the data file
 
-Unlike previous versions of toby the data.txt file located in the data folder is
+Unlike previous versions of Toby the data.txt file located in the data folder is
 now only used initially to create the database which stores your favorite
 videos. Videos stored in the database can be exported by entering the `/archive`
 command in the search box. A corresponding `/import` command has not been
