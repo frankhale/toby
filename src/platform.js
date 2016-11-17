@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(function() {
+(() => {
   const path = require("path"),
         spawn = require("child_process").spawn,
         split = require("split"),
@@ -24,7 +24,7 @@
         $content = $("#content"),
         $webview = $("#webview"),
         webview = $webview[0],
-        snapToPlayerCodeBlock = `var actualCode = '(' + function() {
+        snapToPlayerCodeBlock = `var actualCode = '(' + () => {
             snapToPlayer();
           } + ')();';
           var script = document.createElement('script');
@@ -58,7 +58,7 @@
       win.show();
     });
 
-    win.on("restore", function() {
+    win.on("restore", () => {
       webview.executeScript({ code: snapToPlayerCodeBlock });
     });
 
@@ -87,7 +87,7 @@
     socket.on("connection", (s) => {
       $content.append("Socket.IO connection established...<br/>");
 
-      s.on("title", function(t) {
+      s.on("title", (t) => {
         if(t.title !== undefined && t.title !== "") {
           $content.append(`setting title to: ${t.title}<br/>`);
           document.title = t.title;
@@ -206,12 +206,12 @@
 
     const browserWindow = require("electron").remote.getCurrentWindow();
     browserWindow.on("leave-html-full-screen", () => {
-      webview.executeJavaScript(snapToPlayerCodeBlock);//, null, function(result) {
+      webview.executeJavaScript(snapToPlayerCodeBlock);//, null, (result) => {
       //  console.log(result);
       //});
     });
 
-    key("f11", function() {
+    key("f11", () => {
       if(bowserWindow.isFullScreen()) {
         bowserWindow.setFullScreen(false);
         webview.executeJavaScript(snapToPlayerCodeBlock);

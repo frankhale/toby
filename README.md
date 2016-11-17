@@ -16,7 +16,11 @@ Toby Main UI:
 
 Toby Video List:
 
-![Toby Server Log](screenshots/toby-video-list.png)
+![Toby Video List](screenshots/toby-video-list.png)
+
+Toby Video List (Slim Grid)
+
+![Toby Video List (Slim Grid)](screenshots/toby-video-list-slim-grid.png)
 
 Toby Recently Played:
 
@@ -39,14 +43,13 @@ deployment scenarios are possible.
 
 A Toby deployment would ship the regular Node.exe and Node.dll files along side
 the source code. We know NW.js and Electron ship with Node embedded but shipping
-Node as an external resource allows us to run Toby in a regular Node process and
-unencumbered by NW.js / Electron specific compiling requirements for any
-potential native Node modules we may want to use in the future. The only native
-Node module being at the moment is SQLite3.
+Node as an external resource allows us to run Toby's server in a regular Node 
+process and unencumbered by NW.js / Electron specific compiling requirements for 
+any potential native Node modules we may want to use in the future. The only 
+native Node module being at the moment is SQLite3.
 
 Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
-Electron and support a regular web browser. You need a fairly minimal set of
-supporting files to bootstrap the app in those environments.
+Electron and support a regular web browser.
 
 Toby is meant as a personal application running on a personal computer and it's
 web API is not password protected in any way and there has been no attempt to
@@ -54,32 +57,40 @@ protect the data Toby collects. Toby only cares about a few things, namely
 YouTube video titles, YouTube video IDs and the groups you decide to store your
 favorite videos in.
 
-## Status
-
-NW.js, Electron and normal web browser are supported.
-
 ### How can I run the latest code?
 
-NOTE: If you want to run Toby you can just run it from the latest 1.0-RC1
-release if you are on Windows. If you aren't on Windows or want to run the
-latest code you can follow the instructions below.
+Set up the folder structure for working with either NW.js or Electron or both:
 
-Set up the folder structure for working with either NW.js or Electron like
-this:
+![NW.js package.nw root](screenshots/tody-folder-structure.png)
 
-```
-Toby-Master
-  - toby [source code from the rewrite branch]
-  - nwjs [http://nwjs.io] (I'm using 0.15 Windows x64)
-  - electron [http://electron.atom.io] (I'm using 1.1.3 Windows x64)
-```
+Notice that we have a copy of `node.exe` and `node.lib` in the root of the 
+source code repository. This is used to spawn our server for serving our API.
 
-Depending on what platform you want to run Toby in (Electron or NW.js) you'll
+A folder named `electron` and `nwjs` have a copy of Electron and NW.js 
+respectively.
+
+#### Dependencies
+
+- Node : [http://nodejs.org](http://nodejs.org)
+- Grunt : [http://gruntjs.com](http://gruntjs.com)
+- Bower : [http://bower.io/](http://bower.io/)
+- Electron: [http://electron.atom.io/](http://electron.atom.io/)
+- NW.js: [http://nwjs.io/](http://nwjs.io/)
+
+In addition to installing Node on your machine so you can download the
+dependencies and build the code you'll also need a copy of the Node binaries to
+place at the root of the source code folder. This is because when NW.js or
+Electron are executed they will spawn their own external Node process and start
+the Toby server.
+
+The required Node binaries are located here (for example):
+
+https://nodejs.org/dist/v7.0.0/win-x64/
+
+Depending on what platform you want to run toby in (Electron or NW.js) you'll
 need to make sure the main property in package.json is set accordingly:
 
 ##### NW.js
-
-NOTE: I'll probably rename this to nwjs.html to make it more obvious.
 
 ```
 main: "index.html"
@@ -91,69 +102,44 @@ main: "index.html"
 main: "electron.js"
 ```
 
-In order to run Toby you'll need to download the dependencies and build the
-source code, those steps are listed below.
+In order to run toby you'll need to download the dependencies and build the
+source code. Open a terminal to the source code repository and run the following
+commands.
 
-Assuming all dependencies are downloaded and the source code has been compiled
-perform the following:
-
-Running in NW.js
-
-Open a terminal to: `Toby-Master\nwjs` and issue the command:
-
-```
-nw.exe c:\path\to\Toby-Master\toby
-```
-
-Running in Electron
-
-Open a terminal to: `Toby-Master\electron` and issue the command:
-
-```
-electron.exe c:\path\to\Toby-Master\toby
-```
-
-#### Dependencies
-
-- Node : http://nodejs.org
-- Grunt : http://gruntjs.com
-- Bower : http://bower.io/
-
-In addition to installing Node on your machine so you can download the
-dependencies and build the code you'll also need a copy of the Node binaries to
-place at the root of the source code folder. This is because when NW.js or
-Electron are executed they will spawn their own external Node process and start
-the Toby server.
-
-The required Node binaries are located here (for example):
-
-https://nodejs.org/dist/v6.2.0/win-x64/
-
-Here is what the directories look like:
-
-toby source dir:
-
-![NW.js package.nw root](screenshots/toby-source-root-dir.png)
-
-Install dependencies  
+#### Install dependencies  
 
 ```
 npm install   
 bower install
 ```
 
-The code needs to be built using Grunt  
+The code needs to be built using Grunt. If you need grunt install it via 
+`npm install -g grunt`.
 
 ```
 grunt
+```
+
+Assuming all dependencies are downloaded and the source code has been compiled
+perform the following:
+
+#### Running in NW.js
+
+```
+nwjs\nw.exe .
+```
+
+#### Running in Electron
+
+```
+electron\electron .
 ```
 
 ### Usage
 
 **Important Key Combos:**
 
-<kbd>F1</kbd> - Toggles server log  
-<kbd>F5</kbd> - Usage Info (NOT IMPLEMENTED YET)  
+<kbd>F1</kbd> - Toggles server log   
 <kbd>F11</kbd> - Toggle Fullscreen
 
 In addition to keyboard shortcuts there are commands that can be typed into the
@@ -170,6 +156,8 @@ Here is a list (there will be additional ones added soon):
 - `/rps` or `/recently-played-search` : Search recently played videos
 - `/manage` : Manage what groups videos are in and also provide ability to delete videos
 - `/archive` : Export the contents of the database to the data.txt file
+- `/gv` or `/grid-view` - Toggle slim grid view for search results
+- `/dv` or `/default-view` - Toggle default view for search results
 - `/clear` : Clears search results
 - `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
 thumbnails in search results
@@ -192,13 +180,10 @@ thumbnails in search results
   over for the same thing
 - Usage info from within the app
 - Add `/import` to import new videos in the data.txt file
-- Add better support for larger data sets. Currently if there are a large number
-of search results (excluding YouTube searches which default to 25 results) all
-the results will be listed.
 
 ### Updating the data file
 
-Unlike previous versions of Toby the data.txt file located in the data folder is
+Unlike previous versions of toby the data.txt file located in the data folder is
 now only used initially to create the database which stores your favorite
 videos. Videos stored in the database can be exported by entering the `/archive`
 command in the search box. A corresponding `/import` command has not been
@@ -206,7 +191,7 @@ implemented yet.
 
 The data format for your favorite videos is very simple. It can contain one or
 more groups. The 'Recently Played' group is special and will be added if it's
-not present hold the last 30 videos you've recently played.
+not present and will contain the last 30 videos you've recently played.
 
 Data Format:
 
@@ -230,7 +215,7 @@ Recently Played {
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-16 November 2016
+17 November 2016
 
 ## License
 

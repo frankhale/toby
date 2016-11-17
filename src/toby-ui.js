@@ -39,12 +39,12 @@ class TobyUI extends React.Component {
       url: "/api/videos/search",
       data: { searchTerm: searchTerm }
     })
-    .done(function(data) {
+    .done((data) => {
       this.setState({
         searchResults: this.buildVideoResults(data),
         manage: false
       });
-    }.bind(this));
+    });
   }
   onCommandEntered(searchTerm) {
     let commandSegments = searchTerm.split(" ");
@@ -54,32 +54,32 @@ class TobyUI extends React.Component {
       // case "/videos":
       //   $.ajax({
       //     url: '/api/videos'
-      //   }).done(function(data) {
+      //   }).done((data) => {
       //     console.log(data);
       //   });
       //   break;
       // case "/groups":
       //   $.ajax({
       //     url: '/api/videos/groups'
-      //   }).done(function(data) {
+      //   }).done((data) => {
       //     console.log(data);
       //   });
       //   break;
       case "/archive":
         $.ajax({
           url: '/api/videos/archive'
-        }).done(function(data) {
+        }).done((data) => {
           console.log(data);
         });
         break;
       case "/list-all":
         $.ajax({
           url: '/api/videos'
-        }).done(function(data) {
+        }).done((data) => {
           this.setState({
             searchResults: this.buildVideoResults(data)
           });
-        }.bind(this));
+        });
         break;
       case "/clear":
         this.setState({
@@ -142,12 +142,12 @@ class TobyUI extends React.Component {
       case "/recently-played":
         $.post({
           url: "/api/videos/recently-played/last30"
-        }).done(function(data) {
+        }).done((data) => {
           this.setState({
             searchResults: this.buildVideoResults(data),
             manage: false
           });
-        }.bind(this));
+        });
         break;
       case "/rps":
       case "/recently-played-search":
@@ -155,34 +155,34 @@ class TobyUI extends React.Component {
           url: "/api/videos/recently-played/search",
           data: { searchTerm: searchTerm.replace(command, "") }
         })
-        .done(function(data) {
+        .done((data) => {
           this.setState({
             searchResults: this.buildVideoResults(data),
             manage: false
           });
-        }.bind(this));
+        });
         break;
       case "/rptrim":
       case "/trim-recently-played":
         $.post({
           url: "/api/videos/recently-played/last30",
           data: { trim: true }
-        }).done(function(data) {
+        }).done((data) => {
           this.setState({
             searchResults: this.buildVideoResults(data),
             manage: false
           });
-        }.bind(this));
+        });
         break;
       case "/manage":
         $.ajax({
           url: '/api/videos'
-        }).done(function(data) {
+        }).done((data) => {
           this.setState({
             searchResults: this.buildVideoResults(data),
             manage: true
           });
-        }.bind(this));
+        });
         break;
 
       default:
@@ -195,7 +195,7 @@ class TobyUI extends React.Component {
 
     if(socket!==undefined) {
       // User clicked on a recommended video at the end of playing a video
-      socket.on("play-video", function(data) {
+      socket.on("play-video", (data) => {
         this.setState({
           // Once the video loads we'll get a notification from YouTube
           // about what the title is. Then everything falls into place.
@@ -203,25 +203,23 @@ class TobyUI extends React.Component {
             title: "",
             ytid: data.ytid
           }
-        }, function() {
-          this.playVideo(data);
-        });
-      }.bind(this));
+        }, () => { this.playVideo(data); });
+      });
     }
 
     $.ajax({
       url: '/api/videos/groups'
-    }).done(function(data) {
+    }).done((data) => {
       //console.log(data);
       this.setState({
         groups: data
       })
-    }.bind(this));
+    });
   }
   buildVideoResults(data) {
     var results = [];
 
-    _.forEach(data, function(v) {
+    _.forEach(data, (v) => {
 
       // Image thumbnail URL looks like this:
       //
@@ -238,7 +236,7 @@ class TobyUI extends React.Component {
         thumbnail: `https://i.ytimg.com/vi/${v.ytid}/default.jpg`,
         isArchived: v.isArchived
       });
-    }.bind(this));
+    });
 
     return _.sortBy(results, "title");
   }
@@ -348,6 +346,6 @@ class TobyUI extends React.Component {
 }
 
 
-$(document).ready(function() {
+$(document).ready(() => {
   ReactDOM.render(<TobyUI />, document.getElementById("ui"));
 });

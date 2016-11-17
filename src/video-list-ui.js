@@ -26,21 +26,19 @@ class VideoList extends React.Component {
     this.state = {
       data: [],
       applyFilter: "",
-      onAddVideoButtonHandler: function() {},
-      onUpdateVideoButtonHandler: function() {},
-      onDeleteVideoButtonHandler: function() {}
+      onAddVideoButtonHandler: () => {},
+      onUpdateVideoButtonHandler: () => {},
+      onDeleteVideoButtonHandler: () => {}
     };
   }
   componentDidMount() {
     let $videoListTable = $("#videoListTable");
 
-    var resizeTable = function() {
+    var resizeTable = () => {
       $videoListTable.css("width", window.innerWidth - 25);
     };
 
-    window.addEventListener("resize", function(e) {
-      resizeTable();
-    });
+    window.addEventListener("resize", (e) => { resizeTable(); });
 
     resizeTable();
 
@@ -54,17 +52,17 @@ class VideoList extends React.Component {
       {
         name: "-Select Group-",
         value: "-1",
-        action: function() {}
+        action: () => {}
       }
     ];
 
     if(nextProps.groups !== undefined) {
-      _.forEach(nextProps.groups, function(g) {
+      _.forEach(nextProps.groups, (g) => {
         if(g.group !== "Recently Played") {
           items.push({
             name: g.group,
             value: g.group,
-            action: function() { }
+            action: () => {}
           });
         }
       });
@@ -73,7 +71,7 @@ class VideoList extends React.Component {
     let videos = [];
 
     if(nextProps.data !== undefined && nextProps.data.length > 0) {
-      videos = nextProps.data.map(function(d, i) {
+      videos = nextProps.data.map((d, i) => {
         //console.log(d);
 
         return {
@@ -85,7 +83,7 @@ class VideoList extends React.Component {
           isArchived: d.isArchived,
           justAdded: (d.justAdded !== undefined) ? d.justAdded : false
         };
-      }.bind(this));
+      });
     }
 
     this.setState({
@@ -165,7 +163,7 @@ class VideoList extends React.Component {
             addButtonClass = "manageButton fa fa-star-o";
 
         if (d.justAdded) {
-          clickHandler = function(e){ e.preventDefault(); e.stopPropagation(); };
+          clickHandler = (e) => { e.preventDefault(); e.stopPropagation(); };
           dropDownClass = "groupDropDownDisabled";
           addButtonClass = "manageButton fa fa-star";
           // onDropDownChange={this.onDropDownChange}

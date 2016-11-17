@@ -9,7 +9,7 @@
   "version": "1.0.0-RC3",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
-  ],
+  ],  
   "license": "GPL-3.0",
   "private": true,
   "main": "electron.js",

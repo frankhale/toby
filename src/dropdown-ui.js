@@ -24,14 +24,14 @@ class DropDown extends React.Component {
     // {
     //   name: "Really Cool Thing",
     //   value: 1,
-    //   action: function() {}
+    //   action: () => {}
     // }
 
     this.onDropDownChange = this.onDropDownChange.bind(this);
 
     this.state = {
       name: "",
-      onDropDownChange: function() {},
+      onDropDownChange: () => {},
       items: []
     };
   }
@@ -41,7 +41,7 @@ class DropDown extends React.Component {
         name: props.name,
         items: props.items,
         disabled: (props.disabled === undefined) ? "" : "disabled",
-        onDropDownChange: (props.onDropDownChange !== undefined) ? props.onDropDownChange : function() {}
+        onDropDownChange: (props.onDropDownChange !== undefined) ? props.onDropDownChange : () => {}
       });
     }
   }
@@ -62,13 +62,13 @@ class DropDown extends React.Component {
     }
   }
   render() {
-    let renderedItems =  this.state.items.map(function(e, i) {      
+    let renderedItems =  this.state.items.map((e, i) => {      
       if(e.selected || (this.props.selected !== undefined && this.props.selected === e.name)) {
         return <option key={i} value={e.value} selected>{e.name}</option>
       } else {
         return <option key={i} value={e.value}>{e.name}</option>
       }
-    }.bind(this));
+    });
 
     return (
       <select id={this.state.name}

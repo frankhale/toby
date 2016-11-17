@@ -64,7 +64,7 @@ class CommandInput extends React.Component {
         commandIndex = 0;
       }
 
-      this.setState({ commandIndex: commandIndex }, function() {
+      this.setState({ commandIndex: commandIndex }, () => {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
 
@@ -75,7 +75,7 @@ class CommandInput extends React.Component {
         commandIndex = this.state.commandsEntered.length;
       }
 
-      this.setState({ commandIndex: commandIndex }, function() {
+      this.setState({ commandIndex: commandIndex }, () => {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
 
@@ -86,7 +86,7 @@ class CommandInput extends React.Component {
       this.setState({
         commandsEntered: _.uniq(this.state.commandsEntered.concat([textEntered])),
         commandIndex: -1
-      }, function() {
+      }, () => {
         if(this.props.onKeyEnter !== undefined) {
           this.props.onKeyEnter(textEntered);
         }

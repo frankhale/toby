@@ -38,7 +38,7 @@ class VideoListGrid extends React.Component {
     // recieve props like this to make sure I perform the necessary checks.
 
     if(nextProps.data !== undefined && nextProps.data.length > 0) {
-      videos = nextProps.data.map(function(d, i) {
+      videos = nextProps.data.map((d, i) => {
         return {
           playVideo: d.playVideo,
           title: d.title,
@@ -46,7 +46,7 @@ class VideoListGrid extends React.Component {
           group: d.group,
           thumbnail: d.thumbnail
         };
-      }.bind(this));
+      });
     }
 
     this.setState({

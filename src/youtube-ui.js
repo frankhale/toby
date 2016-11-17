@@ -35,15 +35,15 @@ class YouTubeUI extends React.Component {
     };
   }
   setupYTPlayer() {
-    const onPlayerReady = function(e) {
-      // $(window.frames[0].document).on("keydown", function (e) {
+    const onPlayerReady = (e) => {
+      // $(window.frames[0].document).on("keydown", (e) => {
       //   $(top.document).trigger(e);
       // });
 
       player.setVolume(30);
     };
 
-    const onPlayerStateChange = function(e) {
+    const onPlayerStateChange = (e) => {
       let videoInfo = e.target.getVideoData();
 
       if(videoInfo.title !== "" &&
@@ -71,10 +71,10 @@ class YouTubeUI extends React.Component {
           }
         });
       }
-    }.bind(this);
+    };
 
     let player;
-    window.onYouTubeIframeAPIReady = function() {
+    window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player('player', {
         //videoId: 'FnERt5fGoOg',
         playerVars: {
@@ -87,7 +87,7 @@ class YouTubeUI extends React.Component {
         }
       });
 
-      // $(window.frames[0].document).on('keydown', function (e) {
+      // $(window.frames[0].document).on('keydown', (e) => {
       //     $(top.document).trigger('keydown', e);
       // });
 
@@ -98,7 +98,7 @@ class YouTubeUI extends React.Component {
       }
 
       if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
-        setInterval(function() {
+        setInterval(() => {
           $player.contents().find(".adDisplay").css("display", "none");
         }, 1000);
       }
@@ -107,7 +107,7 @@ class YouTubeUI extends React.Component {
         player: player
       });
 
-    }.bind(this);
+    };
   }
   playVideo(video) {
     this.state.player.setVolume(30);
@@ -123,12 +123,12 @@ class YouTubeUI extends React.Component {
     $ui.animate({ scrollTop: $ui.prop("scrollHeight")}, 250);
   }
   componentDidMount() {
-    $.getScript("https://www.youtube.com/iframe_api", function(data, textStatus, jqxhr) {
+    $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
       if(textStatus === "success") {
         console.log("YouTube API loaded...");
         this.setupYTPlayer();
       }
-    }.bind(this));
+    });
   }
   componentWillReceiveProps(nextProps) {
     if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
