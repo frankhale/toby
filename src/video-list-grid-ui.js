@@ -23,12 +23,22 @@ class VideoListGrid extends React.Component {
       applyFilter: ""
     };
   }
+  componentDidMount() {
+    this.updateViewBasedOnProps(this.props);
+  }
   componentWillReceiveProps(nextProps) {
+    this.updateViewBasedOnProps(nextProps);
+  }
+  updateViewBasedOnProps(nextProps) {
     let videos = [];
+
+    // docs for componentWillReceiveProps says to check if nextProps is 
+    // different than this.props and make changes accordingly. I'm skipping that
+    // for now...Additionally I need to go back and check all components that
+    // recieve props like this to make sure I perform the necessary checks.
 
     if(nextProps.data !== undefined && nextProps.data.length > 0) {
       videos = nextProps.data.map(function(d, i) {
-
         return {
           playVideo: d.playVideo,
           title: d.title,
@@ -47,9 +57,9 @@ class VideoListGrid extends React.Component {
   render() {
     return (
       <div>{
-        this.state.data.map(function(d, i) {
+        this.state.data.map((d, i) => {
           return <img src={d.thumbnail} title={d.title} key={i} className={"videoThumbnailSlim " + this.state.applyFilter} onClick={d.playVideo.bind(this, d, this.state.data)}></img>;
-        }.bind(this))
+        })
       }</div>
     );
   }

@@ -43,8 +43,13 @@ class VideoList extends React.Component {
     });
 
     resizeTable();
+
+    this.updateViewBasedOnProps(this.props);
   }
   componentWillReceiveProps(nextProps) {
+    this.updateViewBasedOnProps(nextProps);
+  }
+  updateViewBasedOnProps(nextProps) {
     let items = [
       {
         name: "-Select Group-",

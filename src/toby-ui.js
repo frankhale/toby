@@ -30,6 +30,7 @@ class TobyUI extends React.Component {
       searchResults: [],
       applyFilter: "",
       currentVideo: "",
+      gridView: false,
       manage: false
     };
   }
@@ -90,6 +91,18 @@ class TobyUI extends React.Component {
         if(socket!==undefined) {
           socket.emit("title", { title: appTitle });
         }
+        break;
+      case "/gv":
+      case "/grid-view":
+        this.setState({
+          gridView: true
+        });
+        break;
+      case "/dv":
+      case "/default-view":
+        this.setState({
+          gridView: false
+        });
         break;
       case "/monochrome":
         this.setState({ applyFilter: "grayscale" });
@@ -308,24 +321,31 @@ class TobyUI extends React.Component {
       versionDisplay = false;
     }
 
+    let view;
+
+    if(this.state.gridView) {
+      view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />; 
+    } else {
+      view = 
+        <VideoList data={this.state.searchResults}
+            groups={this.state.groups}
+            manage={this.state.manage}
+            applyFilter={this.state.applyFilter}
+            addVideoButtonHandler={this.addVideoButtonHandler}
+            updateVideoButtonHandler={this.updateVideoButtonHandler}
+            deleteVideoButtonHandler={this.deleteVideoButtonHandler} />;
+    }
+
     return (
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
-        <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />
+        {view}
         <Version display={versionDisplay} info="Toby-1.0-RC3"  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );
   }
 }
-
-// <VideoList data={this.state.searchResults}
-//             groups={this.state.groups}
-//             manage={this.state.manage}
-//             applyFilter={this.state.applyFilter}
-//             addVideoButtonHandler={this.addVideoButtonHandler}
-//             updateVideoButtonHandler={this.updateVideoButtonHandler}
-//             deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
 
 
 $(document).ready(function() {
