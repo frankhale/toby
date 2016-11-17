@@ -311,19 +311,22 @@ class TobyUI extends React.Component {
     return (
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
-        <VideoList data={this.state.searchResults}
-                   groups={this.state.groups}
-                   manage={this.state.manage}
-                   applyFilter={this.state.applyFilter}
-                   addVideoButtonHandler={this.addVideoButtonHandler}
-                   updateVideoButtonHandler={this.updateVideoButtonHandler}
-                   deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
+        <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />
         <Version display={versionDisplay} info="Toby-1.0-RC3"  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );
   }
 }
+
+// <VideoList data={this.state.searchResults}
+//             groups={this.state.groups}
+//             manage={this.state.manage}
+//             applyFilter={this.state.applyFilter}
+//             addVideoButtonHandler={this.addVideoButtonHandler}
+//             updateVideoButtonHandler={this.updateVideoButtonHandler}
+//             deleteVideoButtonHandler={this.deleteVideoButtonHandler} />
+
 
 $(document).ready(function() {
   ReactDOM.render(<TobyUI />, document.getElementById("ui"));

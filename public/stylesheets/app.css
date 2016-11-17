@@ -118,7 +118,19 @@ tr:hover td.border-right {
 .videoThumbnail {
   margin-top: 4px;
   padding: 6px;
-  width: 50px;
+  width: 90px;
+}
+
+.videoThumbnailSlim {
+  margin-left: 5px;
+  margin-top: 4px;
+  padding: 6px;
+  width: 60px;
+  border: 4px solid black;
+}
+
+.videoThumbnailSlim:hover {
+  border: 4px solid #003e80;
 }
 
 .videoAddedNotification {

@@ -22,6 +22,7 @@ module.exports = function(grunt) {
           "public/scripts/version-ui.js": "src/version-ui.js",
           "public/scripts/dropdown-ui.js": "src/dropdown-ui.js",
           "public/scripts/video-list-ui.js": "src/video-list-ui.js",
+          "public/scripts/video-list-grid-ui.js": "src/video-list-grid-ui.js",
           "public/scripts/command-input-ui.js": "src/command-input-ui.js",
           "public/scripts/youtube-ui.js": "src/youtube-ui.js",
           "public/scripts/toby-ui.js": "src/toby-ui.js"
@@ -38,6 +39,7 @@ module.exports = function(grunt) {
           "public/scripts/dropdown-ui.min.js": "public/scripts/dropdown-ui.js",
           "public/scripts/command-input-ui.min.js": "public/scripts/command-input-ui.js",
           "public/scripts/video-list-ui.min.js": "public/scripts/video-list-ui.js",
+          "public/scripts/video-list-grid-ui.min.js": "public/scripts/video-list-grid-ui.js",
           "public/scripts/youtube-ui.min.js": "public/scripts/youtube-ui.js",
           "public/scripts/toby-ui.min.js": "public/scripts/toby-ui.js"
         }
