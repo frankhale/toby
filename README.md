@@ -154,25 +154,36 @@ Here is a list (there will be additional ones added soon):
 - `/history` : Lists the recently played videos
 - `/rp` or `/recently-played` : List last 30 recently played videos
 - `/rps` or `/recently-played-search` : Search recently played videos
-- `/manage` : Manage what groups videos are in and also provide ability to delete videos
+- `/manage` : Manage what groups videos are in and also provide ability to 
+delete videos
 - `/archive` : Export the contents of the database to the data.txt file
 - `/gv` or `/grid-view` - Toggle slim grid view for search results
 - `/dv` or `/default-view` - Toggle default view for search results
 - `/clear` : Clears search results
-- `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
-thumbnails in search results
-- `/saturate` : (NW.js/Electron only) Short cut to set the saturated video filter and
-thumbnails in search results
+- `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video 
+filter and thumbnails in search results
+- `/saturate` : (NW.js/Electron only) Short cut to set the saturated video 
+filter and thumbnails in search results
 - `/sepia` : (NW.js/Electron only) Short cut to set the sepia video filter and
 thumbnails in search results
 - `/normal` : (NW.js/Electron only) Short cut to set the normal video filter and
 thumbnails in search results
-- `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome video filter and
-thumbnails in search results
-- `/filter saturate` : (NW.js/Electron only) Short cut to set the saturated video filter and
-thumbnails in search results
-- `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video filter and
-thumbnails in search results
+- `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome 
+video filter and thumbnails in search results
+- `/filter saturate` : (NW.js/Electron only) Short cut to set the saturated 
+video filter and thumbnails in search results
+- `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video 
+filter and thumbnails in search results
+
+### Wait, I used NW.js and some YouTube videos won't play
+
+The FFMPEG library that ships with NW.js is less capable than the one that ships
+with Electron. The short answer is just copy the FFMPEG library from an Electron
+release replace the one that ships with NW.js. I've been doing this for a long 
+time and it works well for me (on Windows). 
+
+The longer answer is you can compile your own FFMPEG library with the support 
+you and there are a lot of resources already out there to handle this scenario.
 
 ### Features TODO
 
