@@ -121,7 +121,8 @@ grunt
 ```
 
 Assuming all dependencies are downloaded and the source code has been compiled
-perform the following:
+perform the following from a command line at the root of the Toby code 
+repository:
 
 #### Running in NW.js
 
