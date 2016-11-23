@@ -220,6 +220,7 @@ select:active {
 .groupDropDownDisabled {
   margin-right: 5px;
   background-color: #333;
+  width: 110px;
 }
 
 .groupDropDown {

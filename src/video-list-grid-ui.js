@@ -56,11 +56,13 @@ class VideoListGrid extends React.Component {
   }
   render() {
     return (
-      <div>{
+      <div>
+      {
         this.state.data.map((d, i) => {
           return <img src={d.thumbnail} title={d.title} key={i} className={"videoThumbnailSlim " + this.state.applyFilter} onClick={d.playVideo.bind(this, d, this.state.data)}></img>;
         })
-      }</div>
+      }
+      </div>
     );
   }
 }

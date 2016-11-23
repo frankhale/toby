@@ -3,7 +3,15 @@ const path = require("path"),
 
 let mainWindow;
 
-function createWindow () {
+// Found an issue with recent versions of electron in that focus would run crazy
+// in certain situations.
+// 
+// Issue: https://github.com/electron/electron/issues/7655
+//
+// This command line switch seems to make the problem go away
+app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false');
+
+app.on("ready", () => {
   mainWindow = new BrowserWindow({
     autoHideMenuBar: true,
     icon: `${__dirname}${path.sep}public${path.sep}images${path.sep}toby.png`,
@@ -22,17 +30,8 @@ function createWindow () {
   mainWindow.on("closed", (e) => {
     mainWindow = null;
   });
-}
+});
 
-// Found an issue with recent versions of electron in that focus would run crazy
-// in certain situations.
-// 
-// Issue: https://github.com/electron/electron/issues/7655
-//
-// This command line switch seems to make the problem go away
-app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false');
-
-app.on("ready", createWindow);
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();

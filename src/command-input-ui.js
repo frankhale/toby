@@ -17,6 +17,7 @@
 class CommandInput extends React.Component {
   constructor() {
     super();
+    
     this.onCommandInputKeyUp = this.onCommandInputKeyUp.bind(this);
     this.onCommandInputChanged = this.onCommandInputChanged.bind(this);
 
@@ -96,10 +97,8 @@ class CommandInput extends React.Component {
     }
   }
   onCommandInputChanged(e) {
-    const textEntered = this.state.commandText.val();
-
     if(this.props.onKeyChanged !== undefined) {
-      this.props.onKeyChanged(textEntered);
+      this.props.onKeyChanged(this.state.commandText.val());
     }
   }
   render() {

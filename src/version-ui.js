@@ -32,10 +32,10 @@ class Version extends React.Component {
     }
   }
   render() {
-    if(this.state.display) {
+    if(this.state.display && this.state.info.length !== "") {
       return <div id="version">{this.state.info}</div>
-    } else {
-      return <div></div>;
     }
+
+    return null;
   }
 }

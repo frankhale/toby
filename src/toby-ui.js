@@ -31,7 +31,8 @@ class TobyUI extends React.Component {
       applyFilter: "",
       currentVideo: "",
       gridView: false,
-      manage: false
+      manage: false,
+      tobyVersion: ""
     };
   }
   performSearch(searchTerm) {
@@ -47,8 +48,8 @@ class TobyUI extends React.Component {
     });
   }
   onCommandEntered(searchTerm) {
-    let commandSegments = searchTerm.split(" ");
-    let command = commandSegments[0];
+    const commandSegments = searchTerm.split(" ");
+    const command = commandSegments[0];
 
     switch(command) {
       // case "/videos":
@@ -194,6 +195,12 @@ class TobyUI extends React.Component {
     document.title = appTitle;
 
     if(socket!==undefined) {
+      socket.on("toby-version", (data) => {
+        this.setState({
+          tobyVersion: data
+        });
+      });
+      
       // User clicked on a recommended video at the end of playing a video
       socket.on("play-video", (data) => {
         this.setState({
@@ -281,7 +288,7 @@ class TobyUI extends React.Component {
     // console.log(`deleteVideoButtonHandler() :: Called`);
     // console.log(video);
 
-    let found = _.find(this.state.searchResults, { ytid: video.ytid });
+    const found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
       $.post({
@@ -314,12 +321,12 @@ class TobyUI extends React.Component {
     }
   }
   render() {
-    let versionDisplay = true;
+    let versionDisplay = true,
+        view;
+        
     if (this.state.searchResults !== undefined && this.state.searchResults.length > 0) {
       versionDisplay = false;
     }
-
-    let view;
 
     if(this.state.gridView) {
       view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />; 
@@ -338,7 +345,7 @@ class TobyUI extends React.Component {
       <div>
         <CommandInput onKeyEnter={this.onCommandEntered} />
         {view}
-        <Version display={versionDisplay} info="Toby-1.0-RC3"  />
+        <Version display={versionDisplay} info={this.state.tobyVersion}  />
         <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
       </div>
     );

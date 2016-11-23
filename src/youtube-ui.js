@@ -44,7 +44,7 @@ class YouTubeUI extends React.Component {
     };
 
     const onPlayerStateChange = (e) => {
-      let videoInfo = e.target.getVideoData();
+      const videoInfo = e.target.getVideoData();
 
       if(videoInfo.title !== "" &&
         this.state.currentVideo.title === "" ||
@@ -113,8 +113,8 @@ class YouTubeUI extends React.Component {
     this.state.player.setVolume(30);
     this.state.player.loadVideoById(video.ytid);
 
-    let $player = $("#player"),
-        $ui = $("#ui");
+    const $player = $("#player"),
+          $ui = $("#ui");
 
     if($player.css("display") !== "block") {
       $player.css("display", "block");
@@ -169,13 +169,11 @@ class YouTubeUI extends React.Component {
 
       this.setState({ currentVideo: nextProps.video });
       this.playVideo(nextProps.video);
-    } else {
-      if(!(_.isEmpty(this.state.currentVideo))) {
-        this.state.player.stopVideo();
-        $("#player").css("display", "none");
+    } else if(!(_.isEmpty(this.state.currentVideo))) {
+      this.state.player.stopVideo();
+      $("#player").css("display", "none");
 
-        this.setState({ currentVideo: {} });
-      }
+      this.setState({ currentVideo: {} });
     }
   }
   render() {

@@ -25,6 +25,13 @@
     <div id="content"></div>
     <webview id="webview" allowtransparency disablewebsecurity allowpopups></webview>
 
+    <script>
+      const titleCase = require("title-case"),
+            pkgJSON = require("./package.json");
+      
+      window.tobyVersion = `${titleCase(pkgJSON.name)}-${pkgJSON.version}`;
+    </script>
+
     <script src="./build/platform.js"></script>
   </body>
 </html>

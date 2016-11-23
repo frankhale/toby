@@ -1,4 +1,4 @@
-// nw.js
+// platform.js
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -93,6 +93,8 @@
           document.title = t.title;
         }
       });
+
+      s.emit("toby-version", window.tobyVersion);      
     });
 
     webview.addEventListener("permissionrequest", (e) => {
@@ -224,17 +226,14 @@
   redirectOutput(node.stdout);
   redirectOutput(node.stderr);
 
-  function checkServerRunning() {
+  let checkServerRunning = setInterval(() => {
     request("http://localhost:62374", (error, response, body) => {
       if (!error && response.statusCode == 200) {
         $webview.attr("src", "http://localhost:62374");
         $("#loading").css("display", "none");
         $webview.css("display", "block");
-      } else {
-        setTimeout(checkServerRunning, 1000);
-      }
+        clearInterval(checkServerRunning);
+      } 
     });
-  }
-
-  checkServerRunning();
+  }, 1000);
 })();

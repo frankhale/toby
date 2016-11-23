@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/frankhale/toby.git"
   },
-  "version": "1.0.0-RC3",
+  "version": "1.0.0-RC4",
   "authors": [
     "Frank Hale <frankhale@gmail.com>"
   ],
@@ -49,6 +49,7 @@
     "socket.io": "^1.6.0",
     "split": "^1.0.0",
     "sqlite3": "^3.1.4",
+    "title-case": "^2.1.0",
     "validator": "^6.1.0",
     "youtube-search": "^1.0.4"
   }

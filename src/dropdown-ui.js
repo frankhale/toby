@@ -18,15 +18,6 @@ class DropDown extends React.Component {
   constructor() {
     super();
 
-    // The way this is gonna work is that you make a selection and a callback
-    // kicks off to let you know a selection was made.
-    //
-    // {
-    //   name: "Really Cool Thing",
-    //   value: 1,
-    //   action: () => {}
-    // }
-
     this.onDropDownChange = this.onDropDownChange.bind(this);
 
     this.state = {
@@ -52,13 +43,8 @@ class DropDown extends React.Component {
     this.processProps(nextProps);
   }
   onDropDownChange(e) {
-    let selectedValue = e.target.value;
-
-    console.log($(e.target));
-    console.log($(e.target).prop("id"));
-
     if(this.state.onDropDownChange !== undefined) {
-      this.state.onDropDownChange(selectedValue, $(e.target).prop("id"));
+      this.state.onDropDownChange(e.target.value, $(e.target).prop("id"));
     }
   }
   render() {
