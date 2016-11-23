@@ -24,7 +24,7 @@
         $content = $("#content"),
         $webview = $("#webview"),
         webview = $webview[0],
-        snapToPlayerCodeBlock = `var actualCode = '(' + () => {
+        snapToPlayerCodeBlock = `var actualCode = '(' + function() {
             snapToPlayer();
           } + ')();';
           var script = document.createElement('script');
