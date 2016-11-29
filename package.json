@@ -12,7 +12,7 @@
   ],
   "license": "GPL-3.0",
   "private": true,
-  "main": "index.html",
+  "main": "electron.js",
   "node-remote": "http://localhost:62374/",
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 node-webkit-%nwver",
   "window": {
@@ -46,11 +46,11 @@
     "pegjs": "^0.10.0",
     "request": "^2.79.0",
     "serve-favicon": "^2.3.2",
-    "socket.io": "^1.6.0",
+    "socket.io": "^1.7.1",
     "split": "^1.0.0",
     "sqlite3": "^3.1.4",
     "title-case": "^2.1.0",
-    "validator": "^6.1.0",
+    "validator": "^6.2.0",
     "youtube-search": "^1.0.4"
   }
 }
