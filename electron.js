@@ -25,7 +25,7 @@ app.on("ready", () => {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show();
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
   });
   mainWindow.on("closed", (e) => {
     mainWindow = null;
