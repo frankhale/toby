@@ -21,7 +21,6 @@ class VideoList extends React.Component {
     this.onAddVideoButtonHandler = this.onAddVideoButtonHandler.bind(this);
     this.onUpdateVideoButtonHandler = this.onUpdateVideoButtonHandler.bind(this);
     this.onDeleteVideoButtonHandler = this.onDeleteVideoButtonHandler.bind(this);
-    //this.onDropDownChange = this.onDropDownChange.bind(this);
 
     this.state = {
       data: [],
@@ -146,9 +145,6 @@ class VideoList extends React.Component {
       });
     }
   }
-  //onDropDownChange(selected, id) {
-    //console.log(`video-list-ui.js: ${selected}`);
-  //}
   render() {
     let videoResults = this.state.data.map((d, i) => {
       let addButton = "",

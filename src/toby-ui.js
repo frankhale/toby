@@ -213,6 +213,14 @@ class TobyUI extends React.Component {
         }, () => { this.playVideo(data); });
       });
     }
+
+    $.ajax({
+      url: '/api/videos/groups'
+    }).done((data) => {      
+      this.setState({
+        groups: data
+      });
+    });
   }
   buildVideoResults(data) {
     var results = [];
