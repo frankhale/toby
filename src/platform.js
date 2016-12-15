@@ -214,11 +214,11 @@
     });
 
     key("f11", () => {
-      if(bowserWindow.isFullScreen()) {
-        bowserWindow.setFullScreen(false);
+      if(browserWindow.isFullScreen()) {
+        browserWindow.setFullScreen(false);
         webview.executeJavaScript(snapToPlayerCodeBlock);
       } else {
-        bowserWindow.setFullScreen(true);
+        browserWindow.setFullScreen(true);
       }
     });
   }
