@@ -213,21 +213,11 @@ class TobyUI extends React.Component {
         }, () => { this.playVideo(data); });
       });
     }
-
-    $.ajax({
-      url: '/api/videos/groups'
-    }).done((data) => {
-      //console.log(data);
-      this.setState({
-        groups: data
-      })
-    });
   }
   buildVideoResults(data) {
     var results = [];
 
     _.forEach(data, (v) => {
-
       // Image thumbnail URL looks like this:
       //
       // https://i.ytimg.com/vi/YTID/default.jpg
@@ -351,7 +341,6 @@ class TobyUI extends React.Component {
     );
   }
 }
-
 
 $(document).ready(() => {
   ReactDOM.render(<TobyUI />, document.getElementById("ui"));

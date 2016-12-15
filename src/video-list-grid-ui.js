@@ -1,4 +1,4 @@
-// platform.js
+// video-list-grid-ui.js - A video list grid React component for Toby
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify

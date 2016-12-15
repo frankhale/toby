@@ -104,7 +104,13 @@ class CommandInput extends React.Component {
   render() {
     return (
       <div id="commandContainer" className="command-container">
-        &gt;<input id="commandText" className="command-input" type="text" onKeyUp={this.onCommandInputKeyUp} onChange={this.onCommandInputChanged} autoFocus placeholder="Search YouTube or your saved videos..." />
+        &gt;<input id="commandText" 
+                   className="command-input" 
+                   type="text" 
+                   onKeyUp={this.onCommandInputKeyUp} 
+                   onChange={this.onCommandInputChanged} 
+                   autoFocus 
+                   placeholder="Search YouTube or your saved videos..." />
       </div>
     );
   }
