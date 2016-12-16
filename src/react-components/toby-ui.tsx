@@ -1,4 +1,4 @@
-// toby-ui.js - Front end code for Toby
+// toby-ui.tsx - Front end code React component for Toby
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,40 +14,115 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const appTitle = "Toby - A Simple YouTube Player";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as _ from "lodash";
+import * as io from "socket.io-client";
+import * as $ from "jquery";
 
-class TobyUI extends React.Component {
+import { CommandInput } from "./command-input-ui";
+import { IYouTubeProps, YouTube } from "./youtube-ui";
+import { IVersionProps, Version } from "./version-ui";
+import { IViewListGridProps, VideoListGrid } from "./video-list-grid-ui";
+import { IVideoGroup, 
+         IVideoEntry, 
+         ITobyVersionInfo, 
+         ISearchResults } from "./infrastructure";
+
+interface ITobyState {
+  videoData?: IVideoGroup[],
+  searchResults?: ISearchResults[],
+  applyFilter?: string,
+  currentVideo?: IVideoEntry,
+  groups?: string[],
+  gridView?: boolean,
+  manage?: boolean,
+  tobyVersionInfo?: ITobyVersionInfo
+}
+
+export class Toby extends React.Component<{}, ITobyState> {
+  private socket: SocketIOClient.Socket;
+  
   constructor() {
     super();
 
     this.onCommandEntered = this.onCommandEntered.bind(this);
-    this.addVideoButtonHandler = this.addVideoButtonHandler.bind(this);
-    this.updateVideoButtonHandler = this.updateVideoButtonHandler.bind(this);
-    this.deleteVideoButtonHandler = this.deleteVideoButtonHandler.bind(this);
+    this.onAddVideoButtonClick = this.onAddVideoButtonClick.bind(this);
+    this.onUpdateVideoButtonClick = this.onUpdateVideoButtonClick.bind(this);
+    this.onDeleteVideoButtonClick = this.onDeleteVideoButtonClick.bind(this);
 
     this.state = {
       videoData: [],
       searchResults: [],
-      applyFilter: "",
-      currentVideo: "",
-      gridView: false,
+      applyFilter: "",      
+      gridView: true,
       manage: false,
-      tobyVersion: ""
-    };
+      tobyVersionInfo: { title: "", version: ""}
+    }
+
+    this.socket = (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
   }
-  performSearch(searchTerm) {
+  componentDidMount() {
+    if(this.socket !== undefined) {
+      this.socket.on("toby-version", (data: ITobyVersionInfo) : void => {
+        this.setState({
+          tobyVersionInfo: { 
+            title: data.title,
+            version: data.version
+          }
+        });
+      });
+      
+      // User clicked on a recommended video at the end of playing a video
+      this.socket.on("play-video", (ytid : string) => {
+        this.playVideo({ title: "", ytid: ytid});
+      });
+    }
+
+    $.ajax({
+      url: '/api/videos/groups'
+    }).done((data) => {      
+      this.setState({
+        groups: data
+      });
+    });
+  }
+  performSearch(searchTerm: string) : void {
     $.post({
       url: "/api/videos/search",
       data: { searchTerm: searchTerm }
     })
-    .done((data) => {
+    .done((data : IVideoEntry[]) : void => {
       this.setState({
         searchResults: this.buildVideoResults(data),
         manage: false
       });
-    });
+    });    
   }
-  onCommandEntered(searchTerm) {
+  buildVideoResults(data: IVideoEntry[]) : ISearchResults[] {    
+    let results : ISearchResults[] = [];
+
+    _.forEach(data, (v) => {
+      // Image thumbnail URL looks like this:
+      //
+      // https://i.ytimg.com/vi/YTID/default.jpg
+      // https://i.ytimg.com/vi/YTID/mqdefault.jpg
+      // https://i.ytimg.com/vi/YTID/hqdefault.jpg
+
+      results.push({
+        //player: this.state.player,
+        playVideo: this.playVideo.bind(this),
+        title: v.title,
+        ytid: v.ytid,
+        group: v.group,
+        thumbnail: `https://i.ytimg.com/vi/${v.ytid}/default.jpg`,
+        isArchived: v.isArchived
+      });
+    });
+
+    return _.sortBy(results, "title");
+  }
+  onCommandEntered(searchTerm: string) : void {
     const commandSegments = searchTerm.split(" ");
     const command = commandSegments[0];
 
@@ -85,25 +160,23 @@ class TobyUI extends React.Component {
       case "/clear":
         this.setState({
           searchResults: [],
-          currentVideo: {},
+          currentVideo: { title: "", ytid: "" },
           applyFilter: ""
         });
-        document.title = appTitle;
-        if(socket!==undefined) {
-          socket.emit("title", { title: appTitle });
+        
+        document.title = this.state.tobyVersionInfo.title;
+        
+        if(this.socket !== undefined) {
+          this.socket.emit("title", { title: this.state.tobyVersionInfo.title });
         }
         break;
       case "/gv":
       case "/grid-view":
-        this.setState({
-          gridView: true
-        });
+        this.setState({ gridView: true });
         break;
       case "/dv":
       case "/default-view":
-        this.setState({
-          gridView: false
-        });
+        this.setState({ gridView: false });
         break;
       case "/monochrome":
         this.setState({ applyFilter: "grayscale" });
@@ -191,6 +264,7 @@ class TobyUI extends React.Component {
         break;
     }
   }
+<<<<<<< HEAD:src/toby-ui.js
   componentDidMount() {
     document.title = appTitle;
 
@@ -246,6 +320,9 @@ class TobyUI extends React.Component {
     return _.sortBy(results, "title");
   }
   addVideoButtonHandler(video, group) {
+=======
+  onAddVideoButtonClick(video: IVideoEntry, group: string) : void {
+>>>>>>> refs/remotes/origin/typescript-rewrite:src/react-components/toby-ui.tsx
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -261,11 +338,7 @@ class TobyUI extends React.Component {
       });
     }
   }
-  updateVideoButtonHandler(video, group) {
-    // console.log(`updateVideoButtonHandler() :: Called`);
-    // console.log(video);
-    // console.log(group);
-
+  onUpdateVideoButtonClick(video: IVideoEntry, group: string) : void {
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -280,12 +353,9 @@ class TobyUI extends React.Component {
           group: (group !== undefined) ? group : "misc"
         }
       });
-    }
+    }    
   }
-  deleteVideoButtonHandler(video) {
-    // console.log(`deleteVideoButtonHandler() :: Called`);
-    // console.log(video);
-
+  onDeleteVideoButtonClick(video: IVideoEntry) : void {
     const found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -299,12 +369,12 @@ class TobyUI extends React.Component {
       this.setState({
         searchResults: _.reject(this.state.searchResults, { ytid: video.ytid })
       });
-    }
+    }        
   }
-  playVideo(video, data) {
+  playVideo(video: IVideoEntry) : void {
     this.setState({
       currentVideo: video,
-      searchResults: data,
+      //searchResults: data,
       manage: false
     });
 
@@ -328,28 +398,31 @@ class TobyUI extends React.Component {
 
     if(this.state.gridView) {
       view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />; 
-    } else {
-      view = 
-        <VideoList data={this.state.searchResults}
-            groups={this.state.groups}
-            manage={this.state.manage}
-            applyFilter={this.state.applyFilter}
-            addVideoButtonHandler={this.addVideoButtonHandler}
-            updateVideoButtonHandler={this.updateVideoButtonHandler}
-            deleteVideoButtonHandler={this.deleteVideoButtonHandler} />;
-    }
+    } //else {
+      // view = 
+      //   <VideoList data={this.state.searchResults}
+      //       groups={this.state.groups}
+      //       manage={this.state.manage}
+      //       applyFilter={this.state.applyFilter}
+      //       addVideoButtonHandler={this.addVideoButtonHandler}
+      //       updateVideoButtonHandler={this.updateVideoButtonHandler}
+      //       deleteVideoButtonHandler={this.deleteVideoButtonHandler} />;
+    //}
 
     return (
       <div>
-        <CommandInput onKeyEnter={this.onCommandEntered} />
+        <CommandInput onKeyEnter={this.onCommandEntered}
+                      placeHolder="Search YouTube or your saved videos..." />
         {view}
-        <Version display={versionDisplay} info={this.state.tobyVersion}  />
-        <YouTubeUI video={this.state.currentVideo} applyFilter={this.state.applyFilter} />
+        <YouTube video={this.state.currentVideo} 
+                 applyFilter={this.state.applyFilter} 
+                 socket={this.socket} />
+        <Version display={versionDisplay} info={this.state.tobyVersionInfo.version}  />
       </div>
     );
   }
 }
 
 $(document).ready(() => {
-  ReactDOM.render(<TobyUI />, document.getElementById("ui"));
+  ReactDOM.render(<Toby />, document.getElementById("ui"));
 });

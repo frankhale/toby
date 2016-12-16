@@ -1,4 +1,4 @@
-// command-input-ui.js
+// command-input-ui.tsx - The command line input component for Toby
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,49 +14,53 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class CommandInput extends React.Component {
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as _ from "lodash";
+
+enum Keys {
+  Enter = 13,
+  Up = 38,
+  Down = 40
+}
+
+interface ICommandInputState {
+  commandIndex?: number,
+  commandsEntered?: string[],
+  commandText?: JQuery
+}
+
+export interface ICommandInputProps {
+  onKeyEnter: (event: any) => void,  
+  placeHolder: string
+}
+
+export class CommandInput extends React.Component<ICommandInputProps, ICommandInputState> {
   constructor() {
     super();
-    
+
     this.onCommandInputKeyUp = this.onCommandInputKeyUp.bind(this);
     this.onCommandInputChanged = this.onCommandInputChanged.bind(this);
 
-    this.keys = {
-      Enter: 13,
-      Up: 38,
-      Down: 40
-    };
-
     this.state = {
       commandIndex: -1,
-      commandsEntered: []
+      commandsEntered: []      
     };
   }
   componentDidMount() {
-    // Make sure the command input box width is a consistant width based on the
-    // width of the window.
-    const $commandText = $("#commandText");
+    const $commandText = $("#commandText"),
+          resizeCommandInput = () : void => {
+            $commandText.width(window.innerWidth - 50);
+          }
 
-    // this may need to be changed later if I have more rich UI's but basically
-    // this will make sure the command input is always focused, hopefully.
-    // $(commandText).on("blur", () => {
-    //   $commandText.focus();
-    // });
-
-    this.setState({ commandText: $commandText });
-
-    function resizeCommandInput() {
-      $commandText.width(window.innerWidth - 50);
-    }
+    $(window).resize((e) => { resizeCommandInput(); });    
 
     resizeCommandInput();
 
-    $(window).resize((e) => {
-      resizeCommandInput();
-    });
+    this.setState({ commandText: $commandText });
   }
-  onCommandInputKeyUp(e) {
-    if(e.which === this.keys.Up) {
+  onCommandInputKeyUp(e : any) {
+    if(e.which === Keys.Up) {
       let commandIndex = (this.state.commandIndex === -1) ?
                           this.state.commandsEntered.length - 1 :
                           --this.state.commandIndex;
@@ -69,7 +73,7 @@ class CommandInput extends React.Component {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
 
-    } else if (e.which === this.keys.Down) {
+    } else if (e.which === Keys.Down) {
       let commandIndex = (this.state.commandIndex === -1) ? 0 : ++this.state.commandIndex;
 
       if(commandIndex > this.state.commandsEntered.length) {
@@ -80,7 +84,7 @@ class CommandInput extends React.Component {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
 
-    } else if(e.which === this.keys.Enter) {
+    } else if(e.which === Keys.Enter) {
       const textEntered = this.state.commandText.val();
       if(!(textEntered.length > 0)) return;
 
@@ -91,26 +95,20 @@ class CommandInput extends React.Component {
         if(this.props.onKeyEnter !== undefined) {
           this.props.onKeyEnter(textEntered);
         }
-
-        //this.state.commandText.val("");
       });
     }
   }
-  onCommandInputChanged(e) {
-    if(this.props.onKeyChanged !== undefined) {
-      this.props.onKeyChanged(this.state.commandText.val());
-    }
-  }
+  onCommandInputChanged(e : any) {}
   render() {
     return (
       <div id="commandContainer" className="command-container">
         &gt;<input id="commandText" 
                    className="command-input" 
                    type="text" 
-                   onKeyUp={this.onCommandInputKeyUp} 
-                   onChange={this.onCommandInputChanged} 
+                   onKeyUp={this.onCommandInputKeyUp}
+                   onChange={this.onCommandInputChanged}   
                    autoFocus 
-                   placeholder="Search YouTube or your saved videos..." />
+                   placeholder={this.props.placeHolder} />
       </div>
     );
   }

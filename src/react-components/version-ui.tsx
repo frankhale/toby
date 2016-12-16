@@ -1,4 +1,4 @@
-// version-ui.js
+// version-ui.tsx - Version info React component for Toby
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class Version extends React.Component {
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+export interface IVersionProps {
+  display: boolean;
+  info: string
+}
+
+interface IVersionState {
+  display: boolean;
+  info: string
+}
+
+export class Version extends React.Component<IVersionProps, IVersionState> {
   constructor() {
     super();
 
@@ -23,7 +36,7 @@ class Version extends React.Component {
       info: ""
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IVersionProps) {
     if(nextProps.display !== undefined && nextProps.info !== undefined) {
       this.setState({
         display: nextProps.display,
@@ -33,7 +46,7 @@ class Version extends React.Component {
   }
   render() {
     if(this.state.display && this.state.info !== "") {
-      return <div id="version">{this.state.info}</div>
+      return <div id="version">{this.state.info}</div>;
     }
 
     return null;
