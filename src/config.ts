@@ -1,4 +1,4 @@
-// index.js
+// config.js - App configuration information
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-const express = require("express"),
-      router = express.Router();
+import * as fs from "fs";
+import * as path from "path";
+import * as youtubeSearch from "youtube-search";
 
-/* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index");
-});
-
-module.exports = router;
+export default class AppConfig {  
+  static maxSearchResults = 30;
+  static maxRecentlyPlayedVideos = 30;
+  static youtubeSearchOpts : youtubeSearch.YouTubeSearchOptions = {
+    maxResults: AppConfig.maxSearchResults,
+    key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
+    type: "video"
+  };
+  static dataPath = `${__dirname}${path.sep}..${path.sep}data`;
+  static dataFilePath = `${AppConfig.dataPath}${path.sep}data.txt`;
+}

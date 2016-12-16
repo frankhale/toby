@@ -1,4 +1,4 @@
-// video-list-grid-ui.js - A video list grid React component for Toby
+// video-list-grid-ui.tsx - A video list grid React component for Toby
 // Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class VideoListGrid extends React.Component {
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+import { IVideoEntry, ISearchResults } from "./infrastructure";
+
+export interface IViewListGridProps {
+  data: ISearchResults[];
+  applyFilter: string;
+}
+
+interface IViewListGridState {
+  data?: ISearchResults[];
+  applyFilter?: string;
+}
+
+export class VideoListGrid extends React.Component<IViewListGridProps, IViewListGridState> {
   constructor() {
     super();
 
@@ -26,16 +41,11 @@ class VideoListGrid extends React.Component {
   componentDidMount() {
     this.updateViewBasedOnProps(this.props);
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IViewListGridProps) {
     this.updateViewBasedOnProps(nextProps);
   }
-  updateViewBasedOnProps(nextProps) {
-    let videos = [];
-
-    // docs for componentWillReceiveProps says to check if nextProps is 
-    // different than this.props and make changes accordingly. I'm skipping that
-    // for now...Additionally I need to go back and check all components that
-    // recieve props like this to make sure I perform the necessary checks.
+  updateViewBasedOnProps(nextProps: IViewListGridProps) : void {
+    let videos : ISearchResults[] = [];
 
     if(nextProps.data !== undefined && nextProps.data.length > 0) {
       videos = nextProps.data.map((d, i) => {
@@ -44,7 +54,8 @@ class VideoListGrid extends React.Component {
           title: d.title,
           ytid: d.ytid,
           group: d.group,
-          thumbnail: d.thumbnail
+          thumbnail: d.thumbnail,
+          isArchived: d.isArchived
         };
       });
     }

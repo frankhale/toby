@@ -1,9 +1,12 @@
+.tscache/
+.baseDir.ts
 data/videoDB
 build/
 bower_components/
 public/components/
 public/scripts/
 node_modules/
+browsers/
 nwjs/
 electron/
 node.exe
