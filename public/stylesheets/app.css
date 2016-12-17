@@ -2,12 +2,9 @@ body {
   padding: 0;
   margin: 0;
   background-color: #000;
-  color: #fff;  
+  color: #fff;
+  font-size: 24pt;
   overflow: hidden;
-}
-
-* {
-  font-size: 18pt;
 }
 
 #ui {
@@ -29,16 +26,12 @@ body {
 }
 
 * {
-  /*font-family: 'VT323', sans-serif;*/
-  /*font-family: 'Nova Mono', monospace;*/
-  /*font-family: 'Space Mono', monospace;*/
-  font-family: 'Inconsolata', monospace;
+  font-family: 'VT323', sans-serif;
 }
 
 pre {
   outline: none !important;
-  border-left: 4px solid #000;
-  color: #000;
+  border-left: 4px solid black;
   background-color: #eee;
   white-space: pre-wrap;
   margin-left: 40px !important;
@@ -54,7 +47,8 @@ blockquote {
 /* Command Input */
 
 .command-container {
-  padding-left: 10px;  
+  padding-left: 10px;
+  font-size: 22pt;
 }
 
 .command-input {
@@ -63,6 +57,7 @@ blockquote {
   padding-left: 2px;
   padding-top: 5px;
   margin-bottom: 20px;
+  font-size: 24pt;
   background-color: #000;
   color: #fff;
 }

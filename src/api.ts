@@ -82,7 +82,10 @@ export default class API {
     this.db.getAllVideosFromDB((data) => { res.json(data); });
   }
   getVideosGroups(req, res, next) : void {
-    this.db.getAllGroupsFromDB((data) => { res.json(data); });
+    this.db.getAllGroupsFromDB((data) => { 
+      data = _.map(data, (d) => { return d.group; });
+      res.json(data); 
+    });
   }
   getVideosArchive(req, res, next) : void {
     this.db.getAllGroupsFromDB((groups) => {

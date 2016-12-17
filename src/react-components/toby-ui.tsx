@@ -24,6 +24,7 @@ import { CommandInput } from "./command-input-ui";
 import { IYouTubeProps, YouTube } from "./youtube-ui";
 import { IVersionProps, Version } from "./version-ui";
 import { IViewListGridProps, VideoListGrid } from "./video-list-grid-ui";
+import { VideoList } from "./video-list-ui";
 import { IVideoGroup, 
          IVideoEntry, 
          ITobyVersionInfo, 
@@ -55,7 +56,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       videoData: [],
       searchResults: [],
       applyFilter: "",      
-      gridView: true,
+      gridView: false,
       manage: false,
       tobyVersionInfo: { title: "", version: ""}
     }
@@ -340,16 +341,16 @@ export class Toby extends React.Component<{}, ITobyState> {
 
     if(this.state.gridView) {
       view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />; 
-    } //else {
-      // view = 
-      //   <VideoList data={this.state.searchResults}
-      //       groups={this.state.groups}
-      //       manage={this.state.manage}
-      //       applyFilter={this.state.applyFilter}
-      //       addVideoButtonHandler={this.addVideoButtonHandler}
-      //       updateVideoButtonHandler={this.updateVideoButtonHandler}
-      //       deleteVideoButtonHandler={this.deleteVideoButtonHandler} />;
-    //}
+    } else {
+      view = 
+        <VideoList data={this.state.searchResults}
+            groups={this.state.groups}
+            manage={this.state.manage}
+            applyFilter={this.state.applyFilter}
+            onAddVideoButtonClick={this.onAddVideoButtonClick}
+            onUpdateVideoButtonClick={this.onUpdateVideoButtonClick}
+            onDeleteVideoButtonClick={this.onDeleteVideoButtonClick} />;
+    }
 
     return (
       <div>

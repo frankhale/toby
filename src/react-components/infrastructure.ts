@@ -9,18 +9,20 @@ export interface IVideoEntry {
   ytid: string;
   group?: string;
   isArchived?: boolean;
+  justAdded?: boolean;
 }
 
 export interface ITobyVersionInfo {
-  title: string,
-  version: string
+  title: string;
+  version: string;
 }
 
 export interface ISearchResults {
-  playVideo: (video: IVideoEntry, data: IVideoGroup[]) => void,
-  title: string,
-  ytid: string,
-  group: string,
-  thumbnail: string,
-  isArchived: boolean  
+  playVideo: (video: IVideoEntry, data: IVideoGroup[]) => void;
+  title: string;
+  ytid: string;
+  group: string;
+  thumbnail: string;
+  isArchived: boolean;
+  justAdded?: boolean;
 }

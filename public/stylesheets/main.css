@@ -7,10 +7,7 @@ html, body {
 }
 
 * {
-  /*font-family: 'VT323', sans-serif;*/
-  /*font-family: 'Nova Mono', monospace;*/
-  /*font-family: 'Space Mono', monospace;*/
-  font-family: 'Inconsolata', monospace;
+  font-family: 'VT323', sans-serif;
 }
 
 #content {
@@ -19,7 +16,7 @@ html, body {
   height: 100%;
   overflow: auto;
   visibility: hidden;
-  /*padding: 10px;*/
+  padding: 10px;
 }
 
 #loading {

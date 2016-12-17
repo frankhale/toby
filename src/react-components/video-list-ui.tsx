@@ -17,108 +17,222 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as $ from "jquery";
+import * as _ from "lodash";
+
+import { IDropDownItem, DropDown } from "./dropdown-ui";
 
 import { IVideoGroup, 
          IVideoEntry,         
          ISearchResults } from "./infrastructure";
 
-export interface VideoListProps {
+export interface IVideoListProps {
   data: ISearchResults[],
   groups: string[],
   applyFilter: string,
-  onVideoButtonClick(e: any): void,
-  onUpdateButtonClick(e: any): void,
-  onDeleteButtonClick(e: any): void
+  onAddVideoButtonClick(video: IVideoEntry, group: string): void,
+  onUpdateVideoButtonClick(video: IVideoEntry, group: string): void,
+  onDeleteVideoButtonClick(video: IVideoEntry): void,
+  manage?: boolean  
 }
 
-export class VideoList extends React.Component<{}, {}> {
+interface IVideoListState {
+  items?: IDropDownItem[];
+  data?: ISearchResults[];
+  applyFilter?: string;
+  onAddVideoButtonClick?: (video: IVideoEntry, group: string) => void,
+  onUpdateVideoButtonClick?: (video: IVideoEntry, group: string) => void,
+  onDeleteVideoButtonClick?: (video: IVideoEntry) => void,
+  manage?: boolean
+}
+
+export class VideoList extends React.Component<IVideoListProps, IVideoListState> {
   constructor() {
     super();
 
-    // this.onAddVideoButtonHandler = this.onAddVideoButtonHandler.bind(this);
-    // this.onUpdateVideoButtonHandler = this.onUpdateVideoButtonHandler.bind(this);
-    // this.onDeleteVideoButtonHandler = this.onDeleteVideoButtonHandler.bind(this);
-
-    // this.state = {
-    //   data: [],
-    //   applyFilter: "",
-    //   onAddVideoButtonHandler: () => {},
-    //   onUpdateVideoButtonHandler: () => {},
-    //   onDeleteVideoButtonHandler: () => {}
-    // };
+    this.onAddVideoButtonClick = this.onAddVideoButtonClick.bind(this);
+    this.onUpdateVideoButtonClick = this.onUpdateVideoButtonClick.bind(this);
+    this.onDeleteVideoButtonClick = this.onDeleteVideoButtonClick.bind(this);
+    
+    this.state = {
+      data: [],
+      applyFilter: ""
+    }
   }
   componentDidMount() {
-    // let $videoListTable = $("#videoListTable");
+    let $videoListTable = $("#videoListTable");
 
-    // const resizeTable = () => {
-    //   $videoListTable.css("width", window.innerWidth - 25);
-    // };
+    const resizeTable = () => {
+      $videoListTable.css("width", window.innerWidth - 25);
+    };
 
-    // window.addEventListener("resize", (e) => { resizeTable(); });
+    window.addEventListener("resize", (e) => { resizeTable(); });
 
-    // resizeTable();
+    resizeTable();
 
-    // this.updateViewBasedOnProps(this.props);
+    this.updateViewBasedOnProps(this.props);
+  }
+  componentWillReceiveProps(nextProps: IVideoListProps) {
+    this.updateViewBasedOnProps(nextProps);
+  }
+  updateViewBasedOnProps(nextProps: IVideoListProps) {
+    let items : IDropDownItem[] = [
+      {
+        name: "-Select Group-",
+        value: "-1",
+        action: () => {}
+      }
+    ];
+
+    if(nextProps.groups !== undefined) {
+      _.forEach(nextProps.groups, (g) => {
+        if(g !== "Recently Played") {
+          items.push({
+            name: g,
+            value: g,
+            action: () => {}
+          });
+        }
+      });
+    }
+
+    let videos: ISearchResults[] = [];
+
+    if(nextProps.data !== undefined && nextProps.data.length > 0) {
+      videos = nextProps.data.map((d, i) => {
+        //console.log(d);
+
+        return {
+          playVideo: d.playVideo,
+          title: d.title,
+          ytid: d.ytid,
+          group: d.group,
+          thumbnail: d.thumbnail,
+          isArchived: d.isArchived,
+          justAdded: (d.justAdded !== undefined) ? d.justAdded : false
+        };
+      });
+    }
+
+    this.setState({
+      items: items,
+      data: videos,
+      applyFilter: (nextProps.applyFilter !== undefined) ? nextProps.applyFilter : "",
+      onAddVideoButtonClick: nextProps.onAddVideoButtonClick,
+      onUpdateVideoButtonClick: nextProps.onUpdateVideoButtonClick,
+      onDeleteVideoButtonClick: nextProps.onDeleteVideoButtonClick,
+      manage: nextProps.manage
+    });
+  }
+  onAddVideoButtonClick(e: any) : void {
+    e.preventDefault();
+
+    let id = $(e.target).prop("id").replace("star-", ""),
+        video = _.find(this.state.data, { "ytid": id }),
+        group = $(`#groupSelector-${video.ytid}`).val();
+
+    if(group === "-1") return;
+
+    if(this.state.onAddVideoButtonClick !== undefined && video !== undefined) {
+      this.state.onAddVideoButtonClick(video, group);
+
+      let _d = _.forEach(this.state.data, (d) => {
+        if (d.ytid === id) {
+          d.justAdded=true;
+        }
+      });
+
+      this.setState({ data: _d });
+    }
+  }
+  onUpdateVideoButtonClick(e: any) : void {
+    e.preventDefault();
+
+    //console.log($(e.target).prop("id").replace("star-", ""));
+
+    let id = $(e.target).prop("id").replace("star-", ""),
+        video = _.find(this.state.data, { "ytid": id }),
+        group = $(`#groupSelector-${video.ytid}`).val();
+
+    if(group === "-1") return;
+
+    if(this.state.onUpdateVideoButtonClick !== undefined && video !== undefined) {
+      this.state.onUpdateVideoButtonClick(video, group);
+    }
+  }
+  onDeleteVideoButtonClick(e: any) : void {
+    e.preventDefault();
+
+    let id = $(e.target).prop("id").replace("star-", ""),
+        video = _.find(this.state.data, { "ytid": id });
+
+    if(this.state.onDeleteVideoButtonClick !== undefined && video !== undefined) {
+      this.state.onDeleteVideoButtonClick(video);
+
+      this.setState({
+        data: _.reject(this.state.data, { ytid: video.ytid })
+      });
+    }
   }
   render() {
-    // let videoResults = this.state.data.map((d, i) => {
-    //   let addButton = "",
-    //       manageButton = "",
-    //       addButtonColSpan = "",
-    //       borderRight = "",
-    //       dropDownClass = "groupDropDown";
+    let videoResults = this.state.data.map((d, i) => {
+      let addButton,
+          manageButton,
+          addButtonColSpan,
+          borderRight,
+          dropDownClass = "groupDropDown";
 
-    //   if(d.isArchived === false ||
-    //      d.justAdded === true) {
-    //     let clickHandler = this.onAddVideoButtonHandler,
-    //         addButtonClass = "manageButton fa fa-star-o";
+      if(d.isArchived === false ||
+         d.justAdded === true) {
+        let clickHandler = this.onAddVideoButtonClick,
+            addButtonClass = "manageButton fa fa-star-o";
 
-    //     if (d.justAdded) {
-    //       clickHandler = (e) => { e.preventDefault(); e.stopPropagation(); };
-    //       dropDownClass = "groupDropDownDisabled";
-    //       addButtonClass = "manageButton fa fa-star";
-    //       // onDropDownChange={this.onDropDownChange}
-    //       addButton =  <td className="border-right buttonContainerWidth"><span>
-    //           <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
-    //           <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
-    //         </span></td>;
-    //     } else {
-    //       // onDropDownChange={this.onDropDownChange}
-    //       addButton =
-    //         <td className="border-right buttonContainerWidth"><span>
-    //           <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
-    //           <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
-    //         </span></td>;
-    //     }
-    //   } else if (this.state.manage) {
-    //     let deleteButtonClass = "manageButton fa fa-trash",
-    //         updateButtonClass = "manageButton fa fa-wrench";
+        if (d.justAdded) {
+          clickHandler = (e: any) => { e.preventDefault(); e.stopPropagation(); };
+          dropDownClass = "groupDropDownDisabled";
+          addButtonClass = "manageButton fa fa-star";
+          // onDropDownChange={this.onDropDownChange}
+          addButton = <td className="border-right buttonContainerWidth"><span>
+              <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
+              <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
+            </span></td>;
+        } else {
+          // onDropDownChange={this.onDropDownChange}
+          addButton =
+            <td className="border-right buttonContainerWidth"><span>
+              <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
+              <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
+            </span></td>;
+        }
+      } else if (this.state.manage) {
+        let deleteButtonClass = "manageButton fa fa-trash",
+            updateButtonClass = "manageButton fa fa-wrench";
 
-    //     manageButton =
-    //       <td className="border-right buttonContainerWidth"><span>
-    //         <DropDown name={"groupSelector-" + d.ytid } selected={d.group} items={this.state.items} className={dropDownClass} onDropDownChange={this.onDropDownChange} />
-    //         <a href="#" id={"star-" + d.ytid} onClick={this.onUpdateVideoButtonHandler} className={updateButtonClass}></a>
-    //         <a href="#" id={"star-" + d.ytid} onClick={this.onDeleteVideoButtonHandler} className={deleteButtonClass}></a>
-    //       </span></td>;
-    //   } else {
-    //      addButtonColSpan = "2";
-    //      borderRight = "border-right";
-    //   }
+        //onDropDownChange={this.onDropDownChange}
+        manageButton =
+          <td className="border-right buttonContainerWidth"><span>            
+            <DropDown name={"groupSelector-" + d.ytid } selected={d.group} items={this.state.items} className={dropDownClass} />
+            <a href="#" id={"star-" + d.ytid} onClick={this.onUpdateVideoButtonClick} className={updateButtonClass}></a>
+            <a href="#" id={"star-" + d.ytid} onClick={this.onDeleteVideoButtonClick} className={deleteButtonClass}></a>
+          </span></td>;
+      } else {
+         addButtonColSpan = 2;
+         borderRight = "border-right";
+      }
 
-    //   return (
-    //     <tr>
-    //       <td className="border-left thumbnailIMGWidth" onClick={d.playVideo.bind(this, d)}><img className={"videoThumbnail " + this.state.applyFilter} src={d.thumbnail}></img></td>
-    //       <td className={"textAlignMiddle " + borderRight} colSpan={addButtonColSpan} onClick={d.playVideo.bind(this, d, this.state.data)}>{d.title}</td>
-    //       {addButton}
-    //       {manageButton}
-    //     </tr>
-    //   );
-    // });
+      return (
+        <tr>
+          <td className="border-left thumbnailIMGWidth" onClick={d.playVideo.bind(this, d)}><img className={"videoThumbnail " + this.state.applyFilter} src={d.thumbnail}></img></td>
+          <td className={"textAlignMiddle " + borderRight} colSpan={addButtonColSpan} onClick={d.playVideo.bind(this, d, this.state.data)}>{d.title}</td>
+          {addButton}
+          {manageButton}
+        </tr>
+      );
+    });
 
-    //<table id="videoListTable">{videoResults}</table>
     return (
-      <div className="content-panel">        
+      <div className="content-panel">
+        <table id="videoListTable">{videoResults}</table>
       </div>
-    )
+    );    
   }
 }
