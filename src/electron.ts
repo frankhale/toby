@@ -24,8 +24,7 @@ function createWindow() : void {
   });
   mainWindow.loadURL(`file://${__dirname}/../index.html`);
   mainWindow.webContents.on("did-finish-load", () => {
-    mainWindow.show();
-    mainWindow.webContents.openDevTools();
+    mainWindow.show();    
   });
   mainWindow.on("closed", (e) => {
     mainWindow = null;

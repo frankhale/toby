@@ -41,10 +41,6 @@ export interface IYouTubeProps {
 export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
   constructor() {
     super();
-
-    this.state = {      
-      applyFilter: ""
-    };
   }
   componentDidMount() : void {
     $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
