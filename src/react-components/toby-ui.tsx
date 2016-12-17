@@ -264,65 +264,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         break;
     }
   }
-<<<<<<< HEAD:src/toby-ui.js
-  componentDidMount() {
-    document.title = appTitle;
-
-    if(socket!==undefined) {
-      socket.on("toby-version", (data) => {
-        this.setState({
-          tobyVersion: data
-        });
-      });
-      
-      // User clicked on a recommended video at the end of playing a video
-      socket.on("play-video", (data) => {
-        this.setState({
-          // Once the video loads we'll get a notification from YouTube
-          // about what the title is. Then everything falls into place.
-          currentVideo: {
-            title: "",
-            ytid: data.ytid
-          }
-        }, () => { this.playVideo(data); });
-      });
-    }
-
-    $.ajax({
-      url: '/api/videos/groups'
-    }).done((data) => {      
-      this.setState({
-        groups: data
-      });
-    });
-  }
-  buildVideoResults(data) {
-    var results = [];
-
-    _.forEach(data, (v) => {
-      // Image thumbnail URL looks like this:
-      //
-      // https://i.ytimg.com/vi/YTID/default.jpg
-      // https://i.ytimg.com/vi/YTID/mqdefault.jpg
-      // https://i.ytimg.com/vi/YTID/hqdefault.jpg
-
-      results.push({
-        //player: this.state.player,
-        playVideo: this.playVideo.bind(this),
-        title: v.title,
-        ytid: v.ytid,
-        group: v.group,
-        thumbnail: `https://i.ytimg.com/vi/${v.ytid}/default.jpg`,
-        isArchived: v.isArchived
-      });
-    });
-
-    return _.sortBy(results, "title");
-  }
-  addVideoButtonHandler(video, group) {
-=======
   onAddVideoButtonClick(video: IVideoEntry, group: string) : void {
->>>>>>> refs/remotes/origin/typescript-rewrite:src/react-components/toby-ui.tsx
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
