@@ -121,6 +121,11 @@ npm install
 bower install
 ```
 
+***NOTE: Before building the source code you'll need to copy over the 
+Typescript definition file that I've made for the `youtube-search` node module.
+This file is located in `/definitions/youtube-search.d.ts` and needs to be 
+copied to `/node_modules/youtube-search` and renamed to `index.d.ts`***
+
 The server needs to be built using Grunt.
 
 ```
