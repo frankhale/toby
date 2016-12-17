@@ -187,8 +187,8 @@ class Platform {
     }
   }
   private resizeContent() : void {
-    this.$content.css("width", window.innerWidth);
-    this.$content.css("height", window.innerHeight);
+    this.$content.css("width", window.innerWidth - 20);
+    this.$content.css("height", window.innerHeight - 20);
   }
   private strip(s : string) : string {
     // regex from: http://stackoverflow.com/a/29497680/170217
