@@ -44,7 +44,7 @@ export class VideoListGrid extends React.Component<IViewListGridProps, IViewList
   componentWillReceiveProps(nextProps: IViewListGridProps) {
     this.updateViewBasedOnProps(nextProps);
   }
-  updateViewBasedOnProps(nextProps: IViewListGridProps) : void {
+  private updateViewBasedOnProps(nextProps: IViewListGridProps) : void {
     let videos : ISearchResults[] = [];
 
     if(nextProps.data !== undefined && nextProps.data.length > 0) {

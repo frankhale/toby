@@ -41,6 +41,10 @@ export interface IYouTubeProps {
 export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
   constructor() {
     super();
+
+    this.state = {
+      currentVideo: ({} as IVideoEntry)
+    }
   }
   componentDidMount() : void {
     $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
@@ -98,7 +102,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       this.setState({ currentVideo: { title: "", ytid: "" } });
     }
   }
-  setupYTPlayer() : void {
+  private setupYTPlayer() : void {
     let player : YT.Player = undefined;
 
     const onPlayerReady = (e : any) => {
@@ -163,7 +167,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       this.setState({ player: player });
     };
   }
-  playVideo(video : IVideoEntry) : void {
+  private playVideo(video : IVideoEntry) : void {
     this.state.player.setVolume(30);
     this.state.player.loadVideoById(video.ytid);
 

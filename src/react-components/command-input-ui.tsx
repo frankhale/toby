@@ -31,7 +31,8 @@ interface ICommandInputState {
 }
 
 export interface ICommandInputProps {
-  onKeyEnter: (event: any) => void,  
+  onKeyEnter?: (event: any) => void,
+  onKeyChanged?: (event: any) => void,  
   placeHolder: string
 }
 
@@ -59,7 +60,7 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
 
     this.setState({ commandText: $commandText });
   }
-  onCommandInputKeyUp(e : any) {
+  private onCommandInputKeyUp(e : any) : void {
     if(e.which === Keys.Up) {
       let commandIndex = (this.state.commandIndex === -1) ?
                           this.state.commandsEntered.length - 1 :
@@ -98,7 +99,11 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
       });
     }
   }
-  onCommandInputChanged(e : any) {}
+  private onCommandInputChanged(e : any) : void {
+    if(this.props.onKeyChanged !== undefined) {
+      this.props.onKeyChanged(this.state.commandText.val());
+    }
+  }
   render() {
     return (
       <div id="commandContainer" className="command-container">

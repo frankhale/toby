@@ -74,7 +74,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
   componentWillReceiveProps(nextProps: IVideoListProps) {
     this.updateViewBasedOnProps(nextProps);
   }
-  updateViewBasedOnProps(nextProps: IVideoListProps) {
+  private updateViewBasedOnProps(nextProps: IVideoListProps) : void {
     let items : IDropDownItem[] = [
       {
         name: "-Select Group-",
@@ -123,7 +123,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       manage: nextProps.manage
     });
   }
-  onAddVideoButtonClick(e: any) : void {
+  private onAddVideoButtonClick(e: any) : void {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),
@@ -144,7 +144,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       this.setState({ data: _d });
     }
   }
-  onUpdateVideoButtonClick(e: any) : void {
+  private onUpdateVideoButtonClick(e: any) : void {
     e.preventDefault();
 
     //console.log($(e.target).prop("id").replace("star-", ""));
@@ -159,7 +159,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       this.state.onUpdateVideoButtonClick(video, group);
     }
   }
-  onDeleteVideoButtonClick(e: any) : void {
+  private onDeleteVideoButtonClick(e: any) : void {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),

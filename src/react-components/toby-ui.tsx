@@ -88,7 +88,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     });
   }
-  performSearch(searchTerm: string) : void {
+  private performSearch(searchTerm: string) : void {
     $.post({
       url: "/api/videos/search",
       data: { searchTerm: searchTerm }
@@ -100,7 +100,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     });    
   }
-  buildVideoResults(data: IVideoEntry[]) : ISearchResults[] {    
+  private buildVideoResults(data: IVideoEntry[]) : ISearchResults[] {    
     let results : ISearchResults[] = [];
 
     _.forEach(data, (v) => {
@@ -123,7 +123,7 @@ export class Toby extends React.Component<{}, ITobyState> {
 
     return _.sortBy(results, "title");
   }
-  onCommandEntered(searchTerm: string) : void {
+  private onCommandEntered(searchTerm: string) : void {
     const commandSegments = searchTerm.split(" ");
     const command = commandSegments[0];
 
@@ -265,7 +265,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         break;
     }
   }
-  onAddVideoButtonClick(video: IVideoEntry, group: string) : void {
+  private onAddVideoButtonClick(video: IVideoEntry, group: string) : void {
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -281,7 +281,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     }
   }
-  onUpdateVideoButtonClick(video: IVideoEntry, group: string) : void {
+  private onUpdateVideoButtonClick(video: IVideoEntry, group: string) : void {
     let found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -298,7 +298,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     }    
   }
-  onDeleteVideoButtonClick(video: IVideoEntry) : void {
+  private onDeleteVideoButtonClick(video: IVideoEntry) : void {
     const found = _.find(this.state.searchResults, { ytid: video.ytid });
 
     if(found !== undefined) {
@@ -314,7 +314,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     }        
   }
-  playVideo(video: IVideoEntry) : void {
+  private playVideo(video: IVideoEntry) : void {
     this.setState({
       currentVideo: video,
       //searchResults: data,

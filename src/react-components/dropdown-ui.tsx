@@ -57,12 +57,12 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
   componentWillReceiveProps(nextProps: IDropDownProps) {
     this.processProps(nextProps);
   }
-  onDropDownChange(e: any) {
+  private onDropDownChange(e: any) : void {
     if(this.state.onDropDownChange !== undefined) {
       this.state.onDropDownChange(e.target.value, $(e.target).prop("id"));
     }
   }
-  processProps(props: IDropDownProps) {
+  private processProps(props: IDropDownProps) : void {
     if(props.name !== undefined && props.items !== undefined) {
       this.setState({
         name: props.name,
