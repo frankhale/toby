@@ -97,7 +97,6 @@ export default class DefaultData {
       {
         group: "Trance Sets",
         entries: [
-          { title: "Arctic Moon Megamix - best tracks & remixes", ytid: "aX00On-X7K8" },
           { title: "BEST OF VOCAL TRANCE | MIX#4", ytid: "VZT9HGsv01A" },
           { title: "Best of Progressive & Melodic Trance 2013 Yearmix [5 Hour Set] [HD] - Shane Collins - APJ #32", ytid: "seBS2MEtALE" },
           { title: "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)", ytid: "tS1NCigEB_I" },
@@ -190,8 +189,7 @@ export default class DefaultData {
           { title: "Dark Matters feat Jess Morgan - The Perfect Lie (Beat Service Remix)", ytid: "dGd-QFuEUTA" },
           { title: "Dash Berlin & Syzz feat. Adam Jensen - Leave It All Behind", ytid: "OKgmwQNSW1g" },
           { title: "Dash Berlin - #MusicIsLife - Album", ytid: "DSOEUj8FAQ4" },
-          { title: "Dash Berlin ft Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)", ytid: "eWaANlb3q68" },
-          { title: "Def Leppard - Adrenalize - 1992 (FULL ALBUM)", ytid: "BTs98_pjwL4" },
+          { title: "Dash Berlin ft Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)", ytid: "eWaANlb3q68" },          
           { title: "Denis Kenzo & Jilliana Danise-Will Be Forever (Original) [Lyric video]", ytid: "4mwbBTy607U" },
           { title: "Denis Kenzo & Sveta B - Let Me Go (Original Mix)", ytid: "ZBBjH9-FqOA" },
           { title: "Denis Kenzo & Sveta B. - Sunshine Blue", ytid: "YfWbSSoEZmg" },

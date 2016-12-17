@@ -159,6 +159,15 @@ browsers\nwjs\nw.exe .
 browsers\electron\electron .
 ```
 
+#### Running in a Browser
+
+Start the server up:
+
+```
+.\node.exe build/server.js
+```
+Then open a browser to `http://127.0.0.1:62374`
+
 ### Usage
 
 **Important Key Combos:**
@@ -174,7 +183,7 @@ Here is a list (there will be additional ones added soon):
 - `[name hint]` : Lists locally saved videos based on the [name hint]
 - `/yt [search term]` : Searches YouTube for the [search term]
 - `/g [group name]` : Lists the videos for the [group name]
-- `/list` : List all videos contained in the database
+- `/list-all` : List all videos contained in the database
 - `/history` : Lists the recently played videos
 - `/rp` or `/recently-played` : List last 30 recently played videos
 - `/rps` or `/recently-played-search` : Search recently played videos
