@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/frankhale/toby](https://badges.gitter.im/frankhale/toby.svg)](https://gitter.im/frankhale/toby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Toby is a simple YouTube player for the desktop.
+Toby is a YouTube player for the desktop.
 
 ### Screenshots
 
@@ -41,12 +41,12 @@ all the code from the file system. The new architecture puts Toby behind an
 Express web application that is spawned from a regular Node process so that more
 deployment scenarios are possible.
 
-A Toby deployment would ship the regular Node.exe and Node.dll files along side
-the source code. We know NW.js and Electron ship with Node embedded but shipping
-Node as an external resource allows us to run Toby's server in a regular Node 
-process and unencumbered by NW.js / Electron specific compiling requirements for 
-any potential native Node modules we may want to use in the future. The only 
-native Node module being at the moment is SQLite3.
+A Toby deployment would ship the regular `node.exe` and `node.lib` files along 
+side the source code. We know NW.js and Electron ship with Node embedded but 
+shipping Node as an external resource allows us to run Toby's server in a 
+regular Node process and unencumbered by NW.js / Electron specific compiling 
+requirements for any potential native Node modules we may want to use nor or in 
+the future. The only native Node module being at the moment is SQLite3.
 
 Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
 Electron and support a regular web browser.
@@ -66,14 +66,19 @@ Set up the folder structure for working with either NW.js or Electron or both:
 Notice that we have a copy of `node.exe` and `node.lib` in the root of the 
 source code repository. This is used to spawn our server for serving our API.
 
-A folder named `electron` and `nwjs` have a copy of Electron and NW.js 
-respectively.
+Additionally we have a folder named `browsers` with a copy of `electron` and/or 
+`nwjs`. We'll use one of these to run Toby.
 
 #### Dependencies
 
 - Node : [http://nodejs.org](http://nodejs.org)
 - Grunt : [http://gruntjs.com](http://gruntjs.com)
 - Bower : [http://bower.io/](http://bower.io/)
+- Webpack : [https://webpack.github.io/](https://webpack.github.io/)
+- Typescript : [http://typescriptlang.org/](http://typescriptlang.org/)
+
+## You Just Need One of the following:
+
 - Electron: [http://electron.atom.io/](http://electron.atom.io/)
 - NW.js: [http://nwjs.io/](http://nwjs.io/)
 
@@ -85,7 +90,7 @@ the Toby server.
 
 The required Node binaries are located here (for example):
 
-https://nodejs.org/dist/v7.0.0/win-x64/
+[https://nodejs.org/dist/v7.2.1/win-x64/](https://nodejs.org/dist/v7.2.1/win-x64/)
 
 Depending on what platform you want to run Toby in (Electron or NW.js) you'll
 need to make sure the main property in package.json is set accordingly:
@@ -109,31 +114,44 @@ commands.
 #### Install dependencies  
 
 ```
+npm install -g webpack
+npm install -g typescript
+npm install -g grunt
 npm install   
 bower install
 ```
 
-The code needs to be built using Grunt. If you need grunt install it via 
-`npm install -g grunt`.
+The server needs to be built using Grunt.
 
 ```
 grunt
+```
+
+The front end needs to be build using Webpack.
+
+```
+webpack
 ```
 
 Assuming all dependencies are downloaded and the source code has been compiled
 perform the following from a command line at the root of the Toby code 
 repository:
 
+***NOTE: `main` will need to be updated in `package.json` to point to the 
+correct starting point for your deployment scenario. If you are using Electron 
+it will need to be set to `build\electron.js` or if you are using NW.js it'll 
+need to be set to `index.html`***
+
 #### Running in NW.js
 
 ```
-nwjs\nw.exe .
+browsers\nwjs\nw.exe .
 ```
 
 #### Running in Electron
 
 ```
-electron\electron .
+browsers\electron\electron .
 ```
 
 ### Usage
@@ -191,43 +209,22 @@ you and there are a lot of resources already out there to handle this scenario.
 - Caching YouTube search results for a bit to avoid querying YouTube over and
   over for the same thing
 - Usage info from within the app
-- Add `/import` to import new videos in the data.txt file
 
 ### Updating the data file
 
-Unlike previous versions of Toby the data.txt file located in the data folder is
-now only used initially to create the database which stores your favorite
-videos. Videos stored in the database can be exported by entering the `/archive`
-command in the search box. A corresponding `/import` command has not been
-implemented yet.
+I've removed the ordinary data file as it was too cumbersome to get the parser
+correct. I've decided to just define some basic starting video data in the
+following code file `/src/data.ts`. If you are building from source feel free to
+edit this to your liking. If at anytime you edit this file and run Toby it will
+update your database importing any new videos you put there.
 
-The data format for your favorite videos is very simple. It can contain one or
-more groups. The 'Recently Played' group is special and will be added if it's
-not present and will contain the last 30 videos you've recently played.
-
-Data Format:
-
-```
-Group Name {
-  Video Title : Video Id
-}
-```
-
-See real example below:
-
-```
-Recently Played {
-  Sunlight Project feat Danny Claire - Stay (tranzLift Remix) Promo : yWQvWTM7Hqg
-  Dash Berlin - Underneath The Sky (Sunsound Chillout Remix) : UEqMD-5urik
-  Chris Tomlin - Awake My Soul (with Lecrae) [Lyrics] : fWpvknKuYrg
-  Chris Tomlin - Good Good Father (Live at the Grand Ole Opry) : eaqaER7dasY
-}
-```
+***NOTE: Although it hasn't been done yet it'd be trivial to replace this with JSON 
+data loaded from the filesystem.***
 
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-17 November 2016
+17 December 2016
 
 ## License
 

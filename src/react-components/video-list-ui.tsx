@@ -115,9 +115,9 @@ export class VideoList extends React.Component<{}, {}> {
     //   );
     // });
 
+    //<table id="videoListTable">{videoResults}</table>
     return (
-      <div className="content-panel">
-        <table id="videoListTable">{videoResults}</table>
+      <div className="content-panel">        
       </div>
     )
   }
