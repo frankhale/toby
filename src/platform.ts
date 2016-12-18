@@ -18,7 +18,6 @@ import * as path from "path";
 import * as stream from "stream";
 import { spawn, ChildProcess } from "child_process";
 import * as _ from "lodash";
-import * as $ from "jquery";
 import * as request from "request";
 import titleCase = require("title-case");
 
@@ -53,6 +52,20 @@ class Platform {
       script.textContent = actualCode;
       (document.head||document.documentElement).appendChild(script);
       script.parentNode.removeChild(script);`;
+
+    this.redirectOutput(this.node.stdout);
+    this.redirectOutput(this.node.stderr);
+
+    let checkServerRunning = setInterval(() => {
+      request("http://localhost:62374", (error, response, body) => {
+        if (!error && response.statusCode == 200) {          
+          this.$webview.attr("src", "http://localhost:62374");
+          $("#loading").css("display", "none");
+          this.$webview.css("display", "block");
+          clearInterval(checkServerRunning);
+        } 
+      });
+    }, 1000);
 
     this.setup();
   }
@@ -170,20 +183,6 @@ class Platform {
           }
         });
       }
-
-      this.redirectOutput(this.node.stdout);
-      this.redirectOutput(this.node.stderr);
-
-      let checkServerRunning = setInterval(() => {
-        request("http://localhost:62374", (error, response, body) => {
-          if (!error && response.statusCode == 200) {
-            this.$webview.attr("src", "http://localhost:62374");
-            $("#loading").css("display", "none");
-            this.$webview.css("display", "block");
-            clearInterval(checkServerRunning);
-          } 
-        });
-      }, 1000);
     }
   }
   private resizeContent() : void {
@@ -256,4 +255,6 @@ class Platform {
   }
 }
 
-Platform.bootstrap();
+$(document).ready(function() {
+  Platform.bootstrap();
+});
