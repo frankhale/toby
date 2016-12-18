@@ -218,6 +218,9 @@ time and it works well for me (on Windows).
 The longer answer is you can compile your own FFMPEG library with the support 
 you and there are a lot of resources already out there to handle this scenario.
 
+***NOTE: This technique does not work with NW.js 0.20.0-beta1 as the FFMPEG 
+seems to be different than one that ships with Electron.***
+
 ### Features TODO
 
 - Caching YouTube search results for a bit to avoid querying YouTube over and
