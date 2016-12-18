@@ -97,11 +97,9 @@ export default class DefaultData {
       {
         group: "Trance Sets",
         entries: [
-          { title: "BEST OF VOCAL TRANCE | MIX#4", ytid: "VZT9HGsv01A" },
-          { title: "Best of Progressive & Melodic Trance 2013 Yearmix [5 Hour Set] [HD] - Shane Collins - APJ #32", ytid: "seBS2MEtALE" },
+          { title: "BEST OF VOCAL TRANCE | MIX#4", ytid: "VZT9HGsv01A" },          
           { title: "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)", ytid: "tS1NCigEB_I" },
           { title: "Dash Berlin - The Official Video Hit Mix", ytid: "U6l9NdAJwRk" },
-          { title: "Goodbye 2013 Mix (Progressive Trance House Trouse Uplifting Melodic Vocal)", ytid: "RLVs7Csdmf8" },
           { title: "Incredible Emotional Vocal Trance Mix l April 2015 (Vol 26)", ytid: "3l2FHxVd71o" },
           { title: "Seven Lions Mix (Hour Long Melodic Dubstep / Trancestep Mix)", ytid: "7KfKft2lcog" },
           { title: "The Best Of Paul Van Dyk (Essential Mix)", ytid: "wg4TI4nA5IM" },
