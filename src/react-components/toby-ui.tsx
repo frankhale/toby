@@ -43,6 +43,7 @@ interface ITobyState {
 
 interface ICommand {
   commands: string[];
+  description: string,
   action: (searchTerm: string, commandSegments: string[]) => void
 }
 
@@ -137,19 +138,19 @@ export class Toby extends React.Component<{}, ITobyState> {
   private setupCommands() : void {
     this.commands = [
       { 
-        commands: ["/archive"], 
+        commands: ["/archive"],
+        description: "Archive the database into a JSON file.",
         action: (searchTerm, commandSegments) => {
-          $.ajax({
+          $.get({
             url: '/api/videos/archive'
-          }).done((data) => {
-            console.log(data);
           });
         } 
       },
       { 
-        commands: ["/list-all"], 
+        commands: ["/list", "/list-all"], 
+        description: "List all the videos in the database.",
         action: (searchTerm, commandSegments) => {
-          $.ajax({
+          $.get({
             url: '/api/videos'
           }).done((data) => {
             this.setState({
@@ -159,7 +160,8 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/clear"], 
+        commands: ["/cls", "/clear"],
+        description: "Clear the current search results.", 
         action: (searchTerm, commandSegments) => {
           this.setState({
             searchResults: [],
@@ -175,49 +177,57 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/gv", "/grid-view"], 
+        commands: ["/gv", "/grid-view"],
+        description: "Switch to the grid view for listing videos.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ gridView: true });
         } 
       },
       { 
-        commands: ["/dv", "/default-view"], 
+        commands: ["/dv", "/default-view"],
+        description: "Switch to the default view for listing videos.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ gridView: false });
         } 
       },
       { 
-        commands: ["/mc", "/monochrome"], 
+        commands: ["/mc", "/monochrome"],
+        description: "Switch the thumbnails and video to a monochome filter.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "grayscale" });
         }
       },
       { 
-        commands: ["/sat", "/saturate"], 
+        commands: ["/sat", "/saturate"],
+        description: "Switch the thumbnails and video to a saturated filter.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "saturate" });
         } 
       },
       { 
-        commands: ["/sep", "/sepia"], 
+        commands: ["/sep", "/sepia"],
+        description: "Switch the thumbnails and video to a sepia filter.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "sepia" });
         } 
       },
       { 
-        commands: ["/norm", "/normal"], 
+        commands: ["/norm", "/normal"],
+        description: "Remove user set filters and return thumbnails and video to a normal filter.", 
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "normal" });
         } 
       },
       { 
-        commands: ["/history"], 
+        commands: ["/history"],
+        description: "List all recently played videos.", 
         action: (searchTerm, commandSegments) => {
           this.performSearch("/g Recently Played");
         } 
       },
       { 
-        commands: ["/rp", "/recently-played"], 
+        commands: ["/rp", "/recently-played"],
+        description: "List only the last 30 recently played videos.", 
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/last30"
@@ -230,7 +240,8 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/rps", "/recently-played-search"], 
+        commands: ["/rps", "/recently-played-search"],
+        description: "Search recently played vidoes.", 
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/search",
@@ -245,7 +256,8 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/trimrp", "trim-recently-played"], 
+        commands: ["/trimrp", "trim-recently-played"],
+        description: "Trim recently played videos in the database to the last 30.", 
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/last30",
@@ -259,7 +271,8 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/manage"], 
+        commands: ["/manage"],
+        description: "Switch mode to manage which allows you to edit groups videos belong to or delete them.", 
         action: (searchTerm, commandSegments) => {
           $.ajax({
             url: '/api/videos'
@@ -272,12 +285,12 @@ export class Toby extends React.Component<{}, ITobyState> {
         } 
       },
       { 
-        commands: ["/filter"], 
+        commands: ["/filter"],
+        description: "Switch thumbnails and video to a user specified filter: monochrome, saturate, sepia and normal", 
         action: (searchTerm, commandSegments) => {
           if(commandSegments.length > 0) {
             switch(commandSegments[1]) {
-              case "monochrome":
-              case "grayscale":
+              case "monochrome":              
                 this.setState({ applyFilter: "grayscale" });
                 break;
               case "saturate":

@@ -296,10 +296,6 @@
         "ytid": "VZT9HGsv01A"
       },
       {
-        "title": "Best of Progressive & Melodic Trance 2013 Yearmix [5 Hour Set] [HD] - Shane Collins - APJ #32",
-        "ytid": "seBS2MEtALE"
-      },
-      {
         "title": "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)",
         "ytid": "tS1NCigEB_I"
       },
@@ -520,10 +516,6 @@
       {
         "title": "Afternova - Empathy (Original Mix) [As Played on Uplifting Only 103]",
         "ytid": "eAT9RPQeU6A"
-      },
-      {
-        "title": "Ai Takekawa & Adam Sobiech - Break The Light (Ryo Nakamura Remix)",
-        "ytid": "N7u4wRwRQFM"
       },
       {
         "title": "Alex H feat Mona Moua - There's No Turning Back (Original Mix)",

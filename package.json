@@ -13,7 +13,7 @@
   "license": "GPL-3.0",
   "main": "./build/index.html",
   "node-remote": "http://localhost:62374/",
-  "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 node-webkit-%nwver",
+  "user-agent": "node-webkit-%nwver",
   "window": {
     "title": "Toby - A YouTube Player For The Desktop",
     "icon": "./public/images/toby.png",
