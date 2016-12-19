@@ -49,6 +49,7 @@ export default class API {
       { path: "GET /videos/groups", route: this.getVideosGroups },
       { path: "GET /videos/archive", route: this.getVideosArchive },
       { path: "POST /app/close", route: this.postAppClose },
+      { path: "POST /videos/youtube/search", route: this.postVideosYouTubeSearch },
       { path: "POST /videos/search", route: this.postVideosSearch },
       { path: "POST /videos/add", route: this.postVideosAdd },
       { path: "POST /videos/delete", route: this.postVideosDelete },
@@ -120,34 +121,41 @@ export default class API {
     this.server.close();
     process.exit(0);
   }
+  postVideosYouTubeSearch(req, res, next) : void {
+    let searchTerm = req.body.searchTerm;    
+
+    if(searchTerm.indexOf("/yt") > -1) {
+      searchTerm = searchTerm.replace("/yt", "");
+    }
+
+    youtubeSearch(searchTerm, AppConfig.youtubeSearchOpts, (err, results) => {
+      if (err) return console.log(err);
+
+      this.db.getVideosWhereTitleLikeFromDB(searchTerm, (localData) => {
+        var finalResults = [];
+
+        _.forEach(results, (r) => {
+          let found = _.find(localData, { "ytid": r.id });
+
+          finalResults.push({
+            title: r.title,
+            ytid: r.id,
+            group: r.group,
+            isArchived: (found !== undefined) ? true : false
+          });
+        });
+
+        res.json(finalResults);
+      });
+    });
+  }
   postVideosSearch(req, res, next) : void {
     let searchTerm = req.body.searchTerm;
 
-    if (searchTerm.startsWith("/yt")) {
-      searchTerm = searchTerm.replace("/yt", "");
+    console.log(`searching for ${searchTerm} locally`);
 
-      youtubeSearch(searchTerm, AppConfig.youtubeSearchOpts, (err, results) => {
-        if (err) return console.log(err);
-
-        this.db.getVideosWhereTitleLikeFromDB(searchTerm, (localData) => {
-          var finalResults = [];
-
-          //console.log(localData);
-
-          _.forEach(results, (r) => {
-            let found = _.find(localData, { "ytid": r.id });
-
-            finalResults.push({
-              title: r.title,
-              ytid: r.id,
-              group: r.group,
-              isArchived: (found !== undefined) ? true : false
-            });
-          });
-
-          res.json(finalResults);
-        });
-      });
+    if (searchTerm.startsWith("/yt")) {      
+      return this.postVideosYouTubeSearch(req, res, next);
     } else if (searchTerm.startsWith("/g")) {
       searchTerm = searchTerm.replace("/g", "").trim();
 

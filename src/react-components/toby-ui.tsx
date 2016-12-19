@@ -100,9 +100,12 @@ export class Toby extends React.Component<{}, ITobyState> {
       });
     });
   }
-  private performSearch(searchTerm: string) : void {
+  private performSearch(searchTerm: string, url: string) : void {
+    //"/api/videos/search"
+    //"/api/videos/youtube/search"
+
     $.post({
-      url: "/api/videos/search",
+      url: url,
       data: { searchTerm: searchTerm }
     })
     .done((data : IVideoEntry[]) : void => {
@@ -137,6 +140,14 @@ export class Toby extends React.Component<{}, ITobyState> {
   }
   private setupCommands() : void {
     this.commands = [
+      {
+        commands: ["/loc", "/local"],
+        description: "Search local videos saved in the database.",
+        action: (searchTerm, commandSegments) => {          
+          searchTerm = _.slice(commandSegments, 1).join(" ");          
+          this.performSearch(searchTerm, "/api/videos/search");
+        }
+      },
       { 
         commands: ["/archive"],
         description: "Archive the database into a JSON file.",
@@ -222,7 +233,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         commands: ["/history"],
         description: "List all recently played videos.", 
         action: (searchTerm, commandSegments) => {
-          this.performSearch("/g Recently Played");
+          this.performSearch("/g Recently Played", "/api/videos/search");
         } 
       },
       { 
@@ -245,7 +256,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/search",
-            data: { searchTerm: searchTerm.replace(commandSegments[0], "") }
+            data: { searchTerm: _.slice(commandSegments, 1).join(" ") }
           })
           .done((data) => {
             this.setState({
@@ -312,13 +323,13 @@ export class Toby extends React.Component<{}, ITobyState> {
     const commandSegments : string[] = searchTerm.split(" ");
 
     const command : ICommand = _.find(this.commands, (c) => {
-      return _.indexOf(c.commands, commandSegments[0]) > -1;
+      return _.indexOf(c.commands, commandSegments[0]) > -1;      
     });
 
     if(command) {
-      command.action(commandSegments[0], commandSegments);
+      command.action(searchTerm, commandSegments);
     } else {
-      this.performSearch(searchTerm);
+      this.performSearch(searchTerm, "/api/videos/youtube/search");
     }
   }
   private onAddVideoButtonClick(video: IVideoEntry, group: string) : void {

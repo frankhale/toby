@@ -153,7 +153,9 @@ repository:
 ***NOTE: `main` will need to be updated in `package.json` to point to the 
 correct starting point for your deployment scenario. If you are using Electron 
 it will need to be set to `build\electron.js` or if you are using NW.js it'll 
-need to be set to `index.html`***
+need to be set to `build\index.html`. It should also be noted that the 
+index.html contained in the root of the Toby repository will be copied to the 
+build folder and used from there.***
 
 #### Running in NW.js
 
@@ -181,7 +183,7 @@ Then open a browser to `http://127.0.0.1:62374`
 **Important Key Combos:**
 
 <kbd>F1</kbd> - Toggles server log   
-<kbd>F11</kbd> - Toggle Fullscreen
+<kbd>F11</kbd> - Toggles Fullscreen
 
 In addition to keyboard shortcuts there are commands that can be typed into the
 search box that will perform various things.
@@ -189,7 +191,8 @@ search box that will perform various things.
 Here is a list (there will be additional ones added soon):
 
 - `[name hint]` : Lists locally saved videos based on the [name hint]
-- `/yt [search term]` : Searches YouTube for the [search term]
+- `[search term]` : Searches YouTube for the [search term]
+- `/local [search term]` : Searches for locally saved videos
 - `/g [group name]` : Lists the videos for the [group name]
 - `/list-all` : List all videos contained in the database
 - `/history` : Lists the recently played videos
@@ -215,6 +218,9 @@ video filter and thumbnails in search results
 video filter and thumbnails in search results
 - `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video 
 filter and thumbnails in search results
+
+***NOTE: You can refer to /src/toby-ui.tsx for the various short cuts available
+for these commands***
 
 ### Wait, I used NW.js and some YouTube videos won't play
 
@@ -252,7 +258,7 @@ data loaded from the filesystem.***
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-18 December 2016
+19 December 2016
 
 ## License
 
