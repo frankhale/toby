@@ -41,9 +41,11 @@ class Platform {
     this.$webview = $("#webview");
     this.webview = /*<Electron.WebViewElement>*/ this.$webview[0];
 
-    if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+    document.title = pkgJSON.title;
+
+    //if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
       this.socket = require("socket.io")(62375);
-    }
+    //}
 
     this.snapToPlayerCodeBlock = `var actualCode = '(' + function() {
         snapToPlayer();

@@ -26,6 +26,8 @@ import * as debug from "debug";
 import API from "./api"
 import DB from "./db";
 
+const pkgJSON = require("../package.json");
+
 export default class Server {
   private app : express.Application;
 

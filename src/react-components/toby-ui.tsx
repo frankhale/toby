@@ -67,18 +67,22 @@ export class Toby extends React.Component<{}, ITobyState> {
       tobyVersionInfo: { title: "", version: ""}
     }
 
-    this.socket = (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
+    //this.socket = (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
+    this.socket = io("http://localhost:62375");
+    
     this.setupCommands();
   }
   componentDidMount() {
     if(this.socket !== undefined) {
-      this.socket.on("toby-version", (data: ITobyVersionInfo) : void => {
+      this.socket.on("toby-version", (versionInfo: ITobyVersionInfo) : void => {
         this.setState({
           tobyVersionInfo: { 
-            title: data.title,
-            version: data.version
+            title: versionInfo.title,
+            version: versionInfo.version
           }
         });
+
+        document.title = versionInfo.title;
       });
       
       // User clicked on a recommended video at the end of playing a video
