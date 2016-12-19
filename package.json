@@ -11,7 +11,7 @@
   "private": true,
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./build/electron.js",
+  "main": "./build/index.html",
   "node-remote": "http://localhost:62374/",
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.29 Safari/537.36 node-webkit-%nwver",
   "window": {
@@ -47,6 +47,7 @@
     "@types/youtube": "0.0.28",
     "awesome-typescript-loader": "^3.0.0-beta.17",
     "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-ts": "^6.0.0-beta.3",
     "source-map-loader": "^0.1.5",
     "typescript": "^2.1.4"

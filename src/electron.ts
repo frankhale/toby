@@ -22,7 +22,7 @@ function createWindow() : void {
     minHeight: 400,
     show: false
   });
-  mainWindow.loadURL(`file://${__dirname}/../index.html`);
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show();    
   });

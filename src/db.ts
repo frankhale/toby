@@ -18,7 +18,7 @@ import * as sqlite3 from "sqlite3";
 import * as path from "path";
 import * as _ from "lodash";
 
-import AppConfig from "./config.js";
+import AppConfig from "./config";
 import { IVideoGroup, IVideoEntry } from "./infrastructure";
 
 export default class DB {

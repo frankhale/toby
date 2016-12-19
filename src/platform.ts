@@ -21,7 +21,9 @@ import * as _ from "lodash";
 import * as request from "request";
 import * as titleCase from "title-case";
 
-const pkgJSON = require("./package.json");
+import AppConfig from "./config";
+
+const pkgJSON = require("../package.json");
 
 class Platform {
   private node : ChildProcess;
@@ -32,7 +34,7 @@ class Platform {
   private socket : SocketIO.Server;
 
   static bootstrap() {
-    return new Platform();
+    return new Platform();    
   }
 
   constructor() {
@@ -43,7 +45,7 @@ class Platform {
 
     document.title = pkgJSON.title;
 
-    this.socket = require("socket.io")(62375);    
+    this.socket = require("socket.io")(AppConfig.socketIOPort);    
     this.socket.on("connection", (s) => {
       this.$content.append("Socket.IO connection established...<br/>");
 
@@ -72,9 +74,9 @@ class Platform {
     this.redirectOutput(this.node.stderr);
 
     let checkServerRunning = setInterval(() => {
-      request("http://localhost:62374", (error, response, body) => {
+      request(AppConfig.serverURL, (error, response, body) => {
         if (!error && response.statusCode == 200) {          
-          this.$webview.attr("src", "http://localhost:62374");
+          this.$webview.attr("src", AppConfig.serverURL);
           $("#loading").css("display", "none");
           this.$webview.css("display", "block");
           clearInterval(checkServerRunning);

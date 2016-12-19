@@ -2,18 +2,18 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
-    <link rel="stylesheet" href="./public/components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./public/stylesheets/main.css">
+    <link rel="stylesheet" href="../public/components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/stylesheets/main.css">
 
-    <script src="./public/components/jquery/dist/jquery.min.js"></script>
+    <script src="../public/components/jquery/dist/jquery.min.js"></script>
 
     <script>
       if(navigator.userAgent.includes("Electron")) {
-        window.$ = window.jQuery = require("./public/components/jquery/dist/jquery.min.js");
+        window.$ = window.jQuery = require("../public/components/jquery/dist/jquery.min.js");
       }
     </script>
 
-    <script src="./public/components/keymaster/keymaster.js"></script>
+    <script src="../public/components/keymaster/keymaster.js"></script>
   </head>
   <body>
     <div id="loading">
@@ -21,7 +21,7 @@
     </div>
     <div id="content"></div>
     <webview id="webview" allowtransparency disablewebsecurity allowpopups></webview>
-
-    <script src="./build/platform.js"></script>
+    
+    <script src="./platform.js"></script>
   </body>
 </html>

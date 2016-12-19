@@ -23,6 +23,7 @@ import * as path from "path";
 import * as http from "http";
 import * as debug from "debug";
 
+import AppConfig from "./config";
 import API from "./api"
 import DB from "./db";
 
@@ -44,7 +45,7 @@ export default class Server {
     let server: http.Server,
         db : DB,
         api : API,
-        serverPort = "62374";
+        serverPort = AppConfig.serverPort;
 
     debug("toby:server");
 
