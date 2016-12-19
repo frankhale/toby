@@ -41,8 +41,14 @@ interface ITobyState {
   tobyVersionInfo?: ITobyVersionInfo
 }
 
+interface ICommand {
+  commands: string[];
+  action: (searchTerm: string, commandSegments: string[]) => void
+}
+
 export class Toby extends React.Component<{}, ITobyState> {
   private socket: SocketIOClient.Socket;
+  private commands: ICommand[]; 
   
   constructor() {
     super();
@@ -62,6 +68,7 @@ export class Toby extends React.Component<{}, ITobyState> {
     }
 
     this.socket = (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
+    this.setupCommands();
   }
   componentDidMount() {
     if(this.socket !== undefined) {
@@ -123,146 +130,178 @@ export class Toby extends React.Component<{}, ITobyState> {
 
     return _.sortBy(results, "title");
   }
-  private onCommandEntered(searchTerm: string) : void {
-    const commandSegments = searchTerm.split(" ");
-    const command = commandSegments[0];
-
-    switch(command) {
-      // case "/videos":
-      //   $.ajax({
-      //     url: '/api/videos'
-      //   }).done((data) => {
-      //     console.log(data);
-      //   });
-      //   break;
-      // case "/groups":
-      //   $.ajax({
-      //     url: '/api/videos/groups'
-      //   }).done((data) => {
-      //     console.log(data);
-      //   });
-      //   break;
-      case "/archive":
-        $.ajax({
-          url: '/api/videos/archive'
-        }).done((data) => {
-          console.log(data);
-        });
-        break;
-      case "/list-all":
-        $.ajax({
-          url: '/api/videos'
-        }).done((data) => {
-          this.setState({
-            searchResults: this.buildVideoResults(data)
+  private setupCommands() : void {
+    this.commands = [
+      { 
+        commands: ["/archive"], 
+        action: (searchTerm, commandSegments) => {
+          $.ajax({
+            url: '/api/videos/archive'
+          }).done((data) => {
+            console.log(data);
           });
-        });
-        break;
-      case "/clear":
-        this.setState({
-          searchResults: [],
-          currentVideo: { title: "", ytid: "" },
-          applyFilter: ""
-        });
-        
-        document.title = this.state.tobyVersionInfo.title;
-        
-        if(this.socket !== undefined) {
-          this.socket.emit("title", { title: this.state.tobyVersionInfo.title });
-        }
-        break;
-      case "/gv":
-      case "/grid-view":
-        this.setState({ gridView: true });
-        break;
-      case "/dv":
-      case "/default-view":
-        this.setState({ gridView: false });
-        break;
-      case "/monochrome":
-        this.setState({ applyFilter: "grayscale" });
-        break;
-      case "/saturate":
-        this.setState({ applyFilter: "saturate" });
-        break;
-      case "/sepia":
-        this.setState({ applyFilter: "sepia" });
-        break;
-      case "/normal":
-        this.setState({ applyFilter: "normal" });
-        break;
-      case "/filter":
-        if(commandSegments.length > 0) {
-          switch(commandSegments[1]) {
-            case "monochrome":
-            case "grayscale":
-              this.setState({ applyFilter: "grayscale" });
-              break;
-            case "saturate":
-              this.setState({ applyFilter: "saturate" });
-              break;
-            case "sepia":
-              this.setState({ applyFilter: "sepia" });
-              break;
-            case "normal":
-              this.setState({ applyFilter: "normal" });
-              break;
+        } 
+      },
+      { 
+        commands: ["/list-all"], 
+        action: (searchTerm, commandSegments) => {
+          $.ajax({
+            url: '/api/videos'
+          }).done((data) => {
+            this.setState({
+              searchResults: this.buildVideoResults(data)
+            });
+          });
+        } 
+      },
+      { 
+        commands: ["/clear"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({
+            searchResults: [],
+            currentVideo: { title: "", ytid: "" },
+            applyFilter: ""
+          });
+          
+          document.title = this.state.tobyVersionInfo.title;
+          
+          if(this.socket !== undefined) {
+            this.socket.emit("title", { title: this.state.tobyVersionInfo.title });
           }
+        } 
+      },
+      { 
+        commands: ["/gv", "/grid-view"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ gridView: true });
+        } 
+      },
+      { 
+        commands: ["/dv", "/default-view"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ gridView: false });
+        } 
+      },
+      { 
+        commands: ["/mc", "/monochrome"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ applyFilter: "grayscale" });
         }
-        break;
-      case "/history":
-        this.performSearch("/g Recently Played");
-        break;
-      case "/rp":
-      case "/recently-played":
-        $.post({
-          url: "/api/videos/recently-played/last30"
-        }).done((data) => {
-          this.setState({
-            searchResults: this.buildVideoResults(data),
-            manage: false
+      },
+      { 
+        commands: ["/sat", "/saturate"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ applyFilter: "saturate" });
+        } 
+      },
+      { 
+        commands: ["/sep", "/sepia"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ applyFilter: "sepia" });
+        } 
+      },
+      { 
+        commands: ["/norm", "/normal"], 
+        action: (searchTerm, commandSegments) => {
+          this.setState({ applyFilter: "normal" });
+        } 
+      },
+      { 
+        commands: ["/history"], 
+        action: (searchTerm, commandSegments) => {
+          this.performSearch("/g Recently Played");
+        } 
+      },
+      { 
+        commands: ["/rp", "/recently-played"], 
+        action: (searchTerm, commandSegments) => {
+          $.post({
+            url: "/api/videos/recently-played/last30"
+          }).done((data) => {
+            this.setState({
+              searchResults: this.buildVideoResults(data),
+              manage: false
+            });
           });
-        });
-        break;
-      case "/rps":
-      case "/recently-played-search":
-        $.post({
-          url: "/api/videos/recently-played/search",
-          data: { searchTerm: searchTerm.replace(command, "") }
-        })
-        .done((data) => {
-          this.setState({
-            searchResults: this.buildVideoResults(data),
-            manage: false
+        } 
+      },
+      { 
+        commands: ["/rps", "/recently-played-search"], 
+        action: (searchTerm, commandSegments) => {
+          $.post({
+            url: "/api/videos/recently-played/search",
+            data: { searchTerm: searchTerm.replace(commandSegments[0], "") }
+          })
+          .done((data) => {
+            this.setState({
+              searchResults: this.buildVideoResults(data),
+              manage: false
+            });
+          });          
+        } 
+      },
+      { 
+        commands: ["/trimrp", "trim-recently-played"], 
+        action: (searchTerm, commandSegments) => {
+          $.post({
+            url: "/api/videos/recently-played/last30",
+            data: { trim: true }
+          }).done((data) => {
+            this.setState({
+              searchResults: this.buildVideoResults(data),
+              manage: false
+            });
           });
-        });
-        break;
-      case "/rptrim":
-      case "/trim-recently-played":
-        $.post({
-          url: "/api/videos/recently-played/last30",
-          data: { trim: true }
-        }).done((data) => {
-          this.setState({
-            searchResults: this.buildVideoResults(data),
-            manage: false
+        } 
+      },
+      { 
+        commands: ["/manage"], 
+        action: (searchTerm, commandSegments) => {
+          $.ajax({
+            url: '/api/videos'
+          }).done((data) => {
+            this.setState({
+              searchResults: this.buildVideoResults(data),
+              manage: true
+            });
           });
-        });
-        break;
-      case "/manage":
-        $.ajax({
-          url: '/api/videos'
-        }).done((data) => {
-          this.setState({
-            searchResults: this.buildVideoResults(data),
-            manage: true
-          });
-        });
-        break;
+        } 
+      },
+      { 
+        commands: ["/filter"], 
+        action: (searchTerm, commandSegments) => {
+          if(commandSegments.length > 0) {
+            switch(commandSegments[1]) {
+              case "monochrome":
+              case "grayscale":
+                this.setState({ applyFilter: "grayscale" });
+                break;
+              case "saturate":
+                this.setState({ applyFilter: "saturate" });
+                break;
+              case "sepia":
+                this.setState({ applyFilter: "sepia" });
+                break;
+              case "normal":
+                this.setState({ applyFilter: "normal" });
+                break;
+            }
+          }
+        } 
+      },      
+    ];    
+  }
+  private onCommandEntered(searchTerm: string) : void {
+    const commandSegments : string[] = searchTerm.split(" ");
 
-      default:
-        this.performSearch(searchTerm);
-        break;
+    const command : ICommand = _.find(this.commands, (c) => {
+      return _.indexOf(c.commands, commandSegments[0]) > -1;
+    });
+
+    if(command) {
+      command.action(commandSegments[0], commandSegments);
+    } else {
+      this.performSearch(searchTerm);
     }
   }
   private onAddVideoButtonClick(video: IVideoEntry, group: string) : void {

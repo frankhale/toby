@@ -150,13 +150,13 @@ need to be set to `index.html`***
 #### Running in NW.js
 
 ```
-browsers\nwjs\nw.exe .
+browser\nwjs\nw.exe .
 ```
 
 #### Running in Electron
 
 ```
-browsers\electron\electron .
+browser\electron\electron .
 ```
 
 #### Running in a Browser
@@ -244,7 +244,7 @@ data loaded from the filesystem.***
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-17 December 2016
+18 December 2016
 
 ## License
 
