@@ -121,10 +121,18 @@ npm install
 bower install
 ```
 
-***NOTE: Before building the source code you'll need to copy over the 
-Typescript definition file that I've made for the `youtube-search` node module.
-This file is located in `/definitions/youtube-search.d.ts` and needs to be 
-copied to `/node_modules/youtube-search` and renamed to `index.d.ts`***
+***BEFORE BUILDING***
+
+Before building the source code you'll need to copy over the Typescript 
+definition files that I've made for the `youtube-search` and `title-case`. This 
+file is located in `/definitions/youtube-search.d.ts` and needs to be copied to 
+`/node_modules/youtube-search` and rename it to `index.d.ts`. The `title-case` 
+one should be copied to `/node_modules/title-case`.
+
+The `title-case` definition is just a modification of the one that already 
+exists but makes one change so that it can be imported using the import keyword.
+
+#### Building the Source Code
 
 The server needs to be built using Grunt.
 

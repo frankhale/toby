@@ -19,7 +19,7 @@ import * as stream from "stream";
 import { spawn, ChildProcess } from "child_process";
 import * as _ from "lodash";
 import * as request from "request";
-import titleCase = require("title-case");
+import * as titleCase from "title-case";
 
 const pkgJSON = require("./package.json");
 
@@ -27,7 +27,7 @@ class Platform {
   private node : ChildProcess;
   private $content : JQuery;
   private $webview : JQuery;
-  private webview : any; //Electron.WebViewElement;
+  private webview : any;
   private snapToPlayerCodeBlock : string;  
   private socket : SocketIO.Server;
 
@@ -39,13 +39,26 @@ class Platform {
     this.node = spawn(".\\node.exe", ["./build/server.js"], { cwd: process.cwd() });
     this.$content = $("#content");        
     this.$webview = $("#webview");
-    this.webview = /*<Electron.WebViewElement>*/ this.$webview[0];
+    this.webview = this.$webview[0];
 
     document.title = pkgJSON.title;
 
-    //if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
-      this.socket = require("socket.io")(62375);
-    //}
+    this.socket = require("socket.io")(62375);    
+    this.socket.on("connection", (s) => {
+      this.$content.append("Socket.IO connection established...<br/>");
+
+      s.on("title", (t) => {
+        if(t.title !== undefined && t.title !== "") {
+          this.$content.append(`setting title to: ${t.title}<br/>`);
+          document.title = t.title;
+        }
+      });
+
+      s.emit("toby-version", { 
+        title: pkgJSON.title,
+        version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
+      });
+    });
 
     this.snapToPlayerCodeBlock = `var actualCode = '(' + function() {
         snapToPlayer();
@@ -128,22 +141,6 @@ class Platform {
     this.resizeContent();
 
     if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
-      this.socket.on("connection", (s) => {
-        this.$content.append("Socket.IO connection established...<br/>");
-
-        s.on("title", (t) => {
-          if(t.title !== undefined && t.title !== "") {
-            this.$content.append(`setting title to: ${t.title}<br/>`);
-            document.title = t.title;
-          }
-        });
-
-        s.emit("toby-version", { 
-          title: pkgJSON.title,
-          version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
-        });
-      });
-
       this.webview.addEventListener("permissionrequest", (e) => {
         if (e.permission === "fullscreen") {
           e.request.allow();

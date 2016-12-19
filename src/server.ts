@@ -88,14 +88,12 @@ export default class Server {
     });
 
     db = new DB();
-
     api = new API(db, server);
 
-    this.app.get("/", (req, res, next) => {
-      res.render("index");
+    this.app.get("/", (req, res, next) => {      
+      res.render("index", { title: pkgJSON.title });
     });
-
-    //this.app.use("/", router);
+    
     this.app.use("/api", api.router);
 
     // catch 404 and forward to error handler
