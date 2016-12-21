@@ -11,17 +11,17 @@
   "private": true,
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./build/index.html",
+  "main": "./build/electron.js",
   "node-remote": "http://localhost:62374/",
   "user-agent": "node-webkit-%nwver",
   "window": {
     "title": "Toby - A YouTube Player For The Desktop",
     "icon": "./public/images/toby.png",
     "toolbar": false,
-    "width": 640,
-    "height": 400,
+    "width": 640, 
+    "height": 369,
     "min_width": 640,
-    "min_height": 400,
+    "min_height": 369,
     "show": false
   },
   "devDependencies": {

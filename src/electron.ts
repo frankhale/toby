@@ -14,6 +14,7 @@ app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false');
 function createWindow() : void {
   mainWindow = new BrowserWindow({
     autoHideMenuBar: true,
+    useContentSize: true,
     icon: `${__dirname}${path.sep}..${path.sep}public${path.sep}images${path.sep}toby.png`,
     backgroundColor: "#000",
     width: 640,
