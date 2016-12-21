@@ -66,32 +66,32 @@ export default class API {
 
     this.initializeRoutes();
   }
-  initializeRoutes() : void {
+  private initializeRoutes() : void {
     _.forEach(this.routes, (r) => {
       let routePath = r.path.split(" ");
       this.router[routePath[0].toLowerCase()](routePath[1], r.route.bind(this));      
     });
   }
-  createDataFileString(data: IVideoGroup[]): string {
+  private createDataFileString(data: IVideoGroup[]): string {
     return JSON.stringify(data, null, 2);
   }
-  writeDataFile(dataFilePath: string, dataString: string): void {
+  private writeDataFile(dataFilePath: string, dataString: string): void {
     try {
       fs.writeFileSync(dataFilePath, dataString, "utf8");
     } catch (e) {
       console.log(`Error writing data file: ${e}`);
     }
   }
-  getVideos(req, res, next) : void {
+  private getVideos(req, res, next) : void {
     this.db.getAllVideosFromDB((data) => { res.json(data); });
   }
-  getVideosGroups(req, res, next) : void {
+  private getVideosGroups(req, res, next) : void {
     this.db.getAllGroupsFromDB((data) => { 
       data = _.map(data, (d) => { return d.group; });
       res.json(data); 
     });
   }
-  getVideosArchive(req, res, next) : void {
+  private getVideosArchive(req, res, next) : void {
     this.db.getAllGroupsFromDB((groups) => {
       this.db.getAllVideosOrderedByGroupDB((data) => {
         let results = [];
@@ -119,12 +119,12 @@ export default class API {
       });
     });   
   }
-  postAppClose(req, res, next) : void {
+  private postAppClose(req, res, next) : void {
     this.db.close();
     this.server.close();
     process.exit(0);
   }
-  postVideosYouTubeSearch(req, res, next) : void {
+  private postVideosYouTubeSearch(req, res, next) : void {
     let searchTerm = req.body.searchTerm;    
 
     if(searchTerm.indexOf("/yt") > -1) {
@@ -154,7 +154,7 @@ export default class API {
       });
     });
   }
-  postVideosSearch(req, res, next) : void {
+  private postVideosSearch(req, res, next) : void {
     let searchTerm = req.body.searchTerm;
 
     console.log(`searching for ${searchTerm} locally`);
@@ -179,7 +179,7 @@ export default class API {
       });
     }
   }
-  postVideosAdd(req, res, next) : void {
+  private postVideosAdd(req, res, next) : void {
         let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
@@ -195,7 +195,7 @@ export default class API {
       res.json({ success: false });
     }
   }
-  postVideosDelete(req, res, next) : void {
+  private postVideosDelete(req, res, next) : void {
     let _videoData = [],
         ytid = req.body.ytid;
 
@@ -207,7 +207,7 @@ export default class API {
       res.json({ success: true });
     }
   }
-  postVideosUpdate(req, res, next) : void {
+  private postVideosUpdate(req, res, next) : void {
     let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
@@ -223,7 +223,7 @@ export default class API {
       res.json({ success: false });
     }
   }
-  postVideosRecentlyPlayedAdd(req, res, next) : void {
+  private postVideosRecentlyPlayedAdd(req, res, next) : void {
     let title = req.body.title,
         ytid = req.body.ytid;
 
@@ -257,7 +257,7 @@ export default class API {
       });
     }    
   }
-  postVideosRecentlyPlayedSearch(req, res, next) : void {
+  private postVideosRecentlyPlayedSearch(req, res, next) : void {
     let searchTerm = req.body.searchTerm;
 
     if(searchTerm !== undefined && searchTerm.length > 0) {
@@ -268,7 +268,7 @@ export default class API {
       res.json([]);
     }  
   }
-  postVideosRecentlyPlayedLas30(req, res, next) : void {
+  private postVideosRecentlyPlayedLas30(req, res, next) : void {
     let trim = false;
 
     if(req.body.trim !== undefined) {
