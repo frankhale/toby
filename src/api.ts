@@ -134,29 +134,24 @@ export default class API {
     youtubeSearch(searchTerm, AppConfig.youtubeSearchOpts, (err, results) => {
       if (err) return console.log(err);
 
-      // This is kind of stupid, need a better way to do a fuzzy search on the 
-      // search term instead of comparing all YTIDs against ones returned in 
-      // search. This will slow down as DB gets larger, NEED TO FIX!!!
+      const ytids = _.map(results, (r) => { return r.id; });
 
-      this.db.getAllYTIDsFromDB((ytids) => {
-        this.db.getVideosWhereTitleLikeFromDB(searchTerm, (localData) => {
-          var finalResults = [];
+      this.db.getAllVideosWhereYTIDInList(ytids, (ytids_found) => {
+        let finalResults = [];
 
-          _.forEach(results, (r) => {              
-            let found = _.indexOf(ytids, r.id) > -1;
+        _.forEach(results, (r) => {              
+          let found = _.find(ytids_found, { ytid: r.id }); 
 
-            finalResults.push({
-              title: r.title,
-              ytid: r.id,
-              group: r.group,
-              isArchived: (found) ? true : false
-            });
+          finalResults.push({
+            title: r.title,
+            ytid: r.id,
+            group: (found) ? found.group : "",
+            isArchived: (found) ? true : false
           });
-
-          this.cache.addItem(searchTerm, finalResults);
-
-          res.json(finalResults);
         });
+
+        this.cache.addItem(searchTerm, finalResults);
+        res.json(finalResults);
       });
     });
   }
