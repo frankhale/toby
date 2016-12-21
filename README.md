@@ -240,8 +240,6 @@ of this: [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://gith
 
 ### Features TODO
 
-- Caching YouTube search results for a bit to avoid querying YouTube over and
-  over for the same thing
 - Usage info from within the app
 
 ### Updating the data file
@@ -258,7 +256,7 @@ data loaded from the filesystem.***
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-19 December 2016
+20 December 2016
 
 ## License
 
