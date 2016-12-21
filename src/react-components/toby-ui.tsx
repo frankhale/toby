@@ -141,6 +141,13 @@ export class Toby extends React.Component<{}, ITobyState> {
   private setupCommands() : void {
     this.commands = [
       {
+        commands: ["/g", "/group"],
+        description: "List all local videos in group.",
+        action: (searchTerm, commandSegments) => {                             
+          this.performSearch(searchTerm, "/api/videos/search");
+        }
+      },
+      {
         commands: ["/loc", "/local"],
         description: "Search local videos saved in the database.",
         action: (searchTerm, commandSegments) => {          
@@ -323,7 +330,7 @@ export class Toby extends React.Component<{}, ITobyState> {
     const commandSegments : string[] = searchTerm.split(" ");
 
     const command : ICommand = _.find(this.commands, (c) => {
-      return _.indexOf(c.commands, commandSegments[0]) > -1;      
+      return _.indexOf(c.commands, commandSegments[0]) > -1;
     });
 
     if(command) {

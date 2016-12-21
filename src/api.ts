@@ -156,8 +156,8 @@ export default class API {
 
     if (searchTerm.startsWith("/yt")) {      
       return this.postVideosYouTubeSearch(req, res, next);
-    } else if (searchTerm.startsWith("/g")) {
-      searchTerm = searchTerm.replace("/g", "").trim();
+    } else if (searchTerm.startsWith("/group") || searchTerm.startsWith("/g")) {
+      searchTerm = _.slice(searchTerm.split(" "), 1).join(" ");
 
       if (searchTerm === "all") {
         this.db.getAllVideosFromDB((data) => {
