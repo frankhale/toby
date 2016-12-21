@@ -46,6 +46,19 @@ export default class DB {
       });
     });
   }
+  getAllYTIDsFromDB(finished: (rows: any[]) => void): void {
+    this.db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", (err, rows) => {
+      if (finished !== undefined) {
+        let ytids = [];
+        
+        _.forEach(rows, (d) => {
+          ytids.push(d.ytid);  
+        });
+
+        finished(ytids);
+      }
+    });
+  }
   getAllVideosFromDB(finished: (rows: any[]) => void): void {
     this.db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", (err, rows) => {
       if (finished !== undefined) {
