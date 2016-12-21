@@ -23,6 +23,8 @@ import * as http from "http";
 import * as youtubeSearch from "youtube-search";
 
 import { IVideoGroup, IVideoEntry } from "./infrastructure";
+import { ICacheItem, SearchCache } from "./searchCache";
+
 import AppConfig from "./config";
 import DB from "./db";
 import DefaultData from "./data"
@@ -35,14 +37,15 @@ interface APIRoute {
 export default class API {
   private db : DB;
   private server : http.Server;
-  private routes : APIRoute[];  
-
+  private routes : APIRoute[];
+  private cache : SearchCache;
   public router : express.Router;
 
   constructor(db : DB, server : http.Server) {
     this.db = db;
     this.router = express.Router();
     this.server = server;
+    this.cache = new SearchCache();
 
     this.routes = [      
       { path: "GET /videos", route: this.getVideos },
@@ -144,6 +147,8 @@ export default class API {
             isArchived: (found !== undefined) ? true : false
           });
         });
+
+        this.cache.addItem(searchTerm, finalResults);
 
         res.json(finalResults);
       });
