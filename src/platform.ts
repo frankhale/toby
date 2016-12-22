@@ -30,33 +30,33 @@ class Platform {
   private $content : JQuery;
   private $webview : JQuery;
   private webview : any;
-  private snapToPlayerCodeBlock : string;  
+  private snapToPlayerCodeBlock : string;
   private socket : SocketIO.Server;
 
   static bootstrap() {
-    return new Platform();    
+    return new Platform();
   }
 
   constructor() {
     this.node = spawn(".\\node.exe", ["./build/server.js"], { cwd: process.cwd() });
-    this.$content = $("#content");        
+    this.$content = $("#content");
     this.$webview = $("#webview");
     this.webview = this.$webview[0];
 
     document.title = pkgJSON.title;
 
-    this.socket = require("socket.io")(AppConfig.socketIOPort);    
+    this.socket = require("socket.io")(AppConfig.socketIOPort);
     this.socket.on("connection", (s) => {
       this.$content.append("Socket.IO connection established...<br/>");
 
-      s.on("title", (t) => {
-        if(t.title !== undefined && t.title !== "") {
-          this.$content.append(`setting title to: ${t.title}<br/>`);
-          document.title = t.title;
+      s.on("title", (t : string) => {
+        if(t !== undefined && t !== "") {
+          this.$content.append(`setting title to: ${t}<br/>`);
+          document.title = t;
         }
       });
 
-      s.emit("toby-version", { 
+      s.emit("toby-version", {
         title: pkgJSON.title,
         version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
       });
@@ -75,12 +75,12 @@ class Platform {
 
     let checkServerRunning = setInterval(() => {
       request(AppConfig.serverURL, (error, response, body) => {
-        if (!error && response.statusCode == 200) {          
+        if (!error && response.statusCode == 200) {
           this.$webview.attr("src", AppConfig.serverURL);
           $("#loading").css("display", "none");
           this.$webview.css("display", "block");
           clearInterval(checkServerRunning);
-        } 
+        }
       });
     }, 1000);
 
@@ -113,7 +113,7 @@ class Platform {
         win.show();
       });
 
-      win.on("restore", () => {        
+      win.on("restore", () => {
         this.webview.executeScript({ code: this.snapToPlayerCodeBlock });
       });
 
@@ -143,12 +143,12 @@ class Platform {
     this.resizeContent();
 
     if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
-      this.webview.addEventListener("permissionrequest", (e) => {
+      this.webview.addEventListener("permissionrequest", (e : any) => {
         if (e.permission === "fullscreen") {
           e.request.allow();
         }
       });
-    
+
       if(navigator.userAgent.includes("Electron")) {
         this.webview.addEventListener('new-window', this.newWindowHandler.bind(this));
       } else if (navigator.userAgent.includes("node-webkit")) {
@@ -224,8 +224,8 @@ class Platform {
     // {url: "https://www.youtube.com/watch?v=4nYMdMtGsPo"}
 
     // NOTE: What I said above is only partially true, the video has to start
-    // playing for the time_continue to be present in the URL. You cannot 
-    // click the YouTube link and have it open an external browser if the 
+    // playing for the time_continue to be present in the URL. You cannot
+    // click the YouTube link and have it open an external browser if the
     // video has not started to play.
 
     e.preventDefault();

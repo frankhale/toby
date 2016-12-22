@@ -36,7 +36,7 @@ export default class DB {
         _.forEach(videoData, (g: IVideoGroup) => {
           _.forEach(g.entries, (e) => {
             this.getVideoFromDB(e.ytid, (row) => {
-              if (row === undefined && g.group !== "Recently Played") {                
+              if (row === undefined && g.group !== "Recently Played") {
                 console.log(`importing ${e.title} | ${g.group}`);
                 this.db.run("INSERT into videos(title,ytid,[group]) VALUES (?,?,?)", [e.title, e.ytid, g.group]);
               }
@@ -49,10 +49,10 @@ export default class DB {
   getAllYTIDsFromDB(finished: (rows: any[]) => void): void {
     this.db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", (err, rows) => {
       if (finished !== undefined) {
-        let ytids = [];
-        
+        let ytids : string[] = [];
+
         _.forEach(rows, (d) => {
-          ytids.push(d.ytid);  
+          ytids.push(d.ytid);
         });
 
         finished(ytids);
@@ -91,9 +91,9 @@ export default class DB {
       }
     });
   }
-  getAllVideosWhereYTIDInList(ytids, finished: (rows: any[]) => void) : void {
+  getAllVideosWhereYTIDInList(ytids : string[], finished: (rows: any[]) => void) : void {
     let ytids_in_string = _.map(ytids, (r) => { return `'${r}'`; }).join(",");
-    
+
     this.db.all(`SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`, (err, ytids_found) => {
       finished(ytids_found);
     });

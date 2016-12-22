@@ -42,7 +42,6 @@ export class SearchCache {
       this.runExpire();
     }, this.expiry * 60000);
   }
-
   private runExpire() : void {
     if(this.cache.length <= 0) return;
 
@@ -50,10 +49,9 @@ export class SearchCache {
       return c.addedAt < Moment().subtract(this.expiry, "minutes");
     });
   }
-
-  addItem(searchTerm, results) {
+  addItem(searchTerm : string, results : IVideoEntry[]) {
     let found = _.find(this.cache, { searchTerm: searchTerm });
-    
+
     if(!found) {
       this.cache.push({
         searchTerm: searchTerm,
@@ -62,8 +60,7 @@ export class SearchCache {
       });
     }
   }
-
-  inCache(searchTerm) : boolean {
+  inCache(searchTerm : string) : boolean {
     const result = _.find(this.cache, { searchTerm: searchTerm });
 
     if(result) return true;

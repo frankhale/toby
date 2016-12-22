@@ -1,11 +1,11 @@
 import * as path from "path";
 import { app, BrowserWindow } from "electron";
 
-let mainWindow;
+let mainWindow : Electron.BrowserWindow;
 
 // Found an issue with recent versions of electron in that focus would run crazy
 // in certain situations.
-// 
+//
 // Issue: https://github.com/electron/electron/issues/7655
 //
 // This command line switch seems to make the problem go away
@@ -25,21 +25,18 @@ function createWindow() : void {
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.webContents.on("did-finish-load", () => {
-    mainWindow.show();    
+    mainWindow.show();
   });
-  mainWindow.on("closed", (e) => {
+  mainWindow.on("closed", (e : any) => {
     mainWindow = null;
   });
 }
-
 app.on("ready", createWindow);
-
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
-
 app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();

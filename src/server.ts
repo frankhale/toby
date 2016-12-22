@@ -36,11 +36,9 @@ export default class Server {
     this.app = express();
     this.config();
   }
-
   static bootstrap() {
     return new Server();
   }
-
   config(): void {
     let server: http.Server,
         db : DB,
@@ -91,10 +89,10 @@ export default class Server {
     db = new DB();
     api = new API(db, server);
 
-    this.app.get("/", (req, res, next) => {      
+    this.app.get("/", (req, res, next) => {
       res.render("index", { title: pkgJSON.title });
     });
-    
+
     this.app.use("/api", api.router);
 
     // catch 404 and forward to error handler
@@ -107,8 +105,8 @@ export default class Server {
     // development error handler
     // will print stacktrace
     if (this.app.get("env") === "development") {
-      this.app.use((err, req, res, next) => {
-        res.status(err.status || 500);
+      this.app.use((err : Error, req : express.Request, res : express.Response, next : express.NextFunction) => {
+        res.status(err["status"] || 500);
 
         console.log(err.stack);
 
@@ -121,8 +119,8 @@ export default class Server {
 
     // production error handler
     // no stacktraces leaked to user
-    this.app.use((err, req, res, next) => {
-      res.status(err.status || 500);
+    this.app.use((err : Error, req : express.Request, res : express.Response, next : express.NextFunction) => {
+      res.status(err["status"] || 500);
       res.render("error", {
         message: err.message,
         error: {}

@@ -31,7 +31,7 @@ import DefaultData from "./data"
 
 interface APIRoute {
   path : string,
-  route : (req, res, next) => void
+  route : (req : express.Request, res : express.Response) => void
 }
 
 export default class API {
@@ -47,7 +47,7 @@ export default class API {
     this.server = server;
     this.cache = new SearchCache();
 
-    this.routes = [      
+    this.routes = [
       { path: "GET /videos", route: this.getVideos },
       { path: "GET /videos/groups", route: this.getVideosGroups },
       { path: "GET /videos/archive", route: this.getVideosArchive },
@@ -69,7 +69,7 @@ export default class API {
   private initializeRoutes() : void {
     _.forEach(this.routes, (r) => {
       let routePath = r.path.split(" ");
-      this.router[routePath[0].toLowerCase()](routePath[1], r.route.bind(this));      
+      this.router[routePath[0].toLowerCase()](routePath[1], r.route.bind(this));
     });
   }
   private createDataFileString(data: IVideoGroup[]): string {
@@ -82,19 +82,19 @@ export default class API {
       console.log(`Error writing data file: ${e}`);
     }
   }
-  private getVideos(req, res, next) : void {
+  private getVideos(req : express.Request, res : express.Response) : void {
     this.db.getAllVideosFromDB((data) => { res.json(data); });
   }
-  private getVideosGroups(req, res, next) : void {
-    this.db.getAllGroupsFromDB((data) => { 
+  private getVideosGroups(req : express.Request, res : express.Response) : void {
+    this.db.getAllGroupsFromDB((data) => {
       data = _.map(data, (d) => { return d.group; });
-      res.json(data); 
+      res.json(data);
     });
   }
-  private getVideosArchive(req, res, next) : void {
+  private getVideosArchive(req : express.Request, res : express.Response) : void {
     this.db.getAllGroupsFromDB((groups) => {
       this.db.getAllVideosOrderedByGroupDB((data) => {
-        let results = [];
+        let results : IVideoGroup[] = [];
 
         _.forEach(groups, (g) => {
           let entries = _.sortBy(_.filter(data, { "group": g.group }), ["title"]);
@@ -117,15 +117,15 @@ export default class API {
 
         res.send(dataFileString);
       });
-    });   
+    });
   }
-  private postAppClose(req, res, next) : void {
+  private postAppClose(req : Express.Request, res : Express.Response) : void {
     this.db.close();
     this.server.close();
     process.exit(0);
   }
-  private postVideosYouTubeSearch(req, res, next) : void {
-    let searchTerm = req.body.searchTerm;    
+  private postVideosYouTubeSearch(req : express.Request, res : express.Response) : void {
+    let searchTerm = req.body.searchTerm;
 
     if(searchTerm.indexOf("/yt") > -1) {
       searchTerm = searchTerm.replace("/yt", "");
@@ -137,10 +137,10 @@ export default class API {
       const ytids = _.map(results, (r) => { return r.id; });
 
       this.db.getAllVideosWhereYTIDInList(ytids, (ytids_found) => {
-        let finalResults = [];
+        let finalResults : IVideoEntry[] = [];
 
-        _.forEach(results, (r) => {              
-          let found = _.find(ytids_found, { ytid: r.id }); 
+        _.forEach(results, (r) => {
+          let found = _.find(ytids_found, { ytid: r.id });
 
           finalResults.push({
             title: r.title,
@@ -155,13 +155,13 @@ export default class API {
       });
     });
   }
-  private postVideosSearch(req, res, next) : void {
+  private postVideosSearch(req : express.Request, res : express.Response) : void {
     let searchTerm = req.body.searchTerm;
 
     console.log(`searching for ${searchTerm} locally`);
 
-    if (searchTerm.startsWith("/yt")) {      
-      return this.postVideosYouTubeSearch(req, res, next);
+    if (searchTerm.startsWith("/yt")) {
+      this.postVideosYouTubeSearch(req, res);
     } else if (searchTerm.startsWith("/group") || searchTerm.startsWith("/g")) {
       searchTerm = _.slice(searchTerm.split(" "), 1).join(" ");
 
@@ -180,7 +180,7 @@ export default class API {
       });
     }
   }
-  private postVideosAdd(req, res, next) : void {
+  private postVideosAdd(req : express.Request, res : express.Response) : void {
         let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
@@ -196,7 +196,7 @@ export default class API {
       res.json({ success: false });
     }
   }
-  private postVideosDelete(req, res, next) : void {
+  private postVideosDelete(req : express.Request, res : express.Response) : void {
     let _videoData = [],
         ytid = req.body.ytid;
 
@@ -208,7 +208,7 @@ export default class API {
       res.json({ success: true });
     }
   }
-  private postVideosUpdate(req, res, next) : void {
+  private postVideosUpdate(req : express.Request, res : express.Response) : void {
     let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
@@ -224,7 +224,7 @@ export default class API {
       res.json({ success: false });
     }
   }
-  private postVideosRecentlyPlayedAdd(req, res, next) : void {
+  private postVideosRecentlyPlayedAdd(req : express.Request, res : express.Response) : void {
     let title = req.body.title,
         ytid = req.body.ytid;
 
@@ -256,9 +256,9 @@ export default class API {
         success: false,
         message: "title is required but was empty or undefined"
       });
-    }    
+    }
   }
-  private postVideosRecentlyPlayedSearch(req, res, next) : void {
+  private postVideosRecentlyPlayedSearch(req : express.Request, res : express.Response) : void {
     let searchTerm = req.body.searchTerm;
 
     if(searchTerm !== undefined && searchTerm.length > 0) {
@@ -267,9 +267,9 @@ export default class API {
       });
     } else {
       res.json([]);
-    }  
+    }
   }
-  private postVideosRecentlyPlayedLas30(req, res, next) : void {
+  private postVideosRecentlyPlayedLas30(req : express.Request, res : express.Response) : void {
     let trim = false;
 
     if(req.body.trim !== undefined) {
@@ -296,6 +296,6 @@ export default class API {
       }
 
       res.json(top30RecentlyPlayed);
-    });    
+    });
   }
 }

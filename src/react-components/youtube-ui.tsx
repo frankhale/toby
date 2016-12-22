@@ -85,7 +85,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       }
     }
 
-    if(nextProps.video !== undefined && 
+    if(nextProps.video !== undefined &&
       (!(_.isEmpty(nextProps.video))) &&
        nextProps.video.ytid !== undefined &&
        nextProps.video.ytid !== "") {
@@ -119,7 +119,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
         document.title = videoInfo.title;
 
         if(this.props.socket !== undefined) {
-          this.props.socket.emit("title", { title: videoInfo.title });
+          this.props.socket.emit("title", videoInfo.title);
         }
 
         this.setState({
