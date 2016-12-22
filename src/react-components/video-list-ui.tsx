@@ -21,28 +21,28 @@ import * as _ from "lodash";
 
 import { IDropDownItem, DropDown } from "./dropdown-ui";
 
-import { IVideoGroup, 
-         IVideoEntry,         
+import { IVideoGroup,
+         IVideoEntry,
          ISearchResults } from "./infrastructure";
 
 export interface IVideoListProps {
-  data: ISearchResults[],
-  groups: string[],
-  applyFilter: string,
-  onAddVideoButtonClick(video: IVideoEntry, group: string): void,
-  onUpdateVideoButtonClick(video: IVideoEntry, group: string): void,
-  onDeleteVideoButtonClick(video: IVideoEntry): void,
-  manage?: boolean  
+  data: ISearchResults[];
+  groups: string[];
+  applyFilter: string;
+  onAddVideoButtonClick(video: IVideoEntry, group: string): void;
+  onUpdateVideoButtonClick(video: IVideoEntry, group: string): void;
+  onDeleteVideoButtonClick(video: IVideoEntry): void;
+  manage?: boolean;
 }
 
 interface IVideoListState {
   items?: IDropDownItem[];
   data?: ISearchResults[];
   applyFilter?: string;
-  onAddVideoButtonClick?: (video: IVideoEntry, group: string) => void,
-  onUpdateVideoButtonClick?: (video: IVideoEntry, group: string) => void,
-  onDeleteVideoButtonClick?: (video: IVideoEntry) => void,
-  manage?: boolean
+  onAddVideoButtonClick?: (video: IVideoEntry, group: string) => void;
+  onUpdateVideoButtonClick?: (video: IVideoEntry, group: string) => void;
+  onDeleteVideoButtonClick?: (video: IVideoEntry) => void;
+  manage?: boolean;
 }
 
 export class VideoList extends React.Component<IVideoListProps, IVideoListState> {
@@ -52,11 +52,11 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
     this.onAddVideoButtonClick = this.onAddVideoButtonClick.bind(this);
     this.onUpdateVideoButtonClick = this.onUpdateVideoButtonClick.bind(this);
     this.onDeleteVideoButtonClick = this.onDeleteVideoButtonClick.bind(this);
-    
+
     this.state = {
       data: [],
       applyFilter: ""
-    }
+    };
   }
   componentDidMount() {
     let $videoListTable = $("#videoListTable");
@@ -74,8 +74,8 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
   componentWillReceiveProps(nextProps: IVideoListProps) {
     this.updateViewBasedOnProps(nextProps);
   }
-  private updateViewBasedOnProps(nextProps: IVideoListProps) : void {
-    let items : IDropDownItem[] = [
+  private updateViewBasedOnProps(nextProps: IVideoListProps): void {
+    let items: IDropDownItem[] = [
       {
         name: "-Select Group-",
         value: "-1",
@@ -83,9 +83,9 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       }
     ];
 
-    if(nextProps.groups !== undefined) {
+    if (nextProps.groups !== undefined) {
       _.forEach(nextProps.groups, (g) => {
-        if(g !== "Recently Played") {
+        if (g !== "Recently Played") {
           items.push({
             name: g,
             value: g,
@@ -97,9 +97,9 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
 
     let videos: ISearchResults[] = [];
 
-    if(nextProps.data !== undefined && nextProps.data.length > 0) {
+    if (nextProps.data !== undefined && nextProps.data.length > 0) {
       videos = nextProps.data.map((d, i) => {
-        //console.log(d);
+        // console.log(d);
 
         return {
           playVideo: d.playVideo,
@@ -123,49 +123,49 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       manage: nextProps.manage
     });
   }
-  private onAddVideoButtonClick(e: any) : void {
+  private onAddVideoButtonClick(e: any): void {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),
         video = _.find(this.state.data, { "ytid": id }),
         group = $(`#groupSelector-${video.ytid}`).val();
 
-    if(group === "-1") return;
+    if (group === "-1") return;
 
-    if(this.state.onAddVideoButtonClick !== undefined && video !== undefined) {
+    if (this.state.onAddVideoButtonClick !== undefined && video !== undefined) {
       this.state.onAddVideoButtonClick(video, group);
 
       let _d = _.forEach(this.state.data, (d) => {
         if (d.ytid === id) {
-          d.justAdded=true;
+          d.justAdded = true;
         }
       });
 
       this.setState({ data: _d });
     }
   }
-  private onUpdateVideoButtonClick(e: any) : void {
+  private onUpdateVideoButtonClick(e: any): void {
     e.preventDefault();
 
-    //console.log($(e.target).prop("id").replace("star-", ""));
+    // console.log($(e.target).prop("id").replace("star-", ""));
 
     let id = $(e.target).prop("id").replace("star-", ""),
         video = _.find(this.state.data, { "ytid": id }),
         group = $(`#groupSelector-${video.ytid}`).val();
 
-    if(group === "-1") return;
+    if (group === "-1") return;
 
-    if(this.state.onUpdateVideoButtonClick !== undefined && video !== undefined) {
+    if (this.state.onUpdateVideoButtonClick !== undefined && video !== undefined) {
       this.state.onUpdateVideoButtonClick(video, group);
     }
   }
-  private onDeleteVideoButtonClick(e: any) : void {
+  private onDeleteVideoButtonClick(e: any): void {
     e.preventDefault();
 
     let id = $(e.target).prop("id").replace("star-", ""),
         video = _.find(this.state.data, { "ytid": id });
 
-    if(this.state.onDeleteVideoButtonClick !== undefined && video !== undefined) {
+    if (this.state.onDeleteVideoButtonClick !== undefined && video !== undefined) {
       this.state.onDeleteVideoButtonClick(video);
 
       this.setState({
@@ -181,7 +181,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
           borderRight,
           dropDownClass = "groupDropDown";
 
-      if(d.isArchived === false ||
+      if (d.isArchived === false ||
          d.justAdded === true) {
         let clickHandler = this.onAddVideoButtonClick,
             addButtonClass = "manageButton fa fa-star-o";
@@ -190,13 +190,11 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
           clickHandler = (e: any) => { e.preventDefault(); e.stopPropagation(); };
           dropDownClass = "groupDropDownDisabled";
           addButtonClass = "manageButton fa fa-star";
-          // onDropDownChange={this.onDropDownChange}
           addButton = <td className="border-right buttonContainerWidth"><span>
               <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
               <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
             </span></td>;
         } else {
-          // onDropDownChange={this.onDropDownChange}
           addButton =
             <td className="border-right buttonContainerWidth"><span>
               <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
@@ -207,9 +205,8 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
         let deleteButtonClass = "manageButton fa fa-trash",
             updateButtonClass = "manageButton fa fa-wrench";
 
-        //onDropDownChange={this.onDropDownChange}
         manageButton =
-          <td className="border-right buttonContainerWidth"><span>            
+          <td className="border-right buttonContainerWidth"><span>
             <DropDown name={"groupSelector-" + d.ytid } selected={d.group} items={this.state.items} className={dropDownClass} />
             <a href="#" id={"star-" + d.ytid} onClick={this.onUpdateVideoButtonClick} className={updateButtonClass}></a>
             <a href="#" id={"star-" + d.ytid} onClick={this.onDeleteVideoButtonClick} className={deleteButtonClass}></a>
@@ -233,6 +230,6 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       <div className="content-panel">
         <table id="videoListTable">{videoResults}</table>
       </div>
-    );    
+    );
   }
 }

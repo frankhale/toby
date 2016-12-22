@@ -27,21 +27,21 @@ import { ICacheItem, SearchCache } from "./searchCache";
 
 import AppConfig from "./config";
 import DB from "./db";
-import DefaultData from "./data"
+import DefaultData from "./data";
 
 interface APIRoute {
-  path : string,
-  route : (req : express.Request, res : express.Response) => void
+  path: string;
+  route: (req: express.Request, res: express.Response) => void;
 }
 
 export default class API {
-  private db : DB;
-  private server : http.Server;
-  private routes : APIRoute[];
-  private cache : SearchCache;
-  public router : express.Router;
+  private db: DB;
+  private server: http.Server;
+  private routes: APIRoute[];
+  private cache: SearchCache;
+  public router: express.Router;
 
-  constructor(db : DB, server : http.Server) {
+  constructor(db: DB, server: http.Server) {
     this.db = db;
     this.router = express.Router();
     this.server = server;
@@ -66,7 +66,7 @@ export default class API {
 
     this.initializeRoutes();
   }
-  private initializeRoutes() : void {
+  private initializeRoutes(): void {
     _.forEach(this.routes, (r) => {
       let routePath = r.path.split(" ");
       this.router[routePath[0].toLowerCase()](routePath[1], r.route.bind(this));
@@ -82,19 +82,19 @@ export default class API {
       console.log(`Error writing data file: ${e}`);
     }
   }
-  private getVideos(req : express.Request, res : express.Response) : void {
+  private getVideos(req: express.Request, res: express.Response): void {
     this.db.getAllVideosFromDB((data) => { res.json(data); });
   }
-  private getVideosGroups(req : express.Request, res : express.Response) : void {
+  private getVideosGroups(req: express.Request, res: express.Response): void {
     this.db.getAllGroupsFromDB((data) => {
       data = _.map(data, (d) => { return d.group; });
       res.json(data);
     });
   }
-  private getVideosArchive(req : express.Request, res : express.Response) : void {
+  private getVideosArchive(req: express.Request, res: express.Response): void {
     this.db.getAllGroupsFromDB((groups) => {
       this.db.getAllVideosOrderedByGroupDB((data) => {
-        let results : IVideoGroup[] = [];
+        let results: IVideoGroup[] = [];
 
         _.forEach(groups, (g) => {
           let entries = _.sortBy(_.filter(data, { "group": g.group }), ["title"]);
@@ -119,15 +119,15 @@ export default class API {
       });
     });
   }
-  private postAppClose(req : Express.Request, res : Express.Response) : void {
+  private postAppClose(req: Express.Request, res: Express.Response): void {
     this.db.close();
     this.server.close();
     process.exit(0);
   }
-  private postVideosYouTubeSearch(req : express.Request, res : express.Response) : void {
+  private postVideosYouTubeSearch(req: express.Request, res: express.Response): void {
     let searchTerm = req.body.searchTerm;
 
-    if(searchTerm.indexOf("/yt") > -1) {
+    if (searchTerm.indexOf("/yt") > -1) {
       searchTerm = searchTerm.replace("/yt", "");
     }
 
@@ -137,7 +137,7 @@ export default class API {
       const ytids = _.map(results, (r) => { return r.id; });
 
       this.db.getAllVideosWhereYTIDInList(ytids, (ytids_found) => {
-        let finalResults : IVideoEntry[] = [];
+        let finalResults: IVideoEntry[] = [];
 
         _.forEach(results, (r) => {
           let found = _.find(ytids_found, { ytid: r.id });
@@ -155,7 +155,7 @@ export default class API {
       });
     });
   }
-  private postVideosSearch(req : express.Request, res : express.Response) : void {
+  private postVideosSearch(req: express.Request, res: express.Response): void {
     let searchTerm = req.body.searchTerm;
 
     console.log(`searching for ${searchTerm} locally`);
@@ -180,13 +180,13 @@ export default class API {
       });
     }
   }
-  private postVideosAdd(req : express.Request, res : express.Response) : void {
+  private postVideosAdd(req: express.Request, res: express.Response): void {
         let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
         group = req.body.group;
 
-    if(title !== undefined && title.length > 0 &&
+    if (title !== undefined && title.length > 0 &&
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
       this.db.addVideoToDB(title, ytid, group);
@@ -196,11 +196,11 @@ export default class API {
       res.json({ success: false });
     }
   }
-  private postVideosDelete(req : express.Request, res : express.Response) : void {
+  private postVideosDelete(req: express.Request, res: express.Response): void {
     let _videoData = [],
         ytid = req.body.ytid;
 
-    if(ytid !== undefined && ytid.length > 0) {
+    if (ytid !== undefined && ytid.length > 0) {
       this.db.deleteVideoFromDB(ytid);
 
       res.json({ success: true });
@@ -208,13 +208,13 @@ export default class API {
       res.json({ success: true });
     }
   }
-  private postVideosUpdate(req : express.Request, res : express.Response) : void {
+  private postVideosUpdate(req: express.Request, res: express.Response): void {
     let _videoData = [],
         title = req.body.title,
         ytid = req.body.ytid,
         group = req.body.group;
 
-    if(title !== undefined && title.length > 0 &&
+    if (title !== undefined && title.length > 0 &&
        ytid !== undefined && ytid.length > 0 &&
        group !== undefined && group.length > 0) {
       this.db.updateVideoFromDB(title, ytid, group);
@@ -224,11 +224,11 @@ export default class API {
       res.json({ success: false });
     }
   }
-  private postVideosRecentlyPlayedAdd(req : express.Request, res : express.Response) : void {
+  private postVideosRecentlyPlayedAdd(req: express.Request, res: express.Response): void {
     let title = req.body.title,
         ytid = req.body.ytid;
 
-    if(title !== undefined && title.length > 0 &&
+    if (title !== undefined && title.length > 0 &&
        ytid !== undefined && ytid.length > 0) {
 
       // Recently Played is the last 30 (by default) videos played
@@ -238,7 +238,7 @@ export default class API {
         // If the video we are trying to add is already in the Recently Played
         // group then we need to exit gracefully...
 
-        if(_.find(data, { "ytid": ytid }) !== undefined) {
+        if (_.find(data, { "ytid": ytid }) !== undefined) {
           let message = `${ytid} is already in the Recently Played group...`;
           console.log(message);
           res.json({
@@ -258,10 +258,10 @@ export default class API {
       });
     }
   }
-  private postVideosRecentlyPlayedSearch(req : express.Request, res : express.Response) : void {
+  private postVideosRecentlyPlayedSearch(req: express.Request, res: express.Response): void {
     let searchTerm = req.body.searchTerm;
 
-    if(searchTerm !== undefined && searchTerm.length > 0) {
+    if (searchTerm !== undefined && searchTerm.length > 0) {
       this.db.getVideosFromGroupWhereTitleLikeFromDB(searchTerm, "Recently Played", (data) => {
         res.json(data);
       });
@@ -269,10 +269,10 @@ export default class API {
       res.json([]);
     }
   }
-  private postVideosRecentlyPlayedLas30(req : express.Request, res : express.Response) : void {
+  private postVideosRecentlyPlayedLas30(req: express.Request, res: express.Response): void {
     let trim = false;
 
-    if(req.body.trim !== undefined) {
+    if (req.body.trim !== undefined) {
       trim = req.body.trim;
     }
 
@@ -282,10 +282,10 @@ export default class API {
       // take top 30
       let top30RecentlyPlayed = _.takeRight(_.uniqBy(data, "ytid"), AppConfig.maxRecentlyPlayedVideos);
 
-      //console.log(`before: ${data.length}`);
-      //console.log(`after: ${top30RecentlyPlayed.length}`);
+      // console.log(`before: ${data.length}`);
+      // console.log(`after: ${top30RecentlyPlayed.length}`);
 
-      if(req.body.trim) {
+      if (req.body.trim) {
         console.log("Trimming the Recently Played group");
         // delete all recently played from db
         this.db.deleteRecentlyPlayedVideosFromDB();

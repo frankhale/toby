@@ -24,18 +24,18 @@ export interface IDropDownItem {
 }
 
 interface IDropDownProps {
-  name: string,
-  items: IDropDownItem[],
+  name: string;
+  items: IDropDownItem[];
   onDropDownChange?: (value: string, id: JQuery) => void;
   disabled?: boolean;
   selected?: string;
-  style?: {}
-  className?: string
+  style?: {};
+  className?: string;
 }
 
 interface IDropDownState {
-  name?: string,
-  items?: IDropDownItem[],
+  name?: string;
+  items?: IDropDownItem[];
   onDropDownChange?: (value: string, id: JQuery) => void;
   disabled?: boolean;
 }
@@ -57,13 +57,13 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
   componentWillReceiveProps(nextProps: IDropDownProps) {
     this.processProps(nextProps);
   }
-  private onDropDownChange(e: any) : void {
-    if(this.state.onDropDownChange !== undefined) {
+  private onDropDownChange(e: any): void {
+    if (this.state.onDropDownChange !== undefined) {
       this.state.onDropDownChange(e.target.value, $(e.target).prop("id"));
     }
   }
-  private processProps(props: IDropDownProps) : void {
-    if(props.name !== undefined && props.items !== undefined) {
+  private processProps(props: IDropDownProps): void {
+    if (props.name !== undefined && props.items !== undefined) {
       this.setState({
         name: props.name,
         items: props.items,
@@ -73,11 +73,11 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
     }
   }
   render() {
-    let renderedItems =  this.state.items.map((e : any, i) => {      
-      if(e.selected || (this.props.selected !== undefined && this.props.selected === e.name)) {
-        return <option key={i} value={e.value} selected>{e.name}</option>
+    let renderedItems =  this.state.items.map((e: any, i) => {
+      if (e.selected || (this.props.selected !== undefined && this.props.selected === e.name)) {
+        return <option key={i} value={e.value} selected>{e.name}</option>;
       } else {
-        return <option key={i} value={e.value}>{e.name}</option>
+        return <option key={i} value={e.value}>{e.name}</option>;
       }
     });
 

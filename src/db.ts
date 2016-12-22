@@ -49,7 +49,7 @@ export default class DB {
   getAllYTIDsFromDB(finished: (rows: any[]) => void): void {
     this.db.all("SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played'", (err, rows) => {
       if (finished !== undefined) {
-        let ytids : string[] = [];
+        let ytids: string[] = [];
 
         _.forEach(rows, (d) => {
           ytids.push(d.ytid);
@@ -91,7 +91,7 @@ export default class DB {
       }
     });
   }
-  getAllVideosWhereYTIDInList(ytids : string[], finished: (rows: any[]) => void) : void {
+  getAllVideosWhereYTIDInList(ytids: string[], finished: (rows: any[]) => void): void {
     let ytids_in_string = _.map(ytids, (r) => { return `'${r}'`; }).join(",");
 
     this.db.all(`SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`, (err, ytids_found) => {
@@ -107,7 +107,7 @@ export default class DB {
         this.db.all(`SELECT ytid FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`, (err, ytids_found) => {
           let _ytids = _.map(ytids_found, (r) => { return r.ytid; }),
             _rows = _.forEach(rows, (d) => {
-              d.isArchived = (_.indexOf(_ytids, d.ytid) !== -1) ? true : false
+              d.isArchived = (_.indexOf(_ytids, d.ytid) !== -1) ? true : false;
             });
 
           finished(_rows);
@@ -133,7 +133,7 @@ export default class DB {
 
     this.db.all("SELECT title, ytid, [group] FROM videos WHERE title LIKE ? AND [group] = ?", [searchTerm, group], (err, rows) => {
       if (finished !== undefined) {
-        var _rows = _.forEach(rows, (d) => {
+        let _rows = _.forEach(rows, (d) => {
           d.isArchived = true;
         });
 
@@ -151,23 +151,23 @@ export default class DB {
       });
     }
   }
-  deleteVideoFromDB(ytid : string) : void {
+  deleteVideoFromDB(ytid: string): void {
     this.db.get("SELECT ytid FROM videos WHERE ytid = (?)", [ytid], (err, rows) => {
-      if(rows !== undefined) {
+      if (rows !== undefined) {
         this.db.run("DELETE FROM videos WHERE ytid = (?)", [ytid]);
       }
     });
   }
-  updateVideoFromDB(title : string, ytid : string, group : string) : void {
-    if(title !== undefined || title !== "" && group !== undefined || group !== "") {
+  updateVideoFromDB(title: string, ytid: string, group: string): void {
+    if (title !== undefined || title !== "" && group !== undefined || group !== "") {
         this.db.get("SELECT ytid FROM videos WHERE ytid = ?", [ytid], (err, rows) => {
-          if(rows !== undefined) {
+          if (rows !== undefined) {
             this.db.run("UPDATE videos SET title = ?, group = ? WHERE ytid = ?", [title, group, ytid]);
           }
       });
     }
   }
-  deleteRecentlyPlayedVideosFromDB() : void {
+  deleteRecentlyPlayedVideosFromDB(): void {
     this.db.run("DELETE FROM videos WHERE [group] = 'Recently Played'");
   };
   close(): void {

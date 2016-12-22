@@ -1,17 +1,17 @@
 import * as path from "path";
 import { app, BrowserWindow } from "electron";
 
-let mainWindow : Electron.BrowserWindow;
+let mainWindow: Electron.BrowserWindow;
 
-// Found an issue with recent versions of electron in that focus would run crazy
+// found an issue with recent versions of electron in that focus would run crazy
 // in certain situations.
 //
-// Issue: https://github.com/electron/electron/issues/7655
+// issue: https://github.com/electron/electron/issues/7655
 //
-// This command line switch seems to make the problem go away
-app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false');
+// this command line switch seems to make the problem go away
+app.commandLine.appendSwitch("enable-use-zoom-for-dsf", "false");
 
-function createWindow() : void {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     autoHideMenuBar: true,
     useContentSize: true,
@@ -27,7 +27,7 @@ function createWindow() : void {
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show();
   });
-  mainWindow.on("closed", (e : any) => {
+  mainWindow.on("closed", (e: any) => {
     mainWindow = null;
   });
 }

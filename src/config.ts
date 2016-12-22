@@ -21,10 +21,10 @@ import * as youtubeSearch from "youtube-search";
 export default class AppConfig {
   static serverPort = "62374";
   static socketIOPort = "62375";
-  static serverURL = `http://localhost:${AppConfig.serverPort}`;  
+  static serverURL = `http://localhost:${AppConfig.serverPort}`;
   static maxSearchResults = 30;
   static maxRecentlyPlayedVideos = 30;
-  static youtubeSearchOpts : youtubeSearch.YouTubeSearchOptions = {
+  static youtubeSearchOpts: youtubeSearch.YouTubeSearchOptions = {
     maxResults: AppConfig.maxSearchResults,
     key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
     type: "video"

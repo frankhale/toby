@@ -16,8 +16,8 @@
 
 import { IVideoGroup, IVideoEntry } from "./infrastructure";
 
-export default class DefaultData {  
-  static getData() : IVideoGroup[] {
+export default class DefaultData {
+  static getData(): IVideoGroup[] {
     return [
       {
         group: "Trance",
@@ -56,7 +56,7 @@ export default class DefaultData {
           { title: "Gareth Emery feat Christina Novelli - Dynamite", ytid: "N2rj3os3IYg" },
           { title: "Gareth Emery feat Roxanne Emery - Soldier", ytid: "7b1WeyQ5cHw" },
           { title: "Gareth Emery feat Roxanne Emery - Too Dark Tonight", ytid: "WZFgVGU7pFk" },
-          { title: "Gareth Emery feat. Wayward Daughter - Reckless", ytid: "tc7U9q1C4iA" },	
+          { title: "Gareth Emery feat. Wayward Daughter - Reckless", ytid: "tc7U9q1C4iA" },
           { title: "Giuseppe Ottaviani feat Amba Shepherd - Lost For Words (Official Music Video)", ytid: "94CwUWWEgxw" },
           { title: "Ikerya Project feat Muhib Khan - It's Over Now (Original Mix) [As Played on Uplifting Only 115]", ytid: "flXZE9izGP0" },
           { title: "Ikerya Project feat. Muhib Khan - Its Over Now (Original Mix) [Digital Euphoria Recordings]", ytid: "QIklXSXdwP0" },
@@ -97,7 +97,7 @@ export default class DefaultData {
       {
         group: "Trance Sets",
         entries: [
-          { title: "BEST OF VOCAL TRANCE | MIX#4", ytid: "VZT9HGsv01A" },          
+          { title: "BEST OF VOCAL TRANCE | MIX#4", ytid: "VZT9HGsv01A" },
           { title: "Dash Berlin - Live @ Ultra Music Festival Miami Mainstage 2015 (Full Set)", ytid: "tS1NCigEB_I" },
           { title: "Dash Berlin - The Official Video Hit Mix", ytid: "U6l9NdAJwRk" },
           { title: "Incredible Emotional Vocal Trance Mix l April 2015 (Vol 26)", ytid: "3l2FHxVd71o" },
@@ -159,7 +159,7 @@ export default class DefaultData {
           { title: "Aaron Lewis - What Hurts The Most HD Live in Lake Tahoe 8/06/2011", ytid: "Yk9ByJZ0vrQ" },
           { title: "Ace of Base - The Sign (Official)", ytid: "iqu132vTl5Y" },
           { title: "Aeden - Tempest Sonata (Six Senses Remix) [TFB Records] [EXCLUSIVE PREMIERE]", ytid: "Y4pg6v74C5s" },
-          { title: "Afternova - Empathy (Original Mix) [As Played on Uplifting Only 103]", ytid: "eAT9RPQeU6A" },          
+          { title: "Afternova - Empathy (Original Mix) [As Played on Uplifting Only 103]", ytid: "eAT9RPQeU6A" },
           { title: "Alex H feat Mona Moua - There's No Turning Back (Original Mix)", ytid: "9vYULN-72Oo" },
           { title: "Amir Hussain - Time Lapse (Extended Mix)", ytid: "A7kDgupVz6g" },
           { title: "Andy Blueman - Reflections (Original 2004 Mix)", ytid: "fB8u-vUNZhQ" },
@@ -186,7 +186,7 @@ export default class DefaultData {
           { title: "Dark Matters feat Jess Morgan - The Perfect Lie (Beat Service Remix)", ytid: "dGd-QFuEUTA" },
           { title: "Dash Berlin & Syzz feat. Adam Jensen - Leave It All Behind", ytid: "OKgmwQNSW1g" },
           { title: "Dash Berlin - #MusicIsLife - Album", ytid: "DSOEUj8FAQ4" },
-          { title: "Dash Berlin ft Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)", ytid: "eWaANlb3q68" },          
+          { title: "Dash Berlin ft Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)", ytid: "eWaANlb3q68" },
           { title: "Denis Kenzo & Jilliana Danise-Will Be Forever (Original) [Lyric video]", ytid: "4mwbBTy607U" },
           { title: "Denis Kenzo & Sveta B - Let Me Go (Original Mix)", ytid: "ZBBjH9-FqOA" },
           { title: "Denis Kenzo & Sveta B. - Sunshine Blue", ytid: "YfWbSSoEZmg" },

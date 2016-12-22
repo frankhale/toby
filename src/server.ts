@@ -24,13 +24,13 @@ import * as http from "http";
 import * as debug from "debug";
 
 import AppConfig from "./config";
-import API from "./api"
+import API from "./api";
 import DB from "./db";
 
 const pkgJSON = require("../package.json");
 
 export default class Server {
-  private app : express.Application;
+  private app: express.Application;
 
   constructor() {
     this.app = express();
@@ -41,8 +41,8 @@ export default class Server {
   }
   config(): void {
     let server: http.Server,
-        db : DB,
-        api : API,
+        db: DB,
+        api: API,
         serverPort = AppConfig.serverPort;
 
     debug("toby:server");
@@ -105,7 +105,7 @@ export default class Server {
     // development error handler
     // will print stacktrace
     if (this.app.get("env") === "development") {
-      this.app.use((err : Error, req : express.Request, res : express.Response, next : express.NextFunction) => {
+      this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
         res.status(err["status"] || 500);
 
         console.log(err.stack);
@@ -119,7 +119,7 @@ export default class Server {
 
     // production error handler
     // no stacktraces leaked to user
-    this.app.use((err : Error, req : express.Request, res : express.Response, next : express.NextFunction) => {
+    this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
       res.status(err["status"] || 500);
       res.render("error", {
         message: err.message,

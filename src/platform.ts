@@ -26,12 +26,12 @@ import AppConfig from "./config";
 const pkgJSON = require("../package.json");
 
 class Platform {
-  private node : ChildProcess;
-  private $content : JQuery;
-  private $webview : JQuery;
-  private webview : any;
-  private snapToPlayerCodeBlock : string;
-  private socket : SocketIO.Server;
+  private node: ChildProcess;
+  private $content: JQuery;
+  private $webview: JQuery;
+  private webview: any;
+  private snapToPlayerCodeBlock: string;
+  private socket: SocketIO.Server;
 
   static bootstrap() {
     return new Platform();
@@ -49,8 +49,8 @@ class Platform {
     this.socket.on("connection", (s) => {
       this.$content.append("Socket.IO connection established...<br/>");
 
-      s.on("title", (t : string) => {
-        if(t !== undefined && t !== "") {
+      s.on("title", (t: string) => {
+        if (t !== undefined && t !== "") {
           this.$content.append(`setting title to: ${t}<br/>`);
           document.title = t;
         }
@@ -75,7 +75,7 @@ class Platform {
 
     let checkServerRunning = setInterval(() => {
       request(AppConfig.serverURL, (error, response, body) => {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           this.$webview.attr("src", AppConfig.serverURL);
           $("#loading").css("display", "none");
           this.$webview.css("display", "block");
@@ -86,9 +86,9 @@ class Platform {
 
     this.setup();
   }
-  private setup() : void {
+  private setup(): void {
     key("f1", () => {
-      if(this.$content.css("visibility") === "hidden") {
+      if (this.$content.css("visibility") === "hidden") {
         this.$content.css("visibility", "visible");
         this.$webview.css("visibility", "hidden");
       } else {
@@ -97,11 +97,11 @@ class Platform {
       }
     });
 
-    if(navigator.userAgent.includes("node-webkit")) {
+    if (navigator.userAgent.includes("node-webkit")) {
       let win = nw.Window.get();
 
       key("f11", () => {
-        if(win.isFullscreen) {
+        if (win.isFullscreen) {
           win.leaveFullscreen();
         } else {
           win.enterFullscreen();
@@ -109,7 +109,7 @@ class Platform {
       });
 
       win.on("loaded", () => {
-        //win.showDevTools();
+        // win.showDevTools();
         win.show();
       });
 
@@ -129,7 +129,7 @@ class Platform {
         $.ajax({
           type: "POST",
           url: "/api/app/close",
-          async:false
+          async: false
         });
 
         win.close(true);
@@ -142,20 +142,20 @@ class Platform {
 
     this.resizeContent();
 
-    if(navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
-      this.webview.addEventListener("permissionrequest", (e : any) => {
+    if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+      this.webview.addEventListener("permissionrequest", (e: any) => {
         if (e.permission === "fullscreen") {
           e.request.allow();
         }
       });
 
-      if(navigator.userAgent.includes("Electron")) {
-        this.webview.addEventListener('new-window', this.newWindowHandler.bind(this));
+      if (navigator.userAgent.includes("Electron")) {
+        this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
       } else if (navigator.userAgent.includes("node-webkit")) {
         this.webview.addEventListener("newwindow", this.newWindowHandler.bind(this));
       }
 
-      if(navigator.userAgent.includes("Electron")) {
+      if (navigator.userAgent.includes("Electron")) {
         window.addEventListener("beforeunload", (e) => {
           $.ajax({
             type: "POST",
@@ -164,19 +164,19 @@ class Platform {
           });
         });
 
-        //this.webview.addEventListener("dom-ready", () => {
-          //this.webview.openDevTools();
-        //});
+        // this.webview.addEventListener("dom-ready", () => {
+        //  this.webview.openDevTools();
+        // });
 
         const browserWindow = require("electron").remote.getCurrentWindow();
         browserWindow.on("leave-html-full-screen", () => {
-          this.webview.executeJavaScript(this.snapToPlayerCodeBlock);//, null, (result) => {
+          this.webview.executeJavaScript(this.snapToPlayerCodeBlock); // , null, (result) => {
           //  console.log(result);
-          //});
+          // });
         });
 
         key("f11", () => {
-          if(browserWindow.isFullScreen()) {
+          if (browserWindow.isFullScreen()) {
             browserWindow.setFullScreen(false);
             this.webview.executeJavaScript(this.snapToPlayerCodeBlock);
           } else {
@@ -186,24 +186,24 @@ class Platform {
       }
     }
   }
-  private resizeContent() : void {
+  private resizeContent(): void {
     this.$content.css("width", window.innerWidth - 20);
     this.$content.css("height", window.innerHeight - 20);
   }
-  private strip(s : string) : string {
+  private strip(s: string): string {
     // regex from: http://stackoverflow.com/a/29497680/170217
     return s.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
   }
-  private redirectOutput(x : stream.Readable) : void {
+  private redirectOutput(x: stream.Readable): void {
     let lineBuffer = "";
 
     x.on("data", (data) => {
       lineBuffer += data.toString();
-      var lines = lineBuffer.split("\n");
+      let lines = lineBuffer.split("\n");
 
       _.forEach(lines, (l) => {
-        if(l !== "") {
-          //console.log(this.strip(l));
+        if (l !== "") {
+          // console.log(this.strip(l));
           this.$content.append(this.strip(l) + "<br/>");
         }
       });
@@ -211,7 +211,7 @@ class Platform {
       lineBuffer = lines[lines.length - 1];
     });
   }
-  private newWindowHandler(e : any) : void {
+  private newWindowHandler(e: any): void {
     // Looks like we can differentiate between clicking the YouTube icon
     // in the player where we want it to open an external browser and clicking
     // a suggested video link after a video is played.
@@ -232,23 +232,22 @@ class Platform {
 
     const url = e.targetUrl || e.url;
 
-    if(url.includes("?v=")) {
+    if (url.includes("?v=")) {
       // the id extraction is almost verbatim from:
       // http://stackoverflow.com/a/3452617/170217
       let video_id = url.split("v=")[1];
       let ampersandPosition = video_id.indexOf("&");
-      if(ampersandPosition != -1) {
+      if (ampersandPosition !== -1) {
         video_id = video_id.substring(0, ampersandPosition);
       }
-      //------------------------------------------
+      // ------------------------------------------
 
       this.$content.append(`emitting: play-video for ${video_id}<br/>`);
-
       this.socket.emit("play-video", video_id);
     } else {
-      if(navigator.userAgent.includes("node-webkit")) {
+      if (navigator.userAgent.includes("node-webkit")) {
         nw.Shell.openExternal(url);
-      } else if(navigator.userAgent.includes("Electron")) {
+      } else if (navigator.userAgent.includes("Electron")) {
         const {shell} = require("electron");
         shell.openExternal(url);
       }

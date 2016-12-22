@@ -19,12 +19,12 @@ import * as ReactDOM from "react-dom";
 
 export interface IVersionProps {
   display: boolean;
-  info: string
+  info: string;
 }
 
 interface IVersionState {
   display: boolean;
-  info: string
+  info: string;
 }
 
 export class Version extends React.Component<IVersionProps, IVersionState> {
@@ -37,7 +37,7 @@ export class Version extends React.Component<IVersionProps, IVersionState> {
     };
   }
   componentWillReceiveProps(nextProps: IVersionProps) {
-    if(nextProps.display !== undefined && nextProps.info !== undefined) {
+    if (nextProps.display !== undefined && nextProps.info !== undefined) {
       this.setState({
         display: nextProps.display,
         info: nextProps.info
@@ -45,7 +45,7 @@ export class Version extends React.Component<IVersionProps, IVersionState> {
     }
   }
   render() {
-    if(this.state.display && this.state.info !== "") {
+    if (this.state.display && this.state.info !== "") {
       return <div id="version">{this.state.info}</div>;
     }
 

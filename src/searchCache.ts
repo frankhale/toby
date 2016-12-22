@@ -26,13 +26,13 @@ export interface ICacheItem {
 }
 
 export class SearchCache {
-  private cache : ICacheItem[];
+  private cache: ICacheItem[];
   private expiry: number;
 
   constructor(expiry?: number) {
     this.cache = [];
 
-    if(expiry) {
+    if (expiry) {
       this.expiry = expiry;
     } else {
       this.expiry = 10;
@@ -42,17 +42,17 @@ export class SearchCache {
       this.runExpire();
     }, this.expiry * 60000);
   }
-  private runExpire() : void {
-    if(this.cache.length <= 0) return;
+  private runExpire(): void {
+    if (this.cache.length <= 0) return;
 
     this.cache = _.reject(this.cache, (c) => {
       return c.addedAt < Moment().subtract(this.expiry, "minutes");
     });
   }
-  addItem(searchTerm : string, results : IVideoEntry[]) {
+  addItem(searchTerm: string, results: IVideoEntry[]) {
     let found = _.find(this.cache, { searchTerm: searchTerm });
 
-    if(!found) {
+    if (!found) {
       this.cache.push({
         searchTerm: searchTerm,
         results: results,
@@ -60,10 +60,10 @@ export class SearchCache {
       });
     }
   }
-  inCache(searchTerm : string) : boolean {
+  inCache(searchTerm: string): boolean {
     const result = _.find(this.cache, { searchTerm: searchTerm });
 
-    if(result) return true;
+    if (result) return true;
 
     return false;
   }
