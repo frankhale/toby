@@ -187,10 +187,12 @@ export class Toby extends React.Component<{}, ITobyState> {
             applyFilter: ""
           });
 
+          console.log(this.state.tobyVersionInfo);
+
           document.title = this.state.tobyVersionInfo.title;
 
           if (this.socket !== undefined) {
-            this.socket.emit("title", { title: this.state.tobyVersionInfo.title });
+            this.socket.emit("title", this.state.tobyVersionInfo.title);
           }
         }
       },
