@@ -2,24 +2,26 @@ var path = require("path");
 
 module.exports = {
     entry: [
-      "command-input-ui.tsx", 
+      "command-input-ui.tsx",
+      "dropdown-ui.tsx",
+      "infrastructure.ts",
       "toby-ui.tsx",
-      "youtube-ui.tsx",
       "version-ui.tsx",
       "video-list-grid-ui.tsx",
-      "infrastructure.ts"
+      "video-list-ui.tsx",
+      "youtube-ui.tsx"
     ],
     output: {
       filename: "app.js",
       path: __dirname + "/public/scripts"
-    },    
+    },
     devtool: "source-map",
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
-        root: [
-          path.resolve('./src/react-components')
-        ]
+      // Add '.ts' and '.tsx' as resolvable extensions.
+      extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+      root: [
+        path.resolve("./src/react-components")
+      ]
     },
     module: {
       loaders: [

@@ -8,6 +8,6 @@
         "jsx": "react"
     },
     "include": [
-      "./src/react-components/*"
+      "./src/react-components/*.ts*"
     ]
 }

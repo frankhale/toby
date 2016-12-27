@@ -106,18 +106,6 @@ export default class DB {
         });
 
         finished(_rows);
-
-        // let ytids = _.map(rows, (r) => { return r.ytid; }),
-        //   ytids_in_string = _.map(ytids, (r) => { return `'${r}'`; }).join(",");
-
-        // this.db.all(`SELECT ytid FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`, (err, ytids_found) => {
-        //   let _ytids = _.map(ytids_found, (r) => { return r.ytid; }),
-        //     _rows = _.forEach(rows, (d) => {
-        //       d.isArchived = (_.indexOf(_ytids, d.ytid) !== -1) ? true : false;
-        //     });
-
-        //   finished(_rows);
-        // });
       }
     });
   }
