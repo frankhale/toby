@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     },
     tslint: {
       files: {
-        src: ["src/*.ts*", "src/react-components/*.ts*"]
+        src: ["src/*.ts*", "src/react-components/*.ts*", "definitions/*.ts*"]
       },
       options: {
         force: false,
