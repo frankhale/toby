@@ -13,3 +13,4 @@ node.exe
 node.lib
 npm-debug.log
 .vscode/
+debug.log

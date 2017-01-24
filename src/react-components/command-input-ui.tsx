@@ -64,7 +64,7 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
     if (e.which === Keys.Up) {
       let commandIndex = (this.state.commandIndex === -1) ?
                           this.state.commandsEntered.length - 1 :
-                          --this.state.commandIndex;
+                          this.state.commandIndex - 1;
 
       if (commandIndex < 0) {
         commandIndex = 0;
@@ -75,7 +75,7 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
       });
 
     } else if (e.which === Keys.Down) {
-      let commandIndex = (this.state.commandIndex === -1) ? 0 : ++this.state.commandIndex;
+      let commandIndex = (this.state.commandIndex === -1) ? 0 : this.state.commandIndex + 1;
 
       if (commandIndex > this.state.commandsEntered.length) {
         commandIndex = this.state.commandsEntered.length;

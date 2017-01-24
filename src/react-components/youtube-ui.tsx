@@ -23,6 +23,7 @@ import { IVideoEntry } from "./infrastructure";
 
 interface Window {
     onYouTubeIframeAPIReady(): void;
+    snapToPlayer(): void;
 }
 declare var window: Window;
 
@@ -36,6 +37,17 @@ export interface IYouTubeProps {
   socket: SocketIOClient.Socket;
   video: IVideoEntry;
   applyFilter: string;
+}
+
+if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+  // This is here because when exiting fullscreen in NW.js the page scrolls to
+  // top instead of centering on the YouTube player. This is called by an
+  // injected script into the webview that Toby lives inside of when running in
+  // NW.js.
+  window.snapToPlayer = () => {
+    let $ui = $("#ui");
+    $ui.prop("scrollTop", $ui.prop("scrollHeight"));
+  };
 }
 
 export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
