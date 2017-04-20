@@ -39,7 +39,7 @@ export interface IYouTubeProps {
   applyFilter: string;
 }
 
-if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
   // This is here because when exiting fullscreen in NW.js the page scrolls to
   // top instead of centering on the YouTube player. This is called by an
   // injected script into the webview that Toby lives inside of when running in
@@ -67,7 +67,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     });
   }
   componentWillReceiveProps(nextProps: any): void {
-    if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+    if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
       if (nextProps.applyFilter !== undefined  &&
          nextProps.applyFilter.length > 0 &&
          this.state.applyFilter !== nextProps.applyFilter) {
@@ -153,24 +153,25 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
 
     window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player("player", {
-        // videoId: 'FnERt5fGoOg',
-        playerVars: {
-          "autoplay": 0,
-          "autohide": 1,
-          "iv_load_policy": 3 },
-        events: {
-          onReady: onPlayerReady,
-          onStateChange: onPlayerStateChange
-        }
+          videoId: "",
+          playerVars: {
+            autoplay: YT.AutoPlay.AutoPlay,
+            autohide: YT.AutoHide.HideAllControls,
+            iv_load_policy: YT.IvLoadPolicy.Hide
+          },
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange
+          }
       });
 
       let $player = $("#player");
 
-      if (navigator.userAgent.includes("node-webkit")) {
+      if (navigator.userAgent.indexOf("node-webkit") > -1) {
         $player.attr("nwdisable", "");
       }
 
-      if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+      if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
         setInterval(() => {
           $player.contents().find(".adDisplay").css("display", "none");
         }, 1000);

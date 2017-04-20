@@ -181,14 +181,14 @@ export default class API {
     }
   }
   private postVideosAdd(req: express.Request, res: express.Response): void {
-        let _videoData = [],
-        title = req.body.title,
-        ytid = req.body.ytid,
-        group = req.body.group;
+    let _videoData = [],
+      title = req.body.title,
+      ytid = req.body.ytid,
+      group = req.body.group;
 
     if (title !== undefined && title.length > 0 &&
-       ytid !== undefined && ytid.length > 0 &&
-       group !== undefined && group.length > 0) {
+      ytid !== undefined && ytid.length > 0 &&
+      group !== undefined && group.length > 0) {
       this.db.addVideoToDB(title, ytid, group);
 
       res.json({ success: true });
@@ -198,7 +198,7 @@ export default class API {
   }
   private postVideosDelete(req: express.Request, res: express.Response): void {
     let _videoData = [],
-        ytid = req.body.ytid;
+      ytid = req.body.ytid;
 
     if (ytid !== undefined && ytid.length > 0) {
       this.db.deleteVideoFromDB(ytid);
@@ -210,13 +210,13 @@ export default class API {
   }
   private postVideosUpdate(req: express.Request, res: express.Response): void {
     let _videoData = [],
-        title = req.body.title,
-        ytid = req.body.ytid,
-        group = req.body.group;
+      title = req.body.title,
+      ytid = req.body.ytid,
+      group = req.body.group;
 
     if (title !== undefined && title.length > 0 &&
-       ytid !== undefined && ytid.length > 0 &&
-       group !== undefined && group.length > 0) {
+      ytid !== undefined && ytid.length > 0 &&
+      group !== undefined && group.length > 0) {
       this.db.updateVideoFromDB(title, ytid, group);
 
       res.json({ success: true });
@@ -226,10 +226,10 @@ export default class API {
   }
   private postVideosRecentlyPlayedAdd(req: express.Request, res: express.Response): void {
     let title = req.body.title,
-        ytid = req.body.ytid;
+      ytid = req.body.ytid;
 
     if (title !== undefined && title.length > 0 &&
-       ytid !== undefined && ytid.length > 0) {
+      ytid !== undefined && ytid.length > 0) {
 
       // Recently Played is the last 30 (by default) videos played
 

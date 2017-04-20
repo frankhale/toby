@@ -1,11 +1,13 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   grunt.initConfig({
     copy: {
       main: {
-        files: [{
-          src: ["index.html"],
-          dest: "build/"
-        }, ]
+        files: [
+          {
+            src: ["index.html"],
+            dest: "build/"
+          }
+        ]
       }
     },
     ts: {
@@ -14,6 +16,7 @@ module.exports = function (grunt) {
         outDir: "build",
         options: {
           sourceMap: true,
+          moduleResolution: "node",
           target: "es6",
           module: "commonjs"
         }

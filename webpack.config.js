@@ -18,10 +18,8 @@ module.exports = {
   devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
-    root: [
-      path.resolve("./src/react-components")
-    ]
+    extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+    modules: [path.resolve("./src/react-components")]
   },
   module: {
     loaders: [

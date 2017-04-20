@@ -179,7 +179,7 @@ export default class DB {
   }
   deleteRecentlyPlayedVideosFromDB(): void {
     this.db.run("DELETE FROM videos WHERE [group] = 'Recently Played'");
-  };
+  }
   close(): void {
     this.db.close();
   }

@@ -97,7 +97,7 @@ class Platform {
       }
     });
 
-    if (navigator.userAgent.includes("node-webkit")) {
+    if (navigator.userAgent.indexOf("node-webkit") > -1) {
       let win = nw.Window.get();
 
       key("f11", () => {
@@ -142,20 +142,20 @@ class Platform {
 
     this.resizeContent();
 
-    if (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) {
+    if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
       this.webview.addEventListener("permissionrequest", (e: any) => {
         if (e.permission === "fullscreen") {
           e.request.allow();
         }
       });
 
-      if (navigator.userAgent.includes("Electron")) {
+      if (navigator.userAgent.indexOf("Electron") > -1) {
         this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
-      } else if (navigator.userAgent.includes("node-webkit")) {
+      } else if (navigator.userAgent.indexOf("node-webkit") > -1) {
         this.webview.addEventListener("newwindow", this.newWindowHandler.bind(this));
       }
 
-      if (navigator.userAgent.includes("Electron")) {
+      if (navigator.userAgent.indexOf("Electron") > -1) {
         window.addEventListener("beforeunload", (e) => {
           $.ajax({
             type: "POST",
@@ -232,7 +232,7 @@ class Platform {
 
     const url = e.targetUrl || e.url;
 
-    if (url.includes("?v=")) {
+    if (url.indexOf("?v=") > -1) {
       // the id extraction is almost verbatim from:
       // http://stackoverflow.com/a/3452617/170217
       let video_id = url.split("v=")[1];
@@ -245,9 +245,9 @@ class Platform {
       this.$content.append(`emitting: play-video for ${video_id}<br/>`);
       this.socket.emit("play-video", video_id);
     } else {
-      if (navigator.userAgent.includes("node-webkit")) {
+      if (navigator.userAgent.indexOf("node-webkit") > -1) {
         nw.Shell.openExternal(url);
-      } else if (navigator.userAgent.includes("Electron")) {
+      } else if (navigator.userAgent.indexOf("Electron") > -1) {
         const {shell} = require("electron");
         shell.openExternal(url);
       }

@@ -68,11 +68,11 @@ export class VideoListGrid extends React.Component<IViewListGridProps, IViewList
   render() {
     return (
       <div>
-      {
-        this.state.data.map((d, i) => {
-          return <img src={d.thumbnail} title={d.title} key={i} className={"videoThumbnailSlim " + this.state.applyFilter} onClick={d.playVideo.bind(this, d, this.state.data)}></img>;
-        })
-      }
+        {
+          this.state.data.map((d, i) => {
+            return <img src={d.thumbnail} title={d.title} key={i} className={"videoThumbnailSlim " + this.state.applyFilter} onClick={d.playVideo.bind(this, d, this.state.data)}></img>;
+          })
+        }
       </div>
     );
   }
