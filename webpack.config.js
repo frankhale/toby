@@ -28,13 +28,6 @@ module.exports = {
         test: /\.tsx?$/,
         loader: "awesome-typescript-loader"
       }
-    ],
-    preLoaders: [
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      {
-        test: /\.js$/,
-        loader: "source-map-loader"
-      }
     ]
   },
   // When importing a module whose path matches one of the following, just
@@ -42,10 +35,10 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    "react": "React",
+    react: "React",
     "react-dom": "ReactDOM",
-    "lodash": "_",
+    lodash: "_",
     "socket.io-client": "io",
-    "jquery": "$"
-  },
+    jquery: "$"
+  }
 };
