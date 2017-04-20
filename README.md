@@ -121,6 +121,19 @@ npm install
 bower install
 ```
 
+#### Help SQLite3 is being stupid
+
+If you are running on Windows and Toby won't work correctly because the SQLite3
+module didn't install all of the required binaries you can try this:
+
+Download the missing module:
+[https://mapbox-node-binary.s3.amazonaws.com/sqlite3/v3.1.8/node-v48-win32-x64.tar.gz](https://mapbox-node-binary.s3.amazonaws.com/sqlite3/v3.1.8/node-v48-win32-x64.tar.gz)
+
+Copy it to `node_modules\sqlite3\lib\binding`
+
+![sqlite3-lib-binding-folder](https://cloud.githubusercontent.com/assets/190154/25250812/22514580-25e5-11e7-979e-444f76f47072.png)
+
+
 ***BEFORE BUILDING***
 
 Before building the source code you'll need to copy over the Typescript 
@@ -256,7 +269,7 @@ data loaded from the filesystem.***
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-20 December 2016
+20 April 2017
 
 ## License
 
