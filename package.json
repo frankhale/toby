@@ -1,7 +1,7 @@
 {
   "name": "toby",
-  "version": "1.0.0",
-  "description": "An backend API server for (Toby) a desktop YouTube player",
+  "version": "1.0.1",
+  "description": "A desktop YouTube player",
   "title": "Toby - A YouTube Player For The Desktop",
   "homepage": "https://github.com/frankhale/toby",
   "repository": {
@@ -11,7 +11,7 @@
   "private": true,
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./build/electron.js",
+  "main": "./build/index.html",
   "node-remote": "http://localhost:62374",
   "user-agent": "node-webkit-%nwver",
   "window": {
@@ -22,7 +22,7 @@
     "height": 369,
     "min_width": 640,
     "min_height": 369,
-    "show": true
+    "show": false
   },
   "devDependencies": {
     "@types/body-parser": "1.16.3",
