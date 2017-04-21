@@ -191,6 +191,22 @@ Start the server up:
 ```
 Then open a browser to `http://127.0.0.1:62374`
 
+### Running using the Toby Launcher
+
+I've wrote a rudimentary launcher in C# .NET to assist with launching Toby easily. By default if you run the launcher without command line args it will run Toby using NW.js. There is only one command line option at this time.
+
+After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and Newtonsoft.Json.dll files to the root of the Toby repository.
+
+- Command Line Options:
+  - /p `[nw, electron, web]`
+
+Examples:
+
+Launching Toby in a web browser: `TobyLauncher.exe /p web`  
+Launching Toby in Electron: `TobyLauncher.exe /p electron`
+
+NOTE: The launcher is crude and there is not enough error checking yet. Things will likely go wrong if Toby is not set up correctly as stated above.
+
 ### Usage
 
 **Important Key Combos:**

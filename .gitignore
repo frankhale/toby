@@ -13,4 +13,11 @@ node.exe
 node.lib
 npm-debug.log
 .vscode/
+.vs/
+bin/
+packages/
+obj/
 debug.log
+*.exe
+*.dll
+*.csproj.user
