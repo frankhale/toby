@@ -57,7 +57,7 @@ protect the data Toby collects. Toby only cares about a few things, namely
 YouTube video titles, YouTube video IDs and the groups you decide to store your
 favorite videos in.
 
-### How can I run the latest code?
+### Running The Latest Code
 
 Set up the folder structure for working with either NW.js or Electron or both:
 
@@ -77,7 +77,7 @@ Additionally we have a folder named `browsers` with a copy of `electron` and/or
 - Webpack : [https://webpack.github.io/](https://webpack.github.io/)
 - Typescript : [http://typescriptlang.org/](http://typescriptlang.org/)
 
-## You Just Need One of the following:
+## You Just Need One Of The Following:
 
 - Electron: [http://electron.atom.io/](http://electron.atom.io/)
 - NW.js: [http://nwjs.io/](http://nwjs.io/)
@@ -111,22 +111,13 @@ In order to run Toby you'll need to download the dependencies and build the
 source code. Open a terminal to the source code repository and run the following
 commands.
 
-#### Install dependencies  
+#### Install Dependencies  
 
 ```
 npm install -g webpack typescript grunt bower  
 npm install  
 bower install
 ```
-
-***BEFORE BUILDING***
-
-Copy the the following TypeScript definition in the definitions folder.
-
-Copy `title-case.d.ts`  to `/node_modules/title-case`.
-
-The `title-case` definition is just a modification of the one that already 
-exists but makes one change so that it can be imported using the import keyword.
 
 #### Building the Source Code
 
@@ -158,6 +149,11 @@ build folder and used from there.***
 ```
 browser\nwjs\nw.exe .
 ```
+
+***NOTE: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
+capable one from [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases). The `ffmpeg.dll` 
+that ships with NW.js is crippled and won't play many of the YouTube videos you 
+most likely will want to play.***
 
 #### Running in Electron
 

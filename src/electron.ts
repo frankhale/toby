@@ -1,4 +1,11 @@
 ///<reference path="../typings/electron.d.ts" />
+
+// We are including the official Electron type definition here because we don't
+// explicitly install the Electron package since Toby can run on whatever the
+// user wants to use eg. NW.js, Electron or just the web. Additionally
+// @types/electron was removed from package.json as it appears to no longer be
+// updated and installing it will show an warning when compiling via Grunt.
+
 import * as path from "path";
 import { app, BrowserWindow } from "electron";
 

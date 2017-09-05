@@ -19,7 +19,7 @@ import * as stream from "stream";
 import { spawn, ChildProcess } from "child_process";
 import * as _ from "lodash";
 import * as request from "request";
-import * as titleCase from "title-case";
+const titleCase = require("title-case");
 
 import AppConfig from "./config";
 
@@ -38,7 +38,9 @@ class Platform {
   }
 
   constructor() {
-    this.node = spawn(".\\node.exe", ["./build/server.js"], { cwd: process.cwd() });
+    this.node = spawn(".\\node.exe", ["./build/server.js"], {
+      cwd: process.cwd()
+    });
     this.$content = $("#content");
     this.$webview = $("#webview");
     this.webview = this.$webview[0];
@@ -46,7 +48,7 @@ class Platform {
     document.title = pkgJSON.title;
 
     this.socket = require("socket.io")(AppConfig.socketIOPort);
-    this.socket.on("connection", (s) => {
+    this.socket.on("connection", s => {
       this.$content.append("Socket.IO connection established...<br/>");
 
       s.on("title", (t: string) => {
@@ -136,13 +138,16 @@ class Platform {
       });
     }
 
-    window.addEventListener("resize", (e) => {
+    window.addEventListener("resize", e => {
       this.resizeContent();
     });
 
     this.resizeContent();
 
-    if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
+    if (
+      navigator.userAgent.indexOf("node-webkit") > -1 ||
+      navigator.userAgent.indexOf("Electron") > -1
+    ) {
       this.webview.addEventListener("permissionrequest", (e: any) => {
         if (e.permission === "fullscreen") {
           e.request.allow();
@@ -150,13 +155,19 @@ class Platform {
       });
 
       if (navigator.userAgent.indexOf("Electron") > -1) {
-        this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
+        this.webview.addEventListener(
+          "new-window",
+          this.newWindowHandler.bind(this)
+        );
       } else if (navigator.userAgent.indexOf("node-webkit") > -1) {
-        this.webview.addEventListener("newwindow", this.newWindowHandler.bind(this));
+        this.webview.addEventListener(
+          "newwindow",
+          this.newWindowHandler.bind(this)
+        );
       }
 
       if (navigator.userAgent.indexOf("Electron") > -1) {
-        window.addEventListener("beforeunload", (e) => {
+        window.addEventListener("beforeunload", e => {
           $.ajax({
             type: "POST",
             url: "/api/app/close",
@@ -192,16 +203,19 @@ class Platform {
   }
   private strip(s: string): string {
     // regex from: http://stackoverflow.com/a/29497680/170217
-    return s.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
+    return s.replace(
+      /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+      ""
+    );
   }
   private redirectOutput(x: stream.Readable): void {
     let lineBuffer = "";
 
-    x.on("data", (data) => {
+    x.on("data", data => {
       lineBuffer += data.toString();
       let lines = lineBuffer.split("\n");
 
-      _.forEach(lines, (l) => {
+      _.forEach(lines, l => {
         if (l !== "") {
           // console.log(this.strip(l));
           this.$content.append(this.strip(l) + "<br/>");
@@ -248,7 +262,7 @@ class Platform {
       if (navigator.userAgent.indexOf("node-webkit") > -1) {
         nw.Shell.openExternal(url);
       } else if (navigator.userAgent.indexOf("Electron") > -1) {
-        const {shell} = require("electron");
+        const { shell } = require("electron");
         shell.openExternal(url);
       }
     }
