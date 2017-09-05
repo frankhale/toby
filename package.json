@@ -54,7 +54,6 @@
     "typescript": "^2.5.2"
   },
   "dependencies": {
-    "@types/electron": "^1.6.10",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "debug": "^3.0.1",
