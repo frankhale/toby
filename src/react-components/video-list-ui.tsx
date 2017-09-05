@@ -21,9 +21,7 @@ import * as _ from "lodash";
 
 import { IDropDownItem, DropDown } from "./dropdown-ui";
 
-import { IVideoGroup,
-         IVideoEntry,
-         ISearchResults } from "./infrastructure";
+import { IVideoGroup, IVideoEntry, ISearchResults } from "./infrastructure";
 
 export interface IVideoListProps {
   data: ISearchResults[];
@@ -45,7 +43,10 @@ interface IVideoListState {
   manage?: boolean;
 }
 
-export class VideoList extends React.Component<IVideoListProps, IVideoListState> {
+export class VideoList extends React.Component<
+  IVideoListProps,
+  IVideoListState
+> {
   constructor() {
     super();
 
@@ -65,7 +66,9 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
       $videoListTable.css("width", window.innerWidth - 25);
     };
 
-    window.addEventListener("resize", (e) => { resizeTable(); });
+    window.addEventListener("resize", e => {
+      resizeTable();
+    });
 
     resizeTable();
 
@@ -84,7 +87,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
     ];
 
     if (nextProps.groups !== undefined) {
-      _.forEach(nextProps.groups, (g) => {
+      _.forEach(nextProps.groups, g => {
         if (g !== "Recently Played") {
           items.push({
             name: g,
@@ -108,7 +111,7 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
           group: d.group,
           thumbnail: d.thumbnail,
           isArchived: d.isArchived,
-          justAdded: (d.justAdded !== undefined) ? d.justAdded : false
+          justAdded: d.justAdded !== undefined ? d.justAdded : false
         };
       });
     }
@@ -116,7 +119,8 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
     this.setState({
       items: items,
       data: videos,
-      applyFilter: (nextProps.applyFilter !== undefined) ? nextProps.applyFilter : "",
+      applyFilter:
+        nextProps.applyFilter !== undefined ? nextProps.applyFilter : "",
       onAddVideoButtonClick: nextProps.onAddVideoButtonClick,
       onUpdateVideoButtonClick: nextProps.onUpdateVideoButtonClick,
       onDeleteVideoButtonClick: nextProps.onDeleteVideoButtonClick,
@@ -126,16 +130,18 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
   private onAddVideoButtonClick(e: any): void {
     e.preventDefault();
 
-    let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.data, { "ytid": id }),
-        group = $(`#groupSelector-${video.ytid}`).val();
+    let id = $(e.target)
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id }),
+      group = $(`#groupSelector-${video.ytid}`).val() as string;
 
     if (group === "-1") return;
 
     if (this.state.onAddVideoButtonClick !== undefined && video !== undefined) {
       this.state.onAddVideoButtonClick(video, group);
 
-      let _d = _.forEach(this.state.data, (d) => {
+      let _d = _.forEach(this.state.data, d => {
         if (d.ytid === id) {
           d.justAdded = true;
         }
@@ -149,23 +155,33 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
 
     // console.log($(e.target).prop("id").replace("star-", ""));
 
-    let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.data, { "ytid": id }),
-        group = $(`#groupSelector-${video.ytid}`).val();
+    let id = $(e.target)
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id }),
+      group = $(`#groupSelector-${video.ytid}`).val() as string;
 
     if (group === "-1") return;
 
-    if (this.state.onUpdateVideoButtonClick !== undefined && video !== undefined) {
+    if (
+      this.state.onUpdateVideoButtonClick !== undefined &&
+      video !== undefined
+    ) {
       this.state.onUpdateVideoButtonClick(video, group);
     }
   }
   private onDeleteVideoButtonClick(e: any): void {
     e.preventDefault();
 
-    let id = $(e.target).prop("id").replace("star-", ""),
-        video = _.find(this.state.data, { "ytid": id });
+    let id = $(e.target)
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id });
 
-    if (this.state.onDeleteVideoButtonClick !== undefined && video !== undefined) {
+    if (
+      this.state.onDeleteVideoButtonClick !== undefined &&
+      video !== undefined
+    ) {
       this.state.onDeleteVideoButtonClick(video);
 
       this.setState({
@@ -176,50 +192,110 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
   render() {
     let videoResults = this.state.data.map((d, i) => {
       let addButton,
-          manageButton,
-          addButtonColSpan,
-          borderRight,
-          dropDownClass = "groupDropDown";
+        manageButton,
+        addButtonColSpan,
+        borderRight,
+        dropDownClass = "groupDropDown";
 
-      if (d.isArchived === false ||
-         d.justAdded === true) {
+      if (d.isArchived === false || d.justAdded === true) {
         let clickHandler = this.onAddVideoButtonClick,
-            addButtonClass = "manageButton fa fa-star-o";
+          addButtonClass = "manageButton fa fa-star-o";
 
         if (d.justAdded) {
-          clickHandler = (e: any) => { e.preventDefault(); e.stopPropagation(); };
+          clickHandler = (e: any) => {
+            e.preventDefault();
+            e.stopPropagation();
+          };
           dropDownClass = "groupDropDownDisabled";
           addButtonClass = "manageButton fa fa-star";
-          addButton = <td className="border-right buttonContainerWidth"><span>
-              <DropDown disabled={true} name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
-              <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
-            </span></td>;
+          addButton = (
+            <td className="border-right buttonContainerWidth">
+              <span>
+                <DropDown
+                  disabled={true}
+                  name={"groupSelector-" + d.ytid}
+                  items={this.state.items}
+                  className={dropDownClass}
+                />
+                <a
+                  href="#"
+                  id={"star-" + d.ytid}
+                  onClick={clickHandler}
+                  className={addButtonClass}
+                />
+              </span>
+            </td>
+          );
         } else {
-          addButton =
-            <td className="border-right buttonContainerWidth"><span>
-              <DropDown name={"groupSelector-" + d.ytid } items={this.state.items} className={dropDownClass} />
-              <a href="#" id={"star-" + d.ytid} onClick={clickHandler} className={addButtonClass}></a>
-            </span></td>;
+          addButton = (
+            <td className="border-right buttonContainerWidth">
+              <span>
+                <DropDown
+                  name={"groupSelector-" + d.ytid}
+                  items={this.state.items}
+                  className={dropDownClass}
+                />
+                <a
+                  href="#"
+                  id={"star-" + d.ytid}
+                  onClick={clickHandler}
+                  className={addButtonClass}
+                />
+              </span>
+            </td>
+          );
         }
       } else if (this.state.manage) {
         let deleteButtonClass = "manageButton fa fa-trash",
-            updateButtonClass = "manageButton fa fa-wrench";
+          updateButtonClass = "manageButton fa fa-wrench";
 
-        manageButton =
-          <td className="border-right buttonContainerWidth"><span>
-            <DropDown name={"groupSelector-" + d.ytid } selected={d.group} items={this.state.items} className={dropDownClass} />
-            <a href="#" id={"star-" + d.ytid} onClick={this.onUpdateVideoButtonClick} className={updateButtonClass}></a>
-            <a href="#" id={"star-" + d.ytid} onClick={this.onDeleteVideoButtonClick} className={deleteButtonClass}></a>
-          </span></td>;
+        manageButton = (
+          <td className="border-right buttonContainerWidth">
+            <span>
+              <DropDown
+                name={"groupSelector-" + d.ytid}
+                selected={d.group}
+                items={this.state.items}
+                className={dropDownClass}
+              />
+              <a
+                href="#"
+                id={"star-" + d.ytid}
+                onClick={this.onUpdateVideoButtonClick}
+                className={updateButtonClass}
+              />
+              <a
+                href="#"
+                id={"star-" + d.ytid}
+                onClick={this.onDeleteVideoButtonClick}
+                className={deleteButtonClass}
+              />
+            </span>
+          </td>
+        );
       } else {
-         addButtonColSpan = 2;
-         borderRight = "border-right";
+        addButtonColSpan = 2;
+        borderRight = "border-right";
       }
 
       return (
         <tr>
-          <td className="border-left thumbnailIMGWidth" onClick={d.playVideo.bind(this, d)}><img className={"videoThumbnail " + this.state.applyFilter} src={d.thumbnail}></img></td>
-          <td className={"textAlignMiddle " + borderRight} colSpan={addButtonColSpan} onClick={d.playVideo.bind(this, d, this.state.data)}>{d.title}</td>
+          <td
+            className="border-left thumbnailIMGWidth"
+            onClick={d.playVideo.bind(this, d)}
+          >
+            <img
+              className={"videoThumbnail " + this.state.applyFilter}
+              src={d.thumbnail}
+            />
+          </td>
+          <td
+            className={"textAlignMiddle " + borderRight}
+            colSpan={addButtonColSpan}
+            onClick={d.playVideo.bind(this, d, this.state.data)}
+          >
+            {d.title}
+          </td>
           {addButton}
           {manageButton}
         </tr>

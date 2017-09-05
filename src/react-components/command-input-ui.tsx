@@ -36,7 +36,10 @@ export interface ICommandInputProps {
   placeHolder: string;
 }
 
-export class CommandInput extends React.Component<ICommandInputProps, ICommandInputState> {
+export class CommandInput extends React.Component<
+  ICommandInputProps,
+  ICommandInputState
+> {
   constructor() {
     super();
 
@@ -50,11 +53,13 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
   }
   componentDidMount() {
     const $commandText = $("#commandText"),
-          resizeCommandInput = () : void => {
-            $commandText.width(window.innerWidth - 50);
-          };
+      resizeCommandInput = (): void => {
+        $commandText.width(window.innerWidth - 50);
+      };
 
-    $(window).resize((e) => { resizeCommandInput(); });
+    $(window).resize(e => {
+      resizeCommandInput();
+    });
 
     resizeCommandInput();
 
@@ -62,9 +67,10 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
   }
   private onCommandInputKeyUp(e: any): void {
     if (e.which === Keys.Up) {
-      let commandIndex = (this.state.commandIndex === -1) ?
-                          this.state.commandsEntered.length - 1 :
-                          this.state.commandIndex - 1;
+      let commandIndex =
+        this.state.commandIndex === -1
+          ? this.state.commandsEntered.length - 1
+          : this.state.commandIndex - 1;
 
       if (commandIndex < 0) {
         commandIndex = 0;
@@ -73,9 +79,9 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
       this.setState({ commandIndex: commandIndex }, () => {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
-
     } else if (e.which === Keys.Down) {
-      let commandIndex = (this.state.commandIndex === -1) ? 0 : this.state.commandIndex + 1;
+      let commandIndex =
+        this.state.commandIndex === -1 ? 0 : this.state.commandIndex + 1;
 
       if (commandIndex > this.state.commandsEntered.length) {
         commandIndex = this.state.commandsEntered.length;
@@ -84,19 +90,23 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
       this.setState({ commandIndex: commandIndex }, () => {
         this.state.commandText.val(this.state.commandsEntered[commandIndex]);
       });
-
     } else if (e.which === Keys.Enter) {
-      const textEntered = this.state.commandText.val();
+      const textEntered = this.state.commandText.val() as string;
       if (!(textEntered.length > 0)) return;
 
-      this.setState({
-        commandsEntered: _.uniq(this.state.commandsEntered.concat([textEntered])),
-        commandIndex: -1
-      }, () => {
-        if (this.props.onKeyEnter !== undefined) {
-          this.props.onKeyEnter(textEntered);
+      this.setState(
+        {
+          commandsEntered: _.uniq(
+            this.state.commandsEntered.concat([textEntered])
+          ),
+          commandIndex: -1
+        },
+        () => {
+          if (this.props.onKeyEnter !== undefined) {
+            this.props.onKeyEnter(textEntered);
+          }
         }
-      });
+      );
     }
   }
   private onCommandInputChanged(e: any): void {
@@ -107,13 +117,15 @@ export class CommandInput extends React.Component<ICommandInputProps, ICommandIn
   render() {
     return (
       <div id="commandContainer" className="command-container">
-        &gt;<input id="commandText"
-                   className="command-input"
-                   type="text"
-                   onKeyUp={this.onCommandInputKeyUp}
-                   onChange={this.onCommandInputChanged}
-                   autoFocus
-                   placeholder={this.props.placeHolder} />
+        &gt;<input
+          id="commandText"
+          className="command-input"
+          type="text"
+          onKeyUp={this.onCommandInputKeyUp}
+          onChange={this.onCommandInputChanged}
+          autoFocus
+          placeholder={this.props.placeHolder}
+        />
       </div>
     );
   }

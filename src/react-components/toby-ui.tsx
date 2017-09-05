@@ -75,7 +75,7 @@ export class Toby extends React.Component<{}, ITobyState> {
   }
   componentDidMount() {
     if (this.socket !== undefined) {
-      this.socket.on("toby-version", (versionInfo: ITobyVersionInfo) : void => {
+      this.socket.on("toby-version", (versionInfo: ITobyVersionInfo): void => {
         this.setState({
           tobyVersionInfo: {
             title: versionInfo.title,

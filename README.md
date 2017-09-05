@@ -187,7 +187,7 @@ browser\electron\electron .
 Start the server up:
 
 ```
-.\node.exe build/server.js
+.\node.exe build\server.js
 ```
 Then open a browser to `http://127.0.0.1:62374`
 

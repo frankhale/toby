@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         src: ["src/*.ts"],
         outDir: "build",
         options: {
+          rootDir: "src",
           sourceMap: true,
           moduleResolution: "node",
           target: "es6",

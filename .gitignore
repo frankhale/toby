@@ -6,7 +6,7 @@ bower_components/
 public/components/
 public/scripts/
 node_modules/
-browsers/
+browser*/
 nwjs/
 electron/
 node.exe
