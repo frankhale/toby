@@ -90,7 +90,7 @@ the Toby server.
 
 The required Node binaries are located here (for example):
 
-[https://nodejs.org/dist/v7.2.1/win-x64/](https://nodejs.org/dist/v7.2.1/win-x64/)
+[https://nodejs.org/dist/latest/win-x64/](https://nodejs.org/dist/latest/win-x64/)
 
 Depending on what platform you want to run Toby in (Electron or NW.js) you'll
 need to make sure the main property in package.json is set accordingly:
@@ -114,33 +114,16 @@ commands.
 #### Install dependencies  
 
 ```
-npm install -g webpack
-npm install -g typescript
-npm install -g grunt
-npm install   
+npm install -g webpack typescript grunt bower  
+npm install  
 bower install
 ```
 
-#### Help SQLite3 is being stupid
-
-If you are running on Windows and Toby won't work correctly because the SQLite3
-module didn't install all of the required binaries you can try this:
-
-Download the missing module:
-[https://mapbox-node-binary.s3.amazonaws.com/sqlite3/v3.1.8/node-v48-win32-x64.tar.gz](https://mapbox-node-binary.s3.amazonaws.com/sqlite3/v3.1.8/node-v48-win32-x64.tar.gz)
-
-Copy it to `node_modules\sqlite3\lib\binding`
-
-![sqlite3-lib-binding-folder](https://cloud.githubusercontent.com/assets/190154/25250812/22514580-25e5-11e7-979e-444f76f47072.png)
-
-
 ***BEFORE BUILDING***
 
-Before building the source code you'll need to copy over the Typescript 
-definition files that I've made for the `youtube-search` and `title-case`. This 
-file is located in `/definitions/youtube-search.d.ts` and needs to be copied to 
-`/node_modules/youtube-search` and rename it to `index.d.ts`. The `title-case` 
-one should be copied to `/node_modules/title-case`.
+Copy the the following TypeScript definition in the definitions folder.
+
+Copy `title-case.d.ts`  to `/node_modules/title-case`.
 
 The `title-case` definition is just a modification of the one that already 
 exists but makes one change so that it can be imported using the import keyword.
@@ -193,7 +176,9 @@ Then open a browser to `http://127.0.0.1:62374`
 
 ### Running using the Toby Launcher
 
-I've wrote a rudimentary launcher in C# .NET to assist with launching Toby easily. By default if you run the launcher without command line args it will run Toby using NW.js. There is only one command line option at this time.
+I've wrote a rudimentary launcher in C# .NET to assist with launching Toby 
+easily. By default if you run the launcher without command line args it will run 
+Toby using NW.js. There is only one command line option at this time.
 
 After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and Newtonsoft.Json.dll files to the root of the Toby repository.
 
@@ -205,7 +190,8 @@ Examples:
 Launching Toby in a web browser: `TobyLauncher.exe /p web`  
 Launching Toby in Electron: `TobyLauncher.exe /p electron`
 
-NOTE: The launcher is crude and there is not enough error checking yet. Things will likely go wrong if Toby is not set up correctly as stated above.
+NOTE: The launcher is crude and there is not enough error checking yet. Things 
+will likely go wrong if Toby is not set up correctly as stated above.
 
 ### Usage
 
@@ -279,13 +265,13 @@ following code file `/src/data.ts`. If you are building from source feel free to
 edit this to your liking. If at anytime you edit this file and run Toby it will
 update your database importing any new videos you put there.
 
-***NOTE: Although it hasn't been done yet it'd be trivial to replace this with JSON 
-data loaded from the filesystem.***
+***NOTE: Although it hasn't been done yet it'd be trivial to replace this with 
+JSON data loaded from the filesystem.***
 
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-20 April 2017
+5 September 2017
 
 ## License
 
