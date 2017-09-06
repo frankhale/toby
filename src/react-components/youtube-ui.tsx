@@ -1,5 +1,5 @@
 // youtube-ui.tsx - YouTube player React component for Toby
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@ import * as $ from "jquery";
 import { IVideoEntry } from "./infrastructure";
 
 interface Window {
-    onYouTubeIframeAPIReady(): void;
-    snapToPlayer(): void;
+  onYouTubeIframeAPIReady(): void;
+  snapToPlayer(): void;
 }
 declare var window: Window;
 
@@ -39,7 +39,10 @@ export interface IYouTubeProps {
   applyFilter: string;
 }
 
-if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
+if (
+  navigator.userAgent.indexOf("node-webkit") > -1 ||
+  navigator.userAgent.indexOf("Electron") > -1
+) {
   // This is here because when exiting fullscreen in NW.js the page scrolls to
   // top instead of centering on the YouTube player. This is called by an
   // injected script into the webview that Toby lives inside of when running in
@@ -55,24 +58,33 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     super();
 
     this.state = {
-      currentVideo: ({} as IVideoEntry)
+      currentVideo: {} as IVideoEntry
     };
   }
   componentDidMount(): void {
-    $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
-      if (textStatus === "success") {
-        console.log("YouTube API loaded...");
-        this.setupYTPlayer();
+    $.getScript(
+      "https://www.youtube.com/iframe_api",
+      (data, textStatus, jqxhr) => {
+        if (textStatus === "success") {
+          console.log("YouTube API loaded...");
+          this.setupYTPlayer();
+        }
       }
-    });
+    );
   }
   componentWillReceiveProps(nextProps: any): void {
-    if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
-      if (nextProps.applyFilter !== undefined  &&
-         nextProps.applyFilter.length > 0 &&
-         this.state.applyFilter !== nextProps.applyFilter) {
-
-        let $player = $("#player").contents().find(".html5-main-video");
+    if (
+      navigator.userAgent.indexOf("node-webkit") > -1 ||
+      navigator.userAgent.indexOf("Electron") > -1
+    ) {
+      if (
+        nextProps.applyFilter !== undefined &&
+        nextProps.applyFilter.length > 0 &&
+        this.state.applyFilter !== nextProps.applyFilter
+      ) {
+        let $player = $("#player")
+          .contents()
+          .find(".html5-main-video");
 
         switch (nextProps.applyFilter) {
           case "grayscale":
@@ -97,17 +109,21 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       }
     }
 
-    if (nextProps.video !== undefined &&
-      (!(_.isEmpty(nextProps.video))) &&
-       nextProps.video.ytid !== undefined &&
-       nextProps.video.ytid !== "") {
-
-      if (this.state.currentVideo !== undefined &&
-         this.state.currentVideo.ytid === nextProps.video.ytid) return;
+    if (
+      nextProps.video !== undefined &&
+      !_.isEmpty(nextProps.video) &&
+      nextProps.video.ytid !== undefined &&
+      nextProps.video.ytid !== ""
+    ) {
+      if (
+        this.state.currentVideo !== undefined &&
+        this.state.currentVideo.ytid === nextProps.video.ytid
+      )
+        return;
 
       this.setState({ currentVideo: nextProps.video });
       this.playVideo(nextProps.video);
-    } else if (!(_.isEmpty(this.state.currentVideo))) {
+    } else if (!_.isEmpty(this.state.currentVideo)) {
       this.state.player.stopVideo();
       $("#player").css("display", "none");
 
@@ -124,10 +140,10 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     const onPlayerStateChange = (e: any) => {
       const videoInfo = e.target.getVideoData();
 
-      if (videoInfo.title !== "" &&
-        this.state.currentVideo.title === "" ||
-        this.state.currentVideo.title !== videoInfo.title) {
-
+      if (
+        (videoInfo.title !== "" && this.state.currentVideo.title === "") ||
+        this.state.currentVideo.title !== videoInfo.title
+      ) {
         document.title = videoInfo.title;
 
         if (this.props.socket !== undefined) {
@@ -153,16 +169,16 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
 
     window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player("player", {
-          videoId: "",
-          playerVars: {
-            autoplay: YT.AutoPlay.AutoPlay,
-            autohide: YT.AutoHide.HideAllControls,
-            iv_load_policy: YT.IvLoadPolicy.Hide
-          },
-          events: {
-            onReady: onPlayerReady,
-            onStateChange: onPlayerStateChange
-          }
+        videoId: "",
+        playerVars: {
+          autoplay: YT.AutoPlay.AutoPlay,
+          autohide: YT.AutoHide.HideAllControls,
+          iv_load_policy: YT.IvLoadPolicy.Hide
+        },
+        events: {
+          onReady: onPlayerReady,
+          onStateChange: onPlayerStateChange
+        }
       });
 
       let $player = $("#player");
@@ -171,9 +187,15 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
         $player.attr("nwdisable", "");
       }
 
-      if (navigator.userAgent.indexOf("node-webkit") > -1 || navigator.userAgent.indexOf("Electron") > -1) {
+      if (
+        navigator.userAgent.indexOf("node-webkit") > -1 ||
+        navigator.userAgent.indexOf("Electron") > -1
+      ) {
         setInterval(() => {
-          $player.contents().find(".adDisplay").css("display", "none");
+          $player
+            .contents()
+            .find(".adDisplay")
+            .css("display", "none");
         }, 1000);
       }
 
@@ -185,17 +207,15 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     this.state.player.loadVideoById(video.ytid);
 
     const $player = $("#player"),
-          $ui = $("#ui");
+      $ui = $("#ui");
 
     if ($player.css("display") !== "block") {
       $player.css("display", "block");
     }
 
-    $ui.animate({ scrollTop: $ui.prop("scrollHeight")}, 250);
+    $ui.animate({ scrollTop: $ui.prop("scrollHeight") }, 250);
   }
   render() {
-    return (
-      <div id="player"></div>
-    );
+    return <div id="player" />;
   }
 }

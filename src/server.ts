@@ -1,5 +1,5 @@
 // server.ts - Express setup and initiation
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -41,9 +41,9 @@ export default class Server {
   }
   config(): void {
     let server: http.Server,
-        db: DB,
-        api: API,
-        serverPort = AppConfig.serverPort;
+      db: DB,
+      api: API,
+      serverPort = AppConfig.serverPort;
 
     debug("toby:server");
 
@@ -53,7 +53,9 @@ export default class Server {
     this.app.use(cookieParser());
     this.app.set("view engine", "hbs");
     this.app.set("views", path.join(__dirname, "../views"));
-    this.app.use(favicon(path.join(__dirname, "../public", "images", "toby.ico")));
+    this.app.use(
+      favicon(path.join(__dirname, "../public", "images", "toby.ico"))
+    );
     this.app.use(express.static(path.join(__dirname, "../public")));
     this.app.set("port", serverPort);
 
@@ -64,7 +66,10 @@ export default class Server {
         throw error;
       }
 
-      const bind = typeof serverPort === "string" ? `Pipe ${serverPort}` : `Port ${serverPort}`;
+      const bind =
+        typeof serverPort === "string"
+          ? `Pipe ${serverPort}`
+          : `Port ${serverPort}`;
 
       // handle specific listen errors with friendly messages
       switch (error.code) {
@@ -82,7 +87,8 @@ export default class Server {
     });
     server.on("listening", () => {
       const addr = server.address();
-      const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+      const bind =
+        typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
       debug("Listening on " + bind);
     });
 
@@ -105,27 +111,41 @@ export default class Server {
     // development error handler
     // will print stacktrace
     if (this.app.get("env") === "development") {
-      this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.status(err["status"] || 500);
+      this.app.use(
+        (
+          err: Error,
+          req: express.Request,
+          res: express.Response,
+          next: express.NextFunction
+        ) => {
+          res.status(err["status"] || 500);
 
-        console.log(err.stack);
+          console.log(err.stack);
 
-        res.render("error", {
-          message: err.message,
-          error: err
-        });
-      });
+          res.render("error", {
+            message: err.message,
+            error: err
+          });
+        }
+      );
     }
 
     // production error handler
     // no stacktraces leaked to user
-    this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-      res.status(err["status"] || 500);
-      res.render("error", {
-        message: err.message,
-        error: {}
-      });
-    });
+    this.app.use(
+      (
+        err: Error,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+      ) => {
+        res.status(err["status"] || 500);
+        res.render("error", {
+          message: err.message,
+          error: {}
+        });
+      }
+    );
   }
 }
 

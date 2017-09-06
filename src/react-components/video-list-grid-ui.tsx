@@ -1,5 +1,5 @@
 // video-list-grid-ui.tsx - A video list grid React component for Toby
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,7 +29,10 @@ interface IViewListGridState {
   applyFilter?: string;
 }
 
-export class VideoListGrid extends React.Component<IViewListGridProps, IViewListGridState> {
+export class VideoListGrid extends React.Component<
+  IViewListGridProps,
+  IViewListGridState
+> {
   constructor() {
     super();
 
@@ -62,17 +65,24 @@ export class VideoListGrid extends React.Component<IViewListGridProps, IViewList
 
     this.setState({
       data: videos,
-      applyFilter: (nextProps.applyFilter !== undefined) ? nextProps.applyFilter : ""
+      applyFilter:
+        nextProps.applyFilter !== undefined ? nextProps.applyFilter : ""
     });
   }
   render() {
     return (
       <div>
-        {
-          this.state.data.map((d, i) => {
-            return <img src={d.thumbnail} title={d.title} key={i} className={"videoThumbnailSlim " + this.state.applyFilter} onClick={d.playVideo.bind(this, d, this.state.data)}></img>;
-          })
-        }
+        {this.state.data.map((d, i) => {
+          return (
+            <img
+              src={d.thumbnail}
+              title={d.title}
+              key={i}
+              className={"videoThumbnailSlim " + this.state.applyFilter}
+              onClick={d.playVideo.bind(this, d, this.state.data)}
+            />
+          );
+        })}
       </div>
     );
   }

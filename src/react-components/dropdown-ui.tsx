@@ -1,5 +1,5 @@
 // dropdown-ui.tsx
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -67,27 +67,45 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
       this.setState({
         name: props.name,
         items: props.items,
-        disabled: (props.disabled === undefined) ? false : true,
-        onDropDownChange: (props.onDropDownChange !== undefined) ? props.onDropDownChange : () => {}
+        disabled: props.disabled === undefined ? false : true,
+        onDropDownChange:
+          props.onDropDownChange !== undefined
+            ? props.onDropDownChange
+            : () => {}
       });
     }
   }
   render() {
-    let renderedItems =  this.state.items.map((e: any, i) => {
-      if (e.selected || (this.props.selected !== undefined && this.props.selected === e.name)) {
-        return <option key={i} value={e.value} selected>{e.name}</option>;
+    let renderedItems = this.state.items.map((e: any, i) => {
+      if (
+        e.selected ||
+        (this.props.selected !== undefined && this.props.selected === e.name)
+      ) {
+        return (
+          <option key={i} value={e.value} selected>
+            {e.name}
+          </option>
+        );
       } else {
-        return <option key={i} value={e.value}>{e.name}</option>;
+        return (
+          <option key={i} value={e.value}>
+            {e.name}
+          </option>
+        );
       }
     });
 
     return (
-      <select id={this.state.name}
-              name={this.state.name}
-              onChange={this.onDropDownChange}
-              style={(this.props.style !== undefined) ? this.props.style : {}}
-              className={(this.props.className !== undefined) ? this.props.className : ""}
-              disabled={this.state.disabled}>
+      <select
+        id={this.state.name}
+        name={this.state.name}
+        onChange={this.onDropDownChange}
+        style={this.props.style !== undefined ? this.props.style : {}}
+        className={
+          this.props.className !== undefined ? this.props.className : ""
+        }
+        disabled={this.state.disabled}
+      >
         {renderedItems}
       </select>
     );

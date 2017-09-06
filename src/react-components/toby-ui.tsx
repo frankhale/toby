@@ -1,5 +1,5 @@
 // toby-ui.tsx - Front end code React component for Toby
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,10 +25,12 @@ import { IYouTubeProps, YouTube } from "./youtube-ui";
 import { IVersionProps, Version } from "./version-ui";
 import { IViewListGridProps, VideoListGrid } from "./video-list-grid-ui";
 import { VideoList } from "./video-list-ui";
-import { IVideoGroup,
-         IVideoEntry,
-         ITobyVersionInfo,
-         ISearchResults } from "./infrastructure";
+import {
+  IVideoGroup,
+  IVideoEntry,
+  ITobyVersionInfo,
+  ISearchResults
+} from "./infrastructure";
 
 interface ITobyState {
   videoData?: IVideoGroup[];
@@ -65,7 +67,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       applyFilter: "",
       gridView: false,
       manage: false,
-      tobyVersionInfo: { title: "", version: ""}
+      tobyVersionInfo: { title: "", version: "" }
     };
 
     // this.socket = (navigator.userAgent.includes("node-webkit") || navigator.userAgent.includes("Electron")) ? io("http://localhost:62375") : undefined;
@@ -88,13 +90,13 @@ export class Toby extends React.Component<{}, ITobyState> {
 
       // User clicked on a recommended video at the end of playing a video
       this.socket.on("play-video", (ytid: string) => {
-        this.playVideo({ title: "", ytid: ytid});
+        this.playVideo({ title: "", ytid: ytid });
       });
     }
 
     $.ajax({
       url: "/api/videos/groups"
-    }).done((data) => {
+    }).done(data => {
       this.setState({
         groups: data
       });
@@ -107,8 +109,7 @@ export class Toby extends React.Component<{}, ITobyState> {
     $.post({
       url: url,
       data: { searchTerm: searchTerm }
-    })
-    .done((data: IVideoEntry[]): void => {
+    }).done((data: IVideoEntry[]): void => {
       this.setState({
         searchResults: this.buildVideoResults(data),
         manage: false
@@ -118,7 +119,7 @@ export class Toby extends React.Component<{}, ITobyState> {
   private buildVideoResults(data: IVideoEntry[]): ISearchResults[] {
     let results: ISearchResults[] = [];
 
-    _.forEach(data, (v) => {
+    _.forEach(data, v => {
       // Image thumbnail URL looks like this:
       //
       // https://i.ytimg.com/vi/YTID/default.jpg
@@ -170,7 +171,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         action: (searchTerm, commandSegments) => {
           $.get({
             url: "/api/videos"
-          }).done((data) => {
+          }).done(data => {
             this.setState({
               searchResults: this.buildVideoResults(data)
             });
@@ -231,7 +232,8 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/norm", "/normal"],
-        description: "Remove user set filters and return thumbnails and video to a normal filter.",
+        description:
+          "Remove user set filters and return thumbnails and video to a normal filter.",
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "normal" });
         }
@@ -249,7 +251,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/last30"
-          }).done((data) => {
+          }).done(data => {
             this.setState({
               searchResults: this.buildVideoResults(data),
               manage: false
@@ -264,8 +266,7 @@ export class Toby extends React.Component<{}, ITobyState> {
           $.post({
             url: "/api/videos/recently-played/search",
             data: { searchTerm: _.slice(commandSegments, 1).join(" ") }
-          })
-          .done((data) => {
+          }).done(data => {
             this.setState({
               searchResults: this.buildVideoResults(data),
               manage: false
@@ -275,12 +276,13 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/trimrp", "trim-recently-played"],
-        description: "Trim recently played videos in the database to the last 30.",
+        description:
+          "Trim recently played videos in the database to the last 30.",
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/last30",
             data: { trim: true }
-          }).done((data) => {
+          }).done(data => {
             this.setState({
               searchResults: this.buildVideoResults(data),
               manage: false
@@ -290,11 +292,12 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/manage"],
-        description: "Switch mode to manage which allows you to edit groups videos belong to or delete them.",
+        description:
+          "Switch mode to manage which allows you to edit groups videos belong to or delete them.",
         action: (searchTerm, commandSegments) => {
           $.ajax({
             url: "/api/videos"
-          }).done((data) => {
+          }).done(data => {
             this.setState({
               searchResults: this.buildVideoResults(data),
               manage: true
@@ -304,7 +307,8 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/filter"],
-        description: "Switch thumbnails and video to a user specified filter: monochrome, saturate, sepia and normal",
+        description:
+          "Switch thumbnails and video to a user specified filter: monochrome, saturate, sepia and normal",
         action: (searchTerm, commandSegments) => {
           if (commandSegments.length > 0) {
             switch (commandSegments[1]) {
@@ -323,13 +327,13 @@ export class Toby extends React.Component<{}, ITobyState> {
             }
           }
         }
-      },
+      }
     ];
   }
   private onCommandEntered(searchTerm: string): void {
     const commandSegments: string[] = searchTerm.split(" ");
 
-    const command: ICommand = _.find(this.commands, (c) => {
+    const command: ICommand = _.find(this.commands, c => {
       return _.indexOf(c.commands, commandSegments[0]) > -1;
     });
 
@@ -350,7 +354,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         data: {
           title: video.title,
           ytid: video.ytid,
-          group: (group !== undefined) ? group : "misc"
+          group: group !== undefined ? group : "misc"
         }
       });
     }
@@ -367,7 +371,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         data: {
           title: video.title,
           ytid: video.ytid,
-          group: (group !== undefined) ? group : "misc"
+          group: group !== undefined ? group : "misc"
         }
       });
     }
@@ -407,34 +411,52 @@ export class Toby extends React.Component<{}, ITobyState> {
   }
   render() {
     let versionDisplay = true,
-        view;
+      view;
 
-    if (this.state.searchResults !== undefined && this.state.searchResults.length > 0) {
+    if (
+      this.state.searchResults !== undefined &&
+      this.state.searchResults.length > 0
+    ) {
       versionDisplay = false;
     }
 
     if (this.state.gridView) {
-      view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />;
+      view = (
+        <VideoListGrid
+          data={this.state.searchResults}
+          applyFilter={this.state.applyFilter}
+        />
+      );
     } else {
-      view =
-        <VideoList data={this.state.searchResults}
-            groups={this.state.groups}
-            manage={this.state.manage}
-            applyFilter={this.state.applyFilter}
-            onAddVideoButtonClick={this.onAddVideoButtonClick}
-            onUpdateVideoButtonClick={this.onUpdateVideoButtonClick}
-            onDeleteVideoButtonClick={this.onDeleteVideoButtonClick} />;
+      view = (
+        <VideoList
+          data={this.state.searchResults}
+          groups={this.state.groups}
+          manage={this.state.manage}
+          applyFilter={this.state.applyFilter}
+          onAddVideoButtonClick={this.onAddVideoButtonClick}
+          onUpdateVideoButtonClick={this.onUpdateVideoButtonClick}
+          onDeleteVideoButtonClick={this.onDeleteVideoButtonClick}
+        />
+      );
     }
 
     return (
       <div>
-        <CommandInput onKeyEnter={this.onCommandEntered}
-                      placeHolder="Search YouTube or your saved videos..." />
+        <CommandInput
+          onKeyEnter={this.onCommandEntered}
+          placeHolder="Search YouTube or your saved videos..."
+        />
         {view}
-        <YouTube video={this.state.currentVideo}
-                 applyFilter={this.state.applyFilter}
-                 socket={this.socket} />
-        <Version display={versionDisplay} info={this.state.tobyVersionInfo.version}  />
+        <YouTube
+          video={this.state.currentVideo}
+          applyFilter={this.state.applyFilter}
+          socket={this.socket}
+        />
+        <Version
+          display={versionDisplay}
+          info={this.state.tobyVersionInfo.version}
+        />
       </div>
     );
   }

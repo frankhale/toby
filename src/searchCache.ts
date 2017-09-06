@@ -1,6 +1,6 @@
 // searchCache.ts - A simple search cache for Toby which caches YouTube search
 //                  results.
-// Copyright (C) 2016 Frank Hale <frankhale@gmail.com>
+// Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ export class SearchCache {
   private runExpire(): void {
     if (this.cache.length <= 0) return;
 
-    this.cache = _.reject(this.cache, (c) => {
+    this.cache = _.reject(this.cache, c => {
       return c.addedAt < Moment().subtract(this.expiry, "minutes");
     });
   }
