@@ -33,7 +33,7 @@
     "@types/keymaster": "^1.6.28",
     "@types/lodash": "^4.14.74",
     "@types/morgan": "^1.7.32",
-    "@types/node": "^8.0.26",
+    "@types/node": "^8.0.28",
     "@types/nw.js": "^0.13.7",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.0",
@@ -53,7 +53,7 @@
     "typescript": "^2.5.2"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.0",
     "cookie-parser": "^1.4.3",
     "debug": "^3.0.1",
     "express": "^4.15.4",
@@ -66,7 +66,7 @@
     "serve-favicon": "^2.4.3",
     "socket.io": "^2.0.3",
     "split": "^1.0.1",
-    "sqlite3": "^3.1.9",
+    "sqlite3": "^3.1.10",
     "title-case": "^2.1.1",
     "youtube-search": "^1.0.10"
   }
