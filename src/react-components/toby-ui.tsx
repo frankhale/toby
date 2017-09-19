@@ -149,7 +149,7 @@ export class Toby extends React.Component<{}, ITobyState> {
         }
       },
       {
-        commands: ["/loc", "/local"],
+        commands: ["/ls", "/loc", "/local"],
         description: "Search local videos saved in the database.",
         action: (searchTerm, commandSegments) => {
           searchTerm = _.slice(commandSegments, 1).join(" ");

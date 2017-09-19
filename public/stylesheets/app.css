@@ -26,7 +26,8 @@ body {
 }
 
 * {
-  font-family: 'VT323', sans-serif;
+  /* font-family: 'VT323', sans-serif; */
+  font-family: "Share Tech Mono", monospace;
 }
 
 pre {
@@ -234,5 +235,5 @@ select:active {
   right: 25px;
   font-weight: bold;
   color: #444;
-  opacity: .5;
+  opacity: 0.5;
 }
