@@ -3,7 +3,7 @@ body {
   margin: 0;
   background-color: #000;
   color: #fff;
-  font-size: 24pt;
+  font-size: 18pt;
   overflow: hidden;
 }
 
@@ -49,7 +49,7 @@ blockquote {
 
 .command-container {
   padding-left: 10px;
-  font-size: 22pt;
+  font-size: 18pt;
 }
 
 .command-input {
@@ -58,7 +58,7 @@ blockquote {
   padding-left: 2px;
   padding-top: 5px;
   margin-bottom: 20px;
-  font-size: 24pt;
+  font-size: 18pt;
   background-color: #000;
   color: #fff;
 }
@@ -68,7 +68,7 @@ blockquote {
 .content-panel {
   padding-left: 10px;
   padding-bottom: 25px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* misc */
