@@ -53,7 +53,7 @@
     "typescript": "^2.5.2"
   },
   "dependencies": {
-    "body-parser": "^1.18.0",
+    "body-parser": "^1.18.1",
     "cookie-parser": "^1.4.3",
     "debug": "^3.0.1",
     "express": "^4.15.4",
@@ -62,12 +62,20 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
-    "request": "^2.81.0",
-    "serve-favicon": "^2.4.3",
+    "request": "^2.82.0",
+    "serve-favicon": "^2.4.4",
     "socket.io": "^2.0.3",
     "split": "^1.0.1",
     "sqlite3": "^3.1.11",
     "title-case": "^2.1.1",
     "youtube-search": "^1.0.10"
+  },
+  "webview": {
+    "partitions": [
+      {
+        "name": "trusted",
+        "accessible_resources": ["<all_urls>"]
+      }
+    ]
   }
 }

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323"> -->
   <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
   <link rel="stylesheet" href="../public/components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../public/stylesheets/main.css">
@@ -10,6 +9,7 @@
   <script src="../public/components/jquery/dist/jquery.min.js"></script>
 
   <script>
+    // this is a fucking hack, don't know how to properly handle this *cries inside*
     var exports = {};
 
     if (navigator.userAgent.includes("Electron")) {
@@ -25,7 +25,7 @@
     <i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i>
   </div>
   <div id="content"></div>
-  <webview id="webview" allowtransparency disablewebsecurity allowpopups></webview>
+  <webview id="webview" allowtransparency disablewebsecurity allowpopups partition="trusted"></webview>
 
   <script src="./platform.js"></script>
 </body>
