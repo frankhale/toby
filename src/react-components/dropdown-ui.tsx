@@ -41,8 +41,8 @@ interface IDropDownState {
 }
 
 export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.onDropDownChange = this.onDropDownChange.bind(this);
 
@@ -71,7 +71,7 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
         onDropDownChange:
           props.onDropDownChange !== undefined
             ? props.onDropDownChange
-            : () => {}
+            : () => { }
       });
     }
   }

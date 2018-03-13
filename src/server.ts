@@ -105,6 +105,8 @@ export default class Server {
     this.app.use((req, res, next) => {
       let err = new Error("Not Found");
       err["status"] = 404;
+
+      console.log(req.path);
       next(err);
     });
 

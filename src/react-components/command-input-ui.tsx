@@ -40,8 +40,8 @@ export class CommandInput extends React.Component<
   ICommandInputProps,
   ICommandInputState
 > {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.onCommandInputKeyUp = this.onCommandInputKeyUp.bind(this);
     this.onCommandInputChanged = this.onCommandInputChanged.bind(this);

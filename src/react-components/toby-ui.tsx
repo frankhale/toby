@@ -53,8 +53,8 @@ export class Toby extends React.Component<{}, ITobyState> {
   private socket: SocketIOClient.Socket;
   private commands: ICommand[];
 
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.onCommandEntered = this.onCommandEntered.bind(this);
     this.onAddVideoButtonClick = this.onAddVideoButtonClick.bind(this);

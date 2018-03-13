@@ -46,9 +46,9 @@ interface IVideoListState {
 export class VideoList extends React.Component<
   IVideoListProps,
   IVideoListState
-> {
-  constructor() {
-    super();
+  > {
+  constructor(props: any) {
+    super(props);
 
     this.onAddVideoButtonClick = this.onAddVideoButtonClick.bind(this);
     this.onUpdateVideoButtonClick = this.onUpdateVideoButtonClick.bind(this);
@@ -82,7 +82,7 @@ export class VideoList extends React.Component<
       {
         name: "-Select Group-",
         value: "-1",
-        action: () => {}
+        action: () => { }
       }
     ];
 
@@ -92,7 +92,7 @@ export class VideoList extends React.Component<
           items.push({
             name: g,
             value: g,
-            action: () => {}
+            action: () => { }
           });
         }
       });
@@ -131,8 +131,8 @@ export class VideoList extends React.Component<
     e.preventDefault();
 
     let id = $(e.target)
-        .prop("id")
-        .replace("star-", ""),
+      .prop("id")
+      .replace("star-", ""),
       video = _.find(this.state.data, { ytid: id }),
       group = $(`#groupSelector-${video.ytid}`).val() as string;
 
@@ -156,8 +156,8 @@ export class VideoList extends React.Component<
     // console.log($(e.target).prop("id").replace("star-", ""));
 
     let id = $(e.target)
-        .prop("id")
-        .replace("star-", ""),
+      .prop("id")
+      .replace("star-", ""),
       video = _.find(this.state.data, { ytid: id }),
       group = $(`#groupSelector-${video.ytid}`).val() as string;
 
@@ -174,8 +174,8 @@ export class VideoList extends React.Component<
     e.preventDefault();
 
     let id = $(e.target)
-        .prop("id")
-        .replace("star-", ""),
+      .prop("id")
+      .replace("star-", ""),
       video = _.find(this.state.data, { ytid: id });
 
     if (

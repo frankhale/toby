@@ -28,8 +28,8 @@ interface IVersionState {
 }
 
 export class Version extends React.Component<IVersionProps, IVersionState> {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.state = {
       display: false,

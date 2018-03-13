@@ -32,9 +32,9 @@ interface IViewListGridState {
 export class VideoListGrid extends React.Component<
   IViewListGridProps,
   IViewListGridState
-> {
-  constructor() {
-    super();
+  > {
+  constructor(props: any) {
+    super(props);
 
     this.state = {
       data: [],

@@ -54,8 +54,8 @@ if (
 }
 
 export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.state = {
       currentVideo: {} as IVideoEntry
