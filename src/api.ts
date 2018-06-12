@@ -161,7 +161,9 @@ export default class API {
         let finalResults: IVideoEntry[] = [];
 
         _.forEach(results, r => {
-          let found = _.find(ytids_found, { ytid: r.id });
+          let found = _.find(ytids_found, f => {
+            return f.ytid === r.id;
+          });
 
           finalResults.push({
             title: r.title,

@@ -77,15 +77,26 @@ export class Toby extends React.Component<{}, ITobyState> {
   }
   componentDidMount() {
     if (this.socket !== undefined) {
-      this.socket.on("toby-version", (versionInfo: ITobyVersionInfo): void => {
-        this.setState({
-          tobyVersionInfo: {
-            title: versionInfo.title,
-            version: versionInfo.version
-          }
-        });
+      this.socket.on(
+        "toby-version",
+        (versionInfo: ITobyVersionInfo): void => {
+          this.setState({
+            tobyVersionInfo: {
+              title: versionInfo.title,
+              version: versionInfo.version
+            }
+          });
 
-        document.title = versionInfo.title;
+          document.title = versionInfo.title;
+        }
+      );
+
+      key("f1", () => {
+        this.socket.emit("server-log", {});
+      });
+
+      key("f11", () => {
+        this.socket.emit("toggle-fullscreen", {});
       });
 
       // User clicked on a recommended video at the end of playing a video
@@ -109,12 +120,14 @@ export class Toby extends React.Component<{}, ITobyState> {
     $.post({
       url: url,
       data: { searchTerm: searchTerm }
-    }).done((data: IVideoEntry[]): void => {
-      this.setState({
-        searchResults: this.buildVideoResults(data),
-        manage: false
-      });
-    });
+    }).done(
+      (data: IVideoEntry[]): void => {
+        this.setState({
+          searchResults: this.buildVideoResults(data),
+          manage: false
+        });
+      }
+    );
   }
   private buildVideoResults(data: IVideoEntry[]): ISearchResults[] {
     let results: ISearchResults[] = [];

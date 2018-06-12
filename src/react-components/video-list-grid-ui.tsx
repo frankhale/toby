@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { IVideoEntry, ISearchResults } from "./infrastructure";
 
@@ -32,7 +31,7 @@ interface IViewListGridState {
 export class VideoListGrid extends React.Component<
   IViewListGridProps,
   IViewListGridState
-  > {
+> {
   constructor(props: any) {
     super(props);
 

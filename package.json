@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A desktop YouTube player",
   "title": "Toby - A YouTube Player For The Desktop",
   "homepage": "https://github.com/frankhale/toby",
@@ -33,7 +33,7 @@
     "@types/keymaster": "^1.6.28",
     "@types/lodash": "^4.14.104",
     "@types/morgan": "^1.7.33",
-    "@types/node": "^9.4.7",
+    "@types/node": "^10.3.2",
     "@types/nw.js": "^0.13.8",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
@@ -42,15 +42,14 @@
     "@types/socket.io": "^1.4.31",
     "@types/socket.io-client": "^1.4.32",
     "@types/sqlite3": "^3.1.1",
-    "@types/youtube": "^0.0.32",
-    "awesome-typescript-loader": "^4.0.1",
+    "@types/youtube": "^0.0.33",
     "grunt": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-ts": "^6.0.0-beta.19",
     "grunt-tslint": "^5.0.1",
     "source-map-loader": "^0.2.3",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "typescript": "^2.9.1"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -62,13 +61,16 @@
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "morgan": "^1.9.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "request": "^2.85.0",
     "serve-favicon": "^2.4.5",
     "socket.io": "^2.0.4",
     "split": "^1.0.1",
-    "sqlite3": "^3.1.13",
+    "sqlite3": "^4.0.0",
     "title-case": "^2.1.1",
-    "youtube-search": "^1.0.10"
+    "ts-loader": "^4.4.1",
+    "youtube-search": "^1.1.1"
   },
   "webview": {
     "partitions": [

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import * as path from "path";
 import * as stream from "stream";
 import { spawn, ChildProcess } from "child_process";
 import * as _ from "lodash";
@@ -58,6 +57,14 @@ class Platform {
         }
       });
 
+      s.on("server-log", () => {
+        this.f1Handler();
+      });
+
+      s.on("toggle-fullscreen", () => {
+        this.f11Handler();
+      });
+
       s.emit("toby-version", {
         title: pkgJSON.title,
         version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
@@ -89,26 +96,12 @@ class Platform {
     this.setup();
   }
   private setup(): void {
-    key("f1", () => {
-      if (this.$content.css("visibility") === "hidden") {
-        this.$content.css("visibility", "visible");
-        this.$webview.css("visibility", "hidden");
-      } else {
-        this.$content.css("visibility", "hidden");
-        this.$webview.css("visibility", "visible");
-      }
-    });
+    key("f1", this.f1Handler);
 
     if (navigator.userAgent.indexOf("node-webkit") > -1) {
       let win = nw.Window.get();
 
-      key("f11", () => {
-        if (win.isFullscreen) {
-          win.leaveFullscreen();
-        } else {
-          win.enterFullscreen();
-        }
-      });
+      key("f11", this.f11Handler);
 
       win.on("loaded", () => {
         // win.showDevTools();
@@ -186,14 +179,7 @@ class Platform {
           // });
         });
 
-        key("f11", () => {
-          if (browserWindow.isFullScreen()) {
-            browserWindow.setFullScreen(false);
-            this.webview.executeJavaScript(this.snapToPlayerCodeBlock);
-          } else {
-            browserWindow.setFullScreen(true);
-          }
-        });
+        key("f11", this.f11Handler);
       }
     }
   }
@@ -264,6 +250,35 @@ class Platform {
       } else if (navigator.userAgent.indexOf("Electron") > -1) {
         const { shell } = require("electron");
         shell.openExternal(url);
+      }
+    }
+  }
+  private f1Handler(): void {
+    if (this.$content.css("visibility") === "hidden") {
+      this.$content.css("visibility", "visible");
+      this.$webview.css("visibility", "hidden");
+    } else {
+      this.$content.css("visibility", "hidden");
+      this.$webview.css("visibility", "visible");
+    }
+  }
+  private f11Handler(): void {
+    if (navigator.userAgent.indexOf("node-webkit") > -1) {
+      let win = nw.Window.get();
+
+      if (win.isFullscreen) {
+        win.leaveFullscreen();
+      } else {
+        win.enterFullscreen();
+      }
+    } else if (navigator.userAgent.indexOf("Electron") > -1) {
+      const browserWindow = require("electron").remote.getCurrentWindow();
+
+      if (browserWindow.isFullScreen()) {
+        browserWindow.setFullScreen(false);
+        this.webview.executeJavaScript(this.snapToPlayerCodeBlock);
+      } else {
+        browserWindow.setFullScreen(true);
       }
     }
   }

@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as $ from "jquery";
 import * as _ from "lodash";
 
@@ -46,7 +45,7 @@ interface IVideoListState {
 export class VideoList extends React.Component<
   IVideoListProps,
   IVideoListState
-  > {
+> {
   constructor(props: any) {
     super(props);
 
@@ -82,7 +81,7 @@ export class VideoList extends React.Component<
       {
         name: "-Select Group-",
         value: "-1",
-        action: () => { }
+        action: () => {}
       }
     ];
 
@@ -92,7 +91,7 @@ export class VideoList extends React.Component<
           items.push({
             name: g,
             value: g,
-            action: () => { }
+            action: () => {}
           });
         }
       });
@@ -131,9 +130,9 @@ export class VideoList extends React.Component<
     e.preventDefault();
 
     let id = $(e.target)
-      .prop("id")
-      .replace("star-", ""),
-      video = _.find(this.state.data, { ytid: id }),
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id }) as ISearchResults,
       group = $(`#groupSelector-${video.ytid}`).val() as string;
 
     if (group === "-1") return;
@@ -156,9 +155,9 @@ export class VideoList extends React.Component<
     // console.log($(e.target).prop("id").replace("star-", ""));
 
     let id = $(e.target)
-      .prop("id")
-      .replace("star-", ""),
-      video = _.find(this.state.data, { ytid: id }),
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id }) as ISearchResults,
       group = $(`#groupSelector-${video.ytid}`).val() as string;
 
     if (group === "-1") return;
@@ -174,9 +173,9 @@ export class VideoList extends React.Component<
     e.preventDefault();
 
     let id = $(e.target)
-      .prop("id")
-      .replace("star-", ""),
-      video = _.find(this.state.data, { ytid: id });
+        .prop("id")
+        .replace("star-", ""),
+      video = _.find(this.state.data, { ytid: id }) as ISearchResults;
 
     if (
       this.state.onDeleteVideoButtonClick !== undefined &&
@@ -199,7 +198,7 @@ export class VideoList extends React.Component<
 
       if (d.isArchived === false || d.justAdded === true) {
         let clickHandler = this.onAddVideoButtonClick,
-          addButtonClass = "manageButton fa fa-star-o";
+          addButtonClass = "manageButton far fa-star";
 
         if (d.justAdded) {
           clickHandler = (e: any) => {
@@ -207,7 +206,7 @@ export class VideoList extends React.Component<
             e.stopPropagation();
           };
           dropDownClass = "groupDropDownDisabled";
-          addButtonClass = "manageButton fa fa-star";
+          addButtonClass = "manageButton fas fa-star";
           addButton = (
             <td className="border-right buttonContainerWidth">
               <span>
@@ -246,8 +245,8 @@ export class VideoList extends React.Component<
           );
         }
       } else if (this.state.manage) {
-        let deleteButtonClass = "manageButton fa fa-trash",
-          updateButtonClass = "manageButton fa fa-wrench";
+        let deleteButtonClass = "manageButton fas fa-trash",
+          updateButtonClass = "manageButton fas fa-wrench";
 
         manageButton = (
           <td className="border-right buttonContainerWidth">

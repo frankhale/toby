@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 export interface IVersionProps {
   display: boolean;
