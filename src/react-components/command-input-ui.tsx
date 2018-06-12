@@ -16,6 +16,7 @@
 
 import * as React from "react";
 import * as _ from "lodash";
+import * as $ from "jquery";
 
 enum Keys {
   Enter = 13,

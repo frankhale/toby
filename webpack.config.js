@@ -1,6 +1,8 @@
 const path = require("path");
+//const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   entry: [
     "command-input-ui.tsx",
     "dropdown-ui.tsx",
@@ -24,8 +26,14 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     modules: [path.resolve("./src/react-components"), "node_modules"]
   },
+  //plugins: [new UglifyJsPlugin()],
   output: {
     filename: "app.js",
     path: __dirname + "/public/scripts"
   }
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: "all"
+  //   }
+  // }
 };

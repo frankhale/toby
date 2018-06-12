@@ -41,11 +41,11 @@ all the code from the file system. The new architecture puts Toby behind an
 Express web application that is spawned from a regular Node process so that more
 deployment scenarios are possible.
 
-A Toby deployment would ship the regular `node.exe` and `node.lib` files along 
-side the source code. We know NW.js and Electron ship with Node embedded but 
-shipping Node as an external resource allows us to run Toby's server in a 
-regular Node process and unencumbered by NW.js / Electron specific compiling 
-requirements for any potential native Node modules we may want to use nor or in 
+A Toby deployment would ship the regular `node.exe` and `node.lib` files along
+side the source code. We know NW.js and Electron ship with Node embedded but
+shipping Node as an external resource allows us to run Toby's server in a
+regular Node process and unencumbered by NW.js / Electron specific compiling
+requirements for any potential native Node modules we may want to use nor or in
 the future. The only native Node module being at the moment is SQLite3.
 
 Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
@@ -63,10 +63,10 @@ Set up the folder structure for working with either NW.js or Electron or both:
 
 ![NW.js package.nw root](screenshots/tody-folder-structure.png)
 
-Notice that we have a copy of `node.exe` and `node.lib` in the root of the 
+Notice that we have a copy of `node.exe` and `node.lib` in the root of the
 source code repository. This is used to spawn our server for serving our API.
 
-Additionally we have a folder named `browsers` with a copy of `electron` and/or 
+Additionally we have a folder named `browsers` with a copy of `electron` and/or
 `nwjs`. We'll use one of these to run Toby.
 
 #### Dependencies
@@ -111,11 +111,11 @@ In order to run Toby you'll need to download the dependencies and build the
 source code. Open a terminal to the source code repository and run the following
 commands.
 
-#### Install Dependencies  
+#### Install Dependencies
 
 ```
-npm install -g webpack typescript grunt bower  
-npm install  
+npm install -g webpack webpack-cli typescript grunt bower
+npm install
 bower install
 ```
 
@@ -134,15 +134,15 @@ webpack
 ```
 
 Assuming all dependencies are downloaded and the source code has been compiled
-perform the following from a command line at the root of the Toby code 
+perform the following from a command line at the root of the Toby code
 repository:
 
-***NOTE: `main` will need to be updated in `package.json` to point to the 
-correct starting point for your deployment scenario. If you are using Electron 
-it will need to be set to `build\electron.js` or if you are using NW.js it'll 
-need to be set to `build\index.html`. It should also be noted that the 
-index.html contained in the root of the Toby repository will be copied to the 
-build folder and used from there.***
+**_NOTE: `main` will need to be updated in `package.json` to point to the
+correct starting point for your deployment scenario. If you are using Electron
+it will need to be set to `build\electron.js` or if you are using NW.js it'll
+need to be set to `build\index.html`. It should also be noted that the
+index.html contained in the root of the Toby repository will be copied to the
+build folder and used from there._**
 
 #### Running in NW.js
 
@@ -150,10 +150,10 @@ build folder and used from there.***
 browser\nwjs\nw.exe .
 ```
 
-***NOTE: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
-capable one from [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases). The `ffmpeg.dll` 
-that ships with NW.js is crippled and won't play many of the YouTube videos you 
-most likely will want to play.***
+**_NOTE: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
+capable one from [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases). The `ffmpeg.dll`
+that ships with NW.js is crippled and won't play many of the YouTube videos you
+most likely will want to play._**
 
 #### Running in Electron
 
@@ -168,12 +168,13 @@ Start the server up:
 ```
 .\node.exe build\server.js
 ```
+
 Then open a browser to `http://127.0.0.1:62374`
 
 ### Running using the Toby Launcher
 
-I've wrote a rudimentary launcher in C# .NET to assist with launching Toby 
-easily. By default if you run the launcher without command line args it will run 
+I've wrote a rudimentary launcher in C# .NET to assist with launching Toby
+easily. By default if you run the launcher without command line args it will run
 Toby using NW.js. There is only one command line option at this time.
 
 After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and Newtonsoft.Json.dll files to the root of the Toby repository.
@@ -183,18 +184,18 @@ After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and New
 
 Examples:
 
-Launching Toby in a web browser: `TobyLauncher.exe /p web`  
+Launching Toby in a web browser: `TobyLauncher.exe /p web`
 Launching Toby in Electron: `TobyLauncher.exe /p electron`
 
-NOTE: The launcher is crude and there is not enough error checking yet. Things 
+NOTE: The launcher is crude and there is not enough error checking yet. Things
 will likely go wrong if Toby is not set up correctly as stated above.
 
 ### Usage
 
 **Important Key Combos:**
 
-<kbd>F1</kbd> - Toggles server log   
-<kbd>F11</kbd> - Toggles Fullscreen
+<kbd>F1</kbd> - Toggles server log
+<kbd>F11</kbd> - Toggles fullscreen
 
 In addition to keyboard shortcuts there are commands that can be typed into the
 search box that will perform various things.
@@ -209,44 +210,44 @@ Here is a list (there will be additional ones added soon):
 - `/history` : Lists the recently played videos
 - `/rp` or `/recently-played` : List last 30 recently played videos
 - `/rps` or `/recently-played-search` : Search recently played videos
-- `/manage` : Manage what groups videos are in and also provide ability to 
-delete videos
+- `/manage` : Manage what groups videos are in and also provide ability to
+  delete videos
 - `/archive` : Export the contents of the database to the data.txt file
 - `/gv` or `/grid-view` - Toggle slim grid view for search results
 - `/dv` or `/default-view` - Toggle default view for search results
 - `/clear` : Clears search results
-- `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video 
-filter and thumbnails in search results
-- `/saturate` : (NW.js/Electron only) Short cut to set the saturated video 
-filter and thumbnails in search results
+- `/monochrome` : (NW.js/Electron only) Short cut to set the monochrome video
+  filter and thumbnails in search results
+- `/saturate` : (NW.js/Electron only) Short cut to set the saturated video
+  filter and thumbnails in search results
 - `/sepia` : (NW.js/Electron only) Short cut to set the sepia video filter and
-thumbnails in search results
+  thumbnails in search results
 - `/normal` : (NW.js/Electron only) Short cut to set the normal video filter and
-thumbnails in search results
-- `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome 
-video filter and thumbnails in search results
-- `/filter saturate` : (NW.js/Electron only) Short cut to set the saturated 
-video filter and thumbnails in search results
-- `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video 
-filter and thumbnails in search results
+  thumbnails in search results
+- `/filter monochrome` : (NW.js/Electron only) Short cut to set the monochrome
+  video filter and thumbnails in search results
+- `/filter saturate` : (NW.js/Electron only) Short cut to set the saturated
+  video filter and thumbnails in search results
+- `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video
+  filter and thumbnails in search results
 
-***NOTE: You can refer to /src/toby-ui.tsx for the various short cuts available
-for these commands***
+**_NOTE: You can refer to /src/toby-ui.tsx for the various short cuts available
+for these commands_**
 
 ### Wait, I used NW.js and some YouTube videos won't play
 
 The FFMPEG library that ships with NW.js is less capable than the one that ships
 with Electron. The short answer is just copy the FFMPEG library from an Electron
-release replace the one that ships with NW.js. I've been doing this for a long 
-time and it works well for me (on Windows). 
+release replace the one that ships with NW.js. I've been doing this for a long
+time and it works well for me (on Windows).
 
-The longer answer is you can compile your own FFMPEG library with the support 
+The longer answer is you can compile your own FFMPEG library with the support
 you and there are a lot of resources already out there to handle this scenario.
 
-***NOTE: This technique does not work with NW.js 0.20.0-beta1 as the FFMPEG 
-seems to be different than one that ships with Electron.***
+**_NOTE: This technique does not work with NW.js 0.20.0-beta1 as the FFMPEG
+seems to be different than one that ships with Electron._**
 
-Looks like there are some alternate FFMPEG builds available which can take care 
+Looks like there are some alternate FFMPEG builds available which can take care
 of this: [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases)
 
 ### Features TODO
@@ -261,12 +262,12 @@ following code file `/src/data.ts`. If you are building from source feel free to
 edit this to your liking. If at anytime you edit this file and run Toby it will
 update your database importing any new videos you put there.
 
-***NOTE: Although it hasn't been done yet it'd be trivial to replace this with 
-JSON data loaded from the filesystem.***
+**_NOTE: Although it hasn't been done yet it'd be trivial to replace this with
+JSON data loaded from the filesystem._**
 
 ## Author(s)
 
-Frank Hale &lt;frankhale@gmail.com&gt;  
+Frank Hale &lt;frankhale@gmail.com&gt;
 5 September 2017
 
 ## License
