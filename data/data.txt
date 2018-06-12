@@ -3,12 +3,20 @@
     "group": "Trance",
     "entries": [
       {
+        "title": "A.M.R feat Ai Takekawa - Beyond The Moon (Exclusive Intro Edit)",
+        "ytid": "LTUkrcYyXOo"
+      },
+      {
         "title": "AMR feat Ai Takekawa - Beyond The Moon (Original Mix)",
         "ytid": "VXPor8AsY48"
       },
       {
         "title": "Afrojack - Ten Feet Tall (Lyric Video) ft Wrabel",
         "ytid": "bltr_Dsk5EY"
+      },
+      {
+        "title": "Amir Hussain   Time Lapse Extended Mix",
+        "ytid": "pkSlIrODgcg"
       },
       {
         "title": "Arcane Science feat Melissa Loretta - Still Feel (You Here) (Intro Mix)",
@@ -91,6 +99,10 @@
         "ytid": "P0fp7fDxcVA"
       },
       {
+        "title": "Ferry Tayle & Betsie Larkin - The Key",
+        "ytid": "wYo4Y_-GzU0"
+      },
+      {
         "title": "Gareth Emery & Alastor feat. London Thor - Hands (Chris Metcalfe Remix)",
         "ytid": "CAlPf4IcH3A"
       },
@@ -137,10 +149,6 @@
       {
         "title": "Jasper Forks - River Flows In You (Out of Blackout Vocal Edit) [HD]",
         "ytid": "5UwnhliP5N8"
-      },
-      {
-        "title": "John O'Callaghan feat. Sarah Howells - Find Yourself (Standerwick Remix)",
-        "ytid": "KlWTGeTf5c8"
       },
       {
         "title": "Just Because",
@@ -271,10 +279,6 @@
         "ytid": "Btz1lteUtuM"
       },
       {
-        "title": "Yellow Claw - Love & War (feat. Yade Lauren)",
-        "ytid": "IqA3bKlP7kI"
-      },
-      {
         "title": "Yuri Kane - Right back",
         "ytid": "G9AG0wkLIp0"
       },
@@ -288,10 +292,6 @@
     "group": "Trance Sets",
     "entries": [
       {
-        "title": "Arctic Moon Megamix - best tracks & remixes",
-        "ytid": "aX00On-X7K8"
-      },
-      {
         "title": "BEST OF VOCAL TRANCE | MIX#4",
         "ytid": "VZT9HGsv01A"
       },
@@ -302,10 +302,6 @@
       {
         "title": "Dash Berlin - The Official Video Hit Mix",
         "ytid": "U6l9NdAJwRk"
-      },
-      {
-        "title": "Goodbye 2013 Mix (Progressive Trance House Trouse Uplifting Melodic Vocal)",
-        "ytid": "RLVs7Csdmf8"
       },
       {
         "title": "Incredible Emotional Vocal Trance Mix l April 2015 (Vol 26)",
@@ -361,10 +357,6 @@
         "ytid": "fWpvknKuYrg"
       },
       {
-        "title": "Chris Tomlin - Good Good Father (Live at the Grand Ole Opry)",
-        "ytid": "eaqaER7dasY"
-      },
-      {
         "title": "Chris Tomlin - Good Good Father ft. Pat Barrett",
         "ytid": "qlsQrycKKsY"
       },
@@ -389,16 +381,16 @@
         "ytid": "tdxSC1tHJn0"
       },
       {
+        "title": "Chris Tomlin - Resurrection Power (Audio)",
+        "ytid": "P0Gv89wzN_c"
+      },
+      {
         "title": "Chris Tomlin - Whom Shall I Fear [God of Angel Armies] [Lyrics]",
         "ytid": "qOkImV2cJDg"
       },
       {
         "title": "Crowder - Come As You Are (Music Video)",
         "ytid": "r2zhf2mqEMI"
-      },
-      {
-        "title": "Crowder - Come As You Are | Live at the Grand Ole Opry",
-        "ytid": "OuX9oTGBCw8"
       },
       {
         "title": "Crowder - I Am (Lyric Video)",
@@ -586,20 +578,12 @@
         "ytid": "wZlDOf63l2g"
       },
       {
-        "title": "Cinderella - Long Cold Winter - 1988 (FULL ALBUM)",
-        "ytid": "BldJ5ejRKqw"
-      },
-      {
         "title": "Colleen D'Agostino ft deadmau5 - Stay (Drop The Poptart Edit)",
         "ytid": "YPkwDy9okws"
       },
       {
         "title": "Come Alive (Dry Bones) featuring Lauren Daigle - Live from the Centric Worship Retreat",
         "ytid": "7XAeyFagceQ"
-      },
-      {
-        "title": "DEF LEPPARD - Long Long Way To Go (Official Music Video)",
-        "ytid": "E2KTcr1Mir0"
       },
       {
         "title": "Danger Danger - I Still Think About You",
@@ -618,16 +602,8 @@
         "ytid": "OKgmwQNSW1g"
       },
       {
-        "title": "Dash Berlin - #MusicIsLife - Album",
-        "ytid": "DSOEUj8FAQ4"
-      },
-      {
         "title": "Dash Berlin ft Sarah Howells - Go It Alone (Andrew Rayel Remix)(Official Music Video)",
         "ytid": "eWaANlb3q68"
-      },
-      {
-        "title": "Def Leppard - Adrenalize - 1992 (FULL ALBUM)",
-        "ytid": "BTs98_pjwL4"
       },
       {
         "title": "Denis Kenzo & Jilliana Danise-Will Be Forever (Original) [Lyric video]",
@@ -740,10 +716,6 @@
       {
         "title": "Jak Aggas & Victoria Shersick - Fly Away (Allen Watts Remix) [Amsterdam Trance] Video Edit",
         "ytid": "NUcJfPTMXkk"
-      },
-      {
-        "title": "Kelly Clarkson Performs - Piece by Piece",
-        "ytid": "9FHYBQxURQo"
       },
       {
         "title": "Lqd Hrmny - La Distance",
@@ -880,6 +852,63 @@
       {
         "title": "illitheas - Halion (Original Mix) [Digital Euphoria] Promo/Uplifting Only #168 ASOT 761",
         "ytid": "i8EUsjx-Yao"
+      }
+    ]
+  },
+  {
+    "group": "Recently Played",
+    "entries": [
+      {
+        "title": "A.M.R feat Ai Takekawa - Beyond The Moon (Exclusive Intro Edit)",
+        "ytid": "LTUkrcYyXOo"
+      },
+      {
+        "title": "ATB with Dash Berlin - Apollo Road (Official Video HD)",
+        "ytid": "rBmfDJvamQY"
+      },
+      {
+        "title": "Afrojack - Ten Feet Tall (Lyric Video) ft Wrabel",
+        "ytid": "bltr_Dsk5EY"
+      },
+      {
+        "title": "Alan Walker - Faded (Dash Berlin Remix)",
+        "ytid": "VSk5JOg6nQQ"
+      },
+      {
+        "title": "Amir Hussain   Time Lapse Extended Mix",
+        "ytid": "pkSlIrODgcg"
+      },
+      {
+        "title": "Chris Tomlin - Resurrection Power (Audio)",
+        "ytid": "P0Gv89wzN_c"
+      },
+      {
+        "title": "Estiva & Cardinal feat Arielle Maren - Wait Forever (Daniel Kandi's Bangin Remix)",
+        "ytid": "P0fp7fDxcVA"
+      },
+      {
+        "title": "Ferry Corsten feat. Betsie Larkin - Not Coming Down (Dash Berlin 4AM Remix)",
+        "ytid": "A-gljGbLt-A"
+      },
+      {
+        "title": "Ferry Tayle & Betsie Larkin - The Key",
+        "ytid": "wYo4Y_-GzU0"
+      },
+      {
+        "title": "Medina - You & I - Dash Berlin Remix (Official Music video)",
+        "ytid": "9Y2klWzu9Z8"
+      },
+      {
+        "title": "Sunbrothers - Everything (Original Mix)",
+        "ytid": "wrMBe5cyNKA"
+      },
+      {
+        "title": "Sunlight Project feat Danny Claire - Stay (tranzLift Remix) Promo",
+        "ytid": "yWQvWTM7Hqg"
+      },
+      {
+        "title": "Yuri Kane - Right back",
+        "ytid": "G9AG0wkLIp0"
       }
     ]
   }
