@@ -38,7 +38,7 @@ export class SearchCache {
       this.expiry = 10;
     }
 
-    let expiryInterval = setInterval(() => {
+    setInterval(() => {
       this.runExpire();
     }, this.expiry * 60000);
   }

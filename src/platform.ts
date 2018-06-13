@@ -18,10 +18,9 @@ import * as stream from "stream";
 import { spawn, ChildProcess } from "child_process";
 import * as _ from "lodash";
 import * as request from "request";
-const titleCase = require("title-case");
-
 import AppConfig from "./config";
 
+const titleCase = require("title-case");
 const pkgJSON = require("../package.json");
 
 class Platform {

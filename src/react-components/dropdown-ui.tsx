@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
+import * as $ from "jquery";
 
 export interface IDropDownItem {
   name: string;

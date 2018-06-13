@@ -1,8 +1,8 @@
 {
   "name": "toby",
-  "version": "1.0.4",
-  "description": "A desktop YouTube player",
-  "title": "Toby - A YouTube Player For The Desktop",
+  "version": "1.0.5",
+  "description": "A simple YouTube player",
+  "title": "Toby - A simple YouTube player",
   "homepage": "https://github.com/frankhale/toby",
   "repository": {
     "type": "git",
@@ -50,7 +50,7 @@
     "source-map-loader": "^0.2.3",
     "ts-loader": "^4.4.1",
     "tslint": "^5.9.1",
-    "typescript": "^2.9.1",
+    "typescript": "^2.9.2",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.12.0"
   },
@@ -64,8 +64,8 @@
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "morgan": "^1.9.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "request": "^2.85.0",
     "serve-favicon": "^2.4.5",
     "socket.io": "^2.0.4",

@@ -208,7 +208,7 @@ export class VideoList extends React.Component<
           dropDownClass = "groupDropDownDisabled";
           addButtonClass = "manageButton fas fa-star";
           addButton = (
-            <td className="border-right buttonContainerWidth">
+            <td key={i} className="border-right buttonContainerWidth">
               <span>
                 <DropDown
                   disabled={true}
@@ -227,7 +227,7 @@ export class VideoList extends React.Component<
           );
         } else {
           addButton = (
-            <td className="border-right buttonContainerWidth">
+            <td key={i} className="border-right buttonContainerWidth">
               <span>
                 <DropDown
                   name={"groupSelector-" + d.ytid}
@@ -249,7 +249,7 @@ export class VideoList extends React.Component<
           updateButtonClass = "manageButton fas fa-wrench";
 
         manageButton = (
-          <td className="border-right buttonContainerWidth">
+          <td key={i} className="border-right buttonContainerWidth">
             <span>
               <DropDown
                 name={"groupSelector-" + d.ytid}
@@ -278,8 +278,9 @@ export class VideoList extends React.Component<
       }
 
       return (
-        <tr>
+        <tr key={_.uniqueId("videoList")}>
           <td
+            key={_.uniqueId(i.toString())}
             className="border-left thumbnailIMGWidth"
             onClick={d.playVideo.bind(this, d)}
           >
@@ -289,6 +290,7 @@ export class VideoList extends React.Component<
             />
           </td>
           <td
+            key={_.uniqueId(i.toString())}
             className={"textAlignMiddle " + borderRight}
             colSpan={addButtonColSpan}
             onClick={d.playVideo.bind(this, d, this.state.data)}
@@ -303,7 +305,9 @@ export class VideoList extends React.Component<
 
     return (
       <div className="content-panel">
-        <table id="videoListTable">{videoResults}</table>
+        <table id="videoListTable">
+          <tbody>{videoResults}</tbody>
+        </table>
       </div>
     );
   }

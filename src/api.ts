@@ -17,13 +17,12 @@
 import * as _ from "lodash";
 import * as express from "express";
 import * as fs from "fs";
-import * as path from "path";
 import * as http from "http";
 
 import * as youtubeSearch from "youtube-search";
 
 import { IVideoGroup, IVideoEntry } from "./infrastructure";
-import { ICacheItem, SearchCache } from "./searchCache";
+import { SearchCache } from "./searchCache";
 
 import AppConfig from "./config";
 import DB from "./db";
@@ -204,8 +203,7 @@ export default class API {
     }
   }
   private postVideosAdd(req: express.Request, res: express.Response): void {
-    let _videoData = [],
-      title = req.body.title,
+    let title = req.body.title,
       ytid = req.body.ytid,
       group = req.body.group;
 
@@ -225,8 +223,7 @@ export default class API {
     }
   }
   private postVideosDelete(req: express.Request, res: express.Response): void {
-    let _videoData = [],
-      ytid = req.body.ytid;
+    let ytid = req.body.ytid;
 
     if (ytid !== undefined && ytid.length > 0) {
       this.db.deleteVideoFromDB(ytid);
@@ -237,8 +234,7 @@ export default class API {
     }
   }
   private postVideosUpdate(req: express.Request, res: express.Response): void {
-    let _videoData = [],
-      title = req.body.title,
+    let title = req.body.title,
       ytid = req.body.ytid,
       group = req.body.group;
 

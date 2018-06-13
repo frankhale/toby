@@ -30,5 +30,5 @@ export default class AppConfig {
     type: "video"
   };
   static dataPath = `${__dirname}${path.sep}..${path.sep}data`;
-  static dataFilePath = `${AppConfig.dataPath}${path.sep}data.txt`;
+  static dataFilePath = `${AppConfig.dataPath}${path.sep}data.json`;
 }
