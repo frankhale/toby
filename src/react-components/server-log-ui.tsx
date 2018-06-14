@@ -1,4 +1,4 @@
-// version-ui.tsx - Version info React component for Toby
+// server-log-ui.tsx - Server log React component for Toby
 // Author(s): Frank Hale <frankhale@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,35 +15,39 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
+import * as _ from "lodash";
 
-export interface IVersionProps {
+export interface IServerLogProps {
   display: boolean;
-  info: string;
+  log: String[];
 }
 
-interface IVersionState {
+interface IServerLogState {
   display: boolean;
-  info: string;
+  log: String[];
 }
 
-export class Version extends React.Component<IVersionProps, IVersionState> {
-  constructor(props: IVersionProps) {
+export class ServerLog extends React.Component<
+  IServerLogProps,
+  IServerLogState
+> {
+  constructor(props: IServerLogProps) {
     super(props);
 
     this.state = {
       display: false,
-      info: ""
+      log: []
     };
   }
 
   static getDerivedStateFromProps(
-    props: IVersionProps,
-    state: IVersionState
-  ): IVersionState {
-    if (props.display !== undefined && props.info !== undefined) {
+    props: IServerLogProps,
+    state: IServerLogState
+  ): IServerLogState {
+    if (props.display !== undefined && props.log !== undefined) {
       return {
         display: props.display,
-        info: props.info
+        log: props.log
       };
     }
 
@@ -51,8 +55,14 @@ export class Version extends React.Component<IVersionProps, IVersionState> {
   }
 
   render() {
-    if (this.state.display && this.state.info !== "") {
-      return <div id="version">{this.state.info}</div>;
+    if (this.state.display && !_.isEmpty(this.state.log)) {
+      return (
+        <div>
+          {this.state.log.map((l, i) => {
+            return <div key={i}>{l}</div>;
+          })}
+        </div>
+      );
     }
 
     return null;

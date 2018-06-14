@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple YouTube player",
   "title": "Toby - A simple YouTube player",
   "homepage": "https://github.com/frankhale/toby",
@@ -15,7 +15,6 @@
   "node-remote": "http://localhost:62374",
   "user-agent": "node-webkit-%nwver",
   "window": {
-    "title": "Toby - A YouTube Player For The Desktop",
     "icon": "./public/images/toby.png",
     "toolbar": false,
     "width": 640,
@@ -33,7 +32,7 @@
     "@types/keymaster": "^1.6.28",
     "@types/lodash": "^4.14.104",
     "@types/morgan": "^1.7.33",
-    "@types/node": "^10.3.2",
+    "@types/node": "^10.3.3",
     "@types/nw.js": "^0.13.8",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
@@ -61,7 +60,7 @@
     "express": "^4.16.3",
     "hbs": "^4.0.1",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.10",
     "moment": "^2.21.0",
     "morgan": "^1.9.0",
     "react": "^16.4.1",
@@ -75,13 +74,11 @@
     "youtube-search": "^1.1.1"
   },
   "webview": {
-    "partitions": [
-      {
-        "name": "trusted",
-        "accessible_resources": [
-          "<all_urls>"
-        ]
-      }
-    ]
+    "partitions": [{
+      "name": "trusted",
+      "accessible_resources": [
+        "<all_urls>"
+      ]
+    }]
   }
 }

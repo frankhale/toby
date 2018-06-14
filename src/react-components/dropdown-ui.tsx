@@ -38,6 +38,7 @@ interface IDropDownState {
   items?: IDropDownItem[];
   onDropDownChange?: (value: string, id: JQuery) => void;
   disabled?: boolean;
+  selected?: string;
 }
 
 export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
@@ -51,48 +52,39 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
       items: []
     };
   }
-  componentDidMount() {
-    this.processProps(this.props);
+
+  static getDerivedStateFromProps(
+    props: IDropDownProps,
+    state: IDropDownState
+  ): IDropDownState {
+    if (props.name !== undefined && props.items !== undefined) {
+      return {
+        name: props.name,
+        items: props.items,
+        disabled: props.disabled === undefined ? false : true,
+        selected: props.selected,
+        onDropDownChange:
+          props.onDropDownChange !== undefined
+            ? props.onDropDownChange
+            : () => {}
+      };
+    }
+
+    return null;
   }
-  componentWillReceiveProps(nextProps: IDropDownProps) {
-    this.processProps(nextProps);
-  }
+
   private onDropDownChange(e: any): void {
     if (this.state.onDropDownChange !== undefined) {
       this.state.onDropDownChange(e.target.value, $(e.target).prop("id"));
     }
   }
-  private processProps(props: IDropDownProps): void {
-    if (props.name !== undefined && props.items !== undefined) {
-      this.setState({
-        name: props.name,
-        items: props.items,
-        disabled: props.disabled === undefined ? false : true,
-        onDropDownChange:
-          props.onDropDownChange !== undefined
-            ? props.onDropDownChange
-            : () => {}
-      });
-    }
-  }
   render() {
     let renderedItems = this.state.items.map((e: any, i) => {
-      if (
-        e.selected ||
-        (this.props.selected !== undefined && this.props.selected === e.name)
-      ) {
-        return (
-          <option key={i} value={e.value} selected>
-            {e.name}
-          </option>
-        );
-      } else {
-        return (
-          <option key={i} value={e.value}>
-            {e.name}
-          </option>
-        );
-      }
+      return (
+        <option key={i} value={e.value}>
+          {e.name}
+        </option>
+      );
     });
 
     return (
@@ -105,6 +97,7 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
           this.props.className !== undefined ? this.props.className : ""
         }
         disabled={this.state.disabled}
+        value={this.state.selected}
       >
         {renderedItems}
       </select>

@@ -8,6 +8,7 @@ module.exports = {
     "dropdown-ui.tsx",
     "infrastructure.ts",
     "toby-ui.tsx",
+    "server-log-ui.tsx",
     "version-ui.tsx",
     "video-list-grid-ui.tsx",
     "video-list-ui.tsx",

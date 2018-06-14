@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
+import * as _ from "lodash";
 
 import { IVideoEntry, ISearchResults } from "./infrastructure";
 
@@ -40,17 +41,15 @@ export class VideoListGrid extends React.Component<
       applyFilter: ""
     };
   }
-  componentDidMount() {
-    this.updateViewBasedOnProps(this.props);
-  }
-  componentWillReceiveProps(nextProps: IViewListGridProps) {
-    this.updateViewBasedOnProps(nextProps);
-  }
-  private updateViewBasedOnProps(nextProps: IViewListGridProps): void {
+
+  static getDerivedStateFromProps(
+    props: IViewListGridProps,
+    state: IViewListGridState
+  ): IViewListGridState {
     let videos: ISearchResults[] = [];
 
-    if (nextProps.data !== undefined && nextProps.data.length > 0) {
-      videos = nextProps.data.map((d, i) => {
+    if (!_.isEmpty(props.data)) {
+      videos = props.data.map((d, i) => {
         return {
           playVideo: d.playVideo,
           title: d.title,
@@ -60,14 +59,16 @@ export class VideoListGrid extends React.Component<
           isArchived: d.isArchived
         };
       });
+
+      return {
+        data: videos,
+        applyFilter: props.applyFilter !== undefined ? props.applyFilter : ""
+      };
     }
 
-    this.setState({
-      data: videos,
-      applyFilter:
-        nextProps.applyFilter !== undefined ? nextProps.applyFilter : ""
-    });
+    return null;
   }
+
   render() {
     return (
       <div>

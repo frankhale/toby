@@ -30,6 +30,7 @@ class Platform {
   private webview: any;
   private snapToPlayerCodeBlock: string;
   private socket: SocketIO.Server;
+  private serverLog: String[];
 
   static bootstrap() {
     return new Platform();
@@ -42,6 +43,7 @@ class Platform {
     this.$content = $("#content");
     this.$webview = $("#webview");
     this.webview = this.$webview[0];
+    this.serverLog = [];
 
     document.title = pkgJSON.title;
 
@@ -56,12 +58,16 @@ class Platform {
         }
       });
 
-      s.on("server-log", () => {
+      s.on("toggle-server-log", () => {
         this.f1Handler();
       });
 
       s.on("toggle-fullscreen", () => {
         this.f11Handler();
+      });
+
+      s.on("get-server-log", () => {
+        s.emit("server-log", { log: this.serverLog });
       });
 
       s.emit("toby-version", {
@@ -203,7 +209,9 @@ class Platform {
       _.forEach(lines, l => {
         if (l !== "") {
           // console.log(this.strip(l));
-          this.$content.append(this.strip(l) + "<br/>");
+          let strippedData = this.strip(l);
+          this.$content.append(`${strippedData}<br/>`);
+          this.serverLog.push(strippedData);
         }
       });
 
@@ -253,12 +261,15 @@ class Platform {
     }
   }
   private f1Handler(): void {
-    if (this.$content.css("visibility") === "hidden") {
-      this.$content.css("visibility", "visible");
-      this.$webview.css("visibility", "hidden");
+    let $content = $("#content"),
+      $webview = $("#webview");
+
+    if ($content.css("visibility") === "hidden") {
+      $content.css("visibility", "visible");
+      $webview.css("visibility", "hidden");
     } else {
-      this.$content.css("visibility", "hidden");
-      this.$webview.css("visibility", "visible");
+      $content.css("visibility", "hidden");
+      $webview.css("visibility", "visible");
     }
   }
   private f11Handler(): void {

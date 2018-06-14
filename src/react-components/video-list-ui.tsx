@@ -40,6 +40,7 @@ interface IVideoListState {
   onUpdateVideoButtonClick?: (video: IVideoEntry, group: string) => void;
   onDeleteVideoButtonClick?: (video: IVideoEntry) => void;
   manage?: boolean;
+  currentlySelectedGroup?: string;
 }
 
 export class VideoList extends React.Component<
@@ -70,23 +71,22 @@ export class VideoList extends React.Component<
     });
 
     resizeTable();
+  }
 
-    this.updateViewBasedOnProps(this.props);
-  }
-  componentWillReceiveProps(nextProps: IVideoListProps) {
-    this.updateViewBasedOnProps(nextProps);
-  }
-  private updateViewBasedOnProps(nextProps: IVideoListProps): void {
+  static getDerivedStateFromProps(
+    props: IVideoListProps,
+    state: IVideoListState
+  ): IVideoListState {
     let items: IDropDownItem[] = [
       {
-        name: "-Select Group-",
+        name: "Select a Group",
         value: "-1",
         action: () => {}
       }
     ];
 
-    if (nextProps.groups !== undefined) {
-      _.forEach(nextProps.groups, g => {
+    if (!_.isEmpty(props.groups)) {
+      _.forEach(props.groups, g => {
         if (g !== "Recently Played") {
           items.push({
             name: g,
@@ -99,10 +99,8 @@ export class VideoList extends React.Component<
 
     let videos: ISearchResults[] = [];
 
-    if (nextProps.data !== undefined && nextProps.data.length > 0) {
-      videos = nextProps.data.map((d, i) => {
-        // console.log(d);
-
+    if (!_.isEmpty(props.data)) {
+      videos = props.data.map((d, i) => {
         return {
           playVideo: d.playVideo,
           title: d.title,
@@ -113,19 +111,21 @@ export class VideoList extends React.Component<
           justAdded: d.justAdded !== undefined ? d.justAdded : false
         };
       });
+
+      return {
+        items: items,
+        data: videos,
+        applyFilter: props.applyFilter !== undefined ? props.applyFilter : "",
+        onAddVideoButtonClick: props.onAddVideoButtonClick,
+        onUpdateVideoButtonClick: props.onUpdateVideoButtonClick,
+        onDeleteVideoButtonClick: props.onDeleteVideoButtonClick,
+        manage: props.manage
+      };
     }
 
-    this.setState({
-      items: items,
-      data: videos,
-      applyFilter:
-        nextProps.applyFilter !== undefined ? nextProps.applyFilter : "",
-      onAddVideoButtonClick: nextProps.onAddVideoButtonClick,
-      onUpdateVideoButtonClick: nextProps.onUpdateVideoButtonClick,
-      onDeleteVideoButtonClick: nextProps.onDeleteVideoButtonClick,
-      manage: nextProps.manage
-    });
+    return null;
   }
+
   private onAddVideoButtonClick(e: any): void {
     e.preventDefault();
 
@@ -146,7 +146,7 @@ export class VideoList extends React.Component<
         }
       });
 
-      this.setState({ data: _d });
+      this.setState({ data: _d, currentlySelectedGroup: group });
     }
   }
   private onUpdateVideoButtonClick(e: any): void {
@@ -212,6 +212,7 @@ export class VideoList extends React.Component<
               <span>
                 <DropDown
                   disabled={true}
+                  selected={this.state.currentlySelectedGroup}
                   name={"groupSelector-" + d.ytid}
                   items={this.state.items}
                   className={dropDownClass}

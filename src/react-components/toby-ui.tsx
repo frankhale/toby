@@ -92,12 +92,20 @@ export class Toby extends React.Component<{}, ITobyState> {
       );
 
       key("f1", () => {
-        this.socket.emit("server-log", {});
+        this.socket.emit("toggle-server-log", {});
       });
 
       key("f11", () => {
         this.socket.emit("toggle-fullscreen", {});
       });
+
+      // setInterval(() => {
+      //   this.socket.emit("get-server-log");
+      // }, 5000);
+
+      // this.socket.on("server-log", (data: any) => {
+      //   console.log(data);
+      // });
 
       // User clicked on a recommended video at the end of playing a video
       this.socket.on("play-video", (ytid: string) => {
@@ -434,6 +442,8 @@ export class Toby extends React.Component<{}, ITobyState> {
     }
 
     if (this.state.gridView) {
+      console.log(this.state.searchResults);
+
       view = (
         <VideoListGrid
           data={this.state.searchResults}
@@ -460,7 +470,7 @@ export class Toby extends React.Component<{}, ITobyState> {
           onKeyEnter={this.onCommandEntered}
           placeHolder="Search YouTube or your saved videos..."
         />
-        {view}
+        <div>{view}</div>
         <YouTube
           video={this.state.currentVideo}
           applyFilter={this.state.applyFilter}
