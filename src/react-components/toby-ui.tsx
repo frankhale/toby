@@ -21,9 +21,9 @@ import * as io from "socket.io-client";
 import * as $ from "jquery";
 
 import { CommandInput } from "./command-input-ui";
-import { IYouTubeProps, YouTube } from "./youtube-ui";
-import { IVersionProps, Version } from "./version-ui";
-import { IViewListGridProps, VideoListGrid } from "./video-list-grid-ui";
+import { YouTube } from "./youtube-ui";
+import { Version } from "./version-ui";
+import { VideoListGrid } from "./video-list-grid-ui";
 import { VideoList } from "./video-list-ui";
 import {
   IVideoGroup,

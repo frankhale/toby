@@ -99,7 +99,7 @@ export class VideoList extends React.Component<
 
     let videos: ISearchResults[] = [];
 
-    if (!_.isEmpty(props.data)) {
+    if (props.data !== undefined) {
       videos = props.data.map((d, i) => {
         return {
           playVideo: d.playVideo,

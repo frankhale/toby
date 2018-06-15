@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
-import * as _ from "lodash";
 import * as $ from "jquery";
 
 import { IVideoEntry } from "./infrastructure";
@@ -71,21 +70,25 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       }
     );
   }
-  componentWillReceiveProps(nextProps: any): void {
+
+  static getDerivedStateFromProps(
+    props: IYouTubeProps,
+    state: IYouTubeState
+  ): IYouTubeState {
     if (
       navigator.userAgent.indexOf("node-webkit") > -1 ||
       navigator.userAgent.indexOf("Electron") > -1
     ) {
       if (
-        nextProps.applyFilter !== undefined &&
-        nextProps.applyFilter.length > 0 &&
-        this.state.applyFilter !== nextProps.applyFilter
+        props.applyFilter !== undefined &&
+        props.applyFilter.length > 0 &&
+        state.applyFilter !== props.applyFilter
       ) {
         let $player = $("#player")
           .contents()
           .find(".html5-main-video");
 
-        switch (nextProps.applyFilter) {
+        switch (props.applyFilter) {
           case "grayscale":
             $player.css("-webkit-filter", "grayscale(1)");
             break;
@@ -100,35 +103,52 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
             break;
         }
 
-        this.setState({
-          applyFilter: nextProps.applyFilter
-        });
-
-        return;
+        return {
+          applyFilter: props.applyFilter
+        };
       }
     }
 
-    if (
-      nextProps.video !== undefined &&
-      !_.isEmpty(nextProps.video) &&
-      nextProps.video.ytid !== undefined &&
-      nextProps.video.ytid !== ""
-    ) {
-      if (
-        this.state.currentVideo !== undefined &&
-        this.state.currentVideo.ytid === nextProps.video.ytid
-      )
-        return;
+    return null;
+  }
 
-      this.setState({ currentVideo: nextProps.video });
-      this.playVideo(nextProps.video);
-    } else if (!_.isEmpty(this.state.currentVideo)) {
-      this.state.player.stopVideo();
-      $("#player").css("display", "none");
+  getSnapshotBeforeUpdate(prevProps: IYouTubeProps, prevState: IYouTubeState) {
+    if (this.props.video === undefined) return null;
 
-      this.setState({ currentVideo: { title: "", ytid: "" } });
+    if (prevState.currentVideo.ytid !== this.props.video.ytid) {
+      return {
+        video: this.props.video
+      };
+    }
+
+    return null;
+  }
+
+  componentDidUpdate(
+    prevProps: IYouTubeProps,
+    prevState: IYouTubeState,
+    snapshot: any
+  ) {
+    if (snapshot !== null) {
+      this.setState(
+        {
+          currentVideo: snapshot.video
+        },
+        () => {
+          if (
+            this.state.currentVideo.title === "" &&
+            this.state.currentVideo.ytid === ""
+          ) {
+            this.state.player.stopVideo();
+            $("#player").css("display", "none");
+          } else {
+            this.playVideo(this.state.currentVideo);
+          }
+        }
+      );
     }
   }
+
   private setupYTPlayer(): void {
     let player: YT.Player = undefined;
 
