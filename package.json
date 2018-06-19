@@ -28,17 +28,17 @@
     "@types/cookie-parser": "^1.4.1",
     "@types/debug": "^0.0.30",
     "@types/express": "^4.11.1",
-    "@types/jquery": "^3.3.1",
+    "@types/jquery": "^3.3.3",
     "@types/keymaster": "^1.6.28",
-    "@types/lodash": "^4.14.104",
+    "@types/lodash": "^4.14.110",
     "@types/morgan": "^1.7.33",
-    "@types/node": "^10.3.3",
+    "@types/node": "^10.3.4",
     "@types/nw.js": "^0.13.8",
-    "@types/react": "^16.0.40",
+    "@types/react": "^16.4.0",
     "@types/react-dom": "^16.0.4",
-    "@types/request": "^2.47.0",
+    "@types/request": "^2.47.1",
     "@types/serve-favicon": "^2.2.30",
-    "@types/socket.io": "^1.4.31",
+    "@types/socket.io": "^1.4.36",
     "@types/socket.io-client": "^1.4.32",
     "@types/sqlite3": "^3.1.1",
     "@types/youtube": "^0.0.33",
@@ -74,11 +74,13 @@
     "youtube-search": "^1.1.1"
   },
   "webview": {
-    "partitions": [{
-      "name": "trusted",
-      "accessible_resources": [
-        "<all_urls>"
-      ]
-    }]
+    "partitions": [
+      {
+        "name": "trusted",
+        "accessible_resources": [
+          "<all_urls>"
+        ]
+      }
+    ]
   }
 }
