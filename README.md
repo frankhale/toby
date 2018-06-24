@@ -19,7 +19,7 @@ Projects:
 
 - Next.js server
 - Bootstrap (to get up and running either NW.js or Electron)
-- Front end (create-react-app)
+- Front end
 
 NOTE: 'Gruntfile.js' is not fully written yet and the front end project has not
 been created either. That said, it's my intention to create a one command build

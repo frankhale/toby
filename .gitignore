@@ -9,6 +9,7 @@ public/scripts/
 node_modules/
 browser*/
 nwjs/
+static/scripts/
 electron/
 node.exe
 node.lib
