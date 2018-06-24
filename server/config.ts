@@ -26,7 +26,7 @@ export default class AppConfig {
   static maxRecentlyPlayedVideos = 30;
   static youtubeSearchOpts: youtubeSearch.YouTubeSearchOptions = {
     maxResults: AppConfig.maxSearchResults,
-    key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
+    key: "YOUR_API_KEY_HERE",
     type: "video"
   };
   static dataPath = `${__dirname}${path.sep}..${path.sep}data`;
