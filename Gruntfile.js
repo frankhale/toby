@@ -5,38 +5,31 @@ module.exports = function(grunt) {
         files: [
           {
             src: ["index.html"],
-            dest: "build/"
+            dest: "dist/"
+          },
+          {
+            expand: true,
+            src: ["server/config.ts"],
+            dest: "bootstrap/",
+            flatten: true
           }
         ]
       }
     },
     ts: {
       default: {
-        src: ["src/*.ts"],
-        outDir: "build",
+        src: ["bootstrap/*.ts"],
+        outDir: "dist",
         options: {
-          rootDir: "src",
-          sourceMap: true,
-          moduleResolution: "node",
-          target: "es6",
-          module: "commonjs"
+          rootDir: "bootstrap",
+          sourceMap: true
         }
-      }
-    },
-    tslint: {
-      files: {
-        src: ["src/*.ts*", "src/react-components/*.ts*", "definitions/*.ts*"]
-      },
-      options: {
-        force: false,
-        fix: false
       }
     }
   });
 
   grunt.loadNpmTasks("grunt-ts");
   grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-tslint");
 
-  grunt.registerTask("default", ["ts", "copy", "tslint"]);
+  grunt.registerTask("default", ["copy", "ts"]);
 };

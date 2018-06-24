@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "1.0.6",
+  "version": "2.0.0-pre1",
   "description": "A simple YouTube player",
   "title": "Toby - A simple YouTube player",
   "homepage": "https://github.com/frankhale/toby",
@@ -11,11 +11,16 @@
   "private": true,
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./build/index.html",
+  "scripts": {
+    "dev": "nodemon server/server.ts",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production node .next/production-server/server.js"
+  },
+  "main": "./dist/index.html",
   "node-remote": "http://localhost:62374",
   "user-agent": "node-webkit-%nwver",
   "window": {
-    "icon": "./public/images/toby.png",
+    "icon": "./static/images/toby.png",
     "toolbar": false,
     "width": 640,
     "height": 369,
@@ -23,64 +28,44 @@
     "min_height": 369,
     "show": false
   },
-  "devDependencies": {
-    "@types/body-parser": "^1.16.8",
-    "@types/cookie-parser": "^1.4.1",
-    "@types/debug": "^0.0.30",
-    "@types/express": "^4.11.1",
-    "@types/jquery": "^3.3.3",
-    "@types/keymaster": "^1.6.28",
-    "@types/lodash": "^4.14.110",
-    "@types/morgan": "^1.7.33",
-    "@types/node": "^10.3.4",
-    "@types/nw.js": "^0.13.8",
-    "@types/react": "^16.4.0",
-    "@types/react-dom": "^16.0.4",
-    "@types/request": "^2.47.1",
-    "@types/serve-favicon": "^2.2.30",
-    "@types/socket.io": "^1.4.36",
-    "@types/socket.io-client": "^1.4.32",
-    "@types/sqlite3": "^3.1.1",
-    "@types/youtube": "^0.0.33",
-    "grunt": "^1.0.2",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-ts": "^6.0.0-beta.19",
-    "grunt-tslint": "^5.0.1",
-    "source-map-loader": "^0.2.3",
-    "ts-loader": "^4.4.1",
-    "tslint": "^5.9.1",
-    "typescript": "^2.9.2",
-    "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.12.0"
-  },
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.1.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "hbs": "^4.0.1",
-    "jquery": "^3.3.1",
     "lodash": "^4.17.10",
-    "moment": "^2.21.0",
-    "morgan": "^1.9.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "request": "^2.85.0",
-    "serve-favicon": "^2.4.5",
-    "socket.io": "^2.0.4",
+    "moment": "^2.22.2",
+    "next": "latest",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1",
     "split": "^1.0.1",
-    "sqlite3": "^4.0.0",
+    "sqlite3": "^4.0.1",
     "title-case": "^2.1.1",
     "youtube-search": "^1.1.1"
   },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@types/next": "^6.0.2",
+    "@types/node": "^10.3.4",
+    "@types/react": "^16.0.36",
+    "@types/socket.io": "^1.4.36",
+    "@types/socket.io-client": "^1.4.32",
+    "@zeit/next-typescript": "1.1.0",
+    "babel-loader": "^7.1.4",
+    "grunt": "^1.0.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-ts": "^6.0.0-beta.19",
+    "nodemon": "^1.17.5",
+    "ts-node": "^7.0.0",
+    "typescript": "latest",
+    "typescript-babel-jest": "^1.0.5"
+  },
   "webview": {
-    "partitions": [
-      {
-        "name": "trusted",
-        "accessible_resources": [
-          "<all_urls>"
-        ]
-      }
-    ]
+    "partitions": [{
+      "name": "trusted",
+      "accessible_resources": [
+        "<all_urls>"
+      ]
+    }]
   }
 }

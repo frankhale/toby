@@ -2,6 +2,7 @@
 .baseDir.ts
 data/videoDB
 build/
+dist/
 bower_components/
 public/components/
 public/scripts/
