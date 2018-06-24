@@ -33,7 +33,10 @@ class Platform {
     return new Platform();
   }
   constructor() {
-    this.node = spawn(".\\node.exe", ["./build/server.js"], {
+    // For now we won't worry about building the production copy of the Next.js
+    // server. We'll just fire up the dev server until everything is working
+    // nicely.
+    this.node = spawn(".\\node.exe", ["./server/server.ts"], {
       cwd: process.cwd()
     });
     this.$webview = document.getElementById("webview");
@@ -41,21 +44,25 @@ class Platform {
     document.title = pkgJSON.title;
     this.socket = require("socket.io")(AppConfig.socketIOPort);
     this.socket.on("connection", s => {
-      s.on("title", (t: string) => {
+      s.on("get-app-info", () => {
+        s.emit("app-info", {
+          title: pkgJSON.title,
+          version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
+        });
+      });
+      s.on("set-document-title", (t: string) => {
         if (t !== undefined && t !== "") {
           document.title = t;
         }
       });
       s.on("get-server-log", () => {
-        s.emit("server-log", { log: this.serverLog });
-      });
-      s.emit("toby-version", {
-        title: pkgJSON.title,
-        version: `${titleCase(pkgJSON.name)}-${pkgJSON.version}`
+        s.emit("server-log", this.serverLog);
       });
     });
+
     this.redirectOutput(this.node.stdout);
     this.redirectOutput(this.node.stderr);
+
     let checkServerRunning = setInterval(() => {
       request(AppConfig.serverURL, (error, response, _body) => {
         if (!error && response.statusCode === 200) {
