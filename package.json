@@ -46,26 +46,28 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.51",
     "@types/next": "^6.0.2",
-    "@types/node": "^10.3.4",
-    "@types/react": "^16.0.36",
+    "@types/node": "^10.3.6",
+    "@types/react": "^16.4.2",
     "@types/socket.io": "^1.4.36",
     "@types/socket.io-client": "^1.4.32",
     "@zeit/next-typescript": "1.1.0",
     "babel-loader": "^7.1.4",
     "grunt": "^1.0.3",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-ts": "^6.0.0-beta.19",
+    "grunt-ts": "^6.0.0-beta.20",
     "nodemon": "^1.17.5",
     "ts-node": "^7.0.0",
     "typescript": "latest",
     "typescript-babel-jest": "^1.0.5"
   },
   "webview": {
-    "partitions": [{
-      "name": "trusted",
-      "accessible_resources": [
-        "<all_urls>"
-      ]
-    }]
+    "partitions": [
+      {
+        "name": "trusted",
+        "accessible_resources": [
+          "<all_urls>"
+        ]
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: #000;
+  background-color: #fff; /* #000;*/
   color: #fff;
   padding: 0;
   margin: 0;
@@ -8,7 +8,7 @@ body {
 }
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 #content {
