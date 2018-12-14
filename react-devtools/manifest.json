@@ -32,6 +32,6 @@
    "name": "React Developer Tools",
    "permissions": [ "file:///*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "3.2.3",
+   "version": "3.4.3",
    "web_accessible_resources": [ "main.html", "panel.html", "build/backend.js" ]
 }

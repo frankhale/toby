@@ -190,9 +190,8 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
       player = new YT.Player("player", {
         videoId: "",
         playerVars: {
-          autoplay: YT.AutoPlay.AutoPlay,
-          autohide: YT.AutoHide.HideAllControls,
-          iv_load_policy: YT.IvLoadPolicy.Hide
+          autoplay: 1,
+          iv_load_policy: 3
         },
         events: {
           onReady: onPlayerReady,
@@ -222,6 +221,8 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     };
   }
   private playVideo(video: IVideoEntry): void {
+    if (!this.state.player) return;
+
     this.state.player.setVolume(30);
     this.state.player.loadVideoById(video.ytid);
 

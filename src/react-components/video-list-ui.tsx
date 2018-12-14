@@ -192,7 +192,7 @@ export class VideoList extends React.Component<
     let videoResults = this.state.data.map((d, i) => {
       let addButton,
         manageButton,
-        addButtonColSpan,
+        addButtonColSpan = 2,
         borderRight,
         dropDownClass = "groupDropDown";
 
@@ -274,7 +274,6 @@ export class VideoList extends React.Component<
           </td>
         );
       } else {
-        addButtonColSpan = 2;
         borderRight = "border-right";
       }
 

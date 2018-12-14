@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import * as fs from "fs";
 import * as path from "path";
 import * as youtubeSearch from "youtube-search";
 
@@ -26,7 +25,7 @@ export default class AppConfig {
   static maxRecentlyPlayedVideos = 30;
   static youtubeSearchOpts: youtubeSearch.YouTubeSearchOptions = {
     maxResults: AppConfig.maxSearchResults,
-    key: "AIzaSyB7AFwYCoI6ypTTSB2vnXdOtAe4hu5nP1E",
+    key: "<YOUR_YOUTUBE_API_KEY_HERE>",
     type: "video"
   };
   static dataPath = `${__dirname}${path.sep}..${path.sep}data`;

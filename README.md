@@ -121,6 +121,10 @@ bower install
 
 #### Building the Source Code
 
+NOTE: You will need to supply your own YouTube API key in the `config.ts` file
+in the `youtubeSearchOpts` object. You will need a Google account to obtain one.
+Go [here](https://console.developers.google.com) to get an API key.
+
 The server needs to be built using Grunt.
 
 ```
@@ -268,7 +272,7 @@ JSON data loaded from the filesystem._**
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;
-5 September 2017
+14 December 2018
 
 ## License
 
