@@ -121,9 +121,9 @@ bower install
 
 #### Building the Source Code
 
-NOTE: You will need to supply your own YouTube API key in the `config.ts` file
-in the `youtubeSearchOpts` object. You will need a Google account to obtain one.
-Go [here](https://console.developers.google.com) to get an API key.
+NOTE: You will need to supply your own YouTube API key in the
+`youtube-api-key.ts`. You will need a Google account to obtain one. Go [here
+(https://console.developers.google.com) to get an API key.
 
 The server needs to be built using Grunt.
 
@@ -141,12 +141,12 @@ Assuming all dependencies are downloaded and the source code has been compiled
 perform the following from a command line at the root of the Toby code
 repository:
 
-**_NOTE: `main` will need to be updated in `package.json` to point to the
+**NOTE**: `main` will need to be updated in `package.json` to point to the
 correct starting point for your deployment scenario. If you are using Electron
 it will need to be set to `build\electron.js` or if you are using NW.js it'll
 need to be set to `build\index.html`. It should also be noted that the
 index.html contained in the root of the Toby repository will be copied to the
-build folder and used from there._**
+build folder and used from there.
 
 #### Running in NW.js
 
@@ -154,10 +154,10 @@ build folder and used from there._**
 browser\nwjs\nw.exe .
 ```
 
-**_NOTE: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
+**NOTE**: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
 capable one from [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases). The `ffmpeg.dll`
 that ships with NW.js is crippled and won't play many of the YouTube videos you
-most likely will want to play._**
+most likely will want to play.
 
 #### Running in Electron
 
@@ -235,8 +235,8 @@ Here is a list (there will be additional ones added soon):
 - `/filter sepia` : (NW.js/Electron only) Short cut to set the sepia video
   filter and thumbnails in search results
 
-**_NOTE: You can refer to /src/toby-ui.tsx for the various short cuts available
-for these commands_**
+**NOTE**: You can refer to /src/toby-ui.tsx for the various short cuts available
+for these commands.
 
 ### Wait, I used NW.js and some YouTube videos won't play
 
@@ -248,8 +248,8 @@ time and it works well for me (on Windows).
 The longer answer is you can compile your own FFMPEG library with the support
 you and there are a lot of resources already out there to handle this scenario.
 
-**_NOTE: This technique does not work with NW.js 0.20.0-beta1 as the FFMPEG
-seems to be different than one that ships with Electron._**
+**NOTE**: This technique does not work with NW.js 0.20.0-beta1 as the FFMPEG
+seems to be different than one that ships with Electron.
 
 Looks like there are some alternate FFMPEG builds available which can take care
 of this: [https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases](https://github.com/iteufel/nwjs-ffmpeg-prebuilt/releases)
@@ -266,8 +266,8 @@ following code file `/src/data.ts`. If you are building from source feel free to
 edit this to your liking. If at anytime you edit this file and run Toby it will
 update your database importing any new videos you put there.
 
-**_NOTE: Although it hasn't been done yet it'd be trivial to replace this with
-JSON data loaded from the filesystem._**
+**NOTE**: Although it hasn't been done yet it'd be trivial to replace this with
+JSON data loaded from the filesystem.
 
 ## Author(s)
 

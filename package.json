@@ -11,7 +11,7 @@
   "private": true,
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
-  "main": "./build/index.html",
+  "main": "./build/electron.js",
   "node-remote": "http://localhost:62374",
   "user-agent": "node-webkit-%nwver",
   "window": {

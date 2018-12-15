@@ -22,6 +22,7 @@ import { IVideoEntry } from "./infrastructure";
 interface Window {
   onYouTubeIframeAPIReady(): void;
   snapToPlayer(): void;
+  addKeyHandlers(): void;
 }
 declare var window: Window;
 
@@ -47,7 +48,7 @@ if (
   // NW.js.
   window.snapToPlayer = () => {
     let $ui = $("#ui");
-    $ui.prop("scrollTop", $ui.prop("scrollHeight"));
+    $("#ui").prop("scrollTop", $ui.prop("scrollHeight"));
   };
 }
 
@@ -60,21 +61,15 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     };
   }
   componentDidMount(): void {
-    $.getScript(
-      "https://www.youtube.com/iframe_api",
-      (data, textStatus, jqxhr) => {
-        if (textStatus === "success") {
-          console.log("YouTube API loaded...");
-          this.setupYTPlayer();
-        }
+    $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
+      if (textStatus === "success") {
+        console.log("YouTube API loaded...");
+        this.setupYTPlayer();
       }
-    );
+    });
   }
 
-  static getDerivedStateFromProps(
-    props: IYouTubeProps,
-    state: IYouTubeState
-  ): IYouTubeState {
+  static getDerivedStateFromProps(props: IYouTubeProps, state: IYouTubeState): IYouTubeState {
     if (
       navigator.userAgent.indexOf("node-webkit") > -1 ||
       navigator.userAgent.indexOf("Electron") > -1
@@ -124,21 +119,14 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     return null;
   }
 
-  componentDidUpdate(
-    prevProps: IYouTubeProps,
-    prevState: IYouTubeState,
-    snapshot: any
-  ) {
+  componentDidUpdate(prevProps: IYouTubeProps, prevState: IYouTubeState, snapshot: any) {
     if (snapshot !== null) {
       this.setState(
         {
           currentVideo: snapshot.video
         },
         () => {
-          if (
-            this.state.currentVideo.title === "" &&
-            this.state.currentVideo.ytid === ""
-          ) {
+          if (this.state.currentVideo.title === "" && this.state.currentVideo.ytid === "") {
             this.state.player.stopVideo();
             $("#player").css("display", "none");
           } else {

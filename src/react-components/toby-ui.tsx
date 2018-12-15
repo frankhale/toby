@@ -25,12 +25,7 @@ import { YouTube } from "./youtube-ui";
 import { Version } from "./version-ui";
 import { VideoListGrid } from "./video-list-grid-ui";
 import { VideoList } from "./video-list-ui";
-import {
-  IVideoGroup,
-  IVideoEntry,
-  ITobyVersionInfo,
-  ISearchResults
-} from "./infrastructure";
+import { IVideoGroup, IVideoEntry, ITobyVersionInfo, ISearchResults } from "./infrastructure";
 
 interface ITobyState {
   videoData?: IVideoGroup[];
@@ -92,20 +87,12 @@ export class Toby extends React.Component<{}, ITobyState> {
       );
 
       key("f1", () => {
-        this.socket.emit("toggle-server-log", {});
+        this.socket.emit("toggle-server-log");
       });
 
       key("f11", () => {
-        this.socket.emit("toggle-fullscreen", {});
+        this.socket.emit("toggle-fullscreen");
       });
-
-      // setInterval(() => {
-      //   this.socket.emit("get-server-log");
-      // }, 5000);
-
-      // this.socket.on("server-log", (data: any) => {
-      //   console.log(data);
-      // });
 
       // User clicked on a recommended video at the end of playing a video
       this.socket.on("play-video", (ytid: string) => {
@@ -253,8 +240,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/norm", "/normal"],
-        description:
-          "Remove user set filters and return thumbnails and video to a normal filter.",
+        description: "Remove user set filters and return thumbnails and video to a normal filter.",
         action: (searchTerm, commandSegments) => {
           this.setState({ applyFilter: "normal" });
         }
@@ -297,8 +283,7 @@ export class Toby extends React.Component<{}, ITobyState> {
       },
       {
         commands: ["/trimrp", "trim-recently-played"],
-        description:
-          "Trim recently played videos in the database to the last 30.",
+        description: "Trim recently played videos in the database to the last 30.",
         action: (searchTerm, commandSegments) => {
           $.post({
             url: "/api/videos/recently-played/last30",
@@ -434,22 +419,12 @@ export class Toby extends React.Component<{}, ITobyState> {
     let versionDisplay = true,
       view;
 
-    if (
-      this.state.searchResults !== undefined &&
-      this.state.searchResults.length > 0
-    ) {
+    if (this.state.searchResults !== undefined && this.state.searchResults.length > 0) {
       versionDisplay = false;
     }
 
     if (this.state.gridView) {
-      console.log(this.state.searchResults);
-
-      view = (
-        <VideoListGrid
-          data={this.state.searchResults}
-          applyFilter={this.state.applyFilter}
-        />
-      );
+      view = <VideoListGrid data={this.state.searchResults} applyFilter={this.state.applyFilter} />;
     } else {
       view = (
         <VideoList
@@ -476,10 +451,7 @@ export class Toby extends React.Component<{}, ITobyState> {
           applyFilter={this.state.applyFilter}
           socket={this.socket}
         />
-        <Version
-          display={versionDisplay}
-          info={this.state.tobyVersionInfo.version}
-        />
+        <Version display={versionDisplay} info={this.state.tobyVersionInfo.version} />
       </div>
     );
   }

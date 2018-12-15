@@ -22,6 +22,7 @@ import AppConfig from "./config";
 
 const titleCase = require("title-case");
 const pkgJSON = require("../package.json");
+// const ioHook = require("iohook");
 
 class Platform {
   private node: ChildProcess;
@@ -82,7 +83,8 @@ class Platform {
       var script = document.createElement('script');
       script.textContent = actualCode;
       (document.head||document.documentElement).appendChild(script);
-      script.parentNode.removeChild(script);`;
+      script.parentNode.removeChild(script);
+      `;
 
     this.redirectOutput(this.node.stdout);
     this.redirectOutput(this.node.stderr);
@@ -102,11 +104,10 @@ class Platform {
   }
   private setup(): void {
     key("f1", this.f1Handler);
+    key("f11", this.f11Handler);
 
     if (navigator.userAgent.indexOf("node-webkit") > -1) {
       let win = nw.Window.get();
-
-      key("f11", this.f11Handler);
 
       win.on("loaded", () => {
         // win.showDevTools();
@@ -134,6 +135,8 @@ class Platform {
 
         win.close(true);
       });
+
+      this.webview.addEventListener("newwindow", this.newWindowHandler.bind(this));
     }
 
     window.addEventListener("resize", e => {
@@ -151,41 +154,29 @@ class Platform {
           e.request.allow();
         }
       });
+    }
 
-      if (navigator.userAgent.indexOf("Electron") > -1) {
-        this.webview.addEventListener(
-          "new-window",
-          this.newWindowHandler.bind(this)
-        );
-      } else if (navigator.userAgent.indexOf("node-webkit") > -1) {
-        this.webview.addEventListener(
-          "newwindow",
-          this.newWindowHandler.bind(this)
-        );
-      }
+    if (navigator.userAgent.indexOf("Electron") > -1) {
+      this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
 
-      if (navigator.userAgent.indexOf("Electron") > -1) {
-        window.addEventListener("beforeunload", e => {
-          $.ajax({
-            type: "POST",
-            url: "/api/app/close",
-            async: false
-          });
+      window.addEventListener("beforeunload", e => {
+        $.ajax({
+          type: "POST",
+          url: "/api/app/close",
+          async: false
         });
+      });
 
-        // this.webview.addEventListener("dom-ready", () => {
-        //  this.webview.openDevTools();
+      // this.webview.addEventListener("dom-ready", () => {
+      //  this.webview.openDevTools();
+      // });
+
+      const browserWindow = require("electron").remote.getCurrentWindow();
+      browserWindow.on("leave-html-full-screen", () => {
+        this.webview.executeJavaScript(this.snapToPlayerCodeBlock); // , null, (result) => {
+        //  console.log(result);
         // });
-
-        const browserWindow = require("electron").remote.getCurrentWindow();
-        browserWindow.on("leave-html-full-screen", () => {
-          this.webview.executeJavaScript(this.snapToPlayerCodeBlock); // , null, (result) => {
-          //  console.log(result);
-          // });
-        });
-
-        key("f11", this.f11Handler);
-      }
+      });
     }
   }
   private resizeContent(): void {

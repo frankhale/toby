@@ -16,6 +16,7 @@
 
 import * as path from "path";
 import * as youtubeSearch from "youtube-search";
+import YouTubeAPIKey from "./youtube-api-key";
 
 export default class AppConfig {
   static serverPort = "62374";
@@ -25,7 +26,7 @@ export default class AppConfig {
   static maxRecentlyPlayedVideos = 30;
   static youtubeSearchOpts: youtubeSearch.YouTubeSearchOptions = {
     maxResults: AppConfig.maxSearchResults,
-    key: "<YOUR_YOUTUBE_API_KEY_HERE>",
+    key: YouTubeAPIKey,
     type: "video"
   };
   static dataPath = `${__dirname}${path.sep}..${path.sep}data`;
