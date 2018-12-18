@@ -136,7 +136,10 @@ class Platform {
         win.close(true);
       });
 
-      this.webview.addEventListener("newwindow", this.newWindowHandler.bind(this));
+      this.webview.addEventListener(
+        "newwindow",
+        this.newWindowHandler.bind(this)
+      );
     }
 
     window.addEventListener("resize", e => {
@@ -157,7 +160,10 @@ class Platform {
     }
 
     if (navigator.userAgent.indexOf("Electron") > -1) {
-      this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
+      this.webview.addEventListener(
+        "new-window",
+        this.newWindowHandler.bind(this)
+      );
 
       window.addEventListener("beforeunload", () => {
         $.ajax({

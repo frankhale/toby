@@ -93,12 +93,12 @@ export default class API {
       console.log(`Error writing data file: ${e}`);
     }
   }
-  private getVideos(req: express.Request, res: express.Response): void {
+  private getVideos(_req: express.Request, res: express.Response): void {
     this.db.getAllVideosFromDB(data => {
       res.json(data);
     });
   }
-  private getVideosGroups(req: express.Request, res: express.Response): void {
+  private getVideosGroups(_req: express.Request, res: express.Response): void {
     this.db.getAllGroupsFromDB(data => {
       data = _.map(data, d => {
         return d.group;
@@ -106,7 +106,7 @@ export default class API {
       res.json(data);
     });
   }
-  private getVideosArchive(req: express.Request, res: express.Response): void {
+  private getVideosArchive(_req: express.Request, res: express.Response): void {
     this.db.getAllGroupsFromDB(groups => {
       this.db.getAllVideosOrderedByGroupDB(data => {
         let results: IVideoGroup[] = [];
@@ -134,7 +134,7 @@ export default class API {
       });
     });
   }
-  private postAppClose(req: Express.Request, res: Express.Response): void {
+  private postAppClose(_req: Express.Request, _res: Express.Response): void {
     this.db.close();
     this.server.close();
     process.exit(0);
@@ -207,14 +207,7 @@ export default class API {
       ytid = req.body.ytid,
       group = req.body.group;
 
-    if (
-      title !== undefined &&
-      title.length > 0 &&
-      ytid !== undefined &&
-      ytid.length > 0 &&
-      group !== undefined &&
-      group.length > 0
-    ) {
+    if (!_.isEmpty(title) && !_.isEmpty(ytid) && !_.isEmpty(group)) {
       this.db.addVideoToDB(title, ytid, group);
 
       res.json({ success: true });

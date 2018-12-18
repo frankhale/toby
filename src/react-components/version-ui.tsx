@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from "react";
+import * as _ from "lodash";
 
 export interface IVersionProps {
   display: boolean;
@@ -40,7 +41,7 @@ export class Version extends React.Component<IVersionProps, IVersionState> {
     props: IVersionProps,
     state: IVersionState
   ): IVersionState {
-    if (props.display !== undefined && props.info !== undefined) {
+    if (props.display !== undefined && !_.isEmpty(props.info)) {
       return {
         display: props.display,
         info: props.info
@@ -51,7 +52,7 @@ export class Version extends React.Component<IVersionProps, IVersionState> {
   }
 
   render() {
-    if (this.state.display && this.state.info !== "") {
+    if (this.state.display && !_.isEmpty(this.state.info)) {
       return <div id="version">{this.state.info}</div>;
     }
 

@@ -17,7 +17,7 @@
 import * as React from "react";
 import * as _ from "lodash";
 
-import { IVideoEntry, ISearchResults } from "./infrastructure";
+import { ISearchResults } from "./infrastructure";
 
 export interface IViewListGridProps {
   data: ISearchResults[];
@@ -62,7 +62,7 @@ export class VideoListGrid extends React.Component<
 
       return {
         data: videos,
-        applyFilter: props.applyFilter !== undefined ? props.applyFilter : ""
+        applyFilter: props.applyFilter || ""
       };
     }
 

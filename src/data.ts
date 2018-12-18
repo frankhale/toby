@@ -16,7 +16,7 @@
 
 import * as fs from "fs";
 import AppConfig from "./config";
-import { IVideoGroup, IVideoEntry } from "./infrastructure";
+import { IVideoGroup } from "./infrastructure";
 
 export default class DefaultData {
   static getData(): IVideoGroup[] {

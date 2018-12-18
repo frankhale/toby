@@ -16,6 +16,7 @@
 
 import * as React from "react";
 import * as $ from "jquery";
+import * as _ from "lodash";
 
 export interface IDropDownItem {
   name: string;
@@ -57,7 +58,7 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
     props: IDropDownProps,
     state: IDropDownState
   ): IDropDownState {
-    if (props.name !== undefined && props.items !== undefined) {
+    if (!_.isEmpty(props.name) && _.isEmpty(props.items)) {
       return {
         name: props.name,
         items: props.items,
@@ -92,10 +93,8 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
         id={this.state.name}
         name={this.state.name}
         onChange={this.onDropDownChange}
-        style={this.props.style !== undefined ? this.props.style : {}}
-        className={
-          this.props.className !== undefined ? this.props.className : ""
-        }
+        style={this.props.style || {}}
+        className={this.props.className || ""}
         disabled={this.state.disabled}
         value={this.state.selected}
       >

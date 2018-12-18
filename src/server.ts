@@ -96,14 +96,14 @@ export default class Server {
     db = new DB();
     api = new API(db, server);
 
-    this.app.get("/", (req, res, next) => {
+    this.app.get("/", (_req, res, _next) => {
       res.render("index", { title: pkgJSON.title });
     });
 
     this.app.use("/api", api.router);
 
     // catch 404 and forward to error handler
-    this.app.use((req, res, next) => {
+    this.app.use((req, _res, next) => {
       let err = new Error("Not Found");
       err["status"] = 404;
 
@@ -117,9 +117,9 @@ export default class Server {
       this.app.use(
         (
           err: Error,
-          req: express.Request,
+          _req: express.Request,
           res: express.Response,
-          next: express.NextFunction
+          _next: express.NextFunction
         ) => {
           res.status(err["status"] || 500);
 
@@ -138,9 +138,9 @@ export default class Server {
     this.app.use(
       (
         err: Error,
-        req: express.Request,
+        _req: express.Request,
         res: express.Response,
-        next: express.NextFunction
+        _next: express.NextFunction
       ) => {
         res.status(err["status"] || 500);
         res.render("error", {

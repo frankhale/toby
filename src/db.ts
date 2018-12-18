@@ -19,7 +19,7 @@ import * as path from "path";
 import * as _ from "lodash";
 
 import AppConfig from "./config";
-import { IVideoGroup, IVideoEntry } from "./infrastructure";
+import { IVideoGroup } from "./infrastructure";
 
 export default class DB {
   private db: sqlite3.Database;
@@ -54,12 +54,16 @@ export default class DB {
   getAllYTIDsFromDB(finished: (rows: any[]) => void): void {
     this.db.all(
       "SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played' COLLATE NOCASE",
-      (err, rows) => {
-        if (finished !== undefined) {
-          let ytids: string[] = [];
+      (_err, rows) => {
+        if (_.isFunction(finished)) {
+          // let ytids: string[] = [];
 
-          _.forEach(rows, d => {
-            ytids.push(d.ytid);
+          // _.forEach(rows, d => {
+          //   ytids.push(d.ytid);
+          // });
+
+          let ytids: string[] = _.map(rows, d => {
+            return d.ytid;
           });
 
           finished(ytids);
@@ -70,8 +74,8 @@ export default class DB {
   getAllVideosFromDB(finished: (rows: any[]) => void): void {
     this.db.all(
       "SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played' COLLATE NOCASE",
-      (err, rows) => {
-        if (finished !== undefined) {
+      (_err, rows) => {
+        if (_.isFunction(finished)) {
           let _rows = _.forEach(rows, d => {
             d.isArchived = true;
           });
@@ -84,8 +88,8 @@ export default class DB {
   getAllVideosOrderedByGroupDB(finished: (rows: any[]) => void): void {
     this.db.all(
       "SELECT title, ytid, [group] FROM videos ORDER BY [group]",
-      (err, rows) => {
-        if (finished !== undefined) {
+      (_err, rows) => {
+        if (_.isFunction(finished)) {
           finished(rows);
         }
       }
@@ -95,8 +99,8 @@ export default class DB {
     this.db.get(
       "SELECT title, ytid, [group] FROM videos WHERE ytid = ? AND [group] IS NOT 'Recently Played'",
       [ytid],
-      (err, row) => {
-        if (finished !== undefined) {
+      (_err, row) => {
+        if (_.isFunction(finished)) {
           finished(row);
         }
       }
@@ -104,7 +108,7 @@ export default class DB {
   }
   getAllGroupsFromDB(finished: (rows: any[]) => void): void {
     this.db.all("SELECT DISTINCT [group] FROM videos", (err, rows) => {
-      if (finished !== undefined) {
+      if (_.isFunction(finished)) {
         finished(rows);
       }
     });
@@ -119,7 +123,7 @@ export default class DB {
 
     this.db.all(
       `SELECT title, ytid, [group] FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`,
-      (err, ytids_found) => {
+      (_err, ytids_found) => {
         finished(ytids_found);
       }
     );
@@ -142,7 +146,7 @@ export default class DB {
       "SELECT title, ytid, [group] FROM videos WHERE [group] = ? COLLATE NOCASE",
       [group],
       (err, rows) => {
-        if (finished !== undefined) {
+        if (_.isFunction(finished)) {
           let ytids = _.map(rows, r => {
               return r.ytid;
             }),
@@ -152,7 +156,7 @@ export default class DB {
 
           this.db.all(
             `SELECT ytid FROM videos WHERE [group] IS NOT 'Recently Played' AND ytid IN (${ytids_in_string})`,
-            (err, ytids_found) => {
+            (_err, ytids_found) => {
               let _ytids = _.map(ytids_found, r => {
                   return r.ytid;
                 }),
@@ -177,8 +181,8 @@ export default class DB {
     this.db.all(
       "SELECT title, ytid, [group] FROM videos WHERE title LIKE ? AND [group] IS NOT 'Recently Played' COLLATE NOCASE",
       [searchTerm],
-      (err, rows) => {
-        if (finished !== undefined) {
+      (_err, rows) => {
+        if (_.isFunction(finished)) {
           let _rows = _.forEach(rows, d => {
             d.isArchived = true;
           });
@@ -199,7 +203,7 @@ export default class DB {
       "SELECT title, ytid, [group] FROM videos WHERE title LIKE ? AND [group] = ? COLLATE NOCASE",
       [searchTerm, group],
       (err, rows) => {
-        if (finished !== undefined) {
+        if (_.isFunction(finished)) {
           let _rows = _.forEach(rows, d => {
             d.isArchived = true;
           });
@@ -210,16 +214,12 @@ export default class DB {
     );
   }
   addVideoToDB(title: string, ytid: string, group: string): void {
-    if (
-      title !== undefined ||
-      (title !== "" && group !== undefined) ||
-      group !== ""
-    ) {
+    if (!_.isEmpty(title) && !_.isEmpty(group)) {
       this.db.get(
         "SELECT ytid FROM videos WHERE ytid = ? AND [group] = ? COLLATE NOCASE",
         [ytid, group],
-        (err, rows) => {
-          if (rows === undefined) {
+        (_err, rows) => {
+          if (!_.isEmpty(rows)) {
             console.log(`inserting ${title} into ${group}`);
             this.db.run(
               "INSERT into videos(title,ytid,[group]) VALUES (?,?,?)",
@@ -234,24 +234,20 @@ export default class DB {
     this.db.get(
       "SELECT ytid FROM videos WHERE ytid = ?",
       [ytid],
-      (err, rows) => {
-        if (rows !== undefined) {
+      (_err, rows) => {
+        if (!_.isEmpty(rows)) {
           this.db.run("DELETE FROM videos WHERE ytid = ?", [ytid]);
         }
       }
     );
   }
   updateVideoFromDB(title: string, ytid: string, group: string): void {
-    if (
-      title !== undefined ||
-      (title !== "" && group !== undefined) ||
-      group !== ""
-    ) {
+    if (!_.isEmpty(title) && !_.isEmpty(group)) {
       this.db.get(
         "SELECT ytid FROM videos WHERE ytid = ?",
         [ytid],
-        (err, rows) => {
-          if (rows !== undefined) {
+        (_err, rows) => {
+          if (_.isEmpty(rows)) {
             this.db.run(
               "UPDATE videos SET title = ?, group = ? WHERE ytid = ?",
               [title, group, ytid]

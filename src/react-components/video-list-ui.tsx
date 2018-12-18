@@ -19,8 +19,7 @@ import * as $ from "jquery";
 import * as _ from "lodash";
 
 import { IDropDownItem, DropDown } from "./dropdown-ui";
-
-import { IVideoGroup, IVideoEntry, ISearchResults } from "./infrastructure";
+import { IVideoEntry, ISearchResults } from "./infrastructure";
 
 export interface IVideoListProps {
   data: ISearchResults[];
@@ -100,7 +99,7 @@ export class VideoList extends React.Component<
     let videos: ISearchResults[] = [];
 
     if (props.data !== undefined) {
-      videos = props.data.map((d, i) => {
+      videos = props.data.map(d => {
         return {
           playVideo: d.playVideo,
           title: d.title,
@@ -108,14 +107,14 @@ export class VideoList extends React.Component<
           group: d.group,
           thumbnail: d.thumbnail,
           isArchived: d.isArchived,
-          justAdded: d.justAdded !== undefined ? d.justAdded : false
+          justAdded: d.justAdded || false
         };
       });
 
       return {
         items: items,
         data: videos,
-        applyFilter: props.applyFilter !== undefined ? props.applyFilter : "",
+        applyFilter: props.applyFilter || "",
         onAddVideoButtonClick: props.onAddVideoButtonClick,
         onUpdateVideoButtonClick: props.onUpdateVideoButtonClick,
         onDeleteVideoButtonClick: props.onDeleteVideoButtonClick,
@@ -162,10 +161,7 @@ export class VideoList extends React.Component<
 
     if (group === "-1") return;
 
-    if (
-      this.state.onUpdateVideoButtonClick !== undefined &&
-      video !== undefined
-    ) {
+    if (!_.isEmpty(this.state.onUpdateVideoButtonClick) && !_.isEmpty(video)) {
       this.state.onUpdateVideoButtonClick(video, group);
     }
   }
