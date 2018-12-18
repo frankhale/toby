@@ -1,2 +1,2 @@
-let YouTubeAPIKey = "AIzaSyDTnJkX2W8nGuFYJHCptih0Z6zqu69i06I";
+let YouTubeAPIKey = "<YOUR_GITHUB_API_KEY_HERE>";
 export default YouTubeAPIKey;
