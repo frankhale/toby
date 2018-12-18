@@ -39,6 +39,7 @@ app.commandLine.appendSwitch("enable-use-zoom-for-dsf", "false");
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({
+    fullscreenable: true,
     autoHideMenuBar: true,
     useContentSize: true,
     icon: `${__dirname}${path.sep}..${path.sep}public${path.sep}images${path.sep}toby.png`,
@@ -53,7 +54,7 @@ function createWindow(): void {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.show();
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
   });
   mainWindow.on("closed", (e: any) => {
     mainWindow = null;

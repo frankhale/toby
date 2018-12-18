@@ -118,7 +118,7 @@ class Platform {
         this.webview.executeScript({ code: this.snapToPlayerCodeBlock });
       });
 
-      win.on("new-win-policy", (frame, url, policy) => {
+      win.on("new-win-policy", (_frame, _url, policy) => {
         policy.ignore();
       });
 
@@ -159,7 +159,7 @@ class Platform {
     if (navigator.userAgent.indexOf("Electron") > -1) {
       this.webview.addEventListener("new-window", this.newWindowHandler.bind(this));
 
-      window.addEventListener("beforeunload", e => {
+      window.addEventListener("beforeunload", () => {
         $.ajax({
           type: "POST",
           url: "/api/app/close",
@@ -171,11 +171,16 @@ class Platform {
       //  this.webview.openDevTools();
       // });
 
-      const browserWindow = require("electron").remote.getCurrentWindow();
-      browserWindow.on("leave-html-full-screen", () => {
-        this.webview.executeJavaScript(this.snapToPlayerCodeBlock); // , null, (result) => {
-        //  console.log(result);
-        // });
+      let browserWindow = require("electron").remote.getCurrentWindow();
+
+      this.webview.addEventListener("enter-html-full-screen", () => {
+        if (!browserWindow.isFullScreen()) {
+          browserWindow.setFullScreen(true);
+        }
+      });
+
+      browserWindow.on("leave-full-screen", () => {
+        this.webview.executeJavaScript(this.snapToPlayerCodeBlock);
       });
     }
   }

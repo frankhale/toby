@@ -74,13 +74,11 @@
     "youtube-search": "^1.1.3"
   },
   "webview": {
-    "partitions": [
-      {
-        "name": "trusted",
-        "accessible_resources": [
-          "<all_urls>"
-        ]
-      }
-    ]
+    "partitions": [{
+      "name": "trusted",
+      "accessible_resources": [
+        "<all_urls>"
+      ]
+    }]
   }
 }

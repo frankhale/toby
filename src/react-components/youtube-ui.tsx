@@ -61,7 +61,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
     };
   }
   componentDidMount(): void {
-    $.getScript("https://www.youtube.com/iframe_api", (data, textStatus, jqxhr) => {
+    $.getScript("https://www.youtube.com/iframe_api", (_data, textStatus, _jqxhr) => {
       if (textStatus === "success") {
         console.log("YouTube API loaded...");
         this.setupYTPlayer();

@@ -52,6 +52,7 @@ blockquote {
 }
 
 .command-input {
+  caret-color: white;
   border: none;
   outline: none;
   padding-left: 2px;
