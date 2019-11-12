@@ -58,7 +58,7 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
     props: IDropDownProps,
     state: IDropDownState
   ): IDropDownState {
-    if (!_.isEmpty(props.name) && _.isEmpty(props.items)) {
+    if (!(_.isEmpty(props.name) && _.isEmpty(props.items))) {
       return {
         name: props.name,
         items: props.items,
@@ -80,7 +80,7 @@ export class DropDown extends React.Component<IDropDownProps, IDropDownState> {
     }
   }
   render() {
-    let renderedItems = this.state.items.map((e: any, i) => {
+    let renderedItems = _.map(this.state.items, (e: any, i) => {
       return (
         <option key={i} value={e.value}>
           {e.name}

@@ -207,9 +207,10 @@ export default class API {
       ytid = req.body.ytid,
       group = req.body.group;
 
-    if (!_.isEmpty(title) && !_.isEmpty(ytid) && !_.isEmpty(group)) {
-      this.db.addVideoToDB(title, ytid, group);
+    console.log(title, ytid, group);
 
+    if (!(_.isEmpty(title) || _.isEmpty(ytid) || _.isEmpty(group))) {
+      this.db.addVideoToDB(title, ytid, group);
       res.json({ success: true });
     } else {
       res.json({ success: false });

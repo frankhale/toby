@@ -214,12 +214,12 @@ export default class DB {
     );
   }
   addVideoToDB(title: string, ytid: string, group: string): void {
-    if (!_.isEmpty(title) && !_.isEmpty(group)) {
+    if (!(_.isEmpty(title) || _.isEmpty(ytid) || _.isEmpty(group))) {
       this.db.get(
         "SELECT ytid FROM videos WHERE ytid = ? AND [group] = ? COLLATE NOCASE",
         [ytid, group],
         (_err, rows) => {
-          if (!_.isEmpty(rows)) {
+          if (_.isEmpty(rows)) {
             console.log(`inserting ${title} into ${group}`);
             this.db.run(
               "INSERT into videos(title,ytid,[group]) VALUES (?,?,?)",

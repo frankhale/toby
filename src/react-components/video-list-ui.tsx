@@ -185,7 +185,7 @@ export class VideoList extends React.Component<
     }
   }
   render() {
-    let videoResults = this.state.data.map((d, i) => {
+    let videoResults = _.map(this.state.data, (d, i) => {
       let addButton,
         manageButton,
         addButtonColSpan = 2,

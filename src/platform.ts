@@ -38,9 +38,13 @@ class Platform {
   }
 
   constructor() {
-    this.node = spawn(".\\node.exe", ["./build/server.js"], {
-      cwd: process.cwd()
-    });
+    this.node = spawn(
+      ".\\node_modules\\node\\bin\\node.exe",
+      ["./build/server.js"],
+      {
+        cwd: process.cwd()
+      }
+    );
     this.$content = $("#content");
     this.$webview = $("#webview");
     this.webview = this.$webview[0];

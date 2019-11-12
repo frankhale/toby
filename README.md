@@ -1,8 +1,6 @@
 # Toby
 
-[![Join the chat at https://gitter.im/frankhale/toby](https://badges.gitter.im/frankhale/toby.svg)](https://gitter.im/frankhale/toby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-Toby is a YouTube player for the desktop.
+Toby is a simple YouTube player for the desktop.
 
 ### Screenshots
 
@@ -41,13 +39,6 @@ all the code from the file system. The new architecture puts Toby behind an
 Express web application that is spawned from a regular Node process so that more
 deployment scenarios are possible.
 
-A Toby deployment would ship the regular `node.exe` and `node.lib` files along
-side the source code. We know NW.js and Electron ship with Node embedded but
-shipping Node as an external resource allows us to run Toby's server in a
-regular Node process and unencumbered by NW.js / Electron specific compiling
-requirements for any potential native Node modules we may want to use nor or in
-the future. The only native Node module being at the moment is SQLite3.
-
 Having Toby behind an Express app makes it fairly trivial to deploy to NW.js,
 Electron and support a regular web browser.
 
@@ -59,15 +50,8 @@ favorite videos in.
 
 ### Running The Latest Code
 
-Set up the folder structure for working with either NW.js or Electron or both:
-
-![NW.js package.nw root](screenshots/tody-folder-structure.png)
-
-Notice that we have a copy of `node.exe` and `node.lib` in the root of the
-source code repository. This is used to spawn our server for serving our API.
-
-Additionally we have a folder named `browsers` with a copy of `electron` and/or
-`nwjs`. We'll use one of these to run Toby.
+Clone the code using `git` and then add a folder named `browsers` with a copy of
+`electron` and/or `nwjs`. We'll use one of these to run Toby.
 
 #### Dependencies
 
@@ -79,18 +63,8 @@ Additionally we have a folder named `browsers` with a copy of `electron` and/or
 
 ## You Just Need One Of The Following:
 
-- Electron: [http://electron.atom.io/](http://electron.atom.io/)
+- Electron: [https://electronjs.org/](https://electronjs.org/)
 - NW.js: [http://nwjs.io/](http://nwjs.io/)
-
-In addition to installing Node on your machine so you can download the
-dependencies and build the code you'll also need a copy of the Node binaries to
-place at the root of the source code folder. This is because when NW.js or
-Electron are executed they will spawn their own external Node process and start
-the Toby server.
-
-The required Node binaries are located here (for example):
-
-[https://nodejs.org/dist/latest/win-x64/](https://nodejs.org/dist/latest/win-x64/)
 
 Depending on what platform you want to run Toby in (Electron or NW.js) you'll
 need to make sure the main property in package.json is set accordingly:
@@ -121,9 +95,10 @@ bower install
 
 #### Building the Source Code
 
-NOTE: You will need to supply your own YouTube API key in the
-`youtube-api-key.ts`. You will need a Google account to obtain one. Go [here
-(https://console.developers.google.com) to get an API key.
+NOTE: You will need to supply your own YouTube API key. This needs to be placed
+in an environment variable called `YOUTUBE_API_KEY`. You will need a Google
+account to obtain one. Go [here (https://console.developers.google.com) to get
+an API key.
 
 The server needs to be built using Grunt.
 
@@ -151,7 +126,7 @@ build folder and used from there.
 #### Running in NW.js
 
 ```
-browser\nwjs\nw.exe .
+browsers\nwjs\nw.exe .
 ```
 
 **NOTE**: You may want to replace the `ffmpeg.dll` that ships with NW.js with a more
@@ -162,7 +137,7 @@ most likely will want to play.
 #### Running in Electron
 
 ```
-browser\electron\electron .
+browsers\electron\electron .
 ```
 
 #### Running in a Browser
@@ -170,7 +145,7 @@ browser\electron\electron .
 Start the server up:
 
 ```
-.\node.exe build\server.js
+node.exe build\server.js
 ```
 
 Then open a browser to `http://127.0.0.1:62374`
@@ -181,7 +156,8 @@ I've wrote a rudimentary launcher in C# .NET to assist with launching Toby
 easily. By default if you run the launcher without command line args it will run
 Toby using NW.js. There is only one command line option at this time.
 
-After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and Newtonsoft.Json.dll files to the root of the Toby repository.
+After building the launcher copy the TobyLauncher.exe, NDesk.Options.dll and
+Newtonsoft.Json.dll files to the root of the Toby repository.
 
 - Command Line Options:
   - /p `[nw, electron, web]`
@@ -272,7 +248,7 @@ JSON data loaded from the filesystem.
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;
-14 December 2018
+11 November 2019
 
 ## License
 
