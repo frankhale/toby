@@ -72,13 +72,13 @@ need to make sure the main property in package.json is set accordingly:
 ##### NW.js
 
 ```
-main: "index.html"
+main: "./build/index.html"
 ```
 
 ##### Electron
 
 ```
-main: "electron.js"
+main: "./build/electron.js"
 ```
 
 In order to run Toby you'll need to download the dependencies and build the

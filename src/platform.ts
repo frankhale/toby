@@ -103,7 +103,6 @@ class Platform {
         }
       });
     }, 1000);
-
     this.setup();
   }
   private setup(): void {
@@ -178,7 +177,7 @@ class Platform {
       });
 
       // this.webview.addEventListener("dom-ready", () => {
-      //  this.webview.openDevTools();
+      //   this.webview.openDevTools();
       // });
 
       let browserWindow = require("electron").remote.getCurrentWindow();

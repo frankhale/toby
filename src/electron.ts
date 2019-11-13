@@ -48,7 +48,11 @@ function createWindow(): void {
     height: 400,
     minWidth: 640,
     minHeight: 400,
-    show: false
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      webviewTag: true
+    }
   });
   mainWindow.setMenu(null);
   mainWindow.loadURL(`file://${__dirname}/index.html`);
