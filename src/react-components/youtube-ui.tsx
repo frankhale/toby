@@ -213,7 +213,7 @@ export class YouTube extends React.Component<IYouTubeProps, IYouTubeState> {
         setInterval(() => {
           $player
             .contents()
-            .find(".adDisplay")
+            .find(".video-ads")
             .css("display", "none");
         }, 1000);
       }
