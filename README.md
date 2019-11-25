@@ -1,5 +1,8 @@
 # Toby
 
+**NOTE: A rewrite of this project is underway using Blazor and can be found
+[here](https://github.com/frankhale/toby-blazor)**
+
 Toby is a simple YouTube player for the desktop.
 
 ### Screenshots
@@ -248,7 +251,7 @@ JSON data loaded from the filesystem.
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;
-11 November 2019
+24 November 2019
 
 ## License
 
